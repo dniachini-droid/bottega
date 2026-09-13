@@ -1,10 +1,17 @@
-# Cabinet
+# Bottega
 
-Cabinet is a personal curiosity collection. The owner drops in a thing he found
-interesting and the app uses the Claude API to turn it into a small knowledge
-card. Over time it surfaces connections between the cards.
+Bottega is a workshop for building applications with AI agents. It is not an
+application itself, and no application is built inside it. The applications
+built with Bottega live in their own repositories. *Why: a system and an
+application that share a repository stop being separable. One of the owner's
+earlier repositories needed 85,000 lines taken out across two merges to get
+the system free of the application that had grown up inside it.*
 
-Version one is: capture, card, search, related. Nothing else.
+What Bottega is for, and how we will know it worked, is written down in
+`docs/VISION.md`.
+
+The rules below hold for every session that works in this repository, and for
+every session that works in a project built with Bottega.
 
 ## How to work here
 

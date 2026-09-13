@@ -1,6 +1,6 @@
 ---
 name: build
-description: The guided path from a thing the owner wants to a pull request he can merge. Use when the owner asks for something to be built, changed, added or fixed in Cabinet, or invokes /build. Seven stages, and he is told which one he is at in every reply.
+description: The guided path from a thing the owner wants to a pull request he can merge. Use when the owner asks for something to be built, changed, added or fixed, or invokes /build. Seven stages, and he is told which one he is at in every reply.
 ---
 
 # Build
