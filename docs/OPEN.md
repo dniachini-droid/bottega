@@ -43,3 +43,47 @@ everything is now checked against.
 **Status:** OPEN — the separation is in a pull request and not merged, and
 Claude never merges. This entry leaves the file when the owner merges it.
 
+
+---
+
+## The workshop's own files stay at the top of this repository
+
+The owner's sketch of the workbench put the workshop's files — the rules and
+the skills — inside a folder called `framework/`, with the projects beside it.
+They are not in a folder. They are at the top of the repository, exactly where
+they already were, and only `projects/` was added below them.
+
+**This is deliberate and it must not be tidied.** Claude Code reads `AGENTS.md`
+and the `.claude/` folder from the top of the repository and from nowhere else.
+Moved into a folder, they would still be perfectly good files that nothing ever
+reads: every session would start with no rules at all, and nothing would fail,
+and nothing would say so. The rules would stop binding quietly.
+
+*Why this is written down here rather than left as a habit: a folder called
+`framework/` is the obvious tidy-up, and the person who makes it would see no
+error afterwards. A change that silently removes every rule and reports success
+is the worst kind there is.*
+
+**Status:** OPEN — this stays open for as long as the rules are loaded from the
+top of the repository, which is to say indefinitely. It closes only if Claude
+Code ever learns to load them from somewhere else, and then everything above
+can be revisited in one go.
+
+---
+
+## A leftover branch in the Zibaldone repository, from testing the push
+
+To establish that a session started in this repository can attach the project's
+repository and write to it, that was actually done rather than assumed: the
+project's repository was attached, cloned, and its own existing commit was
+pushed back under a temporary branch name, `claude/push-probe`. Nothing was
+added to it — the branch points at exactly the same commit as `main`, and not a
+single file of Bottega went anywhere near it.
+
+The tidy-up afterwards failed. Deleting that branch was refused, twice, by the
+network guard this session works behind, which allows a branch to be created
+and not removed. There is no other tool here that deletes a branch.
+
+**Status:** OPEN — the owner can delete `claude/push-probe` in the Zibaldone
+repository on GitHub, on the branches page, in one click. This entry leaves the
+file then.

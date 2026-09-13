@@ -1,12 +1,12 @@
 ---
 name: build
-description: The guided path from a thing the owner wants to a pull request he can merge. Use when the owner asks for something to be built, changed, added or fixed, or invokes /build. Seven stages, and he is told which one he is at in every reply.
+description: The guided path from a thing the owner wants to a pull request he can merge, in a project registered with this workshop. Use when the owner asks for something to be built, changed, added or fixed, or invokes /build. Seven stages, and he is told which one he is at in every reply.
 ---
 
 # Build
 
-`/build <what the owner wants>` — the whole path, from a sentence he says to a
-button he presses.
+`/build <project-id> <what the owner wants>` — the whole path, from a sentence
+he says to a button he presses.
 
 ```
 1  SCOPE     ask the questions            ← he answers
@@ -20,6 +20,28 @@ button he presses.
 
 Virgil runs this path. It does not build, review or merge any part of it
 itself — stages 3, 4 and 5 are sessions it starts, and stage 7 is his.
+
+## Which project, before anything else
+
+Nothing is built in this repository. Every build happens in a project that is
+registered in `projects/registry.json`, and the work lands in that project's
+own repository.
+
+So the first thing, before the first question of stage 1:
+
+**Look the id up in `projects/registry.json`.** That file gives the address of
+the project's repository. It is the only place that address is read from.
+
+**An id that is not in the registry is an error, not a guess.** Say that the
+id is not there, name `projects/registry.json` as the file it would be in, and
+list the ids that are. *Why: a guessed project is a change pushed at the wrong
+repository, and it can be pushed before anyone notices the guess was made.*
+
+If he does not name a project and only one is registered, say which one is
+being used and carry on. If more than one is registered, ask which — that
+question changes what gets built, so it is worth his time.
+
+---
 
 ## Say the stage in every single reply
 
@@ -76,8 +98,15 @@ the decision, say what it was, and move on.
 Propose the smallest version worth having, in plain words, and wait for him to
 say yes.
 
-Then write it to `docs/scope/<short-name>.md` — creating that folder if it is
-not there yet. One page, three headings, no more:
+Then write it to `projects/<project-id>/scope/<short-name>.md` — creating the
+folders if they are not there yet. **The scope page lives in this repository,
+in the project's folder here. It is never written into the project's own
+repository.** *Why: what the workshop learns about a project accumulates in the
+workshop. A scope page pushed into the project's repository is the first file
+of a framework growing inside an application, which is the exact thing this
+workshop exists to prevent.*
+
+One page, three headings, no more:
 
 - **What it does** — in his words, from question 1.
 - **What done looks like** — from questions 2 and 5. This is the list the
@@ -96,17 +125,50 @@ scope is only spoken.*
 
 ## Stage 3 — BUILD
 
-Start one session, with the repository and the branch both pinned, and the
-scope page named in the prompt.
+Start one session. The general rules for starting sessions — pinning the
+branch, never plan mode, facts in the prompt, the title, the report on the
+pull request — are in the Virgil skill under starting work, and they are not
+repeated here. *Why: two copies of the same rule drift apart, and then neither
+is trustworthy.*
 
-The prompt says: build what is in the scope page, nothing beyond it; open a
-pull request; and comment on it when you finish, when you stop early, and when
-you are blocked. Subscribe to the pull request as soon as it exists, and set a
-check-in.
+What is particular to a build, and is not written anywhere else:
 
-The rules for starting sessions are in the Virgil skill, under starting work,
-and they are not repeated here. *Why: two copies of the same rule drift apart,
-and then neither is trustworthy.*
+### The session starts in Bottega and attaches the project
+
+**Its repository is this one. Every time. Never the project's.** Bottega goes
+in `source_url` and the working branch in `source_revision`.
+
+**The prompt then tells the session to attach the project's repository to
+itself** — `add_repo`, with the address taken from `projects/registry.json` —
+clone it, and do all of its editing, committing and pushing there. The pull
+request is opened in the project's repository, against that repository's main
+branch.
+
+*Why, and this is the load-bearing part of this whole skill: a session started
+on the project's repository loads the project's files, and a project's
+repository deliberately contains no rules. Such a session would be unbound by
+everything in `AGENTS.md` — it would not know to build in small pieces, to get
+a fresh session to review, to show evidence rather than claim a pass, or that
+it must never merge. Starting in Bottega is what makes the rules apply.
+Attaching the project is what gives it the code. Both, every time, and neither
+one on its own is enough.*
+
+### What the prompt says
+
+Build what is in the scope page, nothing beyond it. The scope page is at
+`projects/<project-id>/scope/<short-name>.md` in Bottega, where the session
+already is. Open a pull request in the project's repository, and comment on it
+when you finish, when you stop early, and when you are blocked.
+
+And one prohibition, written into every build prompt: **copy no file from
+Bottega into the project's repository — not the rules, not the skills, not the
+scope page, not the tools.** *Why: the reason this workbench exists is that a
+framework improved here improves every project at once. A project carrying its
+own copy is a project stuck on the version of the day it was copied, and the
+owner has said what he wants in his own words: project repositories stay where
+they are and stay clean.*
+
+Subscribe to the pull request as soon as it exists, and set a check-in.
 
 ---
 
@@ -126,6 +188,11 @@ measurably better than a helper that inherited the builder's context. And a
 second review of the same unchanged code raises false alarms by 62% while
 precision falls from 0.30 to 0.20 — once the real problems run out, reviewers
 start inventing them.*
+
+The reviewer starts the same way the builder does: **in Bottega, attaching the
+project's repository**, for the same reason — a reviewer that had never loaded
+the rules would not know that one pass is the whole job, or that it must
+report whatever it finds.
 
 The reviewer is given the scope page's "what done looks like" list and told to
 check the change against it, and to comment its findings on the pull request
@@ -169,9 +236,11 @@ having nothing.*
 
 ## Stage 7 — MERGE
 
-Virgil never merges. It says, in these words and with the number filled in:
+Virgil never merges. It says, in these words, with the number filled in and
+the project named, because the pull request is in the project's repository and
+not in this one:
 
-> Ready. **Merge #7** when you are happy with it.
+> Ready. **Merge Zibaldone #7** when you are happy with it.
 
 Then it stops.
 

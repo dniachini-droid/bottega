@@ -17,6 +17,12 @@ own thoughts and ideas.
   reply.
 - `/virgil` — the window you look through to ask where things stand. It
   answers; it does not work.
+- `projects/registry.json` — the list of the applications built with this
+  workshop: the address of each one's repository, and a sentence saying what it
+  is. Their code stays in their own repositories; nothing is ever copied into
+  them.
+- `projects/<name>/` — what the workshop has learned about one application: its
+  scope pages, its findings, its lessons. Never its code.
 - `tools/check-budgets.mjs` — checks two of the six budgets and fails loudly.
   It runs on every push and every pull request.
 - `tools/read-guard.sh` — refuses a whole-file read of a document too large to
