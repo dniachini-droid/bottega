@@ -136,8 +136,9 @@ what is open in that project's own repository. Its code is never here.
 *Why: the workshop holds the scope pages and the findings, the repository
 holds the work, and an answer from only one of them is half an answer.*
 
-Which repository a build session starts in, and why it is this one rather than
-the project's, is in the build skill at stage 3. It is not repeated here.
+Which repository the sessions a build starts wake up in, where they clone the
+project, and why it is that way round, is in the build skill, in the one
+section there that covers all of them. It is not repeated here.
 
 ## Starting work, and keeping track of it
 

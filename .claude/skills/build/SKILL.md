@@ -43,6 +43,58 @@ question changes what gets built, so it is worth his time.
 
 ---
 
+## Every session this path starts, and where the project is cloned
+
+Stages 3, 4 and 5 each start a session — the build, the review and the fix.
+All three start the same way, and that way is written here once. *Why: a rule
+written out at three stages drifts in two of them, and then none of the three
+can be trusted.*
+
+### It starts in Bottega and attaches the project
+
+**Its repository is this one. Every time. Never the project's.** Bottega goes
+in `source_url` and the working branch in `source_revision`.
+
+**The prompt then tells the session to attach the project's repository to
+itself** — `add_repo`, with the address taken from `projects/registry.json` —
+clone it, and do all of its editing, committing and pushing there. The pull
+request is opened in the project's repository, against that repository's main
+branch.
+
+*Why, and this is the load-bearing part of this whole skill: a session started
+on the project's repository loads the project's files, and a project's
+repository deliberately contains no rules. Such a session would be unbound by
+everything in `AGENTS.md` — it would not know to build in small pieces, to get
+a fresh session to review, to show evidence rather than claim a pass, or that
+it must never merge. Starting in Bottega is what makes the rules apply.
+Attaching the project is what gives it the code. Both, every time, and neither
+one on its own is enough. The fix session at stage 5 needs this most rather
+than least: it works quickly, against a list of findings, on code it did not
+write.*
+
+### The project is cloned beside Bottega, in a directory of its own
+
+**The prompt says where.** The session wakes up in Bottega's own directory.
+The project is cloned into a separate directory next to it, `../<project-id>`,
+and never anywhere inside Bottega's. Every command the session runs for the
+project — the editing, the staging, the commit, the push — is run from that
+directory.
+
+*Why a directory rather than a rule: a session holding both repositories in
+one directory can sweep Bottega's own files into the project's commit with a
+single `git add -A`, and the only thing standing in its way is having been
+told not to. An instruction not to do something is obeyed until the session is
+in a hurry. A directory that does not contain Bottega's files cannot commit
+them, whatever the session does in it.*
+
+What the separation does not stop, said plainly rather than patched with a
+second mechanism: a session that deliberately copies a file from one directory
+to the other can still do it. The separation removes the accident, which is
+how this actually happens. The deliberate copy is what the prohibition in the
+build prompt is for, and it stays.
+
+---
+
 ## Say the stage in every single reply
 
 Every reply during a build says which stage it is at, out of seven, and
@@ -131,27 +183,10 @@ pull request — are in the Virgil skill under starting work, and they are not
 repeated here. *Why: two copies of the same rule drift apart, and then neither
 is trustworthy.*
 
+Where it starts, and where it clones the project, is in the section above
+that covers all three of the sessions this path starts.
+
 What is particular to a build, and is not written anywhere else:
-
-### The session starts in Bottega and attaches the project
-
-**Its repository is this one. Every time. Never the project's.** Bottega goes
-in `source_url` and the working branch in `source_revision`.
-
-**The prompt then tells the session to attach the project's repository to
-itself** — `add_repo`, with the address taken from `projects/registry.json` —
-clone it, and do all of its editing, committing and pushing there. The pull
-request is opened in the project's repository, against that repository's main
-branch.
-
-*Why, and this is the load-bearing part of this whole skill: a session started
-on the project's repository loads the project's files, and a project's
-repository deliberately contains no rules. Such a session would be unbound by
-everything in `AGENTS.md` — it would not know to build in small pieces, to get
-a fresh session to review, to show evidence rather than claim a pass, or that
-it must never merge. Starting in Bottega is what makes the rules apply.
-Attaching the project is what gives it the code. Both, every time, and neither
-one on its own is enough.*
 
 ### What the prompt says
 
@@ -189,10 +224,7 @@ second review of the same unchanged code raises false alarms by 62% while
 precision falls from 0.30 to 0.20 — once the real problems run out, reviewers
 start inventing them.*
 
-The reviewer starts the same way the builder does: **in Bottega, attaching the
-project's repository**, for the same reason — a reviewer that had never loaded
-the rules would not know that one pass is the whole job, or that it must
-report whatever it finds.
+The reviewer starts the way every session here starts, in the section above.
 
 The reviewer is given the scope page's "what done looks like" list and told to
 check the change against it, and to comment its findings on the pull request
@@ -203,6 +235,9 @@ whatever it finds — including finding nothing.
 ## Stage 5 — FIX
 
 Only if the review found something that blocks.
+
+The fix session starts the way every session here starts, in the section
+above. It is not exempt.
 
 **One cycle.** The fixes go in, and the re-check is a review of the new
 version — which is allowed, because it is a different version.
