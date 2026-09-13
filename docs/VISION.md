@@ -89,10 +89,10 @@ orchestration chain. No self-review as a gate. No second review round.
 
 ## How we know it worked
 
-Bottega is measured against `praxis-agent-suite`, which was assessed on
-13 September 2026 and scored:
+Bottega is measured against a widely-used agent framework, assessed on
+13 September 2026, which scored:
 
-| dimension | praxis |
+| dimension | the benchmark |
 |---|---|
 | product exists and runs | 7 |
 | deterministic verification | 7 |
@@ -110,7 +110,7 @@ Bottega must beat it on every one of those dimensions, not on the average.
 
 And six hard numbers:
 
-| number | praxis | Bottega |
+| number | the benchmark | Bottega |
 |---|---|---|
 | tokens loaded before work starts | 49,669 | under 10,000 — 5,914 on 13 September 2026 |
 | agent definitions | 17 | 2 |
@@ -122,7 +122,7 @@ And six hard numbers:
 ### The caveat, stated honestly
 
 This comparison cannot be run until Bottega has built at least one application
-the owner uses daily. Praxis scores 7 and 6 on the two "does it exist"
+the owner uses daily. That benchmark scores 7 and 6 on the two "does it exist"
 dimensions because it is 76,509 lines of working software. Until Bottega has
 shipped something, a win would only measure having fewer lines to get wrong.
 

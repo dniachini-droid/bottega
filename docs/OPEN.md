@@ -26,9 +26,9 @@ attention and becomes a history nobody reads.*
 This repository was called `cabinet` and opened, in its rules file, with a
 description of a personal curiosity collection — while everything below that
 opening was general rules about working with agents. It is now `bottega`, and
-it is only the workshop. Cabinet is the first application that will be built
+it is only the workshop. Zibaldone is the first application that will be built
 with it, and it lives in its own repository at
-https://github.com/dniachini-droid/cabinet.
+https://github.com/dniachini-droid/zibaldone.
 
 *Why: the owner has two earlier repositories where a system and an application
 grew up inside the same repository. One of them needed 85,000 lines taken out

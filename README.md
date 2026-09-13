@@ -4,7 +4,8 @@ A workshop for building applications with AI agents.
 
 Bottega is not an application. The applications built with it live in their own
 repositories — the first is
-[Cabinet](https://github.com/dniachini-droid/cabinet).
+[Zibaldone](https://github.com/dniachini-droid/zibaldone), a second mind for your
+own thoughts and ideas.
 
 ## What is in here
 
