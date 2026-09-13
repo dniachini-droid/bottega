@@ -51,3 +51,88 @@ complex to follow, and this one is a deliberate reset.*
 
 **Claude never merges.** Open the pull request and stop. *Why: the merge is
 the owner's decision and the last point at which he can say no.*
+
+## The budgets
+
+Six numbers. A change that pushes one of them past its limit is not finished,
+whatever else it did.
+
+| budget | limit |
+|---|---|
+| tokens loaded before a session starts work | under 10,000 |
+| failing tests on `main` | 0 |
+| checks never observed refusing anything | 0 |
+| dead file references in `AGENTS.md` | 0 |
+| agent definitions | 2 (a builder and a reviewer) |
+| rules with no stated reason | 0 |
+
+**Tokens loaded before a session starts work — under 10,000.** *Why: a
+comparable framework measured 49,669 tokens spent before its agent did any
+work at all. Context volume by itself degrades accuracy — the same task passes
+8 runs in 10 on a small context and 3 in 10 on a large one, whether or not the
+extra material is relevant. This is a correctness budget, not only a cost one.*
+
+**Failing tests on `main` — 0.** *Why: that same framework carries 51 failing
+tests on its only branch, including a real data-loss bug, because nothing ever
+runs them. A failing test nobody runs is not a warning, it is furniture.*
+
+**Checks never observed refusing anything — 0.** Every check here must be
+watched refusing something at least once, and what was seen written down where
+it can be found again. *Why: a check never seen refusing anything cannot be
+told apart from one that cannot fire.*
+
+**Dead file references in `AGENTS.md` — 0.** *Why: in that same framework, 11
+of the 21 links in the files a session reads first are broken — including the
+rules file it tells every session to go and read.*
+
+**Agent definitions — 2: a builder and a reviewer.** *Why: under matched
+conditions, five of six multi-agent systems performed worse than a single
+agent and cost more, and the noise floor in that literature is about 15
+points — wider than most of the gains anyone has published. The one
+multi-agent pattern with a clean, replicated benefit is a fresh session for
+review. That is the reviewer, and it is the whole reason the limit is two
+rather than one.*
+
+**Rules with no stated reason — 0.** *Why: adding the reason to a rule
+improved how often rules were followed by 23.1% across 247,694 instruction
+lifetimes, and made 99.3% of surplus rules safely deletable afterwards. Once a
+reason is lost nobody dares remove the rule, so instruction files grow 226%
+over their lifetime and never shrink.*
+
+### The point of all six
+
+The limit that matters is not how large a file is. It is whether the file can
+ever shrink.
+
+Every budget above is written so that something can be taken out later and the
+number will show it. A budget that can only be approached and never reversed
+is a countdown, not a budget.
+
+### Deliberately not a budget
+
+There is no limit on how many lines `AGENTS.md` may run to, and one should not
+be added. *Why: a controlled study across 16,050 observations varied
+instruction-file length from 25 lines to 500, varied where in the file a rule
+sat, and varied one file against nested files against paired files. None of it
+changed whether the rules were followed. A line limit would cost real
+reasons — the thing that does work — to buy a number that does not.*
+
+### Which of the six a machine checks
+
+`tools/check-budgets.mjs` checks two of them and fails loudly: the startup
+token count, and dead file references. It runs on every push and every pull
+request, through `.github/workflows/checks.yml`.
+
+For the startup count it adds up `AGENTS.md`, `.claude/settings.json`, and
+every file under the skills folder and the agent-definitions folder, then
+divides by four. `CLAUDE.md` is a pointer to `AGENTS.md`, not a second copy,
+so it is counted once.
+
+For dead references it takes every path written in backticks in `AGENTS.md`
+and checks that it is really there. So writing a path in backticks is how you
+ask to be warned when it disappears.
+
+The other four are on their word: failing tests, checks never seen refusing,
+the count of agent definitions, and rules with no reason. *Why: saying which
+budgets a machine enforces and which it does not is the difference between a
+budget and a decoration.*
