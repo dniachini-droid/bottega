@@ -70,7 +70,15 @@ const startupOver = tokens >= TOKEN_BUDGET;
 // colon or an angle-bracket placeholder is prose or a template, not a path,
 // and is left alone.
 const agentsPath = join(ROOT, 'AGENTS.md');
-const agents = existsSync(agentsPath) ? readFileSync(agentsPath, 'utf8') : '';
+if (!existsSync(agentsPath)) {
+  // Without this, a missing rules file would mean no references to check and
+  // almost nothing to count — the check would pass, loudly and wrongly.
+  console.log('AGENTS.md is not there. That is the rules file; nothing else');
+  console.log('in this repository means anything without it.');
+  console.log('\nBUDGET CHECK FAILED.');
+  process.exit(1);
+}
+const agents = readFileSync(agentsPath, 'utf8');
 const PATHISH = /^[A-Za-z0-9._\/-]+$/;
 const EXTENSION = /\.(md|mjs|cjs|js|ts|sh|json|ya?ml|txt)$/i;
 
