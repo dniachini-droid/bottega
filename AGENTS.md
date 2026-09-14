@@ -67,8 +67,20 @@ one pull request here, three of five blocking findings were dropped in the
 relay from review to fix, and the second review spent its whole pass
 rediscovering them.*
 
-**Claude never merges.** Open the pull request and stop. *Why: the merge is
-the owner's decision and the last point at which he can say no.*
+**Virgil may merge small reversible changes.** For a change to `AGENTS.md`, to
+either skill, or to an agent definition, it asks the owner first and merges on
+his yes. It never merges on an empty review alone — a fresh session has to
+have reviewed that version and said what it found. *Why: the owner settled
+this on 14 September 2026. A small change that can be undone costs little if
+it is wrong, and making him press every button is how automation stops paying
+for itself. The three exceptions are the files that govern every future
+session, where a wrong merge is not small and not quietly reversible. And a
+review that found nothing looks exactly like a review that never ran — about 1
+in 50 real agent transcripts claims a review passed when none happened.*
+
+A build session still never merges its own work, and the reviewer still merges
+nothing at all. *Why: a session that merges what it just wrote has removed the
+step that exists to catch it.*
 
 ## The budgets
 
@@ -77,18 +89,30 @@ whatever else it did.
 
 | budget | limit |
 |---|---|
-| tokens loaded before a session starts work | under 10,000 |
+| tokens loaded before a session starts work | under 10,000, twice over |
 | failing tests on `main` | 0 |
 | checks never observed refusing anything | 0 |
 | dead file references in `AGENTS.md` | 0 |
 | agent definitions | 2 (a builder and a reviewer) |
 | rules with no stated reason | 0 |
 
-**Tokens loaded before a session starts work — under 10,000.** *Why: a
-comparable framework measured 49,669 tokens spent before its agent did any
-work at all. Context volume by itself degrades accuracy — the same task passes
-8 runs in 10 on a small context and 3 in 10 on a large one, whether or not the
-extra material is relevant. This is a correctness budget, not only a cost one.*
+**Tokens loaded before a session starts work — under 10,000.** Two numbers,
+both under it: what **every** session loads, and what the **heaviest single**
+session loads once it opens the largest set of instructions it will use.
+*Why two: a skill is offered to a session as a name and a description, and its
+body arrives only if the session opens it — so charging every session for
+every skill over-counts, and counting only what is offered lets a skill grow
+without limit behind its own description. Neither number on its own is the
+truth.*
+
+*Why the limit at all: a comparable framework measured 49,669 tokens spent
+before its agent did any work at all. Context volume by itself degrades
+accuracy — the same task passes 8 runs in 10 on a small context and 3 in 10 on
+a large one, whether or not the extra material is relevant. This is a
+correctness budget, not only a cost one.* *Why the same limit for both
+numbers: accuracy falls with context while the session is working, which is
+exactly when the heavier number is real. A looser limit for the heavier one
+would say accuracy matters less once the work starts.*
 
 **Failing tests on `main` — 0.** *Why: that same framework carries 51 failing
 tests on its only branch, including a real data-loss bug, because nothing ever
@@ -141,10 +165,16 @@ reasons — the thing that does work — to buy a number that does not.*
 token count, and dead file references. It runs on every push and every pull
 request, through `.github/workflows/checks.yml`.
 
-For the startup count it adds up `AGENTS.md`, `.claude/settings.json`, and
-every file under the skills folder and the agent-definitions folder, then
-divides by four. `CLAUDE.md` is a pointer to `AGENTS.md`, not a second copy,
-so it is counted once.
+For the startup count it reports the two numbers above, and fails if either is
+over. Every session is charged `AGENTS.md`, `.claude/settings.json`, and the
+name and description of each skill and each agent definition — all a session
+is shown of them until it opens one. The heaviest session is that, plus the
+largest single skill or agent definition in full, counting any supporting
+files that sit beside it. Bytes divided by four.
+
+`CLAUDE.md` is a symbolic link to `AGENTS.md`: the same bytes under a second
+name, not a second file. A session is given that text once, so it is counted
+once, and counting `AGENTS.md` counts exactly what arrives.
 
 For dead references it takes every path written in backticks in `AGENTS.md`
 and checks that it is really there. So writing a path in backticks is how you
