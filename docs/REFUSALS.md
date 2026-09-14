@@ -603,3 +603,69 @@ again on a real change rather than on a made-up one, and because it is the
 evidence that a new pointer out of the rules file cannot pass unnoticed. It was
 declared as only mentioned, with the reason written beside it in
 `tools/reads.json`, and the check passed.
+
+---
+
+## Da Vinci, started by its new name after the rename
+
+**14 September 2026.** The rename of the two agents is the change whose
+failure is silent: an agent renamed in nine places and not the tenth is simply
+not found, and a review that never runs looks exactly like a review that found
+nothing. So the finished rename was started rather than reasoned about.
+
+**First, the thing that could have hidden the fault.** In the session that did
+the rename, `Agent` with `subagent_type: da-vinci` returned:
+
+>     Agent type 'da-vinci' not found. Available agents: claude,
+>     claude-code-guide, Explore, general-purpose, Plan, reviewer,
+>     statusline-setup
+
+That session had read its list of agents at startup, before the file was
+renamed, and was still offering `reviewer` — a name whose file no longer
+existed. Starting `reviewer` in it succeeded, and the agent reported reading
+`name: da-vinci` off the disk. **Neither result is evidence of anything.** A
+session that renames an agent cannot test the rename, because it is holding a
+list from before it.
+
+**So a genuinely fresh session was started** on this branch — a new container,
+a new clone, its list of agents read after the rename. It ran `ls -la
+.claude/agents/`:
+
+>     total 12
+>     drwxr-xr-x 2 root root 4096 Sep 14 15:38 .
+>     drwxr-xr-x 4 root root 4096 Sep 14 15:38 ..
+>     -rw-r--r-- 1 root root 2554 Sep 14 15:38 da-vinci.md
+
+It was offered this among its agents, verbatim:
+
+>     - da-vinci: One pass over one version of a change, then one comment on
+>       its pull request. Finds real defects, or reports none. Writes nothing
+>       and never merges. (Tools: All tools except Edit, Write, NotebookEdit,
+>       Task)
+
+`Agent` with `subagent_type: da-vinci` **started**, with no error. Asked about
+itself, it answered:
+
+>     1. `name: da-vinci` — the file is
+>        /home/user/bottega/.claude/agents/da-vinci.md
+>     3. Edit: ABSENT. Write: ABSENT. NotebookEdit: ABSENT. Task: ABSENT.
+>     4. I called Write on /tmp/liveness.txt with content "x". It failed. The
+>        error text, word for word: "Error: No such tool available: Write.
+>        Write is disabled for this session, in subagents as well as here."
+>        No file was created.
+
+So: the new name resolves, the file behind it is the renamed one, and the four
+tools the header takes away are gone — watched refusing a write, not asserted.
+
+**What this does not show.** The refusal covers the four local editing tools.
+The same run listed the GitHub tools as still available to it, among them ones
+that write a file into a repository and one that merges a pull request, and
+`Bash` is still there. Both gaps were already open before this change and are
+written down in `docs/OPEN.md`; the rename neither widened nor closed them.
+
+*Why the failed first attempt is written down as well as the successful one:
+it is the whole reason this entry exists. The session doing a rename is the
+one session that cannot check it, and it gets an answer that looks like a
+check — a reviewer that starts and reads the right file. Anybody repeating
+this has to start a fresh session, and would not know that from an entry that
+recorded only the run that worked.*
