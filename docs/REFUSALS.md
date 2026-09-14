@@ -125,6 +125,149 @@ to the reviewer that `Bash` could still write a file, which is a workaround
 handed to the one agent that must not take it. The budget refused it for the
 wrong reason and it was right anyway. Recorded in `docs/OPEN.md` instead.
 
+## The budget check, on bulk parked outside a skill and pointed at from inside it
+
+**14 September 2026.** The review of pull request 6 showed that both numbers
+could be got round: put the bulk anywhere outside a skill's own folder and
+point at it from one line of the skill. This was watched failing first, then
+watched refusing after the fix, because a guard that has been rebuilt has not
+been watched.
+
+**Watched failing.** With the check as it stood, a 20,001-byte file was written
+to `docs/gaming-test-reference.md`, and one line — "See
+docs/gaming-test-reference.md for the full protocol." — was added to the build
+skill. `node tools/check-budgets.mjs` returned **exit code 0**:
+
+> WHAT THE HEAVIEST SINGLE SESSION LOADS
+>     10673 bytes  what every session loads
+>     18253 bytes  + .claude/skills/build/  (opened)
+>     28926 bytes  TOTAL
+>
+>   About 7231 tokens against a budget of 10000.
+>   Room left: about 2769 tokens.
+>
+> Budget check passed.
+
+7,216 tokens before, 7,231 after. The number moved by 15 tokens — the weight of
+the pointer sentence — and the 20,001 bytes behind it were invisible to both
+numbers.
+
+**Watched refusing.** After the fix, the same file and the same line. Exit
+code 1:
+
+> These files are named in backticks by instructions a session loads, and
+> tools/reads.json does not say whether the session is sent to read them:
+>   UNDECLARED  docs/gaming-test-reference.md  (named in .claude/skills/build/SKILL.md)
+> Add each one to that file: to "reads" if a session is sent to open it, and its
+> whole size is then charged to that session; to "mentions" if the text only names it.
+>
+> BUDGET CHECK FAILED.
+
+**Watched refusing the way out of that, too.** The only way to quiet that
+complaint without deleting the file is to declare it — and declaring it as a
+file the session is sent to read charges the whole of it. Exit code 1 again:
+
+>   .claude/skills/build/
+>       18542 bytes  .claude/skills/build/SKILL.md
+>         809 bytes  .gitignore
+>       20001 bytes  docs/gaming-test-reference.md
+>         739 bytes  projects/registry.json
+>        -289 bytes  its name and description, already counted above
+>       10673 bytes  what every session loads
+>       50475 bytes  TOTAL — about 12618 tokens.
+>
+>   About 12618 tokens against a budget of 10000.
+>   OVER BUDGET by about 2618 tokens.
+>
+> BUDGET CHECK FAILED.
+
+So the move now costs what it weighs, whichever way it is written. The file and
+the declaration were removed. What is still possible is to declare a large file
+"only mentioned" and leave it uncounted — that is deliberate, and it has to be
+written into `tools/reads.json` where a reviewer sees it, rather than working
+silently.
+
+## The budget check, on reading the instructions send a session away to do
+
+**14 September 2026.** This is the case that was already true of this
+repository rather than a test invented for it. Every reviewer session is sent,
+unconditionally, to read `docs/REVIEWER.md`, and from there to
+`docs/PRECEDENTS.md` — 6,540 bytes — and before this fix both were charged
+zero in both numbers.
+
+With them counted, `docs/REVIEWER.md` was padded to 27,470 bytes. Exit code 1,
+and the reviewer became the heaviest session, which it could not have done
+before:
+
+>   .claude/agents/reviewer.md
+>        2554 bytes  .claude/agents/reviewer.md
+>         887 bytes  docs/PRECEDENTS.md
+>       27470 bytes  docs/REVIEWER.md
+>        -159 bytes  its name and description, already counted above
+>       10673 bytes  what every session loads
+>       41425 bytes  TOTAL — about 10356 tokens.
+>
+> WHAT THE HEAVIEST SINGLE SESSION LOADS
+>     10673 bytes  what every session loads
+>     30752 bytes  + .claude/agents/reviewer.md  (opened)
+>     41425 bytes  TOTAL
+>
+>   About 10356 tokens against a budget of 10000.
+>   OVER BUDGET by about 356 tokens.
+>
+> BUDGET CHECK FAILED.
+
+The padding was removed and the file restored.
+
+## The budget check, on a file a session is sent to read that is not there
+
+**14 September 2026.** `docs/NOT-A-REAL-METHOD.md` was declared in
+`tools/reads.json` as a second file the reviewer is sent to read. Exit code 1:
+
+> These are declared as files a session is sent to read, and are not there:
+>   MISSING  docs/NOT-A-REAL-METHOD.md  (named in .claude/agents/reviewer.md)
+>
+> BUDGET CHECK FAILED.
+
+**This test failed the first time it was run, and that is why it is worth
+recording.** On the first attempt the check returned exit code 0 and said
+nothing. The reason was a real defect in the fix: it was charging only the
+paths it found written in backticks, so a file declared as required reading but
+never named in backticks was charged nothing and never looked for. The
+declaration is now what decides what is charged, and the backticks are only how
+an *undeclared* file is caught. Both halves were then watched separately.
+
+## The two older refusals, watched again after this rewrite
+
+**14 September 2026.** The every-session number and the dead-reference half
+both run through code this change rewrote, so both were watched again rather
+than assumed.
+
+About 29,700 bytes of padding appended to `AGENTS.md` — exit code 1:
+
+>     40841 bytes  AGENTS.md
+>     41837 bytes  TOTAL
+>
+>   About 10459 tokens against a budget of 10000.
+>   OVER BUDGET by about 459 tokens.
+
+A line naming `docs/NOT-A-FILE-AT-ALL.md` added to `AGENTS.md` — exit code 1,
+and now on two counts, because a path the rules name is also a path nobody has
+said whether a session reads:
+
+>   UNDECLARED  docs/NOT-A-FILE-AT-ALL.md  (named in AGENTS.md)
+> ...
+> File paths written in backticks in AGENTS.md: 10 checked.
+> These are named in AGENTS.md but are not in the repository:
+>   MISSING  docs/NOT-A-FILE-AT-ALL.md
+
+Both were removed and the file restored.
+
+*One refusal was seen that nobody arranged: the first draft of the new
+paragraph in `AGENTS.md` used a made-up path in backticks as an example, and
+the check refused it as both undeclared and missing. The example was reworded
+to name no file.*
+
 ## The read guard
 
 **14 September 2026.** A 131,420-byte file was opened whole, with no page

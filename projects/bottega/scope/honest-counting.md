@@ -26,9 +26,17 @@ the broken measurement said there was no room for it.
   reversible changes; must ask him first for changes to `AGENTS.md`, the
   skills or the agent definitions, and merges those on his yes; and never
   merges on an empty review alone.
-- The false note inside the measurement — that `CLAUDE.md` is "a pointer to
-  `AGENTS.md`, not a second copy" — is corrected. The two files are
-  byte-identical.
+- The note inside the measurement about the two names of the rules file is
+  corrected. `CLAUDE.md` is a symbolic link to `AGENTS.md`: one set of bytes
+  under a second name, not a second file. A session is given that text once,
+  so it is counted once, and counting `AGENTS.md` counts exactly what
+  arrives.
+- **A file that the instructions send a session to read is counted, wherever
+  in the repository it sits.** Not only the files inside a skill's own folder.
+  *Why this is here: the first version of this work counted only what sat
+  beside a skill, which left the bulk moveable one directory away and
+  pointed at from a single line — and that had already happened, to the
+  reviewer's own method.*
 - The automatic checks pass.
 
 ## What is out

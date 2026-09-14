@@ -172,6 +172,29 @@ is shown of them until it opens one. The heaviest session is that, plus the
 largest single skill or agent definition in full, counting any supporting
 files that sit beside it. Bytes divided by four.
 
+**A file that the instructions send a session to read is charged to that
+session, wherever in the repository it sits** — not only when it happens to
+sit inside a skill's own folder. *Why: otherwise the way to get under the
+budget is to move the bulk somewhere else and point at it from one line, and
+neither number moves. That is not hypothetical. The reviewer's method was
+split out of its agent definition into `docs/REVIEWER.md` in order to fit
+under this budget, and 6,540 bytes that every reviewer session is required to
+read were then charged as nothing.* Reading is followed onward: a
+file that sends the session to a third file is charged for that one too,
+each file once.
+
+Which files those are is written down in `tools/reads.json`, one entry per
+file, saying which of the names it uses a session is sent to open and which it
+only mentions. **A name that is in neither list stops the check.** *Why it is
+written down rather than worked out: "read this file" and "the reasoning is in
+this file" are the same shape to a machine, so a check that guessed from the
+wording could be beaten by rewording the sentence — and a check that
+quietly dropped what it could not tell apart would undercount, which is the
+direction that does harm. Refusing until somebody says which it is means a new
+pointer out of a skill cannot pass unnoticed. Calling a large file "only
+mentioned" is still possible, but it has to be written down where a reviewer
+sees it.*
+
 `CLAUDE.md` is a symbolic link to `AGENTS.md`: the same bytes under a second
 name, not a second file. A session is given that text once, so it is counted
 once, and counting `AGENTS.md` counts exactly what arrives.
