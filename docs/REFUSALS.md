@@ -476,3 +476,118 @@ in front of it to check the answers against honestly.
 the sentence above was the record of what had been watched, and it was wrong
 about that. Quietly correcting it would leave no trace that this file once
 claimed a refusal nobody had seen.*
+
+---
+
+## The tests for the budget check, watched failing
+
+**14 September 2026.** The budget check now has tests — `tools/check-budgets.test.mjs`
+— one for each of the two faults it really had on 14 September 2026. Each test
+was watched failing against the broken behaviour it exists to catch, and then
+watched passing against the code as it now stands. Both tests build a small
+make-believe workshop in a temporary folder, copy the real check into it, and
+read the report back.
+
+### Test one — an instruction file counted whole instead of one line
+
+The fault: the check summed every file under `.claude/skills/` at full size and
+called that what every session loads. A skill reaches a session as its name and
+its description, so that over-counted nearly four-fold.
+
+What was done to provoke the failure: the branch that treats a skill folder as
+a set opened on demand was deleted, so every skill file went back into what
+every session loads.
+
+What the check then said about this repository:
+
+>       299 bytes  .claude/settings.json
+>     18482 bytes  .claude/skills/build/SKILL.md
+>     11735 bytes  .claude/skills/virgil/SKILL.md
+>     ...
+>     46821 bytes  TOTAL
+>
+>   About 11705 tokens against a budget of 10000.
+>   OVER BUDGET by about 1705 tokens.
+
+What the test said:
+
+> not ok 1 - a skill is charged to every session as one line, not as its whole body
+>
+> what every session loads was not the rules file, the settings file and one
+> line per set of instructions. If it is larger by about the size of the skill
+> body (8000 bytes), the check is counting instruction files whole again.
+
+and in the report it printed back, the make-believe workshop's every-session
+total was 8,259 bytes with `8083 bytes  .claude/skills/heavy/SKILL.md` inside
+it, where the true figure is 234 bytes. Test two passed in that same run, which
+is what tells the two tests apart.
+
+The line was put back. Both tests then passed: `# pass 2  # fail 0`.
+
+### Test two — reading the instructions order, charged as nothing
+
+The fault: a file a session is *sent* to read was charged nothing when it lived
+outside the skill's own folder. Every reviewer is ordered to read
+`docs/REVIEWER.md`, and from there `docs/PRECEDENTS.md` — 6,540 bytes counted
+as zero.
+
+What was done to provoke the failure: the two lines that put a declared file
+onto the queue were removed, so the declared reading was still recognised but
+never followed.
+
+What the check then said about the reviewer session in this repository — the
+two files it is ordered to read simply gone from the list, and its number down
+from 21,067 bytes to 14,527:
+
+>   .claude/agents/reviewer.md
+>        2554 bytes  .claude/agents/reviewer.md
+>        -159 bytes  its name and description, already counted above
+>       12132 bytes  what every session loads
+>       14527 bytes  TOTAL — about 3631 tokens.
+
+What the test said:
+
+> not ok 2 - a file an agent definition sends a session to read is charged to
+> it, and so is the next one
+>
+> the reader is ordered to read docs/METHOD.md and it was charged nothing. That
+> is the fault that hid 6,540 bytes of compulsory reading behind a one-line
+> pointer.
+
+Test one passed in that same run. The lines were put back, and the reviewer's
+list came back with `887 bytes  docs/PRECEDENTS.md` and `5653 bytes
+docs/REVIEWER.md` in it, 21,067 bytes and about 5,266 tokens. Both tests
+passed: `# pass 2  # fail 0`.
+
+*Why both halves are written here rather than "tests added and verified": a
+test never seen failing cannot be told apart from one that cannot fail, and the
+second test is the one that proves the first was not passing for an unrelated
+reason.*
+
+*One note on the numbers above.* They were read at the moment each failure was
+watched, which was before `AGENTS.md` grew by the rule and the reworded budget
+that came with this same change. The floor every session pays is 14,194 bytes
+by the end of it, not the 12,132 quoted above, so the reviewer's total is
+larger now than the 21,067 seen here. What the numbers are evidence of is the
+gap the broken version opened — the two files it stopped charging — and that is
+unaffected. *Why the older figures are left standing rather than rewritten to
+match: they are the record of what was seen, and quietly updating them would
+make this file a summary instead of a record.*
+
+---
+
+## The budget check, on the tests file itself, while this was being built
+
+**14 September 2026.** Naming `tools/check-budgets.test.mjs` in `AGENTS.md`
+stopped the check until somebody said whether a session is sent to read it:
+
+>   UNDECLARED  tools/check-budgets.test.mjs  (named in AGENTS.md)
+>
+> BUDGET CHECK FAILED.
+
+Not provoked on purpose — it happened in the ordinary course of adding the
+rule. It is written down because it is the same refusal recorded above, seen
+again on a real change rather than on a made-up one, and because it is the
+evidence that a new pointer out of the rules file cannot pass unnoticed. It was
+declared as only mentioned, with the reason written beside it in
+`tools/reads.json`, and the check passed.
