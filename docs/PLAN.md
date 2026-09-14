@@ -41,17 +41,45 @@ idea — only work that is next.
 - **The two agents named.** The builder is Michelangelo and the reviewer is Da
   Vinci. Pull request #11, merged.
 
-## In flight
-
-- **Measuring the prompt.** Pull request #12: a third number beside the two,
-  the missing half of the rule about what goes in a prompt, and the research
-  findings nobody is acting on recorded in `docs/OPEN.md`.
+- **Measuring the prompt.** A third number beside the two, the missing half of
+  the rule about what goes in a prompt, and the research findings nobody is
+  acting on recorded in `docs/OPEN.md`. Pull request #12, merged.
+- **What the prompt that starts a session should contain**, surveyed and
+  written down. Pull request #9, merged after five review rounds.
 
 ## Next, in this order
 
 Each is built, then reviewed, then merged, before the next one begins.
 
-### 1. The check before a commit
+### 1. Measuring the loop
+
+For each change, record two numbers: what the review found, and what got
+through it and was discovered later. Nothing else. No limit yet.
+
+*Why: there are six budgets here about how big things are and how sessions
+work, and not one of them asks whether the review round produces better
+software than no review round. The loop is most of what this workshop is, and
+it is the only part of it that has never been measured. Two numbers per change
+make that answerable with evidence after a dozen changes, and a review that
+turns out not to earn its cost can then be deleted and the saving will show.
+The same argument the prompt research already made and won: print the number
+first, argue about a limit later.*
+
+### 2. The handoff refusal, made real
+
+Da Vinci's own file says a handoff that is not exactly seven lines must be
+refused. Three reviews in one day reported the handoff was contaminated and
+reviewed anyway. Whatever sends a dispatch checks its shape before sending, so
+a bad one never arrives.
+
+*Why: on 14 September 2026 the one review dispatched as exactly seven lines
+was the only one of four that found anything blocking; the three contaminated
+ones found four advisory findings between them and nothing serious. One run is
+not proof, but it is the only evidence there is, and it points one way. And a
+bad dispatch cannot be corrected after the fact — the correction itself
+contaminates the session, which is why this has to happen before sending.*
+
+### 3. The check before a commit
 
 The same checks that run after a push, run before a commit as well.
 
@@ -59,7 +87,21 @@ The automatic checks cannot be bypassed and they stand between the work and
 the merge. The check on this machine is faster and comes earlier. They are not
 alternatives to each other and neither replaces the other.
 
-### 2. Memory
+### 4. Three small ones, in any order
+
+- **The control test on Da Vinci.** `docs/REVIEWER.md` already says to run it
+  and it has never been run. *Why: the budget says a check never seen refusing
+  anything cannot be told apart from one that cannot fire, and that budget has
+  never been applied to the reviewer itself.*
+- **The seventh budget: dispatch prompts sent without a recorded size — 0.**
+  *Why: the number is already printed; this makes an unrecorded dispatch a
+  failure, and it asserts no ceiling, because nothing has established that any
+  particular size is too large.*
+- **Drop the plugin descriptions this workshop never uses.** *Why: about 4,200
+  tokens go on describing skills, some belonging to plugins never invoked here,
+  and every session is charged for all of them.*
+
+### 5. Memory
 
 Claude Code's own per-agent memory, at project scope. Plain markdown,
 committed, readable by the owner. Plus a prune when a piece of work closes.
@@ -68,7 +110,7 @@ No vector store. No embeddings. No infrastructure. *Why: this is already
 decided in `docs/VISION.md`, and every failure in that field is stale entries
 poisoning what gets found, not too little storage.*
 
-### 3. Zibaldone
+### 6. Zibaldone
 
 Only after the loop above has run end to end on Bottega itself, several times,
 and worked.
