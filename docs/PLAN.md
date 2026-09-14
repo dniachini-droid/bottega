@@ -41,17 +41,59 @@ idea — only work that is next.
 - **The two agents named.** The builder is Michelangelo and the reviewer is Da
   Vinci. Pull request #11, merged.
 
-## In flight
-
-- **Measuring the prompt.** Pull request #12: a third number beside the two,
-  the missing half of the rule about what goes in a prompt, and the research
-  findings nobody is acting on recorded in `docs/OPEN.md`.
+- **Measuring the prompt.** A third number beside the two, the missing half of
+  the rule about what goes in a prompt, and the research findings nobody is
+  acting on recorded in `docs/OPEN.md`. Pull request #12, merged.
+- **What the prompt that starts a session should contain**, surveyed and
+  written down. Pull request #9, merged after five review rounds.
 
 ## Next, in this order
 
 Each is built, then reviewed, then merged, before the next one begins.
 
-### 1. The check before a commit
+### 1. Measuring the loop
+
+For each change, record two numbers: what the review found, and what got
+through it and was discovered later. Nothing else. No limit yet.
+
+*Why: there are six budgets here about how big things are and how sessions
+work, and not one of them asks whether the review round produces better
+software than no review round. The loop is most of what this workshop is, and
+it is the only part of it that has never been measured. Two numbers per change
+make that answerable with evidence after a dozen changes, and a review that
+turns out not to earn its cost can then be deleted and the saving will show.
+The same argument the prompt research already made and won: print the number
+first, argue about a limit later.*
+
+### 2. Isolation that holds, not just a handoff that is checked
+
+Da Vinci's own file says a handoff that is not exactly seven lines must be
+refused. Two things have to happen, and the first one alone is not enough.
+
+**The dispatch is checked before it is sent.** Whatever sends a handoff
+confirms its shape first, so a malformed one never arrives. *Why it has to be
+before: a bad dispatch cannot be corrected afterwards — sending the correction
+is itself a second message, and the session that receives it is no longer
+isolated. That happened on 14 September 2026: a handoff went out with a commit
+hash written from memory rather than looked up, and the correction that fixed
+the fact broke the isolation.*
+
+**And isolation has to survive a clean dispatch.** *Why this half exists: what
+was observed on 14 September 2026 is written up in `docs/OPEN.md` under "A
+reviewer that has to check a claim recorded only in a pull request breaks its
+own isolation to do it". In short: a well-formed handoff is not enough, because
+the reviewer breaks isolation itself when a claim it must check exists only in
+a thread. A shape check cannot touch that. A session could build the check,
+watch it refuse a bad dispatch, mark this item done, and leave the real fault
+untouched — which is why the two halves are written down together.*
+
+*What the evidence does and does not say: the one review that reported
+isolation intact was also the only one that returned `changes_required` with
+blocking findings, where the others returned `merge_with_caution`. That is
+one run, it is a correlation, and it is not proof of anything. It is recorded
+because it is the only evidence there is, not because it settles the question.*
+
+### 3. The check before a commit
 
 The same checks that run after a push, run before a commit as well.
 
@@ -59,7 +101,32 @@ The automatic checks cannot be bypassed and they stand between the work and
 the merge. The check on this machine is faster and comes earlier. They are not
 alternatives to each other and neither replaces the other.
 
-### 2. Memory
+### 4. Two small ones, in either order
+
+- **The control test on Da Vinci, started the way the rules require.** It has
+  been run twice — `docs/REFUSALS.md` records four runs against made-up inputs
+  on 14 September 2026, of which two were the control test: clean code
+  reported as no findings, and the same clean input again after a wording fix,
+  still no findings. What has never been done is running it from the guide
+  window. *Why that is the gap rather than the test itself: all four of those
+  runs were helpers started by the session that built the reviewer. Nothing of
+  that session reached them, so they were isolated by construction — but that
+  is not the fresh session the rules call for. The real reviewer has since run
+  on a real change, at pull request 5, which `docs/REFUSALS.md` records; what
+  has not happened is the real reviewer meeting a deliberately clean input.*
+- **The seventh budget: dispatch prompts sent without a recorded size — 0.**
+  *Why: the number is already printed; this makes an unrecorded dispatch a
+  failure, and it asserts no ceiling, because nothing has established that any
+  particular size is too large.*
+
+**Not on this list, and it cannot be:** the roughly 4,200 tokens spent on
+descriptions of skills no session here opens. That is the owner's account
+setting, not a change anything in this repository can make. `docs/OPEN.md`
+records it and says plainly that nothing here closes it. It is listed nowhere
+in this plan because every item in this plan is built, reviewed and merged,
+and that one cannot be any of the three.
+
+### 5. Memory
 
 Claude Code's own per-agent memory, at project scope. Plain markdown,
 committed, readable by the owner. Plus a prune when a piece of work closes.
@@ -68,7 +135,7 @@ No vector store. No embeddings. No infrastructure. *Why: this is already
 decided in `docs/VISION.md`, and every failure in that field is stale entries
 poisoning what gets found, not too little storage.*
 
-### 3. Zibaldone
+### 6. Zibaldone
 
 Only after the loop above has run end to end on Bottega itself, several times,
 and worked.

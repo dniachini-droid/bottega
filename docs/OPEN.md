@@ -572,3 +572,44 @@ larger half.*
 
 **Status:** OPEN — the owner turns off the skills he does not want, in his own
 settings. Nothing here closes it.
+
+## A reviewer that has to check a claim recorded only in a pull request breaks its own isolation to do it
+
+**14 September 2026.** Five reviews ran on pull requests 9 and 13 that day.
+Several reported `context_isolation: false`, and the handoff was not always
+the cause.
+
+What was observed, run by run:
+
+- One review was dispatched as prose carrying the builder's framing. Isolation
+  false, and the dispatch was the reason.
+- One was dispatched as exactly seven lines and reported isolation **true**. It
+  was also the only one of that group to return `changes_required` with
+  blocking findings.
+- One was dispatched as exactly seven lines, and a correction was sent
+  afterwards because the commit hash in the handoff had been written from
+  memory rather than looked up. Isolation false — **the correction did it, not
+  the handoff.**
+- Two were dispatched as exactly seven lines with nothing following, and each
+  broke its own isolation by fetching the pull request thread, because the
+  change under review made claims about earlier reviews and those claims exist
+  nowhere in the tree.
+
+**Two separate faults, and only one of them is a handoff problem.**
+
+The first is a dispatch that is wrong when sent, and it cannot be repaired
+afterwards: sending the correction is a second message, and the session that
+receives it is no longer isolated.
+
+The second has nothing to do with the dispatch. A reviewer asked to check a
+factual claim that is recorded only in a pull request thread must read that
+thread, and reading it is the contamination. The remedy is not a better
+handoff. It is that a claim a reviewer will have to check belongs in the tree,
+where reading it costs nothing.
+
+*Why this is recorded here rather than left in the threads: this is the exact
+fault it describes. A later session asked to act on any of it would otherwise
+have to go and read five pull request comments to find out what happened, and
+would break its own isolation doing so.*
+
+**Status:** OPEN — item 2 of `docs/PLAN.md` carries both halves.
