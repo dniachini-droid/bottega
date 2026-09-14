@@ -65,19 +65,33 @@ turns out not to earn its cost can then be deleted and the saving will show.
 The same argument the prompt research already made and won: print the number
 first, argue about a limit later.*
 
-### 2. The handoff refusal, made real
+### 2. Isolation that holds, not just a handoff that is checked
 
 Da Vinci's own file says a handoff that is not exactly seven lines must be
-refused. Three reviews in one day reported the handoff was contaminated and
-reviewed anyway. Whatever sends a dispatch checks its shape before sending, so
-a bad one never arrives.
+refused. Two things have to happen, and the first one alone is not enough.
 
-*Why: on 14 September 2026 the one review dispatched as exactly seven lines
-was the only one of four that found anything blocking; the three contaminated
-ones found four advisory findings between them and nothing serious. One run is
-not proof, but it is the only evidence there is, and it points one way. And a
-bad dispatch cannot be corrected after the fact — the correction itself
-contaminates the session, which is why this has to happen before sending.*
+**The dispatch is checked before it is sent.** Whatever sends a handoff
+confirms its shape first, so a malformed one never arrives. *Why it has to be
+before: a bad dispatch cannot be corrected afterwards — sending the correction
+is itself a second message, and the session that receives it is no longer
+isolated. That happened on 14 September 2026: a handoff went out with a commit
+hash written from memory rather than looked up, and the correction that fixed
+the fact broke the isolation.*
+
+**And isolation has to survive a clean dispatch.** *Why this half exists: on
+14 September 2026 four reviews reported `context_isolation: false`, and at
+least three of them had a well-formed seven-line handoff. In at least two the
+reviewer broke isolation itself, by fetching the pull request thread to check
+a claim that is recorded only in that thread. A shape check cannot touch that
+case. A session could build the check, watch it refuse a bad dispatch, mark
+this item done, and leave the real fault untouched — which is why the two
+halves are written down together.*
+
+*What the evidence does and does not say: the one review that reported
+isolation intact was also the only one that returned `changes_required` with
+blocking findings, where the others returned `merge_with_caution`. That is
+one run, it is a correlation, and it is not proof of anything. It is recorded
+because it is the only evidence there is, not because it settles the question.*
 
 ### 3. The check before a commit
 
