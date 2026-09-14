@@ -109,11 +109,101 @@ down here.
 ## Nobody has walked the seven stages end to end
 
 `/build` describes seven stages, from working out the scope to the owner
-pressing merge. No piece of work has yet gone through all seven as written —
-partly because the reviewer, which stage four calls for, does not exist yet.
+pressing merge. No piece of work has yet gone through all seven as written.
+The reviewer that stage four calls for now exists, so that is no longer the
+reason.
 
 **Status:** OPEN — closes the first time a change goes through all seven
 stages in order, with what was observed at each one written down.
+
+---
+
+## The reviewer has never run as a fresh session against a real change
+
+It was tested three times against inputs made up for the purpose — clean code,
+code with an obvious defect, and a handoff with a forbidden extra field — and
+what was seen is in `docs/REFUSALS.md`. But all three runs were helpers
+started by the session that built the reviewer, not fresh sessions started by
+the guide window, and none of them reviewed a real change.
+
+So two things are untested: that a separately started session reads the
+reviewer's files and behaves the same way, and that `reviewer_mode` ever comes
+back as anything other than the value a helper would report.
+
+**Status:** OPEN — closes the first time a fresh session reviews a real change
+and its comment lands on a pull request, with the six answers in it.
+
+---
+
+## The reviewer's restriction stops short of the shell and the GitHub tools
+
+`.claude/agents/reviewer.md` now takes the editing tools away in its header
+rather than asking for them not to be used, and that was watched working —
+`docs/REFUSALS.md` has the before, the after and the control.
+
+Two ways to write are still open to it, and neither was closed in that round:
+
+- **`Bash`.** The method has the reviewer run the code it is judging, so the
+  shell has to stay, and a shell can write a file or push a branch. What the
+  restriction removes is drift over a long pass and a line in a reviewed file
+  that tells the reviewer to fix a typo directly — which is how this actually
+  happens. A reviewer that decided to write could still do it.
+- **The GitHub tools.** The reviewer keeps the tools that talk to GitHub
+  directly, and among them are ones that write a file into a repository and
+  one that merges a pull request. They could be named in the same header line.
+  They were not, for one reason: their names carry the prefix of the server
+  they come from, which differs between environments, and a name that does not
+  match is a restriction that silently does nothing. Naming four tools that
+  cannot be watched refusing anything is the sixth budget's own failure, in
+  the file that exists to prevent it.
+
+**Status:** OPEN — closes when the GitHub tool names have been checked in the
+environment the reviewer actually runs in, added to the header, and watched
+refusing a merge. The `Bash` half does not close; it is a stated limit of the
+mechanism, and the rule in the file is what covers it.
+
+---
+
+## Nobody has run the path with Virgil opening the pull request
+
+The order changed on 14 September 2026: Virgil creates the branch, opens the
+draft pull request, subscribes to it, and only then starts the session. The
+session no longer opens anything. That closed the old gap on paper, and the
+old rule was deleted rather than left beside the new one.
+
+It has never been run. Three things in it have never been done here at all:
+Virgil creating a branch, Virgil opening a pull request, and Virgil putting an
+empty commit on a branch so that a pull request can exist on it in a project's
+own repository. That last one has a known shape — a pull request needs at
+least one commit between the branch and the main branch, or there is nothing
+to open — but it was not tested on the way in, because testing it means
+opening a pull request, and the session that made this change was told not to
+open a second one.
+
+**Status:** OPEN — closes the first time a build runs this order end to end
+and the pull request the owner is told to merge is one Virgil opened.
+
+---
+
+## The startup budget has almost nothing left
+
+After this round, what loads before a session starts work is about 9,980
+tokens against a limit of 10,000. Twenty tokens — roughly one sentence.
+
+The next change to the rules file, to either skill, or to the reviewer's
+definition fails the check unless something comes out first. That is the budget working
+as designed, and it is written here so that the next session finds it before
+the check does rather than after.
+
+Candidates for what comes out, in the order they should be considered: the
+build skill still explains at length what an earlier wrong reason was and why
+it was wrong, which is history rather than instruction; and the same skill's
+account of why the three sessions are written up together cites a failure —
+the builder's "open the pull request" reaching the fix session — that the
+change above has made impossible.
+
+**Status:** OPEN — closes when something has been taken out and the number has
+gone down.
 
 ---
 

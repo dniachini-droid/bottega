@@ -23,9 +23,13 @@ itself — stages 3, 4 and 5 are sessions it starts, and stage 7 is his.
 
 ## Which project, before anything else
 
-Nothing is built in this repository. Every build happens in a project that is
-registered in `projects/registry.json`, and the work lands in that project's
-own repository.
+A build happens in a project registered in `projects/registry.json`, and lands
+in that project's own repository — **except Bottega, which is its own first
+project.** When the work is Bottega's own, this repository is the project:
+nothing to attach, nothing to clone, and the sections below about the
+project's clone do not apply. *Why: the workshop has to carry its own changes
+through the seven stages before it can be trusted with an application's;
+`docs/PLAN.md` decided that, and it is the later decision.*
 
 So the first thing, before the first question of stage 1:
 
@@ -117,17 +121,15 @@ either way — are what cover the deliberate act, and they stay.
 
 ### Different for each — what the session does in the project's clone
 
-- **The build session** does its editing, committing and pushing there, on a
-  new branch, and **opens the pull request** in the project's repository
-  against that repository's main branch.
+- **The build session** does its editing, committing and pushing there, on the
+  branch Virgil has already opened the pull request on. It opens nothing.
 - **The fix session pushes its repairs to the branch that is already under
   review, and opens nothing.** *Why: the pull request the owner is told to
   merge at stage 7 is the one the review was about. Repairs in a second pull
   request are repairs he does not merge.*
-- **The reviewer writes nothing at all** — no edit, no commit, no branch, no
-  push. It reads, and it comments once on the pull request. *Why: its whole
-  job is one pass and a comment, and a reviewer that has changed the thing it
-  is reviewing is no longer reviewing anybody's work but its own.*
+- **The reviewer writes nothing at all.** It reads, and it comments once on the
+  pull request. *Why, and the tools its own definition takes away so that this
+  is not only a promise, are in `.claude/agents/reviewer.md`.*
 
 ### What these sessions must be created with
 
@@ -154,8 +156,10 @@ from outside, exactly like a session that is working.*
 Every reply during a build says which stage it is at, out of seven, and
 whether anything is wanted from him. Not only at the changeovers. Every reply.
 
-> Stage 4 of 7 — the reviewer is running. Nothing for you to do; I will tell
-> you when.
+> Stage 4 of 7 — the reviewer is running. Nothing for you to do.
+> Next: nothing — I will tell you when the review lands.
+
+The stage line goes immediately above the `Next:` line that ends every reply.
 
 *Why: he has said, more than once, that his problem is not knowing where he
 is. A reply that does not say costs him a question to find out.*
@@ -259,8 +263,17 @@ itself. *Why: this skill's own rule is to put the facts in the prompt, not
 directions to the facts, and a session sent to a file that is missing reads
 the promise that it is there as evidence it is looking in the wrong place.*
 
-Open a pull request in the project's repository, and comment on it when you
-finish, when you stop early, and when you are blocked.
+**The pull request already exists when the session starts, and its number is
+in the prompt.** Virgil created the branch, opened it as a draft and
+subscribed to it before starting anything — the Virgil skill says how. So the
+session opens nothing. It builds, and it comments there when it finishes, when
+it stops early, and when it is blocked.
+
+*Why this rule survived and "open it first yourself" did not: both existed to
+close the same gap, between a session starting and its number existing. Opened
+before the session starts, the gap is nothing; opened by the session, it is
+however long the first push takes. Keeping both is how a rule outlives the gap
+it was written for.*
 
 And two prohibitions, written into every build prompt, one for each direction:
 **copy no file from Bottega into the project's repository — not the rules, not
@@ -275,8 +288,6 @@ stay clean. Why the second: an application that has started arriving in the
 workshop is the 85,000-line failure this repository opens by citing, and it
 arrives one useful file at a time.*
 
-Subscribe to the pull request as soon as it exists, and set a check-in.
-
 ---
 
 ## Stage 4 — REVIEW
@@ -286,22 +297,21 @@ Subscribe to the pull request as soon as it exists, and set a check-in.
 - **Fresh**, meaning a new session that has never seen this change being
   built — not the builder, and not a helper the builder started.
 - **A different model family.** If the build ran on `claude-opus-5`, the
-  review runs on `claude-sonnet-5`, and the other way round.
+  review runs on `claude-sonnet-5`, and the other way round. *Why: a fresh
+  session of the same model starts fresh on the context but not on the habits
+  that produced the change, and the preference for one's own output is the
+  thing being designed around.*
 - **One pass.** When the review reports, this stage is over.
 
-*Why, in three parts: a model reviewing its own work misses 31.7% of its own
-drift, and this does not improve as models get better. A fresh session scores
-measurably better than a helper that inherited the builder's context. And a
-second review of the same unchanged code raises false alarms by 62% while
-precision falls from 0.30 to 0.20 — once the real problems run out, reviewers
-start inventing them.*
+*The reasons for a fresh session and for one pass only are in `AGENTS.md`,
+attached to the rules they belong to, and are not copied here.*
 
-The reviewer starts the way every session here starts, in the section above —
-and, as it says there, it writes nothing: no edit, no commit, no push.
-
-The reviewer is given the scope page's "what done looks like" list and told to
-check the change against it, and to comment its findings on the pull request
-whatever it finds — including finding nothing.
+What the reviewer is, and what it refuses, is `.claude/agents/reviewer.md`.
+Start it the way every session here starts, and hand it the seven lines that
+file opens with — stamped off the branch at the moment of handoff, the scope
+page's "what done looks like" list copied in word for word, and **no eighth
+line.** *Why: it refuses an unexpected field, and the field you would want to
+add is your own opinion of the work.*
 
 ---
 
@@ -359,15 +369,3 @@ Then it stops.
 *Why: the merge is the last point at which he can say no, and it is his. A
 session that merges its own work has removed the only step in this path that
 he controls outright.*
-
----
-
-## Ending a reply during a build
-
-The last line is the `Next:` line, exactly as everywhere else, and it names
-the one thing he does now — or says plainly that there is nothing.
-
-The stage line goes immediately above it.
-
-> Stage 2 of 7 — I have written down what I think the smallest version is.
-> Next: read the four lines above and say yes, or tell me what is missing.
