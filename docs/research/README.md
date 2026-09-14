@@ -30,7 +30,7 @@ the conversation that produced it.
 
 ## How claims are marked
 
-Every page below distinguishes **what was read directly** from
+Every body of research below distinguishes **what was read directly** from
 **what came only from a search summary** — the containers that ran this work
 could not reach most academic sources, so some findings were never seen in
 their original form.
@@ -47,5 +47,7 @@ qualifier, and by then nobody can tell which numbers were checked.*
 - `REVIEWER-CRAFT.md` — what goes into a reviewer that finds real defects
   instead of generating noise.
 - `HANDOFF.md` — what travels between sessions, and what must not.
+- `MEMORY.md` — what other people run for agent memory, what they abandoned,
+  and what that suggests for a memory here.
 - `USAGE.md` — where a session's usage actually goes, and how other people cut
   it across a whole agent system.
