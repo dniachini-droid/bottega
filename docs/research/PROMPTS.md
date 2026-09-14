@@ -249,15 +249,14 @@ in the survey that can refuse a prompt for what is in it.
 **A hard cap on injected text.** "Hook output strings, including
 `additionalContext`, `systemMessage`, and plain stdout, are capped at 10,000
 characters. Output that exceeds this limit is saved to a file and replaced
-with a preview and file path." The over-long material is not rejected and not
+with a preview and file path ..." The over-long material is not rejected and not
 silently truncated — it is **converted into a pointer**. The system decides
 for you where the line between facts and directions falls.
 
 **A budget that drops the oldest material.** After compaction, Claude Code
-re-attaches the most recent invocation of each skill, "keeping the first 5,000
-tokens of each. Re-attached skills share a combined budget of 25,000 tokens
-... so older skills can be dropped entirely after compaction if you have
-invoked many in one session."
+re-injects the body of each skill the session invoked, "capped at 5,000 tokens
+per skill and 25,000 tokens total; oldest dropped first." Invoke enough skills
+in one session and the earliest ones are gone.
 
 **A fit test before loading.** MCP tool schemas load upfront only "when they
 fit within 10% of the context window."
@@ -392,11 +391,11 @@ them.
 
 ## What could not be established
 
-- **The primary text of the Anthropic posts.** Three of the most load-bearing
-  claims on this page — the 80% deletion, the "right altitude" guidance, and
-  the 80%-of-variance finding — rest on search summaries of secondary
-  write-ups. A session on a network that can reach `anthropic.com` should
-  re-verify all three before any rule is built on them.
+- **The primary text of the Anthropic posts.** The two most load-bearing
+  claims on this page — the 80% deletion and the 80%-of-variance finding —
+  rest on search summaries of secondary write-ups. A session on a network that
+  can reach `anthropic.com` should re-verify both before any rule is built on
+  them.
 - **Whether anyone measures a dispatch prompt.** No leader found doing it. One
   small project (`promptkit-os`) gates template size in CI. Absence of
   evidence here is weak: the thing may be common and undocumented.
@@ -433,6 +432,28 @@ output is spliced in before the session sees it. All three were read directly.
 This also settles the argument the workshop has been having. "Facts in the
 prompt, not directions to the facts" survives intact — the facts still go in.
 They just get fetched rather than typed.
+
+**Checked against what the workshop already does.** The review of this page
+pointed out that the claim above was asserted and never tested against the one
+mechanism here that actually produced 27,400 tokens. That was correct, so here
+is the test. Two rules already say what a build prompt must contain:
+`.claude/skills/virgil/SKILL.md` asks for "the branch, the commit, the
+numbers, the exact question, the file the work lives in", and
+`.claude/skills/build/SKILL.md` requires that "the scope page's three headings
+are written into the prompt in full", plus the pull request number and the
+closing requirement to report. That is already most of a skeleton with named
+gaps — and it still produced a 27,400-token prompt.
+
+Measured for this dispatch: the scope page is 2,657 bytes, about 664 tokens,
+and the identifiers and the closing requirement come to roughly 150 more.
+**Everything the two skills actually specify totals about 800 tokens. The
+prompt was 27,400.** Around 97% of it was free text that no rule asked for.
+
+This does not weaken the recommendation so much as locate it. The named gaps
+were never the problem; the unbounded slot beside them is. A skeleton helps
+only if the free-text slot is itself bounded — which is the argument for
+measuring the number rather than trusting the shape. **Do that check against
+the real prompt before any of this becomes a rule.**
 
 ### 2. Narrow the rule with a test, and write the test down.
 
