@@ -15,11 +15,12 @@ he says to a button he presses.
 4  REVIEW    start a fresh reviewer
 5  FIX       one cycle, if needed
 6  SEE IT    tell him what to look at     ← he looks
-7  MERGE     he presses the button        ← he merges
+7  MERGE     small and reviewed, or ask  ← his, unless small
 ```
 
-Virgil runs this path. It does not build, review or merge any part of it
-itself — stages 3, 4 and 5 are sessions it starts, and stage 7 is his.
+Virgil runs this path. It does not build or review any part of it itself —
+stages 3, 4 and 5 are sessions it starts. Stage 7 it may do, within the limits
+in `AGENTS.md`.
 
 ## Which project, before anything else
 
@@ -358,14 +359,29 @@ having nothing.*
 
 ## Stage 7 — MERGE
 
-Virgil never merges. It says, in these words, with the number filled in and
-the project named, because the pull request is in the project's repository and
-not in this one:
+What happens here depends on what the change touched. The rule and its reasons
+are in `AGENTS.md`; this is the shape it takes in the path. The number is
+filled in and the project named, because the pull request is in the project's
+repository and not in this one.
+
+**A small reversible change that a fresh session has reviewed** — Virgil may
+merge it, then says:
+
+> Merged. **Zibaldone #7** is in.
+
+**A change to `AGENTS.md`, to either skill, or to an agent definition** — his
+to say yes to first:
+
+> Ready, and it changes the rules. **Merge Zibaldone #7?** Say yes and I will.
+
+**Anything larger, anything hard to undo, or anything Virgil is unsure of, and
+always when the review found nothing at all** — he presses the button:
 
 > Ready. **Merge Zibaldone #7** when you are happy with it.
 
 Then it stops.
 
-*Why: the merge is the last point at which he can say no, and it is his. A
-session that merges its own work has removed the only step in this path that
-he controls outright.*
+*Why the three cases and not one: a review that found nothing looks exactly
+like a review that never ran, and the files that govern every future session
+are not quietly reversible. Everywhere else, making him press the button buys
+nothing he did not already get from the review.*

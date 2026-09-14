@@ -13,18 +13,61 @@
 //
 // Exits 0 when both hold, 1 when either fails, and says which in plain words.
 
-import { readFileSync, readdirSync, statSync, existsSync } from 'node:fs';
-import { join, relative, dirname, resolve } from 'node:path';
+import {
+  readFileSync, readdirSync, statSync, existsSync, realpathSync,
+} from 'node:fs';
+import { join, relative, dirname, resolve, basename } from 'node:path';
 import { fileURLToPath } from 'node:url';
 
 const ROOT = resolve(dirname(fileURLToPath(import.meta.url)), '..');
-const TOKEN_BUDGET = 10000;
 const BYTES_PER_TOKEN = 4;
 
-// Everything a session loads before it is asked to do anything. CLAUDE.md is
-// a link to AGENTS.md rather than a second copy, so it is counted once here.
-const STARTUP_FILES = ['AGENTS.md', '.claude/settings.json'];
-const STARTUP_DIRS = ['.claude/skills', '.claude/agents'];
+// The limit every session is held to. Unchanged since the budget was written.
+const EVERY_SESSION_BUDGET = 10000;
+// The limit the heaviest single session is held to. Set to the same number,
+// deliberately. *Why: the reason for the budget is that context volume
+// degrades accuracy while the session is working — which is exactly the
+// moment the heavier number is real. A looser limit here would say that
+// accuracy matters less once the work starts.*
+const HEAVIEST_SESSION_BUDGET = 10000;
+
+// What reaches every session before it is asked to do anything.
+//
+// AGENTS.md: what a session actually receives is CLAUDE.md, which is a
+// symbolic link to AGENTS.md — the same bytes under a second name. Measuring
+// AGENTS.md therefore measures exactly what is loaded, once.
+//
+// .claude/settings.json: this configures the session rather than being read
+// to it, and it was not observed arriving as text. It is counted anyway, at
+// full size. *Why: it could not be ruled out, and a budget check that drops
+// what it is unsure of only ever shrinks.*
+const ALWAYS_FILES = ['AGENTS.md', '.claude/settings.json'];
+
+// Sets of instructions that are offered by name and opened only when needed.
+// A skill is one folder; an agent definition is one file.
+const SKILL_DIR = '.claude/skills';
+const AGENT_DIR = '.claude/agents';
+
+// Which files a session is sent to open, declared rather than guessed.
+const READS_FILE = 'tools/reads.json';
+
+// A backticked span counts as a file reference when it looks like a path and
+// nothing else: letters, digits, dot, dash, slash. Anything with a space, a
+// colon or an angle-bracket placeholder is prose or a template, not a path,
+// and is left alone.
+//
+// It has to look like a path in one of three ways: it names a folder, or it
+// ends in a file extension we know, or there is really something of that name
+// in the repository. *Why the third: without it a file with no extension and
+// no folder in front of it — `.gitignore` is the one here — is invisible to
+// the count, which makes "call it NOTES" a way to park bulk out of sight. It
+// can only ever add a path that exists, so it cannot turn a live reference
+// into a dead one.*
+const PATHISH = /^[A-Za-z0-9._\/-]+$/;
+const EXTENSION = /\.(md|mjs|cjs|js|ts|sh|json|ya?ml|txt)$/i;
+const looksLikeAPath = (s) =>
+  PATHISH.test(s) &&
+  (s.includes('/') || EXTENSION.test(s) || existsSync(join(ROOT, s)));
 
 function walk(dir) {
   const out = [];
@@ -44,31 +87,247 @@ function walk(dir) {
   return out;
 }
 
-// --- Budget 1: what is loaded before work starts -------------------------
+const sizeOf = (full) => statSync(full).size;
 
-const loaded = [];
-for (const rel of STARTUP_FILES) {
+// The same bytes can be reachable under two names — CLAUDE.md and AGENTS.md
+// are one file. Resolving to the real path first means they are charged once.
+const realOf = (full) => {
+  try {
+    return realpathSync(full);
+  } catch {
+    return full;
+  }
+};
+
+// A session is shown a skill or an agent as one line: its name and its
+// description, nothing else. This measures that line. Everything behind it
+// arrives only if the session opens it.
+function offeredLine(full) {
+  let text;
+  try {
+    text = readFileSync(full, 'utf8');
+  } catch {
+    return null;
+  }
+  const front = /^---\r?\n([\s\S]*?)\r?\n---/.exec(text);
+  if (!front) return null;
+  const name = /^name:[ \t]*(.+?)[ \t]*$/m.exec(front[1]);
+  const description = /^description:[ \t]*(.+?)[ \t]*$/m.exec(front[1]);
+  if (!name || !description) return null;
+  return Buffer.byteLength(`- ${name[1]}: ${description[1]}\n`, 'utf8');
+}
+
+// --- Following what a skill or an agent sends a session to read ----------
+//
+// THE HOLE THIS CLOSES. Counting only the files that sit inside a skill's own
+// folder leaves an open door: park the bulk anywhere else in the repository
+// and point at it from one line of the skill. Both numbers then stay where
+// they were. That was demonstrated — a 20,000-byte file under docs/ with a
+// one-line pointer from the build skill moved the heavier number by 15 tokens,
+// the weight of the pointer sentence — and it was already true of this
+// repository: every reviewer session is sent, unconditionally, to read
+// docs/REVIEWER.md and from there docs/PRECEDENTS.md, and both were charged
+// zero. 6,540 bytes of required reading, counted as nothing.
+//
+// Worse, that split was made in order to fit under this budget. The move that
+// solved the budget problem was itself the way to defeat the budget.
+//
+// THE RULE. A file that a skill or an agent definition sends a session to read
+// is charged to that session, wherever in the repository it lives.
+//
+// HOW A REFERENCE IS RECOGNISED. Mechanically: a path written in backticks, in
+// a file that is already charged. That is the same test the dead-reference
+// check below uses on AGENTS.md, so writing a path in backticks already means
+// "this is a real file" in this repository. The sentence around it is not
+// read. *Why not: if the check looked for the word "read", the way to move
+// weight out of the number would be to reword the sentence, and nothing about
+// what the session loads would change.*
+//
+// READ OR ONLY NAMED — DECLARED, NOT GUESSED. A backticked path is either a
+// file the session is sent to open or a file the text merely names, and the
+// two are the same shape. tools/reads.json says which, for each referencing
+// file. A path in neither list fails the check. *Why refusing rather than
+// picking one: over-counting is safer than under-counting, and refusing is
+// safer than either — a new pointer out of a skill cannot slip through
+// silently, and writing down "this is only a mention" beside a large file is
+// a visible act a reviewer sees.*
+//
+// TRANSITIVE — YES. docs/REVIEWER.md sends the reviewer on to
+// docs/PRECEDENTS.md, so stopping after one step would reopen the same hole
+// one level down. Reading is followed from file to file until nothing new is
+// found. *What stops a cycle: each file is charged at most once per session
+// and a file already charged is not opened again. The repository is finite, so
+// the walk ends.*
+//
+// A FOLDER is followed to every file inside it. *Why: otherwise a folder is
+// somewhere to park bulk and point at.*
+//
+// A FILE A SESSION IS SENT TO READ THAT IS NOT THERE fails the check. *Why: a
+// skill that sends a session to a file which does not exist is a dead
+// reference in the place it does most harm.*
+//
+// WHICH NUMBER IT LANDS IN. A file reached from a skill or an agent definition
+// is charged to that set, so it shows in the heaviest number and not in the
+// every-session one. *Why: only the sessions that open those instructions are
+// sent to it — a file only a reviewer opens is not loaded by every session.* A
+// file reached from AGENTS.md would be charged to every session. Today there
+// are none: every path AGENTS.md names, it names as a subject.
+
+const readsPath = join(ROOT, READS_FILE);
+let declarations = null;
+let readsProblem = null;
+if (!existsSync(readsPath)) {
+  readsProblem =
+    `${READS_FILE} is not there. That file is what says which of the files ` +
+    `named in the instructions a session is actually sent to read. Without ` +
+    `it nothing outside a skill's own folder can be counted, and the count ` +
+    `would be quietly too low.`;
+} else {
+  try {
+    declarations = JSON.parse(readFileSync(readsPath, 'utf8'));
+  } catch (err) {
+    readsProblem = `${READS_FILE} could not be read as JSON: ${err.message}`;
+  }
+}
+
+function referencesIn(full) {
+  let text;
+  try {
+    text = readFileSync(full, 'utf8');
+  } catch {
+    return [];
+  }
+  return [...new Set(
+    [...text.matchAll(/`([^`\n]+)`/g)]
+      .map((m) => m[1].trim())
+      .filter(looksLikeAPath)
+  )];
+}
+
+const unclassified = new Map(); // "file -> ref" so it is reported once
+const deadReads = new Map();
+
+// Charge these files, and everything they send a session on to read.
+// `exclude` holds real paths already charged elsewhere, so the same bytes are
+// never paid for twice inside one number.
+function chargeReading(seeds, exclude) {
+  const charged = new Map(); // real path -> bytes
+  const queue = [...seeds];
+  while (queue.length) {
+    const full = realOf(queue.shift());
+    if (charged.has(full) || exclude.has(full)) continue; // and stops a cycle
+    if (!existsSync(full) || !statSync(full).isFile()) continue;
+    charged.set(full, sizeOf(full));
+
+    const rel = relative(ROOT, full);
+    const entry = (declarations && declarations[rel]) || {};
+    const reads = Array.isArray(entry.reads) ? entry.reads : [];
+    const mentions = Array.isArray(entry.mentions) ? entry.mentions : [];
+
+    // What is charged comes from the declaration, not from the backticks.
+    // *Why: a file can be handed to a session without its name ever being set
+    // in backticks. Charging only what is backticked would let that one
+    // through, and would also mean a declared file that is not there is never
+    // looked for.*
+    for (const ref of reads) {
+      const target = join(ROOT, ref.endsWith('/') ? ref.slice(0, -1) : ref);
+      if (!existsSync(target)) {
+        deadReads.set(`${rel} -> ${ref}`, { from: rel, ref });
+        continue;
+      }
+      if (statSync(target).isDirectory()) queue.push(...walk(target));
+      else queue.push(target);
+    }
+
+    // The backticks are how an undeclared file is caught: anything this file
+    // names that has not been classified either way stops the check.
+    for (const ref of referencesIn(full)) {
+      if (reads.includes(ref) || mentions.includes(ref)) continue;
+      unclassified.set(`${rel} -> ${ref}`, { from: rel, ref });
+    }
+  }
+  return charged;
+}
+
+const sumOfMap = (m) => [...m.values()].reduce((n, b) => n + b, 0);
+
+// --- Budget 1: what is loaded, in two numbers ----------------------------
+
+const alwaysSeeds = []; // files every session pays for
+const sets = [];        // { label, offered, seeds } — offered always, rest on demand
+
+for (const rel of ALWAYS_FILES) {
   const full = join(ROOT, rel);
-  if (existsSync(full)) loaded.push(full);
+  if (existsSync(full)) alwaysSeeds.push(full);
 }
-for (const rel of STARTUP_DIRS) loaded.push(...walk(join(ROOT, rel)));
 
-let totalBytes = 0;
-const rows = [];
-for (const full of loaded.sort()) {
-  const bytes = statSync(full).size;
-  totalBytes += bytes;
-  rows.push([relative(ROOT, full), bytes]);
+// Each folder under .claude/skills that has a SKILL.md with a name and a
+// description is one set. Its supporting files count with it, not separately:
+// a skill that grows a large reference file has grown, and the heavier number
+// must show that.
+let skillEntries = [];
+try {
+  skillEntries = readdirSync(join(ROOT, SKILL_DIR), { withFileTypes: true });
+} catch { /* no skills folder yet */ }
+for (const entry of skillEntries) {
+  const full = join(ROOT, SKILL_DIR, entry.name);
+  if (entry.isDirectory()) {
+    const files = walk(full);
+    const offered = offeredLine(join(full, 'SKILL.md'));
+    if (offered !== null) {
+      sets.push({ label: `${SKILL_DIR}/${entry.name}/`, offered, seeds: files });
+      continue;
+    }
+    // No readable SKILL.md front matter: we cannot tell when this is loaded,
+    // so it is charged to every session.
+    alwaysSeeds.push(...files);
+  } else if (entry.isFile()) {
+    alwaysSeeds.push(full);
+  }
 }
-const tokens = Math.floor(totalBytes / BYTES_PER_TOKEN);
-const startupOver = tokens >= TOKEN_BUDGET;
+
+// Each agent definition is one set on its own.
+for (const full of walk(join(ROOT, AGENT_DIR))) {
+  const offered = basename(full).endsWith('.md') ? offeredLine(full) : null;
+  if (offered === null) alwaysSeeds.push(full);
+  else sets.push({ label: relative(ROOT, full), offered, seeds: [full] });
+}
+
+const alwaysCharged = chargeReading(alwaysSeeds, new Set());
+const alwaysRows = [...alwaysCharged.entries()]
+  .map(([full, bytes]) => [relative(ROOT, full), bytes])
+  .sort((a, b) => a[0].localeCompare(b[0]));
+
+const offeredBytes = sets.reduce((n, s) => n + s.offered, 0);
+const everyBytes = sumOfMap(alwaysCharged) + offeredBytes;
+const everyTokens = Math.floor(everyBytes / BYTES_PER_TOKEN);
+
+// What each set costs the session that opens it. The offered line is already
+// in the every-session floor, so it is not charged a second time here.
+const alwaysKeys = new Set(alwaysCharged.keys());
+for (const s of sets) {
+  s.charged = chargeReading(s.seeds, alwaysKeys);
+  s.rows = [...s.charged.entries()]
+    .map(([full, bytes]) => [relative(ROOT, full), bytes])
+    .sort((a, b) => a[0].localeCompare(b[0]));
+  s.onOpen = Math.max(sumOfMap(s.charged) - s.offered, 0);
+  s.sessionBytes = everyBytes + s.onOpen;
+  s.sessionTokens = Math.floor(s.sessionBytes / BYTES_PER_TOKEN);
+}
+sets.sort((a, b) => a.label.localeCompare(b.label));
+
+// The heaviest single session is the floor above plus the one largest set it
+// opens. *Why one: a session opens the skill it was started for. If that ever
+// stops being true, this number is the thing that has to change.*
+const heaviestSet = sets.reduce((a, b) => (b.onOpen > (a?.onOpen ?? -1) ? b : a), null);
+const heaviestBytes = everyBytes + (heaviestSet?.onOpen ?? 0);
+const heaviestTokens = Math.floor(heaviestBytes / BYTES_PER_TOKEN);
+
+const everyOver = everyTokens >= EVERY_SESSION_BUDGET;
+const heaviestOver = heaviestTokens >= HEAVIEST_SESSION_BUDGET;
 
 // --- Budget 2: every path in backticks in AGENTS.md exists ---------------
 
-// A backticked span counts as a file reference when it looks like a path and
-// nothing else: letters, digits, dot, dash, slash. Anything with a space, a
-// colon or an angle-bracket placeholder is prose or a template, not a path,
-// and is left alone.
 const agentsPath = join(ROOT, 'AGENTS.md');
 if (!existsSync(agentsPath)) {
   // Without this, a missing rules file would mean no references to check and
@@ -78,15 +337,7 @@ if (!existsSync(agentsPath)) {
   console.log('\nBUDGET CHECK FAILED.');
   process.exit(1);
 }
-const agents = readFileSync(agentsPath, 'utf8');
-const PATHISH = /^[A-Za-z0-9._\/-]+$/;
-const EXTENSION = /\.(md|mjs|cjs|js|ts|sh|json|ya?ml|txt)$/i;
-
-const referenced = [...new Set(
-  [...agents.matchAll(/`([^`\n]+)`/g)]
-    .map((m) => m[1].trim())
-    .filter((s) => PATHISH.test(s) && (s.includes('/') || EXTENSION.test(s)))
-)].sort();
+const referenced = referencesIn(agentsPath).sort();
 
 const dead = [];
 for (const ref of referenced) {
@@ -98,22 +349,86 @@ for (const ref of referenced) {
 
 // --- Report ---------------------------------------------------------------
 
-console.log('Loaded before a session starts work:');
-for (const [name, bytes] of rows) {
-  console.log(`  ${String(bytes).padStart(7)} bytes  ${name}`);
+const pad = (n) => String(n).padStart(7);
+
+console.log('WHAT EVERY SESSION LOADS');
+for (const [name, bytes] of alwaysRows) console.log(`  ${pad(bytes)} bytes  ${name}`);
+for (const s of sets) {
+  console.log(`  ${pad(s.offered)} bytes  ${s.label}  (its name and description only)`);
 }
-console.log(`  ${String(totalBytes).padStart(7)} bytes  TOTAL`);
+console.log(`  ${pad(everyBytes)} bytes  TOTAL`);
 console.log(
-  `\nStartup cost: about ${tokens} tokens against a budget of ${TOKEN_BUDGET}.`
+  `\n  About ${everyTokens} tokens against a budget of ${EVERY_SESSION_BUDGET}.`
 );
-if (startupOver) {
+if (everyOver) {
   console.log(
-    `OVER BUDGET by about ${tokens - TOKEN_BUDGET} tokens. Take something out ` +
-    `of what loads at startup, or move it somewhere a session reads only when ` +
-    `it needs it.`
+    `  OVER BUDGET by about ${everyTokens - EVERY_SESSION_BUDGET} tokens. Take ` +
+    `something out of what every session loads, or move it somewhere a session ` +
+    `opens only when it needs it.`
   );
 } else {
-  console.log(`Room left: about ${TOKEN_BUDGET - tokens} tokens.`);
+  console.log(`  Room left: about ${EVERY_SESSION_BUDGET - everyTokens} tokens.`);
+}
+
+console.log('\nWHAT EACH KIND OF SESSION LOADS, ONCE IT OPENS ITS INSTRUCTIONS');
+for (const s of sets) {
+  console.log(`\n  ${s.label}`);
+  for (const [name, bytes] of s.rows) console.log(`    ${pad(bytes)} bytes  ${name}`);
+  console.log(`    ${pad(-s.offered)} bytes  its name and description, already counted above`);
+  console.log(`    ${pad(everyBytes)} bytes  what every session loads`);
+  console.log(
+    `    ${pad(s.sessionBytes)} bytes  TOTAL — about ${s.sessionTokens} tokens.`
+  );
+}
+
+console.log('\nWHAT THE HEAVIEST SINGLE SESSION LOADS');
+console.log(`  ${pad(everyBytes)} bytes  what every session loads`);
+if (heaviestSet) {
+  console.log(`  ${pad(heaviestSet.onOpen)} bytes  + ${heaviestSet.label}  (opened)`);
+}
+console.log(`  ${pad(heaviestBytes)} bytes  TOTAL`);
+console.log(
+  `\n  About ${heaviestTokens} tokens against a budget of ${HEAVIEST_SESSION_BUDGET}.`
+);
+if (heaviestOver) {
+  console.log(
+    `  OVER BUDGET by about ${heaviestTokens - HEAVIEST_SESSION_BUDGET} tokens. ` +
+    `The heaviest set of instructions is too large to be opened inside the ` +
+    `budget. Take something out of it, or out of what it sends the session on ` +
+    `to read, or split it so a session opens only the part it needs.`
+  );
+} else {
+  console.log(`  Room left: about ${HEAVIEST_SESSION_BUDGET - heaviestTokens} tokens.`);
+}
+
+if (readsProblem) {
+  console.log(`\n${readsProblem}`);
+}
+
+if (unclassified.size) {
+  console.log(
+    `\nThese files are named in backticks by instructions a session loads, and ` +
+    `\n${READS_FILE} does not say whether the session is sent to read them:`
+  );
+  for (const { from, ref } of unclassified.values()) {
+    console.log(`  UNDECLARED  ${ref}  (named in ${from})`);
+  }
+  console.log(
+    `Add each one to that file: to "reads" if a session is sent to open it, ` +
+    `and its\nwhole size is then charged to that session; to "mentions" if ` +
+    `the text only names it.\nThe check refuses rather than guessing, because ` +
+    `a large file pointed at from a skill\nis exactly how weight leaves this ` +
+    `count without either number moving.`
+  );
+}
+
+if (deadReads.size) {
+  console.log(
+    `\nThese are declared as files a session is sent to read, and are not there:`
+  );
+  for (const { from, ref } of deadReads.values()) {
+    console.log(`  MISSING  ${ref}  (named in ${from})`);
+  }
 }
 
 console.log(
@@ -130,7 +445,8 @@ if (dead.length) {
   console.log('All of them exist.');
 }
 
-if (startupOver || dead.length) {
+if (everyOver || heaviestOver || dead.length || readsProblem ||
+    unclassified.size || deadReads.size) {
   console.log('\nBUDGET CHECK FAILED.');
   process.exit(1);
 }

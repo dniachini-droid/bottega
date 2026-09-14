@@ -40,8 +40,9 @@ changed was the rules file opening, the readme, two skill descriptions and two
 worked examples inside one skill. `docs/VISION.md` was added as the end goal
 everything is now checked against.
 
-**Status:** OPEN — the separation is in a pull request and not merged, and
-Claude never merges. This entry leaves the file when the owner merges it.
+**Status:** OPEN — the separation is in a pull request and not merged. It
+changes the rules, so under the merge rule settled on 14 September 2026 it is
+his to say yes to. This entry leaves the file when it is merged.
 
 ---
 
@@ -185,25 +186,87 @@ and the pull request the owner is told to merge is one Virgil opened.
 
 ---
 
-## The startup budget has almost nothing left
+## The startup budget was measuring the wrong thing
 
-After this round, what loads before a session starts work is about 9,980
-tokens against a limit of 10,000. Twenty tokens — roughly one sentence.
+The 9,980-of-10,000 recorded here after the previous round was an artefact of
+the measurement, not a real shortage. The check was adding up every
+instruction file in the workshop whole, including skill and agent bodies that
+a session is never given unless it opens them.
 
-The next change to the rules file, to either skill, or to the reviewer's
-definition fails the check unless something comes out first. That is the budget working
-as designed, and it is written here so that the next session finds it before
-the check does rather than after.
+Measured honestly, and in the two numbers the check now reports: what **every**
+session loads is about 3,033 tokens, and what the **heaviest single** session
+loads — a builder, once it opens the build skill — is about 7,968. Both
+against the same limit of 10,000. Those numbers include the files the
+instructions send a session away to read, which the first version of this
+count charged nothing for; the entry below says how that was found.
 
-Candidates for what comes out, in the order they should be considered: the
-build skill still explains at length what an earlier wrong reason was and why
-it was wrong, which is history rather than instruction; and the same skill's
-account of why the three sessions are written up together cites a failure —
-the builder's "open the pull request" reaching the fix session — that the
-change above has made impossible.
+The candidates for trimming that this entry used to list are still worth
+doing and are no longer urgent. The build skill still explains at length what
+an earlier wrong reason was and why it was wrong, which is history rather than
+instruction. That material is now charged to the heavier number, which has
+about 2,032 tokens of room.
 
-**Status:** OPEN — closes when something has been taken out and the number has
-gone down.
+**Status:** OPEN — the limit itself was deliberately not touched. Whether
+10,000 still measures anything, now that the every-session number sits at
+about a quarter of it, is the owner's decision and nobody has put it to him.
+
+---
+
+## The move that got the budget number down was itself the way to defeat it
+
+The reviewer's method was taken out of `.claude/agents/reviewer.md` and put in
+`docs/REVIEWER.md` during the previous piece of work. The reason given at the
+time was this very budget: everything under `.claude/` is charged to every
+session that starts, builders included, and only a reviewer needs the method.
+That reasoning was right, and splitting the file was the right thing to do.
+
+What nobody noticed is that the check then charged the moved file **nothing**,
+in either number. Every reviewer session is sent, unconditionally, to read
+`docs/REVIEWER.md` — "that is the method, all of it" — and from there to
+`docs/PRECEDENTS.md`. Together 6,540 bytes of required reading, counted as
+zero. The reviewer read exactly as much after the move as before; only the
+number changed.
+
+Mechanically, that is the same move as parking bulk one directory away from a
+skill and pointing at it from a single line — which is what the review of pull
+request 6 demonstrated, with a 20,000-byte file that moved the heavier number
+by 15 tokens. The difference is that this one was not a test. It was already
+in the repository, and it had been done deliberately, in order to fit.
+
+It was missed by the session that made the move, by the review of pull request
+5, and by the guide window that reported the two numbers afterwards as though
+they were the truth.
+
+**The lesson, which is worth more than the fix.** A measurement is likeliest
+to be wrong in exactly the direction that relieves the pressure it is
+applying. When a number is in the way and something makes it go down, that is
+the moment to ask whether the thing being measured actually got smaller. Here
+it had not.
+
+**Status:** the hole is closed — a file the instructions send a session to
+read is now charged wherever it lives, and that was watched refusing
+(`docs/REFUSALS.md`). Kept here because the habit it illustrates is not
+closed by a check.
+
+---
+
+## The heavier of the two startup numbers is held to a limit nobody ratified
+
+The check now fails if the heaviest single session goes over 10,000 tokens as
+well. That second limit is **new**. It was set to the same number as the first
+rather than to a number chosen for it.
+
+*Why it was introduced at all: without a limit, the heavier number is a
+reading and not a budget, and the whole risk of making the count more accurate
+is that the count stops refusing things.* *Why the same number: accuracy falls
+with context volume while a session is working, which is exactly when the
+heavier number is real.*
+
+It has been watched refusing — `docs/REFUSALS.md` — so it is not decoration.
+But it is a number a session chose, not one the owner did.
+
+**Status:** OPEN — closes when the owner either keeps it, moves it, or says
+the heavier number should be reported and not enforced.
 
 ---
 
