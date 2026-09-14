@@ -6,11 +6,28 @@ Answers the questions nobody has answered about memory, with evidence, and
 writes them down where a later session can read them. It builds no memory. It
 produces one research page and a recommendation the owner can decide on.
 
+## Survey the field first, then answer
+
+Before the five questions, gather **what is actually being used and
+recommended by the people leading this work** — not only what is written on
+the open internet. Name the approaches, several of them, and say where each
+comes from and what evidence stands behind it.
+
+Then answer the five questions against that survey, rather than from first
+principles.
+
+*Why: the five questions below each have an obvious answer that sounds
+sensible and has been tried and abandoned elsewhere. The point of looking
+outward first is to find out which of the obvious answers are the abandoned
+ones.*
+
 ## What done looks like
 
 - **`docs/research/MEMORY.md` exists**, following the convention in
   `docs/research/README.md`: research is reference, not authority, and every
   claim is marked as read directly or taken only from a search summary.
+- **It names several real approaches**, with where each comes from and what
+  evidence supports it — a survey, not one idea.
 - **It answers these five questions**, each with evidence and a
   recommendation:
   1. **What makes a session write a note?** Every lesson, or only a mistake
