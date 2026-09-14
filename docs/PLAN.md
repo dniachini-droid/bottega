@@ -103,17 +103,27 @@ alternatives to each other and neither replaces the other.
 
 ### 4. Three small ones, in any order
 
-- **The control test on Da Vinci.** `docs/REVIEWER.md` already says to run it
-  and it has never been run. *Why: the budget says a check never seen refusing
-  anything cannot be told apart from one that cannot fire, and that budget has
-  never been applied to the reviewer itself.*
+- **The control test on Da Vinci, started the way the rules require.** It has
+  been run — three times on 14 September 2026, written up in
+  `docs/REFUSALS.md`: clean code reported as nothing, a deliberately broken
+  version refused, and the clean half run again. What has never been done is
+  running it from the guide window. *Why that is the gap rather than the test
+  itself: all three runs were helpers started by the session that built the
+  reviewer. Nothing of that session reached them, so they were isolated by
+  construction — but that is not the fresh session the rules call for, and
+  whether it behaves the same way when the guide window starts it is untested.
+  `docs/REFUSALS.md` says so in those words and `docs/OPEN.md` carries it.*
 - **The seventh budget: dispatch prompts sent without a recorded size — 0.**
   *Why: the number is already printed; this makes an unrecorded dispatch a
   failure, and it asserts no ceiling, because nothing has established that any
   particular size is too large.*
-- **Drop the plugin descriptions this workshop never uses.** *Why: about 4,200
-  tokens go on describing skills, some belonging to plugins never invoked here,
-  and every session is charged for all of them.*
+
+**Not on this list, and it cannot be:** the roughly 4,200 tokens spent on
+descriptions of skills no session here opens. That is the owner's account
+setting, not a change anything in this repository can make. `docs/OPEN.md`
+records it and says plainly that nothing here closes it. It is listed nowhere
+in this plan because every item in this plan is built, reviewed and merged,
+and that one cannot be any of the three.
 
 ### 5. Memory
 
