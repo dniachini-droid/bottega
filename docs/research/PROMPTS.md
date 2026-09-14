@@ -35,20 +35,26 @@ third class and is marked in place. `code.claude.com`, `github.com` and
 search result than to reading, and calling it "read directly" would quietly
 upgrade it.*
 
-**Every quotation on this page has been checked against its source, and the
-check is written down here so that somebody else can run it.** Two rounds of
+**Every quotation on this page was checked against its source when this
+paragraph was last edited, on 14 September 2026 — not necessarily since.**
+That is deliberately a dated fact and not a standing promise: three rounds of
 review found quotations shortened or reworded inside their quotation marks,
-and the first fix was scoped to the section where the fault was found rather
-than to the page — which is how the second instance survived. Three defects
-were found in total and all three are corrected: one synthesized sentence
-presented as a quote, and two sentences cut short with the comma changed to a
-full stop.
+the first fix was scoped to the section where the fault was found rather than
+to the page, which is how the second instance survived — and then this
+sentence itself went stale, claiming a count of 55 after two later commits had
+taken the page to 62. Three quotation defects were found in total and all
+three are corrected: one synthesized sentence presented as a quote, and two
+sentences cut short with the comma changed to a full stop.
 
-How to re-run it: pull every double-quoted span out of this file, collapse
-whitespace and strip markdown emphasis, and match each against the sources.
-At the last run there were **63 spans, and none unaccounted for**. About
-twenty-five do not match mechanically and have to be cleared by eye; they fall
-into four groups, and a new one outside these groups is a real finding —
+**So the check is written down instead, and it reports its own staleness.**
+Pull every double-quoted span of at least twelve characters out of this file,
+collapse whitespace, strip markdown emphasis, and match each against the
+sources. At the last run there were **63 spans, and none unaccounted for**.
+**If you count something other than 63, the page has changed since this
+paragraph did and the audit needs re-running — that mismatch is the whole
+point of printing the number.** About twenty-five spans do not match
+mechanically and have to be cleared by eye; they fall into four groups, and a
+new one outside these groups is a real finding —
 titles of papers and posts; phrases this page puts in quotation marks as its
 own shorthand rather than as citation; quotations from the sources listed
 above as unreachable, which are marked unverified in place; and quotations
