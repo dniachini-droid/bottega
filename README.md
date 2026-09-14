@@ -30,7 +30,10 @@ own thoughts and ideas.
 - `docs/VISION.md` — what this is for, and how we will know it worked.
 - `docs/OPEN.md` — the one register of open items. There is never a second one.
 
-Four moments need you: answer the scope questions, approve the smallest
-version, look at the result, press merge.
+Three moments always need you: answer the scope questions, approve the
+smallest version, look at the result.
 
-Claude never merges. That last one is yours.
+Merging is sometimes yours and sometimes not. Claude may merge a small change
+that can be undone, once a fresh session has reviewed it. Anything that
+changes how Claude itself works, and anything a review passed without finding
+a thing, waits for your yes. It never merges its own work.

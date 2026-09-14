@@ -39,6 +39,79 @@ before this file existed. Exit code 1:
 
 Both halves of that check have now been watched refusing, separately.
 
+## The budget check, on what every session loads
+
+**14 September 2026.** The startup count was rewritten to measure what a
+session is really given rather than every instruction file in the workshop
+added up whole, and it now reports two numbers. A check rewritten to count
+less has to be watched refusing before it is believed, so both numbers were
+pushed over deliberately.
+
+About 31,500 bytes of padding were appended to `AGENTS.md` — the file every
+session does load, whole. `node tools/check-budgets.mjs` returned exit code 1:
+
+> WHAT EVERY SESSION LOADS
+>       299 bytes  .claude/settings.json
+>     39226 bytes  AGENTS.md
+>       159 bytes  .claude/agents/reviewer.md  (its name and description only)
+>       289 bytes  .claude/skills/build/  (its name and description only)
+>       260 bytes  .claude/skills/virgil/  (its name and description only)
+>     40233 bytes  TOTAL
+>
+>   About 10058 tokens against a budget of 10000.
+>   OVER BUDGET by about 58 tokens. Take something out of what every session
+>   loads, or move it somewhere a session opens only when it needs it.
+>
+> BUDGET CHECK FAILED.
+
+The padding was removed and the file restored.
+
+## The budget check, on what the heaviest single session loads
+
+**14 September 2026.** The second number is the one that keeps the first
+honest: it is what a builder loads once it opens the build skill. It had to be
+watched refusing **on its own**, with the every-session number still
+comfortably inside its budget — otherwise it is decoration.
+
+A 14,081-byte reference file was put beside the build skill, of the kind a
+skill grows when someone moves material out of `SKILL.md` to make a number go
+down. Exit code 1, and the every-session number did not move:
+
+>   About 2180 tokens against a budget of 10000.
+>   Room left: about 7820 tokens.
+>
+> WHAT THE HEAVIEST SINGLE SESSION LOADS
+>      8723 bytes  what every session loads
+>     31574 bytes  + .claude/skills/build/  (opened)
+>     40297 bytes  TOTAL
+>
+>   About 10074 tokens against a budget of 10000.
+>   OVER BUDGET by about 74 tokens. The heaviest set of instructions is too
+>   large to be opened inside the budget. Take something out of it, or split
+>   it so a session opens only the part it needs.
+>
+> BUDGET CHECK FAILED.
+
+That is the trap this change was written to avoid, sprung on purpose: the
+material had left the file every session sees, and the check still caught it.
+The reference file was deleted.
+
+## The budget check, on dead file references, after the rewrite
+
+**14 September 2026.** The dead-reference half was watched again after the
+rewrite, because a check that has been rebuilt has not been watched. A line
+naming `docs/NOT-A-FILE.md` was added to `AGENTS.md`. Exit code 1:
+
+> File paths written in backticks in AGENTS.md: 9 checked.
+> These are named in AGENTS.md but are not in the repository:
+>   MISSING  docs/NOT-A-FILE.md
+
+The line was removed.
+
+*The wording quoted in the two older entries above is the wording the check
+used before this rewrite. It is left as it was seen rather than updated, since
+this file is a record of what was watched, not of what the check says now.*
+
 **14 September 2026, again, and this time it changed the work a second time.**
 The fix round on pull request 5 added the reviewer's tool restriction and
 Virgil's new permission, and the check returned exit code 1:
