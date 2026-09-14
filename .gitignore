@@ -1,0 +1,15 @@
+# The projects built with this workshop are cloned into their own directories,
+# beside this one and never inside it. This file is the second lock on that
+# door: if a clone lands in here anyway, git will not stage it.
+#
+# One line per registered project, using the same id as projects/registry.json.
+# Registering a project adds its id here too.
+#
+# Why this matters: a project cloned inside this directory is staged by a plain
+# `git add -A` as an embedded repository — a pointer to a commit that nobody
+# who clones Bottega can fetch — and the workshop then carries a broken link to
+# the application. Observed on 14 September 2026: nested and unignored, the
+# clone staged as mode 160000 with git's embedded-repository warning; with the
+# id listed here, the same command staged nothing.
+
+/zibaldone/

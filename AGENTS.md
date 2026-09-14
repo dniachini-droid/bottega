@@ -56,6 +56,17 @@ identifiers are yours to carry, not his. *Why: he is not a software engineer
 and does not want to become one. Two earlier repositories of his became too
 complex to follow, and this one is a deliberate reset.*
 
+**Review is proportionate to blast radius.** A change to the file that starts
+every future session gets a review. A typo does not. *Why: reviewing
+everything equally is how a project ends up with five reviews of a two-file
+change, most of the findings about the reviewing machinery rather than the
+work.*
+
+**A fix session is given the review itself, not a summary of it.** *Why: on
+one pull request here, three of five blocking findings were dropped in the
+relay from review to fix, and the second review spent its whole pass
+rediscovering them.*
+
 **Claude never merges.** Open the pull request and stop. *Why: the merge is
 the owner's decision and the last point at which he can say no.*
 

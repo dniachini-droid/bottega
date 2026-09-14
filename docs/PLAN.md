@@ -21,14 +21,17 @@ idea — only work that is next.
 - **The workshop separated from the application.** Applications are registered
   here and built in their own repositories. Nothing is built inside Bottega.
 - **The vision**, written down and committed, in `docs/VISION.md`.
+- **The workbench.** A register of projects, a folder for each one, and a
+  `/build` that knows which project it is working on. Pull request #3, merged:
+  two reviews, seven findings, all of them resolved. What those reviews raised
+  as worth knowing rather than blocking is in `docs/OPEN.md`.
 
 ## In flight
 
-- **Pull request #3 — the workbench.** A register of projects, a folder per
-  project, and a `/build` that knows which project it is working on. It has
-  been reviewed once. Two findings that block it are being fixed. A fresh
-  review of the fixed version is owed before it merges — the rules allow one
-  review per version, and the fixed version has not had its one.
+- **Pull request #4 — what only existed in a conversation, written down.**
+  This plan, more entries in the register of open items, and the research
+  behind the reviewer and the handoff, in `docs/research/`. No review of it has
+  been done yet.
 
 ## Next, in this order
 

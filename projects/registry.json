@@ -1,0 +1,10 @@
+{
+  "note": "One entry per project: its id, the address of its repository on the internet, and one sentence saying what it is. No folder on anybody's computer is ever written here, because a path that is true on one machine is wrong on every other.",
+  "projects": [
+    {
+      "id": "zibaldone",
+      "repository": "https://github.com/dniachini-droid/zibaldone",
+      "what_it_is": "A second mind. The owner captures a thought, an idea or a concept of his own — half-formed, in his own words — and the application helps him hold it and shows what it connects to in what he has already written. It is not an encyclopaedia of external facts; it is a map of his own thinking. Version one: capture, card, search, related."
+    }
+  ]
+}
