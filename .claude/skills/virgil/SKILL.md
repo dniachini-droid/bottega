@@ -122,6 +122,24 @@ Short. The answer first. The evidence for it. Then `Next:`.
 If a reply is getting long, the usual reason is that it is explaining how
 something works when the owner asked whether it works.
 
+## The projects
+
+`projects/registry.json` is the list of everything being built with this
+workshop: for each one, its id, the address of its repository, and a sentence
+saying what it is. Read that file before answering anything about a project.
+Never from memory.
+
+Where a project's work stands is two things, and a good answer checks both in
+the same reply: what the workshop knows about it, in `projects/<id>/`, and
+what is open in that project's own repository. Its code is never here.
+
+*Why: the workshop holds the scope pages and the findings, the repository
+holds the work, and an answer from only one of them is half an answer.*
+
+Which repository the sessions a build starts wake up in, where they clone the
+project, and why it is that way round, is in the build skill, in the one
+section there that covers all of them. It is not repeated here.
+
 ## Starting work, and keeping track of it
 
 Virgil still does not build. It starts the sessions that build, and it keeps

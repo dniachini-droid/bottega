@@ -43,3 +43,150 @@ everything is now checked against.
 **Status:** OPEN — the separation is in a pull request and not merged, and
 Claude never merges. This entry leaves the file when the owner merges it.
 
+
+---
+
+## The workshop's own files stay at the top of this repository
+
+The owner's sketch of the workbench put the workshop's files — the rules and
+the skills — inside a folder called `framework/`, with the projects beside it.
+They are not in a folder. They are at the top of the repository, exactly where
+they already were, and only `projects/` was added below them.
+
+**This is deliberate and it must not be tidied.** Claude Code reads `AGENTS.md`
+and the `.claude/` folder from the top of the repository and from nowhere else.
+Moved into a folder, they would still be perfectly good files that nothing ever
+reads: every session would start with no rules at all, and nothing would fail,
+and nothing would say so. The rules would stop binding quietly.
+
+*Why this is written down here rather than left as a habit: a folder called
+`framework/` is the obvious tidy-up, and the person who makes it would see no
+error afterwards. A change that silently removes every rule and reports success
+is the worst kind there is.*
+
+**Status:** OPEN — this stays open for as long as the rules are loaded from the
+top of the repository, which is to say indefinitely. It closes only if Claude
+Code ever learns to load them from somewhere else, and then everything above
+can be revisited in one go.
+
+---
+
+## A leftover branch in the Zibaldone repository, from testing the push
+
+To establish that a session started in this repository can attach the project's
+repository and write to it, that was actually done rather than assumed: the
+project's repository was attached, cloned, and its own existing commit was
+pushed back under a temporary branch name, `claude/push-probe`. Nothing was
+added to it — the branch points at exactly the same commit as `main`, and not a
+single file of Bottega went anywhere near it.
+
+The tidy-up afterwards failed. Deleting that branch was refused, twice, by the
+network guard this session works behind, which allows a branch to be created
+and not removed. There is no other tool here that deletes a branch.
+
+This is not a one-off. Every build session from now on creates a branch in a
+project's repository and none of them can remove one. After ten builds, some of
+them abandoned part-way, the dead branches accumulate and only the owner can
+prune them.
+
+**Status:** OPEN — the owner can delete `claude/push-probe` in the Zibaldone
+repository on GitHub, on the branches page, in one click. No session can do it.
+That part of this entry leaves the file then; the accumulation above stays open
+for as long as branch deletion is refused.
+
+---
+
+## Attaching a project has never been done by a session nobody was watching
+
+This is the single biggest untested assumption in the workshop, and everything
+`/build` does rests on it.
+
+A session started by `/build` wakes up in Bottega and attaches the project's
+repository to itself. That call is not free — it goes through a permission
+decision. The one time it was done successfully, it was done in a session with
+a person present to approve it. A build session is unattended by design.
+
+There is first-hand evidence that the refusal is real, not hypothetical: a
+reviewer of this change tried to attach the Zibaldone repository read-only and
+was refused outright by the permission classifier.
+
+The build skill now says what such a session must be created with — a
+permission mode that does not stop to ask, and the repository-attaching tool
+named in the pre-approved list, whose name carries a server prefix that differs
+between environments and must be read from the window's own tool list. **That
+is written down, not demonstrated.** Nobody has watched an unattended session
+attach a repository and push.
+
+*Why it is recorded rather than tested: testing it means starting a real build
+session, and the owner's instruction for this round was to start none. Testing
+it would also have meant building part of an application.*
+
+What it looks like when it fails: the session's first act is refused, nobody is
+there to approve, and it either stalls — which from outside is indistinguishable
+from a session that is thinking — or treats the refusal as an obstacle to route
+around and carries on in the one repository it can write to, which is Bottega.
+
+**Status:** OPEN — closes the first time an unattended build session is watched
+attaching a project's repository and pushing to it, with what was seen written
+down here.
+
+---
+
+## Optional findings from the two reviews, recorded rather than fixed
+
+These were raised by the reviewers as worth knowing rather than blocking. They
+are written down here instead of being fixed, because the round they came from
+was for the blocking findings and a fix nobody asked for is a change nobody
+reviewed.
+
+**The re-check session is not in the enumeration.** The build skill enumerates
+three sessions — build, review, fix. Stage 5 starts a fourth, the re-check of
+the fixed version, and nothing enumerates it. Left as it is, the natural place
+to pin it is the project's repository, which is an unbound session: the exact
+shape of the finding this change was written to close, one session further on.
+**Status:** OPEN — one line in the build skill's shared section would close it.
+
+**The project's address is written in two places.** `projects/registry.json`
+holds it and the build skill says the registry is the only place it is read
+from, but `projects/zibaldone/README.md` also carries the address, and Virgil is
+told to look in the project's folder when answering about a project. Rename the
+repository, update the registry, forget the readme, and a session reports the
+old address. **Status:** OPEN — remove the address from the project readme, or
+say there that the registry is the copy that counts.
+
+**Nothing says what to do when the registry does not parse.** The rule covers an
+id that is not in the registry. It does not cover a registry file with a
+trailing comma in it. A session that has just failed to read the registry has a
+plausible-looking second copy of the address sitting in the project's readme.
+**Status:** OPEN — needs one sentence saying a registry that does not parse is
+an error to report, never a reason to look elsewhere.
+
+**A session blocked before any pull request exists has nowhere to report.**
+Every dispatched prompt ends with "comment on the pull request". If the address
+in the registry is wrong, or attaching the project is refused, the pull request
+it would comment on is the one it never opened, and a session's output cannot be
+read anywhere else. The scheduled check-in catches it eventually; nothing else
+does. **Status:** OPEN — needs a fallback channel for a session that is blocked
+before it has a pull request.
+
+**Stage 7 hardcodes the first project's name.** The words it tells the window to
+use are "Merge Zibaldone #7", where every other substitution in the file is in
+angle brackets. A second project would be reported under Zibaldone's name.
+**Status:** OPEN — one pair of angle brackets.
+
+**Session titles are no longer unique across projects.** Virgil titles every
+session by pull request number and stage. That was unambiguous when every pull
+request was in this repository. With two projects registered, two sessions can
+both read `#4 review —` with nothing to say which application either belongs to.
+**Status:** OPEN — the title rule needs the project id in it.
+
+**The registry is load-bearing and the machine will not miss it.** The budget
+check only warns about paths written in backticks in `AGENTS.md`.
+`projects/registry.json` is named in the two skills and the readme, none of
+which are checked. Delete it and the check passes, the workflow is green, and
+`/build` fails at the moment the owner uses it. **Status:** OPEN — naming the
+registry in `AGENTS.md` would close it, and that is a change to the rules file,
+which is the owner's to approve.
+
+**Status:** OPEN — this entry as a whole leaves the file when each item above
+has been closed or deliberately dropped.
