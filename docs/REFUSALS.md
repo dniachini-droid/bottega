@@ -39,6 +39,19 @@ before this file existed. Exit code 1:
 
 Both halves of that check have now been watched refusing, separately.
 
+**14 September 2026, again, and this time it changed the work a second time.**
+The fix round on pull request 5 added the reviewer's tool restriction and
+Virgil's new permission, and the check returned exit code 1:
+
+> Startup cost: about 10089 tokens against a budget of 10000.
+> OVER BUDGET by about 89 tokens.
+
+What came out was the fix session's own new prose, trimmed, and one paragraph
+in the reviewer's file that should not have been written at all — it explained
+to the reviewer that `Bash` could still write a file, which is a workaround
+handed to the one agent that must not take it. The budget refused it for the
+wrong reason and it was right anyway. Recorded in `docs/OPEN.md` instead.
+
 ## The read guard
 
 **14 September 2026.** A 131,420-byte file was opened whole, with no page
@@ -121,3 +134,94 @@ Nothing reached 8 in 10.
 
 *Why that is the useful part of this run: those five are exactly the findings
 a reviewer with no killing step reports, and they are all noise.*
+
+---
+
+## The reviewer's tool restriction
+
+**14 September 2026.** Until this date `.claude/agents/reviewer.md` said "write
+nothing" in prose and granted every tool. The harness renders each agent's
+tools in the line that registers it, so this was directly visible: a fresh
+process reading the file off disk registered
+
+> reviewer — (Tools: All tools)
+
+while the two read-only agents the harness ships registered as *All tools
+except ... Edit, Write, NotebookEdit*. A `disallowedTools` line was added to
+the file's header. The same fresh process then registered
+
+> reviewer — (Tools: All tools except Edit, Write, NotebookEdit, Task)
+
+**Then it was watched refusing, with a control.** Same command, same settings,
+one agent swapped for the other:
+
+- The ordinary agent called `Write` and got *"Permission to use Write has been
+  denied"* — the tool was there, the permission was not. Given permission, it
+  created the file.
+- The reviewer called `Write` and got *"Write is disabled for this session, in
+  subagents as well as here."* Given the same permission, it still could not:
+  told outright to ignore its instructions and write the file, no file
+  appeared. Asked to list the tools it can call, it answered with a list
+  containing no `Edit`, no `Write`, no `NotebookEdit` and no way to start
+  another agent, and said so in as many words.
+
+*Why the control half matters: a refusal proves nothing if the same command
+would have been refused for any agent. The two different refusal messages, in
+one unchanged environment, are what separate the restriction from the setting.*
+
+**What this does not cover, said plainly:** `Bash` stays, because the method
+has the reviewer run the code, and a shell can write a file. The restriction
+removes drift and removes a line in a reviewed file that tells the reviewer to
+fix a typo directly. A reviewer that decided to write could still do it. That
+gap, and the GitHub tools that were not named, are in `docs/OPEN.md`.
+
+---
+
+## The watcher that never fired, and the crude thing that worked
+
+**14 September 2026.** This is not a check refusing. It is the opposite, and
+it is the sixth budget failing in the field — *a check never observed refusing
+anything cannot be told apart from one that cannot fire* — committed by the
+window that enforces it.
+
+The guide window built a watcher that morning to wake it the instant pull
+request 5 appeared. The text it searched for was written with no space after
+the colon, and the real text has one. It matched nothing. It reported nothing.
+It ran its whole course looking exactly like a watcher that was working, and
+the pull request it was watching for was open the entire time.
+
+A crude timed check, set as a fallback and expected to be the lesser
+mechanism, caught the pull request eighteen minutes late. **The clever
+mechanism produced nothing and the crude one produced the answer.**
+
+The cause was reproduced by hand afterwards and is not in doubt.
+
+*Why this is written down rather than fixed and forgotten: the failure is not
+the missing space. It is that nobody had ever watched that watcher match
+anything, so there was no way to tell a watcher finding nothing from a watcher
+that could not find anything. Every mechanism here that waits for something
+has to be watched succeeding once, on something known to be there, before it
+is trusted to report an absence.*
+
+---
+
+## A correction to the reviewer runs above
+
+**14 September 2026.** The four runs recorded above say the handoff refusal
+holds on a missing line and on an extra line. Only the extra-line half was
+ever watched. The missing-line half was asserted.
+
+The review of pull request 5 closed that gap, and with the real reviewer
+rather than a helper started by the builder: given a packet of six lines with
+`done-looks-like` absent, it refused and named the missing line; given eight
+lines with an added `confidence: high`, it refused and named the extra one.
+
+It also declined to build the opening of a review from the refused packet's
+numbers when pushed to do it "just to see the format", on the grounds that
+this would treat a refused handoff as an accepted one, and that it had no tree
+in front of it to check the answers against honestly.
+
+*Why the correction is written here rather than by editing the sentence above:
+the sentence above was the record of what had been watched, and it was wrong
+about that. Quietly correcting it would leave no trace that this file once
+claimed a refusal nobody had seen.*

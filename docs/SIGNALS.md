@@ -39,18 +39,32 @@ apart from a session that died.
 
 ---
 
-## The gap that is left, and it is not closed
+## The gap that was left, and how it was closed
 
 Between a session starting and its pull request existing, nothing can be
-subscribed to and nothing can be woken. The pull-request-first rule shrinks
-that gap from the length of a whole build to the length of one push, but it
-does not remove it: the number still has to be fetched rather than delivered.
+subscribed to and nothing can be woken. The old rule — the session opens its
+pull request first, before doing the work — shrank that gap to the length of
+one push but could not remove it: the number still had to be fetched rather
+than delivered, so the guide window looked for it twice and then gave up and
+told the owner.
 
-The guide window therefore looks for it — twice, then stops, and tells the
-owner. That is a bounded lookup, not a timer. Everything after it is events.
+**Closed on 14 September 2026, by the owner deciding it rather than by a
+better mechanism.** Asked whether the guide window may write to the
+repository, he said yes, narrowly. Virgil now creates the branch, opens the
+draft pull request, subscribes to it, and only then starts the session, which
+is given the number. There is no gap to cover, so the two-look lookup is gone
+and the rule that the session opens its own pull request is gone with it. The
+order is in the Virgil skill; why one of those two rules survived and the
+other was deleted is in the build skill.
 
-**Not attempted, and why:** having the guide window open the draft pull
-request itself would close the gap completely, because it would know the
-number before the session started. It was not built because opening a pull
-request needs a commit, and Virgil does not write to the repository. That
-trade — Virgil stops being read-only — is the owner's to make, not a session's.
+**The commit this needs.** Opening a pull request needs at least one commit on
+the branch — that was the reason this design was not built earlier, recorded
+here before the permission existed, and it did not go away with the
+permission. In Bottega the scope page supplies it. In a project's own
+repository nothing does, so Virgil puts one empty commit on the branch. An
+empty commit changes no file, which is what keeps it inside a permission that
+does not extend to writing work.
+
+**Still not observed.** None of it has run: not Virgil creating a branch, not
+Virgil opening a pull request, not the empty commit. `docs/OPEN.md` carries
+that, and until it has run this section describes an intention.

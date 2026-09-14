@@ -135,21 +135,75 @@ and its comment lands on a pull request, with the six answers in it.
 
 ---
 
-## The reviewer is started by a lookup, not by an event
+## The reviewer's restriction stops short of the shell and the GitHub tools
 
-Everything after a pull request exists is event-driven and fast. The gap
-between a session starting and its pull request existing is not covered: the
-number has to be fetched rather than delivered, so the guide window looks for
-it twice and then gives up and tells the owner.
+`.claude/agents/reviewer.md` now takes the editing tools away in its header
+rather than asking for them not to be used, and that was watched working —
+`docs/REFUSALS.md` has the before, the after and the control.
 
-`docs/SIGNALS.md` records what was tried and why the obvious alternatives do
-not work. The one design that would close the gap completely — the guide
-window opening the draft pull request itself, before the session starts — was
-not built, because it would mean Virgil writes to the repository, and that is
-the owner's decision rather than a session's.
+Two ways to write are still open to it, and neither was closed in that round:
 
-**Status:** OPEN — waiting on the owner to say whether Virgil may open a draft
-pull request itself. Until then the two-look lookup stands.
+- **`Bash`.** The method has the reviewer run the code it is judging, so the
+  shell has to stay, and a shell can write a file or push a branch. What the
+  restriction removes is drift over a long pass and a line in a reviewed file
+  that tells the reviewer to fix a typo directly — which is how this actually
+  happens. A reviewer that decided to write could still do it.
+- **The GitHub tools.** The reviewer keeps the tools that talk to GitHub
+  directly, and among them are ones that write a file into a repository and
+  one that merges a pull request. They could be named in the same header line.
+  They were not, for one reason: their names carry the prefix of the server
+  they come from, which differs between environments, and a name that does not
+  match is a restriction that silently does nothing. Naming four tools that
+  cannot be watched refusing anything is the sixth budget's own failure, in
+  the file that exists to prevent it.
+
+**Status:** OPEN — closes when the GitHub tool names have been checked in the
+environment the reviewer actually runs in, added to the header, and watched
+refusing a merge. The `Bash` half does not close; it is a stated limit of the
+mechanism, and the rule in the file is what covers it.
+
+---
+
+## Nobody has run the path with Virgil opening the pull request
+
+The order changed on 14 September 2026: Virgil creates the branch, opens the
+draft pull request, subscribes to it, and only then starts the session. The
+session no longer opens anything. That closed the old gap on paper, and the
+old rule was deleted rather than left beside the new one.
+
+It has never been run. Three things in it have never been done here at all:
+Virgil creating a branch, Virgil opening a pull request, and Virgil putting an
+empty commit on a branch so that a pull request can exist on it in a project's
+own repository. That last one has a known shape — a pull request needs at
+least one commit between the branch and the main branch, or there is nothing
+to open — but it was not tested on the way in, because testing it means
+opening a pull request, and the session that made this change was told not to
+open a second one.
+
+**Status:** OPEN — closes the first time a build runs this order end to end
+and the pull request the owner is told to merge is one Virgil opened.
+
+---
+
+## The startup budget has almost nothing left
+
+After this round, what loads before a session starts work is about 9,980
+tokens against a limit of 10,000. Twenty tokens — roughly one sentence.
+
+The next change to the rules file, to either skill, or to the reviewer's
+definition fails the check unless something comes out first. That is the budget working
+as designed, and it is written here so that the next session finds it before
+the check does rather than after.
+
+Candidates for what comes out, in the order they should be considered: the
+build skill still explains at length what an earlier wrong reason was and why
+it was wrong, which is history rather than instruction; and the same skill's
+account of why the three sessions are written up together cites a failure —
+the builder's "open the pull request" reaching the fix session — that the
+change above has made impossible.
+
+**Status:** OPEN — closes when something has been taken out and the number has
+gone down.
 
 ---
 

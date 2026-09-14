@@ -121,17 +121,15 @@ either way — are what cover the deliberate act, and they stay.
 
 ### Different for each — what the session does in the project's clone
 
-- **The build session** does its editing, committing and pushing there, on a
-  new branch, and **opens the pull request** in the project's repository
-  against that repository's main branch.
+- **The build session** does its editing, committing and pushing there, on the
+  branch Virgil has already opened the pull request on. It opens nothing.
 - **The fix session pushes its repairs to the branch that is already under
   review, and opens nothing.** *Why: the pull request the owner is told to
   merge at stage 7 is the one the review was about. Repairs in a second pull
   request are repairs he does not merge.*
-- **The reviewer writes nothing at all** — no edit, no commit, no branch, no
-  push. It reads, and it comments once on the pull request. *Why: its whole
-  job is one pass and a comment, and a reviewer that has changed the thing it
-  is reviewing is no longer reviewing anybody's work but its own.*
+- **The reviewer writes nothing at all.** It reads, and it comments once on the
+  pull request. *Why, and the tools its own definition takes away so that this
+  is not only a promise, are in `.claude/agents/reviewer.md`.*
 
 ### What these sessions must be created with
 
@@ -265,12 +263,17 @@ itself. *Why: this skill's own rule is to put the facts in the prompt, not
 directions to the facts, and a session sent to a file that is missing reads
 the promise that it is there as evidence it is looking in the wrong place.*
 
-**Step one of the prompt, before any work at all: open the pull request as a
-draft, with one line saying the work is starting.** Then build. Then comment
-on it when you finish, when you stop early, and when you are blocked. *Why:
-nothing can be subscribed to until it has a number, so until the pull request
-exists nothing can be woken by it. Opening it first shrinks that blind spell
-from the length of the whole build to the length of one push.*
+**The pull request already exists when the session starts, and its number is
+in the prompt.** Virgil created the branch, opened it as a draft and
+subscribed to it before starting anything — the Virgil skill says how. So the
+session opens nothing. It builds, and it comments there when it finishes, when
+it stops early, and when it is blocked.
+
+*Why this rule survived and "open it first yourself" did not: both existed to
+close the same gap, between a session starting and its number existing. Opened
+before the session starts, the gap is nothing; opened by the session, it is
+however long the first push takes. Keeping both is how a rule outlives the gap
+it was written for.*
 
 And two prohibitions, written into every build prompt, one for each direction:
 **copy no file from Bottega into the project's repository — not the rules, not
