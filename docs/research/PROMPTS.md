@@ -34,6 +34,18 @@ third class and is marked in place. `code.claude.com`, `github.com` and
 search result than to reading, and calling it "read directly" would quietly
 upgrade it.*
 
+**Every quotation on this page has been checked against its source.** Two
+rounds of review found quotations that had been shortened or reworded inside
+their quotation marks, and the first fix was scoped to the section where the
+fault was found rather than to the page. So the check was then run over the
+whole page: all 55 quoted spans, matched against the primary sources where
+those could be fetched. Three defects were found in total and all three are
+corrected — one synthesized sentence presented as a quote, and two sentences
+cut short with the comma changed to a full stop. *Why this is written down:
+the marking convention above is the only thing that makes the page's evidence
+worth anything, and a convention nobody has audited is a claim like any
+other.*
+
 ---
 
 ## What was surveyed
@@ -307,7 +319,8 @@ Claude 5 generation models", is on a domain this container cannot reach.)*
 rarely.** "Before v2.1.205, the bundled skill told Claude to fold in anything
 a run learned, which caused frequent merge conflicts." Now "Claude edits the
 recorded file only when it steered a run wrong, such as a command that failed
-or a missing step." *(Read directly, `skills.md`.)* A self-growing instruction
+or a missing step, so you can commit the file without per-session diffs."
+*(Read directly, `skills.md`.)* A self-growing instruction
 file was shipped, and then stopped, by the people who ship the tool.
 
 **Inlining imports was withdrawn in one surface.** "Cowork sessions no longer
