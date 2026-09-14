@@ -78,14 +78,14 @@ isolated. That happened on 14 September 2026: a handoff went out with a commit
 hash written from memory rather than looked up, and the correction that fixed
 the fact broke the isolation.*
 
-**And isolation has to survive a clean dispatch.** *Why this half exists: on
-14 September 2026 four reviews reported `context_isolation: false`, and at
-least three of them had a well-formed seven-line handoff. In at least two the
-reviewer broke isolation itself, by fetching the pull request thread to check
-a claim that is recorded only in that thread. A shape check cannot touch that
-case. A session could build the check, watch it refuse a bad dispatch, mark
-this item done, and leave the real fault untouched — which is why the two
-halves are written down together.*
+**And isolation has to survive a clean dispatch.** *Why this half exists: what
+was observed on 14 September 2026 is written up in `docs/OPEN.md` under "A
+reviewer that has to check a claim recorded only in a pull request breaks its
+own isolation to do it". In short: a well-formed handoff is not enough, because
+the reviewer breaks isolation itself when a claim it must check exists only in
+a thread. A shape check cannot touch that. A session could build the check,
+watch it refuse a bad dispatch, mark this item done, and leave the real fault
+untouched — which is why the two halves are written down together.*
 
 *What the evidence does and does not say: the one review that reported
 isolation intact was also the only one that returned `changes_required` with
@@ -101,18 +101,19 @@ The automatic checks cannot be bypassed and they stand between the work and
 the merge. The check on this machine is faster and comes earlier. They are not
 alternatives to each other and neither replaces the other.
 
-### 4. Three small ones, in any order
+### 4. Two small ones, in either order
 
 - **The control test on Da Vinci, started the way the rules require.** It has
-  been run — three times on 14 September 2026, written up in
-  `docs/REFUSALS.md`: clean code reported as nothing, a deliberately broken
-  version refused, and the clean half run again. What has never been done is
-  running it from the guide window. *Why that is the gap rather than the test
-  itself: all three runs were helpers started by the session that built the
-  reviewer. Nothing of that session reached them, so they were isolated by
-  construction — but that is not the fresh session the rules call for, and
-  whether it behaves the same way when the guide window starts it is untested.
-  `docs/REFUSALS.md` says so in those words and `docs/OPEN.md` carries it.*
+  been run twice — `docs/REFUSALS.md` records four runs against made-up inputs
+  on 14 September 2026, of which two were the control test: clean code
+  reported as no findings, and the same clean input again after a wording fix,
+  still no findings. What has never been done is running it from the guide
+  window. *Why that is the gap rather than the test itself: all four of those
+  runs were helpers started by the session that built the reviewer. Nothing of
+  that session reached them, so they were isolated by construction — but that
+  is not the fresh session the rules call for. The real reviewer has since run
+  on a real change, at pull request 5, which `docs/REFUSALS.md` records; what
+  has not happened is the real reviewer meeting a deliberately clean input.*
 - **The seventh budget: dispatch prompts sent without a recorded size — 0.**
   *Why: the number is already printed; this makes an unrecorded dispatch a
   failure, and it asserts no ceiling, because nothing has established that any
