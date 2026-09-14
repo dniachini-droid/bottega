@@ -128,11 +128,17 @@ Not "facts versus pointers". **Certain versus conditional.**
 - Material only some sessions will use: point at it, and let the session fetch
   it. Inlining it charges every session for the ones that needed it.
 
-The house rule is the first half stated as though it were the whole thing. It
-is right about the scope page — a build session that does not read the scope
-has done the wrong job — and it is wrong about anything a session opens only
-sometimes. **That is where it stops being right, and that boundary is what
-should be written down, not the rule as it stands.**
+The house rule, as it stood when this survey was written, was the first half
+stated as though it were the whole thing. It is right about the scope page — a
+build session that does not read the scope has done the wrong job — and it is
+wrong about anything a session opens only sometimes. That is where it stops
+being right, and that boundary is what should be written down.
+
+**It has since been written down, and this section is now evidence for a rule
+that exists rather than an argument for one that does not.** `AGENTS.md`
+carries both halves with both reasons: "Put the facts in the prompt, not
+directions to the facts — and stop at the edge of the job", and the test
+"The test is whether the session needs it in order to know what the job is".
 
 ### One thing no source disputes
 
@@ -289,14 +295,21 @@ files on disk. The gate is a script and a count, not a request.
 ≤ 1,500 (845), with per-task baselines of 12,861 / 24,666 / 24,761 tokens; a
 `--strict` flag makes the measurement script exit 1, and the error names the
 budget: "Balanced 3076 tok exceeds 2500 budget — see docs/BENCHMARKS.md."
-*(Primary source reached, read through a summariser. Opened and closed
-14 September 2026.)* This is the only example found of somebody gating prompt
-size in CI, and it is a small project, not a leader.
+*(Primary source reached, read through a summariser — **unverified**, in the
+sense `docs/research/README.md` requires: the original text was not read here.
+Opened and closed 14 September 2026.)* This is the only example found of
+somebody gating prompt size in CI, and it is a small project, not a leader.
+It is also load-bearing for this section's conclusion, so the mark matters.
 
 **What nobody found:** no mechanism anywhere in the survey refuses a *dispatch
 prompt* for being too long. Caps exist on instruction files, on hook output,
 on re-attached skills, on tool schemas. The prompt a window hands a worker is
 unmeasured everywhere this session could see.
+
+**No longer true of this repository.** `tools/check-budgets.mjs` now reports
+the size of every prompt the guide window saves, under a heading stating it
+carries no limit. The survey finding stands for the published systems; it
+stopped describing the workshop while this page was in review.
 
 ---
 
@@ -411,7 +424,8 @@ them.
   them.
 - **Whether anyone measures a dispatch prompt.** No leader found doing it. One
   small project (`promptkit-os`) gates template size in CI. Absence of
-  evidence here is weak: the thing may be common and undocumented.
+  evidence here is weak: the thing may be common and undocumented. *(This
+  workshop now measures its own, which answers nothing about anyone else's.)*
 - **Any published relationship between dispatch-prompt size and whether the
   dispatched work succeeded.** Searched for, not found. The degradation
   research is about model context generally, not about handoff prompts.
@@ -425,7 +439,10 @@ them.
 
 ## Recommendation for this workshop
 
-In plain words, and in the order they should be done.
+In plain words. They are numbered in the order they were argued, which is not
+the order they should be done: **3 is the one that addresses what actually
+went wrong**, 2 is a correction to a rule, and 1 is the weakest of the three
+by this page's own measurement.
 
 > **Two of the three below have since been built.** Pull request 12
 > (`measure-the-prompt`) reached `main` while this page was still in review,
@@ -457,11 +474,15 @@ from things that already exist: the repository and branch, the pull request
 number, the scope page's three headings, the standing rules every dispatched
 session gets. The only free text is the owner's own words.
 
-**Why this prevents a 27,400-token prompt:** you cannot reach 27,400 tokens by
-filling six gaps. That length came from prose composed fresh at each dispatch,
-and prose composed fresh has no ceiling. A skeleton has one, and it moves only
-when somebody edits the skeleton — which is a visible act, in a diff, that a
-reviewer sees. Aider does this with a budget and a binary search; `spec-kit`
+**What this does and does not prevent.** The obvious claim — that you cannot
+reach 27,400 tokens by filling six gaps — is wrong, and the measurement below
+is what refutes it: a skeleton with named gaps already existed, and the prompt
+reached 27,400 anyway. What a skeleton actually buys is that the *specified*
+part has a ceiling which moves only when somebody edits the skeleton, in a
+diff a reviewer sees. It buys nothing at all for the free-text slot beside it,
+and that slot was 97% of the problem. **Recommendation 3 is the one that
+addresses the thing that actually went wrong; this one is worth doing after
+it, not before.** Aider does this with a budget and a binary search; `spec-kit`
 does it with a checked-in template; Claude Code does it with commands whose
 output is spliced in before the session sees it. All three were read directly.
 
@@ -558,6 +579,23 @@ sent, and the number written on the pull request. A dispatch with no recorded
 number is the failure. This satisfies the workshop's own rule that a check
 must be seen refusing something — it refuses an unmeasured dispatch — without
 asserting a ceiling nobody has evidence for.
+
+**The page next door argues the other way, and it should be read alongside
+this.** `docs/research/USAGE.md` reaches the opposite conclusion in as many
+words: "Count the dispatch prompt, and print the number. Do not cap it yet.
+... The fix is not a seventh budget. It is one number, printed by whatever
+writes the prompt". Both pages were written within days of each other and
+neither knew of the other.
+
+On substance the two agree completely — measure it, print it, set no ceiling
+until there is a distribution to argue from. The disagreement is narrower than
+it looks, and it is only this: whether "the number is always recorded" is
+worth stating as a seventh row in the budget table, or is simply a thing the
+check does. **That disagreement has since been settled in favour of the other
+page**, and correctly on the evidence: the number is now measured and printed,
+the table still has six rows, and nothing was lost by not adding a seventh. I
+am recording the argument rather than pressing it, because the case for the
+row was always the weaker half of what this page had to say.
 
 **Measured against what, then?** Two things, and only the first is affordable
 today.
