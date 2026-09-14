@@ -121,11 +121,26 @@ and a timestamp precise to the second at the start of a system prompt is the
 common mistake. *(Manus — **unverified**, search summary only. The changelog
 entry — read in full.)*
 
-**The uncomfortable half of this finding.** Look at what actually broke the
-cache, in their own words:
+### What actually breaks it — all 29, not a sample
+
+I read all 29 and sorted them by what changed. The counts are mine, from the
+full list, and the grouping is a judgement about cause that somebody else could
+draw differently at the edges:
+
+| what changed | how many |
+|---|---|
+| the tool list or a tool's schema, part-way through a session | 9 |
+| delegation machinery — subagents, teammates, background workers | 5 |
+| an OAuth token refresh, a telemetry setting, or the cache lifetime | 4 |
+| resuming, interrupting, or moving a session between modes | 3 |
+| a warning shown when nothing had actually missed the cache | 2 |
+| one-offs — cloud startup, a blocking hook, an advisor model on background requests, oversized images, `--resume` with deferred tools, the SDK's `query()` | 6 |
+
+Four of them in their own words, which is the shape of the whole list:
 
 > "Fixed mid-session MCP and plugin tools being added to the tool list in
-> sessions without ToolSearch, which broke prompt-cache reuse"
+> sessions without ToolSearch, which broke prompt-cache reuse; supported models
+> now receive them as deferred definitions"
 
 > "Fixed a background worker forked from a conversation adding EnterWorktree to
 > the conversation's tool block mid-session, which broke prompt-cache reuse"
@@ -138,16 +153,45 @@ cache, in their own words:
 > background requests (compaction, `/recap`, prompt suggestions) and re-sending
 > the full conversation uncached each time"
 
+**Cost-saving machinery is one cause of this, and not the largest.** Six of the
+29 clearly trace to a feature that exists to reduce usage — the five delegation
+entries, plus the advisor model missing the cache on compaction and background
+requests. Count every arguable case as well — the `/model` switch re-sending
+tool definitions, the blocking Stop hook, the MCP entry above where the fix is
+deferred loading, and `--resume` misbehaving for users who have deferred tools
+or custom agents — and it reaches ten. Between a fifth and a third. The other
+nineteen to twenty-three are an MCP server or a plugin connecting, a claude.ai
+connector's tools changing across a resume, Remote Control attaching, a language
+server reconnecting, an OAuth token refreshing, a cache lifetime silently
+downgrading, an oversized screenshot. None of those is there to save tokens.
+
+So the transferable lesson is broader, and duller, than "the savings eat
+themselves": **what breaks the cache is anything that changes the front of the
+request after the session has started.** Usage-reduction features are one source
+of that, and they are well represented for their share of the surface — a fifth
+to a third of the fixes from a handful of features is not nothing. But they are
+not the leading cause, and the fix is still not "add another mechanism."
+
+**A correction, and how it happened.** The first version of this page said "the
+machinery built to save tokens is the leading cause of the cache misses that
+cost them." That was wrong, and review caught it. It rested on five entries
+picked by hand out of twenty-nine; read in full, the twenty-nine do not support
+it. The 47 and the 29 are right — I recounted both from the raw file and they
+match exactly — but a correct headline number was used to lend weight to an
+inference drawn from a curated sample underneath it. That is the failure worth
+remembering here, more than the claim itself.
+
+**And one of the five quotes was not about the cache at all.** It was:
+
 > "Fixed deferred tools (loaded via `ToolSearch`) losing their input schemas
 > after conversation compaction"
 
-Subagents, deferred tool loading, compaction, hooks, skills, cheaper background
-models. **Every one of those is a usage-reduction feature, and every one of them
-is here because it broke the biggest usage reduction of all.** The machinery
-built to save tokens is the leading cause of the cache misses that cost them.
-
-That is the single most transferable lesson on this page, and it is not "add
-another mechanism."
+The real entry continues: "...causing array and number parameters to be rejected
+with type errors." It is a type-error bug. The word "cache" appears nowhere in
+it, and it is not one of the 29 — the quotation had been cut immediately before
+the words that would have shown that. It is removed from the evidence rather
+than deleted quietly, because the way it got here is the point: it was trimmed
+to length, and the trim is what made it look like evidence.
 
 ---
 
@@ -227,7 +271,11 @@ replaces it with an LLM-written summary. On SWE-bench Verified at 100 iterations
 against a no-condensation baseline *(read in full,
 `github.com/OpenHands/OpenHands/pull/6597`)*:
 
-- the condenser **resolved 200 instances; the baseline resolved 203**
+- the condenser **resolved 200 instances; the baseline resolved 203** — out of
+  the 500 that SWE-bench Verified contains, so those are counts of problems
+  solved and not the size of the test *(the 500 read in full from
+  `raw.githubusercontent.com/SWE-bench/SWE-bench/main/README.md`: "A subset of
+  500 problems")*
 - it "cost \$40 more to run due to the lower prompt cache utilization"
 - latency: "a consistent 8 seconds compared to the 12 seconds (at iteration 30)
   and 16 seconds (at iteration 100) of the baseline"
@@ -240,8 +288,10 @@ Search summary only.)*
 Both things are true, and the tension between them is the whole point.
 Summarisation makes each later turn cheaper and flatter. In the run that was
 actually reported in the pull request, it **cost more in total and solved three
-fewer problems**, because the summary rewrote the prefix and threw away the
-cache. The saving was real per turn and negative overall.
+fewer problems out of 500**, because the summary rewrote the prefix and threw
+away the cache. Three in 500 is small enough that it may well be noise; the cost
+going the wrong way is the part that is not ambiguous. The saving was real per
+turn and negative overall.
 
 Independent work on what summarisation loses: exact values vanish — "The retry
 limit is 3" becomes "retries were configured" — and the most damaging failure is
@@ -400,16 +450,17 @@ the abandonment got abandoned once.
 
 **Machinery about the machinery.** "Removed the `/agents` wizard; ask Claude to
 create or manage subagents, or edit `.claude/agents/` directly." "Removed the
-startup tip suggesting you create custom subagents." "Removed the redundant
-'Allowed by auto mode classifier' line that auto mode showed under every Agent
-tool call." *(All read in full, changelog.)* Small, but the direction is
-consistent: the scaffolding for configuring the agent got deleted, not extended.
+startup tip suggesting you create custom subagents, and the matching nudge in
+the `/powerup` tour." "Removed the redundant 'Allowed by auto mode classifier'
+line that auto mode showed under every Agent tool call." *(All read in full,
+changelog.)* Small, but the direction is consistent: the scaffolding for
+configuring the agent got deleted, not extended.
 
 **Condensation as an unqualified win.** Covered in section 3. The team that
 built it published a run where it cost \$40 more and resolved three fewer
-problems. *(Read in full.)* They shipped it anyway, as the default — which is a
-defensible decision about long sessions, but it is not the decision the summary
-of it describes.
+problems out of 500. *(Read in full.)* They shipped it anyway, as the default —
+which is a defensible decision about long sessions, but it is not the decision
+the summary of it describes.
 
 **Embeddings for code retrieval.** Sourcegraph is reported to have dropped
 embeddings from Cody Enterprise in favour of their existing search: "Embeddings
@@ -464,8 +515,9 @@ summarisation — is the one that decides for the session what it is allowed to
 remember.
 
 **And this repository's own warning applies to its own instruments.** The
-measuring tool cost 1.6k tokens a call. The reduction machinery caused 29 cache
-regressions. A workshop that adds a seventh budget should expect to pay for it.
+measuring tool cost 1.6k tokens a call. The reduction machinery caused six of
+the 29 cache regressions outright, and had a hand in as many as ten. A workshop
+that adds a seventh budget should expect to pay for it.
 
 ---
 
@@ -491,10 +543,14 @@ incomplete.
 
 **3. The cheapest real win available here is the stuff that is never used.**
 Of the 74,600 tokens, the item most likely to be pure waste is the 4,200 of
-skill descriptions — which includes plugins this workshop does not use. That is
-not a judgement call, it is a fact that can be observed: which descriptions were
-loaded and never invoked. Anthropic built `/skill-doctor` for precisely this. It
-is the one number that identifies waste without anybody deciding what matters.
+skill descriptions — which includes plugins this workshop does not use. Which
+descriptions were loaded and never invoked can simply be observed, and Anthropic
+built `/skill-doctor` to observe it. But the observation does not settle the
+question by itself: a list of skills is *supposed* to carry entries that most
+sessions never open — that is how choosing from a list works. Unused in a given
+session is a fact; waste is still a judgement. The plugins this workshop has
+never used at all are where that judgement is easy, and they are the place to
+start.
 
 **4. Consider a rule about *stability*, which this workshop has never had.**
 Every rule here is about size. None is about churn. The leaders' largest single
@@ -523,6 +579,38 @@ that number existing first.
 
 ---
 
+## What was re-checked after review
+
+The review of the first version of this page found a misquotation in section 2.
+Because one loose quotation suggests others, **every quotation on this page was
+then checked against its source, one at a time.** What that found:
+
+- **One wrong.** The deferred-tools entry in section 2. Removed, with the
+  reason left in place where it stood.
+- **Two cut short without an ellipsis**, in ways that did not change the
+  meaning but hid part of the entry: the MCP-and-plugin-tools entry in section 2
+  (which drops that the fix is deferred definitions) and the startup-tip entry
+  in section 6 (which drops the `/powerup` tour). Both restored in full.
+- **Every other quotation exact**, checked one by one: all the changelog
+  entries, all of `costs.md`, `context-window.md`, `skills.md`, `sub-agents.md`,
+  `cli-reference.md`, the prompt-caching pricing and invalidation order, the
+  context-editing defaults and `clear_at_least`, and both LLMLingua claims.
+- **The counts recounted from the raw file**: 5,499 entries, 47 mentioning the
+  prompt cache, 29 of those beginning "Fixed." All three exact.
+- **The claim that the context-editing page carries no measured figures** — it
+  holds. The one percentage on that page is inside a sample payload ("Test
+  coverage at 67%"), not a measurement of the feature.
+
+**What could not be re-reached in this round:** the OpenHands pull request. The
+network served `github.com` pull request pages to the session that wrote this
+page and refused them in the round that checked it, so that entry in the
+reachable list above is true of one day and not the next. The figures drawn from
+it were read at source twice — by the writing session and by the reviewer,
+independently — and were not re-read a third time here. The 500 was taken from
+SWE-bench's own README instead, which was reachable.
+
+---
+
 ## What could not be established
 
 - **Whether any of this improves the work, as opposed to the bill.** Only two
@@ -545,6 +633,11 @@ that number existing first.
 - **Anything about this workshop, measured.** Nothing here was tested against a
   session in this repository. The 74,600 and the 27,400 come from the scope, not
   from me; I did not re-measure them.
+- **Why each of the 29 fixes was written.** The grouping in section 2 is read
+  off what each entry says changed. Nobody publishes the reasoning behind a
+  one-line changelog entry, so the boundary cases — a `/model` switch, a
+  blocking hook — are my reading of the words and not a fact about the code.
+  That is why the count is given as a range and not a single number.
 
 ## What I did not do
 
