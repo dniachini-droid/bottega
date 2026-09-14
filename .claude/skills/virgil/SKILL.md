@@ -177,9 +177,18 @@ for ever and looks, from outside, exactly like a session that is thinking.*
 
 **Put the facts in the prompt, not directions to the facts.** The branch, the
 commit, the numbers, the exact question, the file the work lives in. And say
-which files the session does not need to open. *Why: every fact a session has
-to go and find costs part of the accuracy it will have left for the real work,
-and a fact written into the prompt costs nothing to find.*
+which files the session does not need to open. **That rule stops at the edge
+of the job, and where it stops is in the rules file**, under the same words,
+with the reason. Reference material the session can fetch if it turns out to
+need it is named, not written out.
+
+**Save a copy of every prompt you send.** Into
+`projects/<project-id>/prompts/<pull request number>-<stage>.md`, exactly as
+sent and with nothing else in the file — no heading, no note, no date. *Why:
+the prompt is the largest single thing a session is given and the only one
+nothing measures. The counting reads these copies and reports the size of each
+one; there is no limit on it, and the number is only worth having if the copy
+is what was sent. Anything added to the file is counted as prompt.*
 
 **Every dispatched prompt ends with the same requirement:** comment on the
 pull request when you finish, when you stop early, and when you are blocked —

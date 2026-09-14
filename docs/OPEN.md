@@ -409,3 +409,166 @@ fixes it.
 
 **Status:** OPEN — the owner changes it in the repository settings.
 
+
+---
+
+## The prompt is now printed, and the number is a record rather than a measurement
+
+`tools/check-budgets.mjs` prints a third number beside the two budgets: how big
+the prompt was that started a session. It has no limit, deliberately — nobody
+has yet seen what a normal prompt looks like, and a limit set before that gets
+met by leaving out what the session needed.
+
+**The check cannot measure a prompt.** A prompt is never a file here. It is
+written in the guide window and handed over as the session starts, and nothing
+on disk holds it. So the guide window saves a copy, and what is printed is the
+size of the copy. If the window saves nothing there is no number, and nothing
+the check could reach is substituted. If the window saves something other than
+what it sent, nothing here can tell.
+
+The first saved prompt is this change's own, at about 658 tokens — and it was
+transcribed by the session that received it, not saved by the window that sent
+it, because the window had no such instruction when it dispatched. So the one
+number now in the repository is the one kind of copy the arrangement does not
+call for.
+
+*Why it is recorded anyway: 658 tokens is nothing like the 27,400 that made
+this worth doing, so the first datum is already evidence that prompts vary by a
+factor of forty, and a limit picked from either end would have been wrong.*
+
+**Status:** OPEN — closes the first time the guide window saves a prompt at the
+moment it dispatches one, and the number printed is a copy nobody transcribed.
+Whether a limit should ever be set is the owner's, with several real prompts in
+front of him.
+
+---
+
+## The heaviest startup number has about 960 tokens of room left
+
+Adding the rule about what goes in a prompt, and the note about the third
+number, to `AGENTS.md` moved the heavier of the two startup numbers from about
+8,477 tokens to about 9,036, against the limit of 10,000. `AGENTS.md` is
+charged to every session, so prose added there is paid for twice — once in each
+number.
+
+The lighter number is about 4,105 and is not the constraint.
+
+*Why this is worth an entry rather than a shrug: the previous round left this
+number with about 1,500 of room and said so in the prompt that started this
+one. One more change of this size does not fit. The next session to add
+anything to the rules file will meet the refusal rather than the warning.*
+
+What is known to be removable is already written down: the build skill still
+explains at length what an earlier wrong reason was and why it was wrong, which
+is history rather than instruction, and it is the largest thing charged to the
+heaviest session.
+
+**Status:** OPEN — closes when either the heaviest number comes down or the
+owner decides the limit should move. Nobody has put the second question to him.
+
+---
+
+## Rules that load only when a matching file is opened, and what the counting would make of them
+
+Claude Code can hold a rule that is loaded only when a session opens a file
+matching a path pattern, rather than at startup. Nothing here uses one, and
+nothing here should until there is a reason.
+
+The part worth knowing is what the counting would do with one. The check
+divides what a session loads into two: what every session gets, and what a
+session gets once it opens a named set of instructions. A path-restricted rule
+is neither. Written correctly, it costs nothing until a matching file is
+opened. **Written without its path restriction, it loads into every session and
+the check counts it as zero**, because the check knows nothing about the
+mechanism and would not look for it.
+
+So the first such rule written here silently breaks the one number that is
+meant to catch exactly this.
+
+**Status:** OPEN — nothing to do until somebody wants one. It is triggered by
+the first path-restricted rule anybody proposes, and what that session must do
+first is teach the check about the mechanism.
+
+---
+
+## Memory must never be enabled for Da Vinci
+
+Da Vinci's definition takes the editing tools away in its header, and that was
+watched refusing a write (`docs/REFUSALS.md`). Claude Code's per-agent memory
+is implemented with those same writing tools. **Turning memory on for Da Vinci
+gives them back**, and the restriction that was watched working would stop
+working, quietly, with nothing failing to say so.
+
+**Status:** OPEN — triggered by the memory work, which is next but one in
+`docs/PLAN.md`. The session that builds memory must exclude the reviewer by
+name, and must watch the refusal still firing afterwards rather than reasoning
+that it should.
+
+---
+
+## Two decisions about memory, already made, waiting for memory to be needed
+
+Both came out of the research and neither has been acted on, because nothing
+here has needed memory yet.
+
+**Where a lesson belongs, in four steps.** Does it generalise beyond this one
+change; will it still be true in a month; can it be stated in a sentence with
+its reason; and does something already say it. A lesson that fails any of the
+four is not written down anywhere.
+
+**A note costs two pull requests to get in.** A thing observed once is an
+anecdote. It becomes a note only after it has been seen twice, on two separate
+pieces of work.
+
+*Why both are recorded rather than built: a memory that accepts everything is
+the failure mode in every account of this, and both of these are rules about
+refusing. They are worth nothing until there is something to refuse.*
+
+**Status:** OPEN — triggered by the memory work in `docs/PLAN.md`. The session
+that builds it should be handed these two rather than re-deriving them.
+
+---
+
+## Six limits about how big things are, none about how often they change
+
+Every one of the six budgets measures size or count at a moment: tokens loaded,
+tests failing, checks unfired, dead references, agent definitions, rules without
+reasons. Nothing measures rate.
+
+A repository can pass all six every day and still be churning — the rules file
+rewritten three times in a week, each version under the limit, none of them in
+place long enough for anybody to work under it. That is a real failure mode for
+a workshop whose whole point is that its instructions are stable enough to be
+relied on, and no number here would show it.
+
+*Why it is not being fixed now: a seventh limit is exactly the kind of
+machinery this repository is meant not to grow before something needs it, and
+the evidence that churn is happening would have to come first.*
+
+**Status:** OPEN — triggered by somebody noticing the same file rewritten three
+rounds running. Nobody has looked.
+
+---
+
+## About 4,200 tokens go on describing skills that are never used here
+
+A session in this workshop is shown the name and description of every skill
+available to it, including a large set that has nothing to do with Bottega —
+document formats, design tools, spreadsheets. Roughly 4,200 tokens of a
+session's context goes on descriptions of things no session here will open.
+
+That is more than the entire every-session number the workshop holds itself to,
+spent on material the workshop did not write and cannot delete.
+
+**This is the owner's setting to change, not a change anybody can make in this
+repository.** It is a per-account choice about which skills are switched on.
+Nothing in `AGENTS.md`, `.claude/` or the check touches it.
+
+*Why it is recorded here despite that: the budget check reports what every
+session loads as about 4,105 tokens, and a reader could reasonably take that
+for the whole of what a session carries before it starts. It is not. The real
+figure is roughly twice that, and the half the workshop does not control is the
+larger half.*
+
+**Status:** OPEN — the owner turns off the skills he does not want, in his own
+settings. Nothing here closes it.

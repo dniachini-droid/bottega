@@ -27,7 +27,7 @@ defects than a large one.*
 that built a change does not review it, and neither does a helper that
 inherited Michelangelo's context. *Why: a model reviewing its own work misses
 about a third of its own drift, and this does not improve as models get
-better. A fresh session scores measurably better than a helper carrying the
+better. A fresh session scores measurably better than a helper carrying
 Michelangelo's context.* Da Vinci's method is `docs/REVIEWER.md`.
 
 **Never run a second review round on the same version.** One review per
@@ -61,6 +61,19 @@ every future session gets a review. A typo does not. *Why: reviewing
 everything equally is how a project ends up with five reviews of a two-file
 change, most of the findings about the reviewing machinery rather than the
 work.*
+
+**Put the facts in the prompt, not directions to the facts — and stop at the
+edge of the job.** What the job is: the scope, the branch, the numbers, the
+exact question, the file the work lives in — write those out. Reference
+material the session can fetch if it turns out to need it: name it and let the
+session go and get it. *Why the first half: every fact a session has to hunt
+for costs part of the accuracy it has left for the real work, and a fact
+written into the prompt costs nothing to find. Why the second half: without
+it, the rule says to inline everything a session might conceivably want, and a
+prompt then grows without limit — one written here reached 27,400 tokens,
+nearly three times what the entire instruction budget allows. Context volume
+degrades accuracy whoever put the context there. The test is whether the
+session needs it in order to know what the job is.*
 
 **A fix session is given the review itself, not a summary of it.** *Why: on
 one pull request here, three of five blocking findings were dropped in the
@@ -231,6 +244,26 @@ the two faults it really had, each watched failing against the broken version
 before it was trusted. `node --test` runs them in the same automatic checks, so
 a failing test on `main` cannot sit unnoticed. No session ever reads them, so
 they cost nothing against either limit above.
+
+**The check also prints a third number that is not a budget and has no limit:
+how big the prompt was that started a session.** *Why no limit: nobody has yet
+seen what a normal prompt looks like, and a limit set before that gets met by
+leaving out what the session needed, which moves the cost somewhere nothing
+can see. Print it, watch it, argue about a number later with evidence.*
+
+The check cannot measure a prompt. A prompt is never a file here — it is
+written in the guide window and handed to the session at the moment it starts,
+and nothing on disk holds it. So the window saves a copy beside that project's
+scope pages, one file per prompt, named for the pull request and the stage,
+holding the prompt and nothing else. What is printed is the size of that copy.
+**It is a record, not a measurement**, and nothing here can tell whether the
+copy matches what was sent. Nothing saved prints nothing, and nothing the
+check could reach is put in its place. *Why not: the scope page and the empty
+template in the build skill are both things it could measure and call the
+prompt, and neither is the prompt. A number that measures the wrong thing is
+worse than no number, because it would be watched and trusted.* It is printed
+beside the two budgets and added to neither, because both limits were settled
+against the instruction numbers alone.
 
 The rest are on their word: the other half of that budget — a blocking finding
 with no test — and checks never seen refusing, the count of agent definitions,
