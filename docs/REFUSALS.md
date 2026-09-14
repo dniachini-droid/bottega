@@ -268,6 +268,41 @@ paragraph in `AGENTS.md` used a made-up path in backticks as an example, and
 the check refused it as both undeclared and missing. The example was reworded
 to name no file.*
 
+## The budget check, on a folder used as the place to park bulk
+
+**14 September 2026.** Pointing at a *folder* rather than a file is the same
+move one step sideways, so it was watched too. Three files of 7,007 bytes were
+put in `docs/bulk/`, and one line — "The protocol is in docs/bulk/." — was
+added to the virgil skill.
+
+Undeclared, exit code 1:
+
+>   UNDECLARED  docs/bulk/  (named in .claude/skills/virgil/SKILL.md)
+>
+> BUDGET CHECK FAILED.
+
+Declared as a folder the session is sent to read, exit code 1 again, with the
+folder followed to every file inside it:
+
+>   .claude/skills/virgil/
+>       11769 bytes  .claude/skills/virgil/SKILL.md
+>        7007 bytes  docs/bulk/part0.md
+>        7007 bytes  docs/bulk/part1.md
+>        7007 bytes  docs/bulk/part2.md
+>        3462 bytes  docs/SIGNALS.md
+>         739 bytes  projects/registry.json
+>
+> BUDGET CHECK FAILED.
+
+The folder and the declaration were removed.
+
+*The commit that added the entries above says the check was watched refusing
+"five ways". Counting them, it is seven: an undeclared pointer, a declared
+pointer that then costs what it weighs, an undeclared folder, a declared
+folder, padding on a file the instructions send a session away to read, a
+declared file that is not there, and the two older refusals re-watched. The
+commit message undercounted; this is the number.*
+
 ## The read guard
 
 **14 September 2026.** A 131,420-byte file was opened whole, with no page
