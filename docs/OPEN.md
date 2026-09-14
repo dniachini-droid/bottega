@@ -245,8 +245,10 @@ it had not.
 
 **Status:** the hole is closed — a file the instructions send a session to
 read is now charged wherever it lives, and that was watched refusing
-(`docs/REFUSALS.md`). Kept here because the habit it illustrates is not
-closed by a check.
+(`docs/REFUSALS.md`). Since 14 September 2026 a test holds it closed: both this
+fault and the over-count it was found beside now have a test that was watched
+failing against the broken version. Kept here because the habit it illustrates
+is not closed by a check.
 
 ---
 
@@ -265,8 +267,10 @@ heavier number is real.*
 It has been watched refusing — `docs/REFUSALS.md` — so it is not decoration.
 But it is a number a session chose, not one the owner did.
 
-**Status:** OPEN — closes when the owner either keeps it, moves it, or says
-the heavier number should be reported and not enforced.
+**Status:** CLOSED, 14 September 2026. The owner ratified it: the heavier
+number is held to 10,000 as well, both limits are settled, and neither moves
+without him. `AGENTS.md` now says so in the budget itself rather than leaving
+it to be inferred.
 
 ---
 
@@ -287,9 +291,16 @@ This is written down in `AGENTS.md` already, honestly, so it is not hidden.
 It is recorded here because a budget on trust is a budget that can drift for
 a long time before anybody notices.
 
-**Status:** OPEN — no decision yet on whether any of the four should be
-machine-checked, or whether some of them are better left on trust. The
-question has not been put to the owner.
+**Narrowed, 14 September 2026.** The first of the four is now half machine-run.
+The automatic checks run the tests on every push, so a test failing on the main
+branch fails the checks and cannot sit there unnoticed. What is still on trust
+is the other half of that budget — that a finding which blocked a merge was
+actually turned into a test — and it is on trust because no machine can tell
+which findings blocked a merge.
+
+**Status:** OPEN — three and a half of the six are still on trust, and no
+decision has been taken on whether any of them should be machine-checked or is
+better left as it is. The question has not been put to the owner.
 
 ---
 

@@ -17,20 +17,9 @@ jobs:
       - name: Budgets
         run: node tools/check-budgets.mjs
 
-      - name: Install
-        run: |
-          if [ -f package-lock.json ]; then
-            npm ci
-          elif [ -f package.json ]; then
-            npm install
-          else
-            echo "No package.json in the repository; nothing to install."
-          fi
-
-      - name: Test
-        run: |
-          if [ -f package.json ]; then
-            npm test --if-present
-          else
-            echo "No package.json in the repository; no test suite to run."
-          fi
+      # Node's own test runner, with nothing installed. It finds every file
+      # named *.test.mjs and runs it. There is no package.json here and there
+      # should not be one: this repository is a workshop, not an application,
+      # and a dependency to run tests is more than the job needs.
+      - name: Tests
+        run: node --test

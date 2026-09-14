@@ -67,6 +67,17 @@ one pull request here, three of five blocking findings were dropped in the
 relay from review to fix, and the second review spent its whole pass
 rediscovering them.*
 
+**A finding that blocked a merge becomes a test.** Before the fix is merged,
+the fault is written as a test, watched failing against the broken version and
+watched passing against the fix, and what was seen goes in `docs/REFUSALS.md`.
+Only blocking findings. An advisory one is written down and left alone. *Why:
+the measurement script here was wrong twice in one day, each fault caught once
+by somebody reading the code, and nothing held either of them afterwards — so
+either could have come back and the numbers would have looked fine. Why only
+blocking ones: turning every remark into a test is chasing findings, which is
+how an earlier repository of the owner's filled up with work nobody asked
+for.*
+
 **Virgil may merge small reversible changes.** For a change to `AGENTS.md`, to
 either skill, or to an agent definition, it asks the owner first and merges on
 his yes. It never merges on an empty review alone — a fresh session has to
@@ -90,7 +101,7 @@ whatever else it did.
 | budget | limit |
 |---|---|
 | tokens loaded before a session starts work | under 10,000, twice over |
-| failing tests on `main` | 0 |
+| tests failing on `main`, and blocking findings with no test | 0 both |
 | checks never observed refusing anything | 0 |
 | dead file references in `AGENTS.md` | 0 |
 | agent definitions | 2 (a builder and a reviewer) |
@@ -112,11 +123,23 @@ a large one, whether or not the extra material is relevant. This is a
 correctness budget, not only a cost one.* *Why the same limit for both
 numbers: accuracy falls with context while the session is working, which is
 exactly when the heavier number is real. A looser limit for the heavier one
-would say accuracy matters less once the work starts.*
+would say accuracy matters less once the work starts.* **Both limits are
+settled: the owner ratified the second on 14 September 2026, and neither moves
+without him.** *Why that is written down: the heavier limit was set by a
+session and not by him, and a limit nobody ratified is one the next session
+argues with instead of working under.*
 
-**Failing tests on `main` — 0.** *Why: that same framework carries 51 failing
-tests on its only branch, including a real data-loss bug, because nothing ever
-runs them. A failing test nobody runs is not a warning, it is furniture.*
+**Tests failing on `main` — 0, and blocking findings with no test — 0.** Two
+halves, because the first on its own can be satisfied by having no tests at
+all. *Why the first half: a comparable framework carries 51 failing tests on
+its only branch, including a real data-loss bug, because nothing ever runs
+them. A failing test nobody runs is not a warning, it is furniture.* *Why the
+second half: as first written this budget scored a perfect zero while the
+repository had no tests, and writing the first one could only make the number
+look worse. A limit that punishes the right action is not a limit. And why it
+counts blocking findings rather than demanding tests everywhere: the number can
+then only be moved by a fault somebody actually hit, and a rule that every
+project must arrive with tests is a form to fill in before the work starts.*
 
 **Checks never observed refusing anything — 0.** Every check here must be
 watched refusing something at least once, and what was seen written down in
@@ -203,7 +226,13 @@ For dead references it takes every path written in backticks in `AGENTS.md`
 and checks that it is really there. So writing a path in backticks is how you
 ask to be warned when it disappears.
 
-The other four are on their word: failing tests, checks never seen refusing,
-the count of agent definitions, and rules with no reason. *Why: saying which
-budgets a machine enforces and which it does not is the difference between a
-budget and a decoration.*
+`tools/check-budgets.test.mjs` is the tests for that check: one for each of
+the two faults it really had, each watched failing against the broken version
+before it was trusted. `node --test` runs them in the same automatic checks, so
+a failing test on `main` cannot sit unnoticed. No session ever reads them, so
+they cost nothing against either limit above.
+
+The rest are on their word: the other half of that budget — a blocking finding
+with no test — and checks never seen refusing, the count of agent definitions,
+and rules with no reason. *Why: saying which budgets a machine enforces and
+which it does not is the difference between a budget and a decoration.*
