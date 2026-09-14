@@ -43,7 +43,6 @@ everything is now checked against.
 **Status:** OPEN — the separation is in a pull request and not merged, and
 Claude never merges. This entry leaves the file when the owner merges it.
 
-
 ---
 
 ## The workshop's own files stay at the top of this repository
@@ -68,31 +67,6 @@ is the worst kind there is.*
 top of the repository, which is to say indefinitely. It closes only if Claude
 Code ever learns to load them from somewhere else, and then everything above
 can be revisited in one go.
-
----
-
-## A leftover branch in the Zibaldone repository, from testing the push
-
-To establish that a session started in this repository can attach the project's
-repository and write to it, that was actually done rather than assumed: the
-project's repository was attached, cloned, and its own existing commit was
-pushed back under a temporary branch name, `claude/push-probe`. Nothing was
-added to it — the branch points at exactly the same commit as `main`, and not a
-single file of Bottega went anywhere near it.
-
-The tidy-up afterwards failed. Deleting that branch was refused, twice, by the
-network guard this session works behind, which allows a branch to be created
-and not removed. There is no other tool here that deletes a branch.
-
-This is not a one-off. Every build session from now on creates a branch in a
-project's repository and none of them can remove one. After ten builds, some of
-them abandoned part-way, the dead branches accumulate and only the owner can
-prune them.
-
-**Status:** OPEN — the owner can delete `claude/push-probe` in the Zibaldone
-repository on GitHub, on the branches page, in one click. No session can do it.
-That part of this entry leaves the file then; the accumulation above stays open
-for as long as branch deletion is refused.
 
 ---
 
@@ -129,6 +103,40 @@ around and carries on in the one repository it can write to, which is Bottega.
 **Status:** OPEN — closes the first time an unattended build session is watched
 attaching a project's repository and pushing to it, with what was seen written
 down here.
+
+---
+
+## Nobody has walked the seven stages end to end
+
+`/build` describes seven stages, from working out the scope to the owner
+pressing merge. No piece of work has yet gone through all seven as written —
+partly because the reviewer, which stage four calls for, does not exist yet.
+
+**Status:** OPEN — closes the first time a change goes through all seven
+stages in order, with what was observed at each one written down.
+
+---
+
+## Four of the six budgets are on trust, not enforced
+
+`tools/check-budgets.mjs` checks two: the number of tokens loaded before a
+session starts work, and whether every file named in backticks in `AGENTS.md`
+actually exists.
+
+The other four have nothing checking them:
+
+- failing tests on the main branch
+- checks that have never been observed refusing anything
+- the number of agent definitions
+- rules with no stated reason
+
+This is written down in `AGENTS.md` already, honestly, so it is not hidden.
+It is recorded here because a budget on trust is a budget that can drift for
+a long time before anybody notices.
+
+**Status:** OPEN — no decision yet on whether any of the four should be
+machine-checked, or whether some of them are better left on trust. The
+question has not been put to the owner.
 
 ---
 
@@ -190,3 +198,50 @@ which is the owner's to approve.
 
 **Status:** OPEN — this entry as a whole leaves the file when each item above
 has been closed or deliberately dropped.
+
+---
+
+## A leftover branch in the Zibaldone repository, from testing the push
+
+To establish that a session started in this repository can attach the project's
+repository and write to it, that was actually done rather than assumed: the
+project's repository was attached, cloned, and its own existing commit was
+pushed back under a temporary branch name, `claude/push-probe`. Nothing was
+added to it — the branch points at exactly the same commit as `main`, and not a
+single file of Bottega went anywhere near it.
+
+The tidy-up afterwards failed. Deleting that branch was refused, twice, by the
+network guard this session works behind, which allows a branch to be created
+and not removed. There is no other tool here that deletes a branch.
+
+This is not a one-off. Every build session from now on creates a branch in a
+project's repository and none of them can remove one. After ten builds, some of
+them abandoned part-way, the dead branches accumulate and only the owner can
+prune them.
+
+**Status:** OPEN — the owner can delete `claude/push-probe` in the Zibaldone
+repository on GitHub, on the branches page, in one click. No session can do it.
+That part of this entry leaves the file then; the accumulation above stays open
+for as long as branch deletion is refused.
+
+---
+
+## The empty `cabinet` repository is orphaned
+
+This repository was called `cabinet` before it was renamed. An empty
+repository under that name is still there and belongs to nothing.
+
+**Status:** OPEN — the owner deletes it. Claude cannot and should not.
+
+---
+
+## The repository description on GitHub still describes the application
+
+The short description shown at the top of the repository page still describes
+the first application rather than the workshop.
+
+It is a setting on GitHub, not a file in the repository, so no change here
+fixes it.
+
+**Status:** OPEN — the owner changes it in the repository settings.
+
