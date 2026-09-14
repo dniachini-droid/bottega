@@ -49,3 +49,5 @@ qualifier, and by then nobody can tell which numbers were checked.*
 - `HANDOFF.md` — what travels between sessions, and what must not.
 - `MEMORY.md` — what other people run for agent memory, what they abandoned,
   and what that suggests for a memory here.
+- `USAGE.md` — where a session's usage actually goes, and how other people cut
+  it across a whole agent system.
