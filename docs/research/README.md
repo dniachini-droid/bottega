@@ -47,3 +47,5 @@ qualifier, and by then nobody can tell which numbers were checked.*
 - `REVIEWER-CRAFT.md` — what goes into a reviewer that finds real defects
   instead of generating noise.
 - `HANDOFF.md` — what travels between sessions, and what must not.
+- `PROMPTS.md` — what goes in the prompt that starts a session, how long it
+  may be, how it is produced, and whether anything should measure it.
