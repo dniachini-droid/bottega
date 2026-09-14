@@ -427,6 +427,29 @@ them.
 
 In plain words, and in the order they should be done.
 
+> **Two of the three below have since been built.** Pull request 12
+> (`measure-the-prompt`) reached `main` while this page was still in review,
+> and it implemented recommendations 2 and 3. They are left standing as
+> written, because the reasoning is the point of the page, but they are not
+> outstanding work:
+>
+> - **2 is done.** `AGENTS.md` now carries the rule with its boundary
+>   attached: "Put the facts in the prompt, not directions to the facts — and
+>   stop at the edge of the job." It names what to write out and what to leave
+>   for the session to fetch.
+> - **3 is done.** Virgil saves every prompt it sends under
+>   `projects/<project-id>/prompts/`, and `tools/check-budgets.mjs` reports
+>   how big each one was, under a heading that says in as many words that it
+>   carries no limit: "HOW BIG THE PROMPTS WERE — reported, with no limit on
+>   them". The first prompt measured this way was about 658 tokens.
+> - **1 is not done.** The prompt is still composed in the guide window rather
+>   than assembled from a skeleton. The check says so itself: "A prompt is not
+>   a file in this repository."
+>
+> The seventh budget argued for at the end of this page was not added as a
+> seventh row in the table. The number is recorded and reported without a
+> ceiling, which is the half of that argument the evidence supported.
+
 ### 1. Stop typing the prompt. Assemble it.
 
 The prompt should be a fixed skeleton with named gaps, and the gaps filled
