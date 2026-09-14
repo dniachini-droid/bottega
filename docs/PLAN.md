@@ -25,13 +25,14 @@ idea — only work that is next.
   `/build` that knows which project it is working on. Pull request #3, merged:
   two reviews, seven findings, all of them resolved. What those reviews raised
   as worth knowing rather than blocking is in `docs/OPEN.md`.
+- **What only existed in a conversation, written down.** This plan, more
+  entries in the register of open items, and the research behind the reviewer
+  and the handoff, in `docs/research/`. Pull request #4, merged.
 
 ## In flight
 
-- **Pull request #4 — what only existed in a conversation, written down.**
-  This plan, more entries in the register of open items, and the research
-  behind the reviewer and the handoff, in `docs/research/`. No review of it has
-  been done yet.
+- **Item 1 below — the reviewer, the handoff, and the automatic start.** The
+  pull request is open and the work is being built on it.
 
 ## Next, in this order
 
