@@ -1,6 +1,6 @@
 # What travels between sessions, and what must not
 
-Reference for building the handoff from the builder to the reviewer. Nothing
+Reference for building the handoff from Michelangelo to Da Vinci. Nothing
 here binds until it becomes a rule in `AGENTS.md` with its reason attached —
 see `docs/research/README.md`.
 
@@ -26,15 +26,15 @@ a transcript.** There is nothing to disobey.
 
 *(Read directly.)*
 
-## What must never reach the reviewer
+## What must never reach Da Vinci
 
 - the prompt that produced the work
-- the builder's reasoning
-- the builder's record of what tools it called
+- Michelangelo's reasoning
+- Michelangelo's record of what tools it called
 - the raw transcript
-- the contents of files — the reviewer reads the tree as it stands, not a
+- the contents of files — Da Vinci reads the tree as it stands, not a
   snapshot somebody else took
-- **the builder's own assessment of its work**
+- **Michelangelo's own assessment of its work**
 
 The last one matters most. A guess, written into a named field, acquires
 *"social status as a database field"* — it stops reading as a guess and starts
@@ -51,7 +51,7 @@ A reviewer that was merely *told* to behave as though it had fresh eyes has to
 say so.
 
 *Why: today a contaminated review and a clean one look identical in the
-record. If they look identical, the rule that the reviewer must be a fresh
+record. If they look identical, the rule that Da Vinci must be a fresh
 session cannot be checked after the fact — and an unverifiable rule is one
 that will eventually be broken quietly.*
 
@@ -60,7 +60,7 @@ that will eventually be broken quietly.*
 Capture at handoff: branch, head commit, `git status --short`, and
 `git diff --stat`.
 
-The reviewer compares the live repository against what was captured and
+Da Vinci compares the live repository against what was captured and
 reports four plain true-or-false answers:
 
 - `branch_matches`
@@ -78,7 +78,7 @@ two implementations were read directly or came from a summary.)*
 
 One published relay rejects both **missing** fields and **unexpected** ones.
 
-The second half is the point: a builder cannot smuggle in an "assessment"
+The second half is the point: Michelangelo cannot smuggle in an "assessment"
 section, because a field nobody asked for is a rejection, not a curiosity.
 
 *(Source class not recorded.)*
@@ -125,7 +125,7 @@ the last one stopped. A review handoff is the architectural opposite: it
 exists to make sure the next agent cannot carry on from anywhere, and arrives
 knowing only what the tree says.
 
-Copying the mainstream pattern here imports exactly the thing the reviewer is
+Copying the mainstream pattern here imports exactly the thing Da Vinci is
 for.
 
 ## A correction worth recording

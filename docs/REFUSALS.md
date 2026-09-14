@@ -7,6 +7,18 @@ cannot fire. This file is the record of having watched.
 Each entry says what was done to provoke the refusal, what came back, and the
 date. An entry is only written after the refusal was actually seen.
 
+**On the names in this file.** The two agents were renamed on 14 September
+2026: the builder became Michelangelo, the reviewer became Da Vinci, and
+`.claude/agents/reviewer.md` became `.claude/agents/da-vinci.md`. Every entry
+written before that date still says "the reviewer", "the builder" and the old
+path, and was deliberately left that way. *Why: this file is the record of
+what was seen, and an entry quotes what a command actually printed on the day.
+Changing those words would make it say something that was never seen. The same
+reason is already written into the entry about the tests, for the same
+decision about the numbers: quietly updating them "would make this file a
+summary instead of a record." Entries from the rename onward use the new
+names.*
+
 ---
 
 ## The budget check, on the startup token count

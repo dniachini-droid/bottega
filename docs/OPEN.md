@@ -82,8 +82,8 @@ decision. The one time it was done successfully, it was done in a session with
 a person present to approve it. A build session is unattended by design.
 
 There is first-hand evidence that the refusal is real, not hypothetical: a
-reviewer of this change tried to attach the Zibaldone repository read-only and
-was refused outright by the permission classifier.
+Da Vinci run on this change tried to attach the Zibaldone repository read-only
+and was refused outright by the permission classifier.
 
 The build skill now says what such a session must be created with — a
 permission mode that does not stop to ask, and the repository-attaching tool
@@ -111,7 +111,7 @@ down here.
 
 `/build` describes seven stages, from working out the scope to the owner
 pressing merge. No piece of work has yet gone through all seven as written.
-The reviewer that stage four calls for now exists, so that is no longer the
+The Da Vinci that stage four calls for now exists, so that is no longer the
 reason.
 
 **Status:** OPEN — closes the first time a change goes through all seven
@@ -119,16 +119,16 @@ stages in order, with what was observed at each one written down.
 
 ---
 
-## The reviewer has never run as a fresh session against a real change
+## Da Vinci has never run as a fresh session against a real change
 
 It was tested three times against inputs made up for the purpose — clean code,
 code with an obvious defect, and a handoff with a forbidden extra field — and
 what was seen is in `docs/REFUSALS.md`. But all three runs were helpers
-started by the session that built the reviewer, not fresh sessions started by
+started by the session that built Da Vinci, not fresh sessions started by
 the guide window, and none of them reviewed a real change.
 
-So two things are untested: that a separately started session reads the
-reviewer's files and behaves the same way, and that `reviewer_mode` ever comes
+So two things are untested: that a separately started session reads Da
+Vinci's files and behaves the same way, and that `reviewer_mode` ever comes
 back as anything other than the value a helper would report.
 
 **Status:** OPEN — closes the first time a fresh session reviews a real change
@@ -136,20 +136,20 @@ and its comment lands on a pull request, with the six answers in it.
 
 ---
 
-## The reviewer's restriction stops short of the shell and the GitHub tools
+## Da Vinci's restriction stops short of the shell and the GitHub tools
 
-`.claude/agents/reviewer.md` now takes the editing tools away in its header
+`.claude/agents/da-vinci.md` now takes the editing tools away in its header
 rather than asking for them not to be used, and that was watched working —
 `docs/REFUSALS.md` has the before, the after and the control.
 
 Two ways to write are still open to it, and neither was closed in that round:
 
-- **`Bash`.** The method has the reviewer run the code it is judging, so the
+- **`Bash`.** The method has Da Vinci run the code it is judging, so the
   shell has to stay, and a shell can write a file or push a branch. What the
   restriction removes is drift over a long pass and a line in a reviewed file
-  that tells the reviewer to fix a typo directly — which is how this actually
+  that tells Da Vinci to fix a typo directly — which is how this actually
   happens. A reviewer that decided to write could still do it.
-- **The GitHub tools.** The reviewer keeps the tools that talk to GitHub
+- **The GitHub tools.** Da Vinci keeps the tools that talk to GitHub
   directly, and among them are ones that write a file into a repository and
   one that merges a pull request. They could be named in the same header line.
   They were not, for one reason: their names carry the prefix of the server
@@ -159,7 +159,7 @@ Two ways to write are still open to it, and neither was closed in that round:
   the file that exists to prevent it.
 
 **Status:** OPEN — closes when the GitHub tool names have been checked in the
-environment the reviewer actually runs in, added to the header, and watched
+environment Da Vinci actually runs in, added to the header, and watched
 refusing a merge. The `Bash` half does not close; it is a stated limit of the
 mechanism, and the rule in the file is what covers it.
 
@@ -195,7 +195,7 @@ a session is never given unless it opens them.
 
 Measured honestly, and in the two numbers the check now reports: what **every**
 session loads is about 3,033 tokens, and what the **heaviest single** session
-loads — a builder, once it opens the build skill — is about 7,968. Both
+loads — Michelangelo, once it opens the build skill — is about 7,968. Both
 against the same limit of 10,000. Those numbers include the files the
 instructions send a session away to read, which the first version of this
 count charged nothing for; the entry below says how that was found.
@@ -214,17 +214,17 @@ about a quarter of it, is the owner's decision and nobody has put it to him.
 
 ## The move that got the budget number down was itself the way to defeat it
 
-The reviewer's method was taken out of `.claude/agents/reviewer.md` and put in
+Da Vinci's method was taken out of `.claude/agents/da-vinci.md` and put in
 `docs/REVIEWER.md` during the previous piece of work. The reason given at the
 time was this very budget: everything under `.claude/` is charged to every
-session that starts, builders included, and only a reviewer needs the method.
+session that starts, Michelangelo included, and only Da Vinci needs the method.
 That reasoning was right, and splitting the file was the right thing to do.
 
 What nobody noticed is that the check then charged the moved file **nothing**,
-in either number. Every reviewer session is sent, unconditionally, to read
+in either number. Every Da Vinci session is sent, unconditionally, to read
 `docs/REVIEWER.md` — "that is the method, all of it" — and from there to
 `docs/PRECEDENTS.md`. Together 6,540 bytes of required reading, counted as
-zero. The reviewer read exactly as much after the move as before; only the
+zero. Da Vinci read exactly as much after the move as before; only the
 number changed.
 
 Mechanically, that is the same move as parking bulk one directory away from a
@@ -306,7 +306,7 @@ better left as it is. The question has not been put to the owner.
 
 ## Optional findings from the two reviews, recorded rather than fixed
 
-These were raised by the reviewers as worth knowing rather than blocking. They
+These were raised by the reviews as worth knowing rather than blocking. They
 are written down here instead of being fixed, because the round they came from
 was for the blocking findings and a fix nobody asked for is a change nobody
 reviewed.

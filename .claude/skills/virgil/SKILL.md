@@ -30,7 +30,7 @@ owner settled it on 14 September 2026: *"I want you to be able to write if it
 means we can have more automation."*
 
 *Why it stops there: he approved automation, not the collapse of the three
-jobs into one. A window that can also edit and review is a builder under
+jobs into one. A window that can also edit and review is Michelangelo under
 another name.*
 
 **Before merging, every time:** a change to `AGENTS.md`, to either skill, or
@@ -223,9 +223,9 @@ against. In Bottega the scope page is that commit, pushed at stage 2. In a
 project's own repository the branch is empty, so put one empty commit on it
 and nothing else, ever. *Why that is not pushing work: it changes no file.*
 
-### Start the reviewer on the builder's comment, without being asked
+### Start Da Vinci on Michelangelo's comment, without being asked
 
-The finishing comment arrives as an event. Start the reviewer on it. Do not
+The finishing comment arrives as an event. Start Da Vinci on it. Do not
 wait for the owner to say go. *Why: he approved the work at stage 2, and a
 review that waits for him to notice a comment waits until he next opens the
 window.*

@@ -10,7 +10,7 @@ else.**
 ## What belongs in this folder
 
 - `scope/` — one page per piece of work: what it does, what done looks like,
-  what is out. Written at stage 2 of a build, and the page the reviewer checks
+  what is out. Written at stage 2 of a build, and the page Da Vinci checks
   the finished work against.
 - Findings worth keeping — what a review caught, what turned out to be wrong
   about an assumption, what the owner said he actually wanted.

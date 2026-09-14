@@ -26,19 +26,19 @@ idea — only work that is next.
   two reviews, seven findings, all of them resolved. What those reviews raised
   as worth knowing rather than blocking is in `docs/OPEN.md`.
 - **What only existed in a conversation, written down.** This plan, more
-  entries in the register of open items, and the research behind the reviewer
+  entries in the register of open items, and the research behind Da Vinci
   and the handoff, in `docs/research/`. Pull request #4, merged.
 
 ## In flight
 
-- **Item 1 below — the reviewer, the handoff, and the automatic start.** The
+- **Item 1 below — Da Vinci, the handoff, and the automatic start.** The
   pull request is open and the work is being built on it.
 
 ## Next, in this order
 
 Each is built, then reviewed, then merged, before the next one begins.
 
-### 1. The reviewer, the handoff, and the automatic start — as one piece
+### 1. Da Vinci, the handoff, and the automatic start — as one piece
 
 A reviewer that nothing hands work to, and that nothing starts, is
 three-quarters of nothing. The three are one piece of work and ship together.
@@ -80,7 +80,7 @@ machinery. The other ended with 51 failing tests nobody runs.
 
 **Bottega is its own first project.** It does not need an application to prove
 the loop works — its own changes are the work. Every change to this repository
-goes through the same seven stages, the same reviewer, the same checks. If the
+goes through the same seven stages, the same Da Vinci, the same checks. If the
 loop cannot carry Bottega's own changes, it is not ready to carry an
 application's.
 

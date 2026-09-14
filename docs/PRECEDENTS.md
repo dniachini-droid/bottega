@@ -1,6 +1,6 @@
 # Arguments already had, and settled
 
-The reviewer reads this before it reports, and does not reopen anything in it.
+Da Vinci reads this before it reports, and does not reopen anything in it.
 
 This is not a list of banned subjects. *Why: banning a subject also bans the
 real defect that happens to fall inside it. A precedent settles one recurring
@@ -16,5 +16,5 @@ justify is one nobody dares remove.*
 
 ---
 
-*No precedents yet. The reviewer has not produced a false alarm, because it
+*No precedents yet. Da Vinci has not produced a false alarm, because it
 has not yet reviewed a real change. The first entry will be dated.*
