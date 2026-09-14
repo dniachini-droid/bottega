@@ -12,9 +12,10 @@ and what must not is `docs/research/HANDOFF.md`, and it is not repeated here.
 
 ## How claims are marked
 
-The folder's convention is two classes: read directly, or taken from a search
-summary. Gathering this page produced a third, and it is marked separately
-rather than folded into either.
+The folder's convention was two classes: read directly, or taken from a search
+summary. Gathering this page produced a third, marked separately rather than
+folded into either, and `docs/research/README.md` now carries all three so the
+folder's stated convention matches the pages under it.
 
 - **Read directly.** The file was fetched and its own text read here. Every
   such claim below names the file and, where it matters, the line.
@@ -446,19 +447,24 @@ by this page's own measurement.
 
 > **Two of the three below have since been built.** Pull request 12
 > (`measure-the-prompt`) reached `main` while this page was still in review,
-> and it implemented recommendations 2 and 3. They are left standing as
-> written, because the reasoning is the point of the page, but they are not
-> outstanding work:
+> and it implemented recommendation 2 and the substance of recommendation 3.
+> They are left standing as written, because the reasoning is the point of the
+> page, but they are not outstanding work:
 >
 > - **2 is done.** `AGENTS.md` now carries the rule with its boundary
 >   attached: "Put the facts in the prompt, not directions to the facts — and
 >   stop at the edge of the job." It names what to write out and what to leave
 >   for the session to fetch.
-> - **3 is done.** Virgil saves every prompt it sends under
->   `projects/<project-id>/prompts/`, and `tools/check-budgets.mjs` reports
->   how big each one was, under a heading that says in as many words that it
->   carries no limit: "HOW BIG THE PROMPTS WERE — reported, with no limit on
->   them". The first prompt measured this way was about 658 tokens.
+> - **3 is built, but somewhere else than this page asked for.** Virgil saves
+>   every prompt it sends under `projects/<project-id>/prompts/`, and
+>   `tools/check-budgets.mjs` reports how big each one was, under a heading
+>   that says in as many words that it carries no limit: "HOW BIG THE PROMPTS
+>   WERE — reported, with no limit on them". The first prompt measured this
+>   way was about 658 tokens. What this page asked for was that number **in
+>   the first pull request comment**, split between skeleton, filled gaps and
+>   free text. That is not built. The split cannot be built until
+>   recommendation 1 is, because a typed prompt has no named parts to split
+>   it into.
 > - **1 is not done.** The prompt is still composed in the guide window rather
 >   than assembled from a skeleton. The check says so itself: "A prompt is not
 >   a file in this repository."
