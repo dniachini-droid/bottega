@@ -35,14 +35,32 @@ third class and is marked in place. `code.claude.com`, `github.com` and
 search result than to reading, and calling it "read directly" would quietly
 upgrade it.*
 
-**Every quotation on this page has been checked against its source.** Two
-rounds of review found quotations that had been shortened or reworded inside
-their quotation marks, and the first fix was scoped to the section where the
-fault was found rather than to the page. So the check was then run over the
-whole page: all 55 quoted spans, matched against the primary sources where
-those could be fetched. Three defects were found in total and all three are
-corrected — one synthesized sentence presented as a quote, and two sentences
-cut short with the comma changed to a full stop. *Why this is written down:
+**Every quotation on this page has been checked against its source, and the
+check is written down here so that somebody else can run it.** Two rounds of
+review found quotations shortened or reworded inside their quotation marks,
+and the first fix was scoped to the section where the fault was found rather
+than to the page — which is how the second instance survived. Three defects
+were found in total and all three are corrected: one synthesized sentence
+presented as a quote, and two sentences cut short with the comma changed to a
+full stop.
+
+How to re-run it: pull every double-quoted span out of this file, collapse
+whitespace and strip markdown emphasis, and match each against the sources.
+At the last run there were **63 spans, and none unaccounted for**. About
+twenty-five do not match mechanically and have to be cleared by eye; they fall
+into four groups, and a new one outside these groups is a real finding —
+titles of papers and posts; phrases this page puts in quotation marks as its
+own shorthand rather than as citation; quotations from the sources listed
+above as unreachable, which are marked unverified in place; and quotations
+that are verbatim but defeat a plain string match through markdown — an
+escaped tilde, a link inside the quoted words, bold inside them, or a
+lowercased initial where the sentence is embedded mid-clause.
+
+*Why the count and the method are here rather than a bare assurance: "every
+quotation was checked" is exactly the kind of claim this page exists to be
+suspicious of. A count that later drifts is a caught error; an assurance that
+drifts is invisible. This paragraph has already been wrong once — it said 55
+after the page had grown to 62.* *Why this is written down:
 the marking convention above is the only thing that makes the page's evidence
 worth anything, and a convention nobody has audited is a claim like any
 other.*
