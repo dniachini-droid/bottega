@@ -63,6 +63,11 @@ qualifier, and by then nobody can tell which numbers were checked.*
   may be, how it is produced, and whether anything should measure it.
 - `USAGE.md` — where a session's usage actually goes, and how other people cut
   it across a whole agent system.
+- `OUTSIDE-THE-SPEC.md` — how defects outside the written requirements are
+  found elsewhere, how a check is watched refusing without weakening what it
+  protects, and what actually holds scope. **Nothing in it was read at source:
+  the container that wrote it could reach no academic domain at all, so every
+  figure is a search summary.**
 
 `PROMPTS.md` and `USAGE.md` both ask whether the size of a dispatch prompt
 should become a seventh budget, and answer it differently: `USAGE.md` says
