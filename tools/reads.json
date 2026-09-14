@@ -6,7 +6,7 @@
   "how_to_use_it": "One entry per file that is charged to a session and names a path in backticks. Both lists hold paths exactly as they are written in the backticks. A path in 'reads' must exist, and a path ending in / is followed to every file inside it. A path in 'mentions' need not exist.",
 
   "AGENTS.md": {
-    "note": "Every path AGENTS.md names, it names as a subject - what a file is, or where something is written down. It never tells a session to go and read one. Checked by grepping every occurrence.",
+    "note": "Every path AGENTS.md names, it names as a subject - what a file is, or where something is written down. It never tells a session to go and read one. Checked by grepping every occurrence. The tests are named as the thing that holds the check honest; nobody is sent to read them, and a session that opened them would be reading test code instead of doing the work.",
     "reads": [],
     "mentions": [
       "AGENTS.md",
@@ -17,6 +17,7 @@
       "docs/REVIEWER.md",
       "docs/VISION.md",
       "tools/check-budgets.mjs",
+      "tools/check-budgets.test.mjs",
       "tools/reads.json"
     ]
   },
