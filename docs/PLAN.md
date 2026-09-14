@@ -28,27 +28,30 @@ idea — only work that is next.
 - **What only existed in a conversation, written down.** This plan, more
   entries in the register of open items, and the research behind Da Vinci
   and the handoff, in `docs/research/`. Pull request #4, merged.
+- **Da Vinci, the handoff, and the automatic start.** What this file listed as
+  item 1 and left standing as "in flight" long after it landed. Pull request
+  #5, merged. The reviewer exists, the handoff between sessions is written
+  down, and the guide window starts the review without being asked.
+- **The counting made honest, twice.** Pull request #6 replaced a count that
+  added up every instruction file whole with the two numbers now reported, and
+  pull request #7 put a test under each of the two faults that count really
+  had. What those faults were is in `docs/OPEN.md`.
+- **What memory should be**, decided and written down rather than built. Pull
+  request #8, merged.
+- **The two agents named.** The builder is Michelangelo and the reviewer is Da
+  Vinci. Pull request #11, merged.
 
 ## In flight
 
-- **Item 1 below — Da Vinci, the handoff, and the automatic start.** The
-  pull request is open and the work is being built on it.
+- **Measuring the prompt.** Pull request #12: a third number beside the two,
+  the missing half of the rule about what goes in a prompt, and the research
+  findings nobody is acting on recorded in `docs/OPEN.md`.
 
 ## Next, in this order
 
 Each is built, then reviewed, then merged, before the next one begins.
 
-### 1. Da Vinci, the handoff, and the automatic start — as one piece
-
-A reviewer that nothing hands work to, and that nothing starts, is
-three-quarters of nothing. The three are one piece of work and ship together.
-
-The research for both halves is in `docs/research/` —
-`docs/research/REVIEWER-CRAFT.md` for what makes a reviewer find real defects
-instead of generating noise, and `docs/research/HANDOFF.md` for what may
-travel between sessions and what must not.
-
-### 2. The check before a commit
+### 1. The check before a commit
 
 The same checks that run after a push, run before a commit as well.
 
@@ -56,7 +59,7 @@ The automatic checks cannot be bypassed and they stand between the work and
 the merge. The check on this machine is faster and comes earlier. They are not
 alternatives to each other and neither replaces the other.
 
-### 3. Memory
+### 2. Memory
 
 Claude Code's own per-agent memory, at project scope. Plain markdown,
 committed, readable by the owner. Plus a prune when a piece of work closes.
@@ -65,7 +68,7 @@ No vector store. No embeddings. No infrastructure. *Why: this is already
 decided in `docs/VISION.md`, and every failure in that field is stale entries
 poisoning what gets found, not too little storage.*
 
-### 4. Zibaldone
+### 3. Zibaldone
 
 Only after the loop above has run end to end on Bottega itself, several times,
 and worked.
@@ -84,4 +87,4 @@ goes through the same seven stages, the same Da Vinci, the same checks. If the
 loop cannot carry Bottega's own changes, it is not ready to carry an
 application's.
 
-That is why Zibaldone is fourth and not first.
+That is why Zibaldone is last and not first.

@@ -12,6 +12,12 @@
 //      no longer exist teaches every session to distrust it.
 //
 // Exits 0 when both hold, 1 when either fails, and says which in plain words.
+//
+// It also prints a third number that is not a budget and has no limit: how big
+// the prompt was that started a session. That one cannot be measured from
+// here at all — a prompt is never a file in this repository — so what is
+// printed is the size of the copy the guide window saved. The long note above
+// that section says what the number is and what it is not.
 
 import {
   readFileSync, readdirSync, statSync, existsSync, realpathSync,
@@ -347,6 +353,119 @@ for (const ref of referenced) {
   else if (wantsDir && !statSync(full).isDirectory()) dead.push(ref);
 }
 
+// --- Beside the budgets: how big the prompt was ---------------------------
+//
+// WHAT CANNOT BE MEASURED FROM HERE, SAID PLAINLY. A session's prompt is not
+// a file in this repository. It is written in the guide window and handed to
+// the session at the moment it is started. Nothing on disk holds it, so this
+// check cannot see one, and no amount of searching this repository will find
+// one. That is the honest answer and it does not improve by being restated.
+//
+// *Why that is worth saying rather than working around: the obvious
+// workaround is to measure something the check can reach — the scope page, or
+// the template in the build skill — and call it the prompt. Neither is the
+// prompt. The scope page is a fraction of it and the template is the empty
+// form. A third number that measures the wrong thing is worse than no third
+// number, because it would be watched, trusted, and argued about.*
+//
+// SO SOMETHING ELSE HAS TO RECORD IT. The only place that knows the prompt
+// exactly is the window that wrote it, at the moment it hands it over. So the
+// window saves a copy: one file per prompt, in a `prompts` folder beside that
+// project's scope pages, named for the pull request and the stage it was sent
+// for. The file holds the prompt and nothing else — no heading, no note, no
+// date — because the size of the file is the measurement, and anything added
+// to it is counted as prompt.
+//
+// WHAT THIS NUMBER IS, AND WHAT IT IS NOT. It is the size of a copy somebody
+// saved. It is not a measurement of what the session received. If the window
+// saves nothing, there is no number and this says so. If the window saves
+// something other than what it sent, nothing here can tell. *Why record it
+// anyway: an approximate number that says what it is beats no number at all,
+// and the failure it is meant to catch — a prompt three times the size of the
+// instruction budget — is not a failure that hides inside a rounding error.*
+//
+// NO LIMIT ON IT. Deliberately. *Why: a limit set before anyone has seen what
+// a normal prompt looks like gets met by leaving out things the session
+// needed, which moves the cost somewhere the check cannot see rather than
+// removing it. Print it, watch it, argue about a number later with evidence.*
+//
+// IT IS NOT ADDED TO EITHER OF THE TWO NUMBERS ABOVE. A session really is
+// handed its prompt on top of everything it loads, so the sum is the true
+// weight — but both limits above were ratified against the instruction
+// numbers alone, and quietly folding a third input into them would move two
+// settled limits without anybody deciding to.
+//
+// WHAT IT REFUSES. A record that is empty, and a record whose name does not
+// say which pull request and which stage it belongs to. *Why those two: an
+// empty record prints a prompt of nothing, which no prompt is, and an
+// unnamed one prints a number nobody can attach to the session it came from.
+// Either one turns this into a number that measures the wrong thing, which is
+// the whole failure it exists to avoid.*
+
+const PROJECTS_DIR = 'projects';
+const PROMPTS_DIR = 'prompts';
+const PROMPT_FILENAME = /^(\d+)-([a-z][a-z-]*)\.md$/;
+
+const promptRecords = [];
+const promptProblems = [];
+
+let projectEntries = [];
+try {
+  projectEntries = readdirSync(join(ROOT, PROJECTS_DIR), { withFileTypes: true });
+} catch { /* no projects folder: nothing has been dispatched from here */ }
+
+for (const project of projectEntries) {
+  if (!project.isDirectory()) continue;
+  const dir = join(ROOT, PROJECTS_DIR, project.name, PROMPTS_DIR);
+  let entries;
+  try {
+    entries = readdirSync(dir, { withFileTypes: true });
+  } catch {
+    continue; // This project has had nothing dispatched for it yet.
+  }
+  for (const entry of entries) {
+    const rel = `${PROJECTS_DIR}/${project.name}/${PROMPTS_DIR}/${entry.name}`;
+    if (!entry.isFile()) {
+      promptProblems.push(
+        `  NOT A PROMPT  ${rel}  — everything in a prompts folder is one ` +
+        `saved prompt.`
+      );
+      continue;
+    }
+    const named = PROMPT_FILENAME.exec(entry.name);
+    if (!named) {
+      promptProblems.push(
+        `  BADLY NAMED  ${rel}  — name it <pull request number>-<stage>.md, ` +
+        `as in 12-build.md.`
+      );
+      continue;
+    }
+    const full = join(dir, entry.name);
+    const bytes = sizeOf(full);
+    let text = '';
+    try {
+      text = readFileSync(full, 'utf8');
+    } catch { /* falls through to the empty case below */ }
+    if (text.trim() === '') {
+      promptProblems.push(
+        `  EMPTY  ${rel}  — a saved prompt with nothing in it would be ` +
+        `reported as a prompt of no size.`
+      );
+      continue;
+    }
+    promptRecords.push({
+      rel,
+      project: project.name,
+      pr: Number(named[1]),
+      stage: named[2],
+      bytes,
+      tokens: Math.floor(bytes / BYTES_PER_TOKEN),
+    });
+  }
+}
+promptRecords.sort((a, b) => a.rel.localeCompare(b.rel));
+promptProblems.sort();
+
 // --- Report ---------------------------------------------------------------
 
 const pad = (n) => String(n).padStart(7);
@@ -401,6 +520,51 @@ if (heaviestOver) {
   console.log(`  Room left: about ${HEAVIEST_SESSION_BUDGET - heaviestTokens} tokens.`);
 }
 
+console.log('\nHOW BIG THE PROMPTS WERE — reported, with no limit on them');
+console.log(
+  '  A prompt is not a file in this repository. It is written in the guide\n' +
+  '  window and handed to a session as it starts, so this check cannot see\n' +
+  '  one. What is measured below is the copy the window saved afterwards.'
+);
+if (promptRecords.length) {
+  for (const p of promptRecords) {
+    console.log(
+      `  ${pad(p.bytes)} bytes  about ${String(p.tokens).padStart(6)} tokens  ` +
+      `${p.project} #${p.pr} ${p.stage}`
+    );
+  }
+  const largest = promptRecords.reduce((a, b) => (b.tokens > a.tokens ? b : a));
+  console.log(
+    `\n  The largest so far is about ${largest.tokens} tokens ` +
+    `(${largest.rel}).`
+  );
+  console.log(
+    `  A session is handed that on top of the instructions counted above, ` +
+    `which\n  run from about ${everyTokens} tokens to about ${heaviestTokens}. ` +
+    `The two are not added\n  together here: both limits above were settled ` +
+    `against the instruction\n  numbers alone.`
+  );
+} else {
+  console.log(
+    '\n  Nothing has been saved yet, so there is no number. Nothing is put in\n' +
+    '  its place: the two numbers above measure files, and a prompt is not a\n' +
+    '  file. The guide window saving a copy of what it sent is the only way a\n' +
+    '  number appears here.'
+  );
+}
+
+if (promptProblems.length) {
+  console.log('\nThese saved prompts cannot be measured:');
+  for (const line of promptProblems) console.log(line);
+  console.log(
+    'A prompts folder holds one file per prompt, named for the pull request ' +
+    'and the\nstage, holding the prompt and nothing else — no heading, no ' +
+    'note, no date. The\nsize of the file is the measurement, so anything ' +
+    'added to it is counted as\nprompt, and anything the name does not say ' +
+    'is a number nobody can place.'
+  );
+}
+
 if (readsProblem) {
   console.log(`\n${readsProblem}`);
 }
@@ -446,7 +610,7 @@ if (dead.length) {
 }
 
 if (everyOver || heaviestOver || dead.length || readsProblem ||
-    unclassified.size || deadReads.size) {
+    unclassified.size || deadReads.size || promptProblems.length) {
   console.log('\nBUDGET CHECK FAILED.');
   process.exit(1);
 }

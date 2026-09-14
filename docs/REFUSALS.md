@@ -669,3 +669,82 @@ one session that cannot check it, and it gets an answer that looks like a
 check — a reviewer that starts and reads the right file. Anybody repeating
 this has to start a fresh session, and would not know that from an entry that
 recorded only the run that worked.*
+
+---
+
+## The third number: the budget check on a saved prompt it cannot measure
+
+**14 September 2026.** The check now prints a third number beside the two
+budgets — how big the prompt was that started a session — and that number is
+not a measurement. A prompt is never a file in this repository, so what is
+printed is the size of a copy the guide window saves afterwards. A number of
+that kind has two ways to go quietly wrong, and both were provoked rather than
+reasoned about.
+
+**A saved prompt with nothing in it, and one whose name says nothing.** An
+empty file was written to `projects/bottega/prompts/12-build.md` and a file
+called `notes.md` beside it. `node tools/check-budgets.mjs` returned exit code
+1 and printed:
+
+>     These saved prompts cannot be measured:
+>       BADLY NAMED  projects/bottega/prompts/notes.md  — name it <pull request
+>       number>-<stage>.md, as in 12-build.md.
+>       EMPTY  projects/bottega/prompts/12-build.md  — a saved prompt with
+>       nothing in it would be reported as a prompt of no size.
+>
+>     BUDGET CHECK FAILED.
+
+**Then it reported something real.** `notes.md` was removed and this session's
+own prompt — the one that started it, which it had been handed and could
+transcribe — was written into `12-build.md`. Exit code 0:
+
+>     HOW BIG THE PROMPTS WERE — reported, with no limit on them
+>       A prompt is not a file in this repository. It is written in the guide
+>       window and handed to a session as it starts, so this check cannot see
+>       one. What is measured below is the copy the window saved afterwards.
+>          2633 bytes  about    658 tokens  bottega #12 build
+>
+>       The largest so far is about 658 tokens
+>       (projects/bottega/prompts/12-build.md).
+
+**What that number is worth, said plainly.** 658 tokens. The prompt that made
+this work worth doing reached 27,400. One record is not a distribution, and
+this one was transcribed by the session that received the prompt rather than
+saved by the window that sent it — which is the one kind of copy the
+arrangement does not ask for. It is written down as the first datum and not as
+a finding.
+
+**What was not watched, and cannot be.** Nothing here can tell whether a saved
+copy is what was actually sent. The check reads a file and reports its size;
+if the window saves something else, or saves nothing and says it did, no
+refusal fires. That is a limit of the arrangement, not a gap to be closed by a
+better check, and it is why the printed report says the number is a record
+rather than a measurement.
+
+## The three new tests, watched failing before they were trusted
+
+**14 September 2026.** `tools/check-budgets.test.mjs` gained assertions for the
+third number. Each was watched failing against a deliberately broken check and
+then passing against the real one.
+
+- **The empty-prompt refusal removed** (`if (false && text.trim() === '')`):
+  *not ok 4 — a saved prompt with nothing in it passed. It would be reported as
+  a prompt of no size, which no prompt is.*
+- **The naming refusal removed** (`if (false && !named)`): *not ok 4*, the
+  same test, on its second half.
+- **The prompt folded into the every-session total**: *not ok 3 — saving a
+  prompt changed what every session loads.*
+
+**The first attempt at that last one was wrong, and that is the useful part.**
+The break tried first was adding a flat 3,000 bytes to the every-session total.
+Test 3 passed anyway — it compares a workshop with a saved prompt against one
+without, and a constant moves both equally — while test 1 failed instead. So
+the assertion did not catch what the break was meant to demonstrate, and the
+break had to be rewritten to fold in the saved prompt's own size before test 3
+would fire.
+
+*Why it is written down rather than quietly corrected: the first result looked
+like a pass. A test that goes green while something is broken, next to a
+different test going red, is exactly the reading that gets taken for
+confirmation. Anybody repeating this has to break the specific thing the
+assertion names, not something in the same neighbourhood.*
