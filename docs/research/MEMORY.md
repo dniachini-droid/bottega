@@ -137,12 +137,12 @@ matters more than which of them was right about the path.
 Committed subagent memory is a real mechanism. It is still a poor fit here,
 for four reasons, all read at the source:
 
-**It needs someone to commit it, and that someone cannot be the reviewer.**
-`.claude/agent-memory/reviewer/` is a directory in the working tree. In a
-fresh cloud container it survives only if it is committed and pushed. The
-reviewer is forbidden to write, commit, push or merge — by `AGENTS.md`, by
-its own definition, and by `disallowedTools` in its header. Worse, the
-reviewer's working tree *is the branch under review*, so notes it wrote would
+**It needs someone to commit it, and that someone cannot be Da Vinci.**
+`.claude/agent-memory/da-vinci/` is a directory in the working tree. In a
+fresh cloud container it survives only if it is committed and pushed. Da
+Vinci is forbidden to write, commit, push or merge — by `AGENTS.md`, by
+its own definition, and by `disallowedTools` in its header. Worse, Da
+Vinci's working tree *is the branch under review*, so notes it wrote would
 land in the diff it was reviewing.
 
 **It hands a write tool to the one agent deliberately denied one.** The claim
@@ -152,7 +152,7 @@ on what happens when `memory:` is set **[read]**:
 > *"Read, Write, and Edit tools are automatically enabled so the subagent can
 > manage its memory files."*
 
-`.claude/agents/reviewer.md` sets `disallowedTools: Edit, Write, NotebookEdit,
+`.claude/agents/da-vinci.md` sets `disallowedTools: Edit, Write, NotebookEdit,
 Task`, and its body says the header *"takes those tools away rather than
 trusting this paragraph to hold."* **Which of the two wins is not documented
 anywhere this session could reach.** The page states the precedence between
@@ -161,10 +161,10 @@ is resolved against the remaining pool"* **[read]** — and says nothing about
 the automatic enablement. That is now a known unknown, not an unsupported
 rumour.
 
-**It is charged to the reviewer's context, and the check cannot see it.**
+**It is charged to Da Vinci's context, and the check cannot see it.**
 *"The subagent's system prompt also includes the first 200 lines or 25KB of
 MEMORY.md in the memory directory"* **[read]**. That is up to 25KB entering a
-reviewer session, and `tools/check-budgets.mjs` counts none of it.
+Da Vinci session, and `tools/check-budgets.mjs` counts none of it.
 
 **It depends on a setting outside the repository.** *"Subagent memory is part
 of auto memory: if you turn auto memory off, with the `autoMemoryEnabled`
@@ -177,7 +177,7 @@ machine-level setting is a check that cannot be observed refusing anything.
 agent that *can* have committed memory natively is the one this repository has
 most carefully arranged to write nothing. Any memory here should be an
 ordinary committed file for both agents — which is what the first version
-recommended for the builder, arrived at now for both, and for better reasons.
+recommended for Michelangelo, arrived at now for both, and for better reasons.
 
 ## 4. The index shape, and what the platform does with it
 
@@ -474,7 +474,7 @@ claim than the one the budgets are written as if to defend.
 
 | decision | first version | this version |
 |---|---|---|
-| per-agent memory, project scope, committed, capped, no infrastructure | supported, with one mechanical correction | **partly supported.** The mechanism exists for subagents **[read]** but is unusable by the one subagent here (§3). For the builder it must be an ordinary committed file. |
+| per-agent memory, project scope, committed, capped, no infrastructure | supported, with one mechanical correction | **partly supported.** The mechanism exists for subagents **[read]** but is unusable by the one subagent here (§3). For Michelangelo it must be an ordinary committed file. |
 | plain text first, embeddings never | supported independently by AutoGPT | **no longer supported.** The primary source says the backends were a refactor casualty, restoration open **[read]** (§5). Nothing else found argues either way at this scale. |
 | a clear-out when work closes, from day one | supported | **supported, with a better mechanism available** than the first version proposed — verification on use, not a citation check alone (§8, question 5). |
 | build it only when a mistake actually recurs | supported, strongest result | **supported, but over-claimed before.** The research patterns hold (§12). Claude Code's own trigger list is broader than "twice" (question 1). |
@@ -494,10 +494,10 @@ Measured this session with `node tools/check-budgets.mjs`:
 | session | loads now | room to 10,000 |
 |---|---|---|
 | a building session (opens the build skill) | **7,968 tokens** | **2,032 tokens** — about 8,100 characters |
-| a reviewer session | 5,266 tokens | 4,734 tokens |
+| a Da Vinci session | 5,266 tokens | 4,734 tokens |
 | every session, before opening anything | 3,033 tokens | 6,967 tokens |
 
-The builder is the tight one. `docs/research/` is charged to no session, so
+Michelangelo is the tight one. `docs/research/` is charged to no session, so
 this page itself costs nothing against either number.
 
 ## 1. What makes a session write a note?
@@ -568,7 +568,7 @@ On the date, the reason Claude Code writes a `modified` timestamp **[read]**:
 > when it reads the memory back."*
 
 Here the date goes in the line rather than in frontmatter, because frontmatter
-costs bytes the builder does not have — and because *"imported files still
+costs bytes Michelangelo does not have — and because *"imported files still
 load"* **[read]** means there is no structural trick that makes detail free.
 
 The two pull request numbers are what make the note checkable and prunable,
@@ -587,7 +587,7 @@ lesson this repository learned about its own counting.
 **Said first, because the brief asked for suspicion of exactly this.** Thirty
 is not derived from evidence. There is no measurement anywhere in this survey
 of how many lessons a memory needs to hold to be useful. Thirty is derived
-from the budget: 600 tokens is under a third of the builder's remaining 2,032,
+from the budget: 600 tokens is under a third of Michelangelo's remaining 2,032,
 which leaves the build skill room to grow. **A design whose main virtue is
 that it fits is a design under suspicion, and this one fits.** Memory that is
 small because it is useless is not a success.
@@ -711,8 +711,8 @@ paths:
   change to it is a diff in a pull request — the property the Cursor teams
   reportedly went back to memory to get **[summary]**.
 - **It reaches subagents.** A non-fork subagent's startup context includes
-  *"project rules"* **[read]**, so a rule reaches the reviewer without giving
-  the reviewer a write tool.
+  *"project rules"* **[read]**, so a rule reaches Da Vinci without giving
+  Da Vinci a write tool.
 - **It survives compaction.** *"Rules with `paths:` frontmatter reload as
   Claude reads files they apply to"* **[read]**.
 
@@ -818,8 +818,8 @@ piece of work closes, by a session that proposes deletions in a reviewed diff
 and never deletes silently. Deletable by the owner at any time, because it is
 one page of plain English.
 
-**Give it to the builder.** Leave the reviewer alone. The product would let
-the reviewer keep committed notes, but doing so hands it a write tool it was
+**Give it to Michelangelo.** Leave Da Vinci alone. The product would let
+Da Vinci keep committed notes, but doing so hands it a write tool it was
 deliberately denied, and puts its notes in the diff it is reviewing.
 
 **Before any of that, the counting has to learn about `.claude/rules/` and
@@ -875,7 +875,7 @@ that a note needs two pull request numbers before it exists.
 - Did not test whether thirty lines is the right number. It is reasoned from
   the budget, and Part Four says so plainly rather than dressing it as
   evidence.
-- Did not resolve the reviewer write-tool conflict, or the machine-local
+- Did not resolve the Da Vinci write-tool conflict, or the machine-local
   ambiguity. Both are surfaced and left for the owner.
 - Did not read the two papers in Part Three, or any academic source.
 - Did not review this page. A fresh session does that.

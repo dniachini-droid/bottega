@@ -7,6 +7,18 @@ cannot fire. This file is the record of having watched.
 Each entry says what was done to provoke the refusal, what came back, and the
 date. An entry is only written after the refusal was actually seen.
 
+**On the names in this file.** The two agents were renamed on 14 September
+2026: the builder became Michelangelo, the reviewer became Da Vinci, and
+`.claude/agents/reviewer.md` became `.claude/agents/da-vinci.md`. Every entry
+written before that date still says "the reviewer", "the builder" and the old
+path, and was deliberately left that way. *Why: this file is the record of
+what was seen, and an entry quotes what a command actually printed on the day.
+Changing those words would make it say something that was never seen. The same
+reason is already written into the entry about the tests, for the same
+decision about the numbers: quietly updating them "would make this file a
+summary instead of a record." Entries from the rename onward use the new
+names.*
+
 ---
 
 ## The budget check, on the startup token count
@@ -591,3 +603,148 @@ again on a real change rather than on a made-up one, and because it is the
 evidence that a new pointer out of the rules file cannot pass unnoticed. It was
 declared as only mentioned, with the reason written beside it in
 `tools/reads.json`, and the check passed.
+
+---
+
+## Da Vinci, started by its new name after the rename
+
+**14 September 2026.** The rename of the two agents is the change whose
+failure is silent: an agent renamed in nine places and not the tenth is simply
+not found, and a review that never runs looks exactly like a review that found
+nothing. So the finished rename was started rather than reasoned about.
+
+**First, the thing that could have hidden the fault.** In the session that did
+the rename, `Agent` with `subagent_type: da-vinci` returned:
+
+>     Agent type 'da-vinci' not found. Available agents: claude,
+>     claude-code-guide, Explore, general-purpose, Plan, reviewer,
+>     statusline-setup
+
+That session had read its list of agents at startup, before the file was
+renamed, and was still offering `reviewer` — a name whose file no longer
+existed. Starting `reviewer` in it succeeded, and the agent reported reading
+`name: da-vinci` off the disk. **Neither result is evidence of anything.** A
+session that renames an agent cannot test the rename, because it is holding a
+list from before it.
+
+**So a genuinely fresh session was started** on this branch — a new container,
+a new clone, its list of agents read after the rename. It ran `ls -la
+.claude/agents/`:
+
+>     total 12
+>     drwxr-xr-x 2 root root 4096 Sep 14 15:38 .
+>     drwxr-xr-x 4 root root 4096 Sep 14 15:38 ..
+>     -rw-r--r-- 1 root root 2554 Sep 14 15:38 da-vinci.md
+
+It was offered this among its agents, verbatim:
+
+>     - da-vinci: One pass over one version of a change, then one comment on
+>       its pull request. Finds real defects, or reports none. Writes nothing
+>       and never merges. (Tools: All tools except Edit, Write, NotebookEdit,
+>       Task)
+
+`Agent` with `subagent_type: da-vinci` **started**, with no error. Asked about
+itself, it answered:
+
+>     1. `name: da-vinci` — the file is
+>        /home/user/bottega/.claude/agents/da-vinci.md
+>     3. Edit: ABSENT. Write: ABSENT. NotebookEdit: ABSENT. Task: ABSENT.
+>     4. I called Write on /tmp/liveness.txt with content "x". It failed. The
+>        error text, word for word: "Error: No such tool available: Write.
+>        Write is disabled for this session, in subagents as well as here."
+>        No file was created.
+
+So: the new name resolves, the file behind it is the renamed one, and the four
+tools the header takes away are gone — watched refusing a write, not asserted.
+
+**What this does not show.** The refusal covers the four local editing tools.
+The same run listed the GitHub tools as still available to it, among them ones
+that write a file into a repository and one that merges a pull request, and
+`Bash` is still there. Both gaps were already open before this change and are
+written down in `docs/OPEN.md`; the rename neither widened nor closed them.
+
+*Why the failed first attempt is written down as well as the successful one:
+it is the whole reason this entry exists. The session doing a rename is the
+one session that cannot check it, and it gets an answer that looks like a
+check — a reviewer that starts and reads the right file. Anybody repeating
+this has to start a fresh session, and would not know that from an entry that
+recorded only the run that worked.*
+
+---
+
+## The third number: the budget check on a saved prompt it cannot measure
+
+**14 September 2026.** The check now prints a third number beside the two
+budgets — how big the prompt was that started a session — and that number is
+not a measurement. A prompt is never a file in this repository, so what is
+printed is the size of a copy the guide window saves afterwards. A number of
+that kind has two ways to go quietly wrong, and both were provoked rather than
+reasoned about.
+
+**A saved prompt with nothing in it, and one whose name says nothing.** An
+empty file was written to `projects/bottega/prompts/12-build.md` and a file
+called `notes.md` beside it. `node tools/check-budgets.mjs` returned exit code
+1 and printed:
+
+>     These saved prompts cannot be measured:
+>       BADLY NAMED  projects/bottega/prompts/notes.md  — name it <pull request
+>       number>-<stage>.md, as in 12-build.md.
+>       EMPTY  projects/bottega/prompts/12-build.md  — a saved prompt with
+>       nothing in it would be reported as a prompt of no size.
+>
+>     BUDGET CHECK FAILED.
+
+**Then it reported something real.** `notes.md` was removed and this session's
+own prompt — the one that started it, which it had been handed and could
+transcribe — was written into `12-build.md`. Exit code 0:
+
+>     HOW BIG THE PROMPTS WERE — reported, with no limit on them
+>       A prompt is not a file in this repository. It is written in the guide
+>       window and handed to a session as it starts, so this check cannot see
+>       one. What is measured below is the copy the window saved afterwards.
+>          2633 bytes  about    658 tokens  bottega #12 build
+>
+>       The largest so far is about 658 tokens
+>       (projects/bottega/prompts/12-build.md).
+
+**What that number is worth, said plainly.** 658 tokens. The prompt that made
+this work worth doing reached 27,400. One record is not a distribution, and
+this one was transcribed by the session that received the prompt rather than
+saved by the window that sent it — which is the one kind of copy the
+arrangement does not ask for. It is written down as the first datum and not as
+a finding.
+
+**What was not watched, and cannot be.** Nothing here can tell whether a saved
+copy is what was actually sent. The check reads a file and reports its size;
+if the window saves something else, or saves nothing and says it did, no
+refusal fires. That is a limit of the arrangement, not a gap to be closed by a
+better check, and it is why the printed report says the number is a record
+rather than a measurement.
+
+## The three new tests, watched failing before they were trusted
+
+**14 September 2026.** `tools/check-budgets.test.mjs` gained assertions for the
+third number. Each was watched failing against a deliberately broken check and
+then passing against the real one.
+
+- **The empty-prompt refusal removed** (`if (false && text.trim() === '')`):
+  *not ok 4 — a saved prompt with nothing in it passed. It would be reported as
+  a prompt of no size, which no prompt is.*
+- **The naming refusal removed** (`if (false && !named)`): *not ok 4*, the
+  same test, on its second half.
+- **The prompt folded into the every-session total**: *not ok 3 — saving a
+  prompt changed what every session loads.*
+
+**The first attempt at that last one was wrong, and that is the useful part.**
+The break tried first was adding a flat 3,000 bytes to the every-session total.
+Test 3 passed anyway — it compares a workshop with a saved prompt against one
+without, and a constant moves both equally — while test 1 failed instead. So
+the assertion did not catch what the break was meant to demonstrate, and the
+break had to be rewritten to fold in the saved prompt's own size before test 3
+would fire.
+
+*Why it is written down rather than quietly corrected: the first result looked
+like a pass. A test that goes green while something is broken, next to a
+different test going red, is exactly the reading that gets taken for
+confirmation. Anybody repeating this has to break the specific thing the
+assertion names, not something in the same neighbourhood.*

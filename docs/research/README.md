@@ -51,3 +51,5 @@ qualifier, and by then nobody can tell which numbers were checked.*
   and what that suggests for a memory here.
 - `PROMPTS.md` — what goes in the prompt that starts a session, how long it
   may be, how it is produced, and whether anything should measure it.
+- `USAGE.md` — where a session's usage actually goes, and how other people cut
+  it across a whole agent system.

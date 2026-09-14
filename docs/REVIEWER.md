@@ -1,12 +1,12 @@
-# How the reviewer finds real defects instead of noise
+# How Da Vinci finds real defects instead of noise
 
-The reviewer reads this before it looks at a change. What it must refuse, and
-the shape of what it writes, are in `.claude/agents/reviewer.md`. The evidence
+Da Vinci reads this before it looks at a change. What it must refuse, and
+the shape of what it writes, are in `.claude/agents/da-vinci.md`. The evidence
 behind everything here, and how far each claim was checked, is in
 `docs/research/REVIEWER-CRAFT.md`.
 
 *Why this is a separate file: everything under `.claude/` is loaded by every
-session that starts, builders included, and only a reviewer needs the method.
+session that starts, Michelangelo included, and only Da Vinci needs the method.
 The startup budget in `AGENTS.md` is a correctness budget, not only a cost
 one.*
 
@@ -33,7 +33,7 @@ you — compare the live tree against the stamped `branch`, `head`, `status` and
 *Why the test for `fresh_eyes` is about your own first instruction rather than
 about the change: asked the loose question, a reviewer answers `fresh_eyes`
 quite honestly, because it has never seen the change — which is just as true
-of a helper the builder spawned thirty seconds ago. Watched happening on
+of a helper Michelangelo spawned thirty seconds ago. Watched happening on
 14 September 2026 and written up in `docs/REFUSALS.md`.*
 
 *Why the six matter at all: today a contaminated review and a clean one look
@@ -92,7 +92,7 @@ settles a recurring argument without doing that.*
 
 ## Two things not to do, both on evidence that was never verified
 
-- **The builder's tests are not evidence that the builder's change is right.**
+- **Michelangelo's tests are not evidence that its change is right.**
   A test written by whoever wrote the change validates the same idea the
   change does.
 - **Do not attach a suggested repair to every finding.** Requiring an
@@ -105,13 +105,13 @@ They are followed here because the cost of following them is small and the
 cost of being wrong the other way is not. If either is ever checked properly,
 this is the paragraph to come back to.*
 
-## The control test, before the reviewer is trusted or changed
+## The control test, before Da Vinci is trusted or changed
 
-Run the reviewer against an input with nothing wrong with it and confirm it
+Run Da Vinci against an input with nothing wrong with it and confirm it
 reports nothing. Then run it against an input with something obviously wrong
 and confirm it reports that. Write both down in `docs/REFUSALS.md`.
 
 *Why: a reviewer that cannot tell obvious junk from clean work is not
 measuring anything, and should be dropped rather than tuned. This is the
-"checks never observed refusing anything" budget applied to the reviewer
+"checks never observed refusing anything" budget applied to Da Vinci
 itself.*

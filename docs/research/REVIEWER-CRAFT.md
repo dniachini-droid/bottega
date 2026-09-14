@@ -1,6 +1,6 @@
 # What makes a reviewer find real defects
 
-Reference for building the reviewer. Nothing here binds until it becomes a
+Reference for building Da Vinci. Nothing here binds until it becomes a
 rule in `AGENTS.md` with its reason attached — see `docs/research/README.md`.
 
 **How claims are marked.** Every item below says whether it was **read
@@ -24,7 +24,7 @@ It re-decides by reading only.
 
 *(Read directly from the repository.)*
 
-## Tell the reviewer what else already checks the work, and forbid repeating it
+## Tell Da Vinci what else already checks the work, and forbid repeating it
 
 From `block/goose`:
 
@@ -105,8 +105,8 @@ Among reviews that wrongly approved a change:
   same AI that wrote the patch — *"they naturally validate the same mental
   model as the patch itself."*
 
-A reviewer must not lean on the builder's tests as evidence that the builder's
-change is correct.
+Da Vinci must not lean on Michelangelo's tests as evidence that
+Michelangelo's change is correct.
 
 **Unverified — search summary only.** Both figures are recorded as they were
 received and neither was checked against its source.
@@ -118,12 +118,12 @@ never raised.** With one reviewer and one step that decides, a fabricated
 finding has nothing downstream to catch it. The step that is supposed to kill
 findings can also invent them, and at that point it is the last word.
 
-**Second: a control test for the reviewer itself.** Run a deliberately empty
+**Second: a control test for Da Vinci itself.** Run a deliberately empty
 input through it. A reviewer that cannot score obvious junk clearly below real
 work is not measuring anything, and gets dropped.
 
 *(This second one is the "checks never observed refusing anything" budget,
-applied to the reviewer.)*
+applied to Da Vinci.)*
 
 ## The most-installed community reviewer is a warning, not a model
 

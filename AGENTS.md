@@ -25,10 +25,10 @@ defects than a large one.*
 
 **One review, in a fresh session. Never review your own work.** The session
 that built a change does not review it, and neither does a helper that
-inherited the builder's context. *Why: a model reviewing its own work misses
+inherited Michelangelo's context. *Why: a model reviewing its own work misses
 about a third of its own drift, and this does not improve as models get
-better. A fresh session scores measurably better than a helper carrying the
-builder's context.* The reviewer's method is `docs/REVIEWER.md`.
+better. A fresh session scores measurably better than a helper carrying
+Michelangelo's context.* Da Vinci's method is `docs/REVIEWER.md`.
 
 **Never run a second review round on the same version.** One review per
 version. If the review found things, fix them and the next review is of the
@@ -62,6 +62,19 @@ everything equally is how a project ends up with five reviews of a two-file
 change, most of the findings about the reviewing machinery rather than the
 work.*
 
+**Put the facts in the prompt, not directions to the facts — and stop at the
+edge of the job.** What the job is: the scope, the branch, the numbers, the
+exact question, the file the work lives in — write those out. Reference
+material the session can fetch if it turns out to need it: name it and let the
+session go and get it. *Why the first half: every fact a session has to hunt
+for costs part of the accuracy it has left for the real work, and a fact
+written into the prompt costs nothing to find. Why the second half: without
+it, the rule says to inline everything a session might conceivably want, and a
+prompt then grows without limit — one written here reached 27,400 tokens,
+nearly three times what the entire instruction budget allows. Context volume
+degrades accuracy whoever put the context there. The test is whether the
+session needs it in order to know what the job is.*
+
 **A fix session is given the review itself, not a summary of it.** *Why: on
 one pull request here, three of five blocking findings were dropped in the
 relay from review to fix, and the second review spent its whole pass
@@ -89,7 +102,7 @@ session, where a wrong merge is not small and not quietly reversible. And a
 review that found nothing looks exactly like a review that never ran — about 1
 in 50 real agent transcripts claims a review passed when none happened.*
 
-A build session still never merges its own work, and the reviewer still merges
+A build session still never merges its own work, and Da Vinci still merges
 nothing at all. *Why: a session that merges what it just wrote has removed the
 step that exists to catch it.*
 
@@ -104,7 +117,7 @@ whatever else it did.
 | tests failing on `main`, and blocking findings with no test | 0 both |
 | checks never observed refusing anything | 0 |
 | dead file references in `AGENTS.md` | 0 |
-| agent definitions | 2 (a builder and a reviewer) |
+| agent definitions | 2 (Michelangelo and Da Vinci) |
 | rules with no stated reason | 0 |
 
 **Tokens loaded before a session starts work — under 10,000.** Two numbers,
@@ -150,12 +163,12 @@ told apart from one that cannot fire.*
 of the 21 links in the files a session reads first are broken — including the
 rules file it tells every session to go and read.*
 
-**Agent definitions — 2: a builder and a reviewer.** *Why: under matched
+**Agent definitions — 2: Michelangelo and Da Vinci.** *Why: under matched
 conditions, five of six multi-agent systems performed worse than a single
 agent and cost more, and the noise floor in that literature is about 15
 points — wider than most of the gains anyone has published. The one
 multi-agent pattern with a clean, replicated benefit is a fresh session for
-review. That is the reviewer, and it is the whole reason the limit is two
+review. That is Da Vinci, and it is the whole reason the limit is two
 rather than one.*
 
 **Rules with no stated reason — 0.** *Why: adding the reason to a rule
@@ -199,9 +212,9 @@ files that sit beside it. Bytes divided by four.
 session, wherever in the repository it sits** — not only when it happens to
 sit inside a skill's own folder. *Why: otherwise the way to get under the
 budget is to move the bulk somewhere else and point at it from one line, and
-neither number moves. That is not hypothetical. The reviewer's method was
+neither number moves. That is not hypothetical. Da Vinci's method was
 split out of its agent definition into `docs/REVIEWER.md` in order to fit
-under this budget, and 6,540 bytes that every reviewer session is required to
+under this budget, and 6,540 bytes that every Da Vinci session is required to
 read were then charged as nothing.* Reading is followed onward: a
 file that sends the session to a third file is charged for that one too,
 each file once.
@@ -215,7 +228,7 @@ wording could be beaten by rewording the sentence — and a check that
 quietly dropped what it could not tell apart would undercount, which is the
 direction that does harm. Refusing until somebody says which it is means a new
 pointer out of a skill cannot pass unnoticed. Calling a large file "only
-mentioned" is still possible, but it has to be written down where a reviewer
+mentioned" is still possible, but it has to be written down where Da Vinci
 sees it.*
 
 `CLAUDE.md` is a symbolic link to `AGENTS.md`: the same bytes under a second
@@ -231,6 +244,26 @@ the two faults it really had, each watched failing against the broken version
 before it was trusted. `node --test` runs them in the same automatic checks, so
 a failing test on `main` cannot sit unnoticed. No session ever reads them, so
 they cost nothing against either limit above.
+
+**The check also prints a third number that is not a budget and has no limit:
+how big the prompt was that started a session.** *Why no limit: nobody has yet
+seen what a normal prompt looks like, and a limit set before that gets met by
+leaving out what the session needed, which moves the cost somewhere nothing
+can see. Print it, watch it, argue about a number later with evidence.*
+
+The check cannot measure a prompt. A prompt is never a file here — it is
+written in the guide window and handed to the session at the moment it starts,
+and nothing on disk holds it. So the window saves a copy beside that project's
+scope pages, one file per prompt, named for the pull request and the stage,
+holding the prompt and nothing else. What is printed is the size of that copy.
+**It is a record, not a measurement**, and nothing here can tell whether the
+copy matches what was sent. Nothing saved prints nothing, and nothing the
+check could reach is put in its place. *Why not: the scope page and the empty
+template in the build skill are both things it could measure and call the
+prompt, and neither is the prompt. A number that measures the wrong thing is
+worse than no number, because it would be watched and trusted.* It is printed
+beside the two budgets and added to neither, because both limits were settled
+against the instruction numbers alone.
 
 The rest are on their word: the other half of that budget — a blocking finding
 with no test — and checks never seen refusing, the count of agent definitions,

@@ -67,7 +67,7 @@ about its own machinery. The other ended with 51 failing tests nobody runs.*
 - **A memory prune when a piece of work closes**, from day one. *Why: every
   failure in that field is stale entries poisoning what gets found, not too
   little storage.*
-- **Two agents, a builder and a reviewer.** *Why: five of six multi-agent
+- **Two agents, Michelangelo and Da Vinci.** *Why: five of six multi-agent
   systems lost to a matched single agent, and the noise floor in that
   literature is wider than most of the gains anyone has published.*
 - **One review, a fresh session, a different model family.**

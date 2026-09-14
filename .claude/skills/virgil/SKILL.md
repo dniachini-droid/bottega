@@ -30,7 +30,7 @@ owner settled it on 14 September 2026: *"I want you to be able to write if it
 means we can have more automation."*
 
 *Why it stops there: he approved automation, not the collapse of the three
-jobs into one. A window that can also edit and review is a builder under
+jobs into one. A window that can also edit and review is Michelangelo under
 another name.*
 
 **Before merging, every time:** a change to `AGENTS.md`, to either skill, or
@@ -177,9 +177,18 @@ for ever and looks, from outside, exactly like a session that is thinking.*
 
 **Put the facts in the prompt, not directions to the facts.** The branch, the
 commit, the numbers, the exact question, the file the work lives in. And say
-which files the session does not need to open. *Why: every fact a session has
-to go and find costs part of the accuracy it will have left for the real work,
-and a fact written into the prompt costs nothing to find.*
+which files the session does not need to open. **That rule stops at the edge
+of the job, and where it stops is in the rules file**, under the same words,
+with the reason. Reference material the session can fetch if it turns out to
+need it is named, not written out.
+
+**Save a copy of every prompt you send.** Into
+`projects/<project-id>/prompts/<pull request number>-<stage>.md`, exactly as
+sent and with nothing else in the file — no heading, no note, no date. *Why:
+the prompt is the largest single thing a session is given and the only one
+nothing measures. The counting reads these copies and reports the size of each
+one; there is no limit on it, and the number is only worth having if the copy
+is what was sent. Anything added to the file is counted as prompt.*
 
 **Every dispatched prompt ends with the same requirement:** comment on the
 pull request when you finish, when you stop early, and when you are blocked —
@@ -223,9 +232,9 @@ against. In Bottega the scope page is that commit, pushed at stage 2. In a
 project's own repository the branch is empty, so put one empty commit on it
 and nothing else, ever. *Why that is not pushing work: it changes no file.*
 
-### Start the reviewer on the builder's comment, without being asked
+### Start Da Vinci on Michelangelo's comment, without being asked
 
-The finishing comment arrives as an event. Start the reviewer on it. Do not
+The finishing comment arrives as an event. Start Da Vinci on it. Do not
 wait for the owner to say go. *Why: he approved the work at stage 2, and a
 review that waits for him to notice a comment waits until he next opens the
 window.*

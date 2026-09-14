@@ -12,16 +12,24 @@
 //      the workshop look nearly full when it was a quarter full, and nearly
 //      forced real content out to make room.
 //   2. It charged nothing for a file the instructions order a session to read
-//      when that file sits outside the skill's own folder. Every reviewer is
-//      sent to docs/REVIEWER.md and on to docs/PRECEDENTS.md — 6,540 bytes of
-//      compulsory reading, counted as zero. Worse, that split was made in
-//      order to fit under this budget: the move that solved the budget problem
-//      was the way to defeat it.
+//      when that file sits outside the skill's own folder. Every Da Vinci
+//      session is sent to docs/REVIEWER.md and on to docs/PRECEDENTS.md —
+//      6,540 bytes of compulsory reading, counted as zero. Worse, that split
+//      was made in order to fit under this budget: the move that solved the
+//      budget problem was the way to defeat it.
 //
 // So there is one test per fault. Each was watched failing against the old
 // broken behaviour before it was trusted — what was seen is written down in
 // docs/REFUSALS.md. *Why that matters: a test never seen failing cannot be
 // told apart from one that cannot fail.*
+//
+// A third group of tests was added on 14 September 2026, when the check began
+// printing a number it cannot itself measure: how big the prompt was that
+// started a session. There was no fault behind those — they are here because
+// that number is a recording rather than a measurement, and the two ways it
+// could quietly become wrong are a saved prompt with nothing in it and one
+// whose name says nothing about which session it belongs to. Both were watched
+// refusing before the tests were written; what was seen is in docs/REFUSALS.md.
 //
 // HOW THEY WORK. Each test builds a tiny make-believe workshop in a temporary
 // folder — its own rules file, its own skill, its own agent definition, its own
@@ -83,8 +91,17 @@ function writeAt(root, rel, text) {
   return full;
 }
 
-function buildFixture() {
+// `prompts` is a map of file name to contents, written into one project's
+// prompts folder. A prompt saved there is measured and reported beside the two
+// budgets, and is charged to neither.
+function buildFixture(prompts = null) {
   const root = mkdtempSync(join(tmpdir(), 'budget-check-test-'));
+
+  if (prompts) {
+    for (const [name, text] of Object.entries(prompts)) {
+      writeAt(root, `projects/make-believe/prompts/${name}`, text);
+    }
+  }
 
   writeAt(root, 'AGENTS.md',
     '# Rules\n\nThe measurement is `tools/check-budgets.mjs`, and nothing\n' +
@@ -132,7 +149,7 @@ function run(root) {
     { encoding: 'utf8' });
   const out = result.stdout ?? '';
 
-  const sections = { every: [], sets: [], heaviest: [] };
+  const sections = { every: [], sets: [], heaviest: [], prompts: [] };
   let where = null;
   let label = null;
   const setBlocks = new Map();
@@ -141,7 +158,18 @@ function run(root) {
     if (line.startsWith('WHAT EVERY SESSION LOADS')) { where = 'every'; continue; }
     if (line.startsWith('WHAT EACH KIND OF SESSION LOADS')) { where = 'sets'; continue; }
     if (line.startsWith('WHAT THE HEAVIEST SINGLE SESSION LOADS')) { where = 'heaviest'; continue; }
+    if (line.startsWith('HOW BIG THE PROMPTS WERE')) { where = 'prompts'; continue; }
     if (!where) continue;
+
+    const prompt = /^\s+(\d+) bytes {2}about\s+(\d+) tokens {2}(.*)$/.exec(line);
+    if (where === 'prompts' && prompt) {
+      sections.prompts.push({
+        bytes: Number(prompt[1]),
+        tokens: Number(prompt[2]),
+        what: prompt[3].trim(),
+      });
+      continue;
+    }
 
     const row = /^\s+(-?\d+) bytes {2}(.*)$/.exec(line);
     if (row) {
@@ -167,6 +195,7 @@ function run(root) {
     stdout: out,
     everyBytes: totalOf(sections.every),
     heaviestBytes: totalOf(sections.heaviest),
+    prompts: sections.prompts,
     set(name) {
       const rows = setBlocks.get(name);
       assert.ok(rows, `the report has no section for ${name}. It printed:\n${out}`);
@@ -254,4 +283,62 @@ test('a file an agent definition sends a session to read is charged to it, and s
 
   assert.equal(reader.total, expected,
     `what a reader session loads was not what it loads.\nIt printed:\n${report.stdout}`);
+});
+
+// --- The third number: a saved prompt, measured and kept apart ------------
+
+test('a saved prompt is reported at its real size, and added to neither budget', (t) => {
+  const bare = buildFixture();
+  t.after(() => rmSync(bare, { recursive: true, force: true }));
+  const before = run(bare);
+
+  const PROMPT_BYTES = 3000;
+  const root = buildFixture({ '12-build.md': filler(PROMPT_BYTES) });
+  t.after(() => rmSync(root, { recursive: true, force: true }));
+  const report = run(root);
+
+  assert.equal(report.status, 0,
+    `a saved prompt is not a failure. It printed:\n${report.stdout}`);
+
+  assert.deepEqual(report.prompts.map((p) => p.what), ['make-believe #12 build'],
+    'the saved prompt was not reported, or was reported without saying which ' +
+    `pull request and stage it belongs to.\nIt printed:\n${report.stdout}`);
+
+  assert.equal(report.prompts[0].bytes, sizeOf(root, 'projects/make-believe/prompts/12-build.md'),
+    `the prompt was reported at a size that is not its size.\nIt printed:\n${report.stdout}`);
+
+  // The point of the comparison with a fixture that has no prompt in it: the
+  // two budgets must be the same number either way. *Why that is worth a test:
+  // a prompt is handed to a session on top of everything it loads, so folding
+  // it in looks like the accurate thing to do — and would move two limits the
+  // owner settled, without anybody deciding to.*
+  assert.equal(report.everyBytes, before.everyBytes,
+    `saving a prompt changed what every session loads.\nIt printed:\n${report.stdout}`);
+  assert.equal(report.heaviestBytes, before.heaviestBytes,
+    `saving a prompt changed what the heaviest session loads.\nIt printed:\n${report.stdout}`);
+});
+
+test('a saved prompt that is empty, or that does not say which session it is, stops the check', (t) => {
+  const empty = buildFixture({ '12-build.md': '   \n' });
+  t.after(() => rmSync(empty, { recursive: true, force: true }));
+  const onEmpty = run(empty);
+
+  assert.equal(onEmpty.status, 1,
+    'a saved prompt with nothing in it passed. It would be reported as a ' +
+    `prompt of no size, which no prompt is.\nIt printed:\n${onEmpty.stdout}`);
+  assert.match(onEmpty.stdout, /EMPTY {2}projects\/make-believe\/prompts\/12-build\.md/,
+    `the refusal did not say which file was empty.\nIt printed:\n${onEmpty.stdout}`);
+
+  const misnamed = buildFixture({ 'notes.md': 'a prompt with no session named\n' });
+  t.after(() => rmSync(misnamed, { recursive: true, force: true }));
+  const onMisnamed = run(misnamed);
+
+  assert.equal(onMisnamed.status, 1,
+    'a saved prompt whose name says nothing about which session it came from ' +
+    `passed. Its size is then a number nobody can place.\nIt printed:\n${onMisnamed.stdout}`);
+  assert.match(onMisnamed.stdout, /BADLY NAMED {2}projects\/make-believe\/prompts\/notes\.md/,
+    `the refusal did not say which file was badly named.\nIt printed:\n${onMisnamed.stdout}`);
+  assert.deepEqual(onMisnamed.prompts, [],
+    'a badly named prompt was measured anyway, beside the refusal. It must be ' +
+    `refused instead of counted.\nIt printed:\n${onMisnamed.stdout}`);
 });
