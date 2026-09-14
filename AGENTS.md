@@ -25,10 +25,10 @@ defects than a large one.*
 
 **One review, in a fresh session. Never review your own work.** The session
 that built a change does not review it, and neither does a helper that
-inherited the builder's context. *Why: a model reviewing its own work misses
+inherited Michelangelo's context. *Why: a model reviewing its own work misses
 about a third of its own drift, and this does not improve as models get
 better. A fresh session scores measurably better than a helper carrying the
-builder's context.* The reviewer's method is `docs/REVIEWER.md`.
+Michelangelo's context.* Da Vinci's method is `docs/REVIEWER.md`.
 
 **Never run a second review round on the same version.** One review per
 version. If the review found things, fix them and the next review is of the
@@ -89,7 +89,7 @@ session, where a wrong merge is not small and not quietly reversible. And a
 review that found nothing looks exactly like a review that never ran — about 1
 in 50 real agent transcripts claims a review passed when none happened.*
 
-A build session still never merges its own work, and the reviewer still merges
+A build session still never merges its own work, and Da Vinci still merges
 nothing at all. *Why: a session that merges what it just wrote has removed the
 step that exists to catch it.*
 
@@ -104,7 +104,7 @@ whatever else it did.
 | tests failing on `main`, and blocking findings with no test | 0 both |
 | checks never observed refusing anything | 0 |
 | dead file references in `AGENTS.md` | 0 |
-| agent definitions | 2 (a builder and a reviewer) |
+| agent definitions | 2 (Michelangelo and Da Vinci) |
 | rules with no stated reason | 0 |
 
 **Tokens loaded before a session starts work — under 10,000.** Two numbers,
@@ -150,12 +150,12 @@ told apart from one that cannot fire.*
 of the 21 links in the files a session reads first are broken — including the
 rules file it tells every session to go and read.*
 
-**Agent definitions — 2: a builder and a reviewer.** *Why: under matched
+**Agent definitions — 2: Michelangelo and Da Vinci.** *Why: under matched
 conditions, five of six multi-agent systems performed worse than a single
 agent and cost more, and the noise floor in that literature is about 15
 points — wider than most of the gains anyone has published. The one
 multi-agent pattern with a clean, replicated benefit is a fresh session for
-review. That is the reviewer, and it is the whole reason the limit is two
+review. That is Da Vinci, and it is the whole reason the limit is two
 rather than one.*
 
 **Rules with no stated reason — 0.** *Why: adding the reason to a rule
@@ -199,9 +199,9 @@ files that sit beside it. Bytes divided by four.
 session, wherever in the repository it sits** — not only when it happens to
 sit inside a skill's own folder. *Why: otherwise the way to get under the
 budget is to move the bulk somewhere else and point at it from one line, and
-neither number moves. That is not hypothetical. The reviewer's method was
+neither number moves. That is not hypothetical. Da Vinci's method was
 split out of its agent definition into `docs/REVIEWER.md` in order to fit
-under this budget, and 6,540 bytes that every reviewer session is required to
+under this budget, and 6,540 bytes that every Da Vinci session is required to
 read were then charged as nothing.* Reading is followed onward: a
 file that sends the session to a third file is charged for that one too,
 each file once.
@@ -215,7 +215,7 @@ wording could be beaten by rewording the sentence — and a check that
 quietly dropped what it could not tell apart would undercount, which is the
 direction that does harm. Refusing until somebody says which it is means a new
 pointer out of a skill cannot pass unnoticed. Calling a large file "only
-mentioned" is still possible, but it has to be written down where a reviewer
+mentioned" is still possible, but it has to be written down where Da Vinci
 sees it.*
 
 `CLAUDE.md` is a symbolic link to `AGENTS.md`: the same bytes under a second

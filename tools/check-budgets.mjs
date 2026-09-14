@@ -125,7 +125,7 @@ function offeredLine(full) {
 // they were. That was demonstrated — a 20,000-byte file under docs/ with a
 // one-line pointer from the build skill moved the heavier number by 15 tokens,
 // the weight of the pointer sentence — and it was already true of this
-// repository: every reviewer session is sent, unconditionally, to read
+// repository: every Da Vinci session is sent, unconditionally, to read
 // docs/REVIEWER.md and from there docs/PRECEDENTS.md, and both were charged
 // zero. 6,540 bytes of required reading, counted as nothing.
 //
@@ -150,9 +150,9 @@ function offeredLine(full) {
 // picking one: over-counting is safer than under-counting, and refusing is
 // safer than either — a new pointer out of a skill cannot slip through
 // silently, and writing down "this is only a mention" beside a large file is
-// a visible act a reviewer sees.*
+// a visible act Da Vinci sees.*
 //
-// TRANSITIVE — YES. docs/REVIEWER.md sends the reviewer on to
+// TRANSITIVE — YES. docs/REVIEWER.md sends Da Vinci on to
 // docs/PRECEDENTS.md, so stopping after one step would reopen the same hole
 // one level down. Reading is followed from file to file until nothing new is
 // found. *What stops a cycle: each file is charged at most once per session
@@ -169,7 +169,7 @@ function offeredLine(full) {
 // WHICH NUMBER IT LANDS IN. A file reached from a skill or an agent definition
 // is charged to that set, so it shows in the heaviest number and not in the
 // every-session one. *Why: only the sessions that open those instructions are
-// sent to it — a file only a reviewer opens is not loaded by every session.* A
+// sent to it — a file only Da Vinci opens is not loaded by every session.* A
 // file reached from AGENTS.md would be charged to every session. Today there
 // are none: every path AGENTS.md names, it names as a subject.
 

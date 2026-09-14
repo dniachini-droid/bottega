@@ -12,7 +12,7 @@ he says to a button he presses.
 1  SCOPE     ask the questions            ← he answers
 2  SLICE     propose the smallest version ← he approves
 3  BUILD     start the build session
-4  REVIEW    start a fresh reviewer
+4  REVIEW    start a fresh Da Vinci
 5  FIX       one cycle, if needed
 6  SEE IT    tell him what to look at     ← he looks
 7  MERGE     small and reviewed, or ask  ← his, unless small
@@ -55,7 +55,7 @@ Stages 3, 4 and 5 each start a session — the build, the review and the fix.
 the project's repository is different, and that is written here too, one line
 each.** *Why: a rule written out at three stages drifts in two of them. But a
 rule written once for all three hands every session the instructions of
-whichever one it was written for — which happened here: the builder's
+whichever one it was written for — which happened here: Michelangelo's
 "open the pull request" reached the fix session, whose repairs then land in a
 second pull request and not in the one the owner is told to merge.*
 
@@ -128,9 +128,9 @@ either way — are what cover the deliberate act, and they stay.
   review, and opens nothing.** *Why: the pull request the owner is told to
   merge at stage 7 is the one the review was about. Repairs in a second pull
   request are repairs he does not merge.*
-- **The reviewer writes nothing at all.** It reads, and it comments once on the
+- **Da Vinci writes nothing at all.** It reads, and it comments once on the
   pull request. *Why, and the tools its own definition takes away so that this
-  is not only a promise, are in `.claude/agents/reviewer.md`.*
+  is not only a promise, are in `.claude/agents/da-vinci.md`.*
 
 ### What these sessions must be created with
 
@@ -157,7 +157,7 @@ from outside, exactly like a session that is working.*
 Every reply during a build says which stage it is at, out of seven, and
 whether anything is wanted from him. Not only at the changeovers. Every reply.
 
-> Stage 4 of 7 — the reviewer is running. Nothing for you to do.
+> Stage 4 of 7 — Da Vinci is running. Nothing for you to do.
 > Next: nothing — I will tell you when the review lands.
 
 The stage line goes immediately above the `Next:` line that ends every reply.
@@ -183,7 +183,7 @@ It is a fixed, short script. Five questions, asked plainly, in this order:
 5. **How will we know it is right?**
 
 The fifth is load-bearing and is never dropped for time. His answer becomes
-the list the reviewer checks against at stage 4. *Why: a reviewer given a
+the list Da Vinci checks against at stage 4. *Why: a reviewer given a
 detailed list written by the person who wanted the thing passed 10 runs in 10.
 A reviewer asked "did you check it?" passed 5 in 10.*
 
@@ -220,8 +220,8 @@ workshop exists to prevent.*
 One page, three headings, no more:
 
 - **What it does** — in his words, from question 1.
-- **What done looks like** — from questions 2 and 5. This is the list the
-  reviewer will check against.
+- **What done looks like** — from questions 2 and 5. This is the list
+  Da Vinci will check against.
 - **What is out** — from question 4, as a list.
 
 **Then commit it and push it to the working branch in Bottega — the same
@@ -296,7 +296,7 @@ arrives one useful file at a time.*
 **One review. A fresh session. A different model family. One pass.**
 
 - **Fresh**, meaning a new session that has never seen this change being
-  built — not the builder, and not a helper the builder started.
+  built — not Michelangelo, and not a helper Michelangelo started.
 - **A different model family.** If the build ran on `claude-opus-5`, the
   review runs on `claude-sonnet-5`, and the other way round. *Why: a fresh
   session of the same model starts fresh on the context but not on the habits
@@ -307,7 +307,7 @@ arrives one useful file at a time.*
 *The reasons for a fresh session and for one pass only are in `AGENTS.md`,
 attached to the rules they belong to, and are not copied here.*
 
-What the reviewer is, and what it refuses, is `.claude/agents/reviewer.md`.
+What Da Vinci is, and what it refuses, is `.claude/agents/da-vinci.md`.
 Start it the way every session here starts, and hand it the seven lines that
 file opens with — stamped off the branch at the moment of handoff, the scope
 page's "what done looks like" list copied in word for word, and **no eighth

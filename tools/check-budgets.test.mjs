@@ -12,11 +12,11 @@
 //      the workshop look nearly full when it was a quarter full, and nearly
 //      forced real content out to make room.
 //   2. It charged nothing for a file the instructions order a session to read
-//      when that file sits outside the skill's own folder. Every reviewer is
-//      sent to docs/REVIEWER.md and on to docs/PRECEDENTS.md — 6,540 bytes of
-//      compulsory reading, counted as zero. Worse, that split was made in
-//      order to fit under this budget: the move that solved the budget problem
-//      was the way to defeat it.
+//      when that file sits outside the skill's own folder. Every Da Vinci
+//      session is sent to docs/REVIEWER.md and on to docs/PRECEDENTS.md —
+//      6,540 bytes of compulsory reading, counted as zero. Worse, that split
+//      was made in order to fit under this budget: the move that solved the
+//      budget problem was the way to defeat it.
 //
 // So there is one test per fault. Each was watched failing against the old
 // broken behaviour before it was trusted — what was seen is written down in
