@@ -109,11 +109,47 @@ down here.
 ## Nobody has walked the seven stages end to end
 
 `/build` describes seven stages, from working out the scope to the owner
-pressing merge. No piece of work has yet gone through all seven as written —
-partly because the reviewer, which stage four calls for, does not exist yet.
+pressing merge. No piece of work has yet gone through all seven as written.
+The reviewer that stage four calls for now exists, so that is no longer the
+reason.
 
 **Status:** OPEN — closes the first time a change goes through all seven
 stages in order, with what was observed at each one written down.
+
+---
+
+## The reviewer has never run as a fresh session against a real change
+
+It was tested three times against inputs made up for the purpose — clean code,
+code with an obvious defect, and a handoff with a forbidden extra field — and
+what was seen is in `docs/REFUSALS.md`. But all three runs were helpers
+started by the session that built the reviewer, not fresh sessions started by
+the guide window, and none of them reviewed a real change.
+
+So two things are untested: that a separately started session reads the
+reviewer's files and behaves the same way, and that `reviewer_mode` ever comes
+back as anything other than the value a helper would report.
+
+**Status:** OPEN — closes the first time a fresh session reviews a real change
+and its comment lands on a pull request, with the six answers in it.
+
+---
+
+## The reviewer is started by a lookup, not by an event
+
+Everything after a pull request exists is event-driven and fast. The gap
+between a session starting and its pull request existing is not covered: the
+number has to be fetched rather than delivered, so the guide window looks for
+it twice and then gives up and tells the owner.
+
+`docs/SIGNALS.md` records what was tried and why the obvious alternatives do
+not work. The one design that would close the gap completely — the guide
+window opening the draft pull request itself, before the session starts — was
+not built, because it would mean Virgil writes to the repository, and that is
+the owner's decision rather than a session's.
+
+**Status:** OPEN — waiting on the owner to say whether Virgil may open a draft
+pull request itself. Until then the two-look lookup stands.
 
 ---
 

@@ -28,7 +28,7 @@ that built a change does not review it, and neither does a helper that
 inherited the builder's context. *Why: a model reviewing its own work misses
 about a third of its own drift, and this does not improve as models get
 better. A fresh session scores measurably better than a helper carrying the
-builder's context.*
+builder's context.* The reviewer's method is `docs/REVIEWER.md`.
 
 **Never run a second review round on the same version.** One review per
 version. If the review found things, fix them and the next review is of the
@@ -95,8 +95,8 @@ tests on its only branch, including a real data-loss bug, because nothing ever
 runs them. A failing test nobody runs is not a warning, it is furniture.*
 
 **Checks never observed refusing anything — 0.** Every check here must be
-watched refusing something at least once, and what was seen written down where
-it can be found again. *Why: a check never seen refusing anything cannot be
+watched refusing something at least once, and what was seen written down in
+`docs/REFUSALS.md`. *Why: a check never seen refusing anything cannot be
 told apart from one that cannot fire.*
 
 **Dead file references in `AGENTS.md` — 0.** *Why: in that same framework, 11

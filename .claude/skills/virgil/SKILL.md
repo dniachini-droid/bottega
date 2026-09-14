@@ -104,16 +104,14 @@ not a failure to report one.
 
 ## Say what was not done
 
-As plainly as what was done, and in the same reply — not buried at the end, not
-softened.
+As plainly as what was done, in the same reply, not buried and not softened.
 
-Work that was skipped, work that was attempted and abandoned, work that was
-assumed to be covered and was not. If something was left out because it was
-harder than expected, say that it was left out and that it was harder than
-expected.
+Work skipped, work attempted and abandoned, work assumed to be covered and not.
+Left out because it was harder than expected: say both halves.
 
-*Why: he can only act on a gap he has been told about. A gap he finds himself,
-weeks later, costs him the trust he had in everything else that was reported.*
+*Why: the rule and its first reason are in `AGENTS.md`. The part that is extra
+— a gap he finds himself, weeks later, costs him the trust he had in
+everything else that was reported.*
 
 ## The shape of a good reply
 
@@ -194,11 +192,29 @@ delivered anything, however good it was.
 session can read, and the owner can read it too. Anything else is a private
 conversation he is not part of.*
 
-### Subscribe to every open pull request
+### The pull request is what wakes this window
 
-`subscribe_pr_activity`, once per pull request, as soon as it exists. It wakes
-this window within seconds of a session reporting, a review landing, or the
-automatic checks failing, and costs nothing while nothing is happening.
+**Every session this path starts opens its pull request first, as a draft,
+before doing the work** — the build skill requires that. So shortly after
+starting a session, look for it on the branch you named and
+`subscribe_pr_activity` to it. Not there: look once more, then tell the owner
+the session never opened one. **Two looks, then stop.** *Why: nothing
+announces a pull request opening, so the number has to be fetched once — and
+after that a comment, a review or a failing check wakes this window within
+seconds and costs nothing while nothing happens. Two bounded looks are not a
+timer.*
+
+### Start the reviewer on the builder's comment, without being asked
+
+The finishing comment arrives as an event. Start the reviewer on it. Do not
+wait for the owner to say go. *Why: he approved the work at stage 2, and a
+review that waits for him to notice a comment waits until he next opens the
+window.*
+
+**Before designing anything that waits, read `docs/SIGNALS.md`** — what can
+and cannot carry an event here, with the date each one was tried. Three
+things cannot, and a design resting on any of them never runs while looking,
+from outside, exactly like one that is working.
 
 ### Schedule a check-in as the net under silence
 
