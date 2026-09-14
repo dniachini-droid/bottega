@@ -104,4 +104,20 @@ so `fresh_eyes` was an honest answer to the question actually asked.
 
 The test is now about the reviewer's own first instruction rather than about
 the change, and the default when it cannot tell is `challenger`.
-**This has not been re-run since the wording changed.**
+
+### Re-run after that wording changed, and it answered correctly
+
+Same clean input, same packet, fourth run. It reported
+`reviewer_mode: challenger`, which is the true answer. It still reported
+**no findings** and `safe_to_merge`, so the fix did not cost the control test.
+
+It also showed the two steps working as they are meant to. It raised five
+candidates in the finding step — non-Latin letters being dropped, the Turkish
+dotted capital I, an all-punctuation title slugging to nothing, non-string
+input being coerced, and the absence of tests — and the killing step destroyed
+every one of them, each for the same reason: it required a promise the stated
+goal never made, and none had a caller anywhere in the tree to point at.
+Nothing reached 8 in 10.
+
+*Why that is the useful part of this run: those five are exactly the findings
+a reviewer with no killing step reports, and they are all noise.*
