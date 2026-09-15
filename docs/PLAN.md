@@ -148,9 +148,34 @@ that built the reviewer. Nothing of that session reached them, so they were
 isolated by construction, and they still are not the fresh session the rules
 call for. Nothing here has established what the label costs, if anything.*
 
+**And the label is not reliable, which is worse than the label being wrong.**
+*Observed 15 September 2026: every review that day was started the same way, as
+a helper spawned by the guide window. Some reported `challenger` and some
+reported `fresh_eyes` — the same starting condition, opposite answers, from the
+sessions whose own method says that starting condition decides it. So the one
+signal anybody has about whether a review was independent is produced by the
+review grading itself, and it does not agree with itself. A self-assessment that
+varies is not a check.*
+
+**The real difficulty, named, because neither half of it is obvious:** Da Vinci
+is a defined role with its writing tools **removed** — it cannot edit, commit or
+push, because those tools are not there. That is an absence, not a promise.
+Starting it as a helper keeps that absence and loses the independence. Starting
+it as its own session gains the independence and loses the absence: a plain
+separate session *could* write to the repository and is only asked not to.
+**Nobody has built the arrangement that gives both**, and that is the work, not
+the label.
+
+*Why it matters: this is the weakest joint in the whole loop. The one
+multi-agent pattern with a clean replicated benefit is a fresh session for
+review, and that benefit is the entire reason `AGENTS.md` allows two agent
+definitions rather than one. If the review is not actually fresh, the budget is
+paying for something it is not getting.*
+
 **The owner decided on 15 September 2026 to park this as its own item** rather
 than widen "Isolation that holds", which checks the handoff and does not touch
-this. Where it belongs in the order above is not settled.
+this. He asked on the same day that the two paragraphs above be added to it.
+Where it belongs in the order is not settled.
 
 ### 5. The check before a commit
 
