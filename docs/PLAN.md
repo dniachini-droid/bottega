@@ -119,12 +119,15 @@ alternatives to each other and neither replaces the other.
   failure, and it asserts no ceiling, because nothing has established that any
   particular size is too large.*
 
-**Not on this list, and it cannot be:** the roughly 4,200 tokens spent on
-descriptions of skills no session here opens. That is the owner's account
-setting, not a change anything in this repository can make. `docs/OPEN.md`
-records it and says plainly that nothing here closes it. It is listed nowhere
-in this plan because every item in this plan is built, reviewed and merged,
-and that one cannot be any of the three.
+**Done, 15 September 2026, and it was on no list because everybody believed it
+could not be:** the roughly 4,200 tokens spent on descriptions of skills no
+session here opens. It was recorded as the owner's account setting and outside
+this repository's reach. It is not — `.claude/settings.json` switches them off
+and travels with the repository. Pull request 20. *Why it is worth a line in a
+file that only holds what is next: a thing written down as impossible stays
+impossible until somebody checks, and this one had been sitting in the register
+as a standing instruction to the owner to go and do something he did not need
+to do.*
 
 ### 5. Memory
 

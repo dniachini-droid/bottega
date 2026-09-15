@@ -580,9 +580,21 @@ session's context goes on descriptions of things no session here will open.
 That is more than the entire every-session number the workshop holds itself to,
 spent on material the workshop did not write and cannot delete.
 
-**This is the owner's setting to change, not a change anybody can make in this
-repository.** It is a per-account choice about which skills are switched on.
-Nothing in `AGENTS.md`, `.claude/` or the check touches it.
+**Closed on 15 September 2026, and the way it closed was a surprise.** This was
+recorded as the owner's setting to change and not a change anybody could make
+in this repository. That was wrong: `.claude/settings.json` takes a
+`skillOverrides` block, it travels with the repository, and a session working
+here is now offered six skills rather than about thirty.
+
+*How it was established rather than assumed: the names were switched off, each
+one was then asked for, and every one came back refused — against a control of
+a name that does not exist, which came back as unknown rather than disabled. So
+the harness tells a matched name from an unmatched one, and none of them failed
+silently, which was the whole risk.*
+
+**It closes here only.** Any other repository, and any conversation outside
+one, still offers all of them. Making it account-wide is a separate decision
+and has not been made.
 
 *Why it is recorded here despite that: the budget check reports what every
 session loads as about 4,105 tokens, and a reader could reasonably take that
@@ -590,8 +602,9 @@ for the whole of what a session carries before it starts. It is not. The real
 figure is roughly twice that, and the half the workshop does not control is the
 larger half.*
 
-**Status:** OPEN — the owner turns off the skills he does not want, in his own
-settings. Nothing here closes it.
+**Status:** CLOSED for this repository, 15 September 2026, by pull request 20.
+OPEN as a question the owner has not been asked: whether he wants the same
+everywhere, which is his account's setting and not this repository's.
 
 ## A reviewer that has to check a claim recorded only in a pull request breaks its own isolation to do it
 
@@ -671,3 +684,35 @@ entry about that page carrying no figures.*
 **Status:** CLOSED. This is the passage nominated as removable by the entry
 headed "The heaviest startup number is close to its limit". Recorded here so
 the wrong reason is not reinstated.
+
+---
+
+## The budget check cannot see the largest saving this workshop has made
+
+**15 September 2026.** Switching off nineteen skills took what a session is
+offered from about thirty down to seven. The check reports none of it.
+
+What it reports is the opposite: `.claude/settings.json` grew from 299 bytes to
+about 950 to hold the block, and that file is charged to both enforced numbers.
+So the heaviest session went **up** by about 160 tokens on the day the real load
+came down by far more.
+
+*Why this is not a fault in the check: it measures what this repository hands a
+session, and a skill listing is handed to a session by the harness. It never
+could see it. The entry it closed said as much — it recorded the 4,200 tokens as
+something outside this repository's reach, and the reach turned out to be the
+settings file rather than the instructions.*
+
+**What follows, and it is not comfortable.** Both enforced numbers are now
+smaller than what a session really carries, by more than the budget itself. A
+session reading "about 9,679 of 10,000" is reading the part of its load this
+repository wrote, not the whole of it. That was always true — the harness's own
+instructions and tool descriptions were never counted either — but until today
+the uncounted part was not something anybody here could change, so it read as
+background rather than as a gap.
+
+**Status:** OPEN — nobody has decided whether the check should try to count what
+it is offered, or whether saying plainly what it does not count is enough.
+*Nothing is proposed here on purpose: a check that guessed at the harness's own
+numbers would be inventing them, and this repository has been wrong twice about
+its own measurements in the direction that flattered them.*

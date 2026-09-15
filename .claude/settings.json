@@ -19,7 +19,6 @@
     "anthropic-skills:pdf": "off",
     "anthropic-skills:pptx": "off",
     "anthropic-skills:xlsx": "off",
-    "anthropic-skills:skill-creator": "off",
     "anthropic-skills:import-memory": "off",
     "anthropic-skills:morning": "off",
     "keybindings-help": "off",
