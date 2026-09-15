@@ -399,7 +399,10 @@ test('a backticked path in a declared file, not only in AGENTS.md, is watched fo
   assert.equal(status, 1,
     'a backticked path that vanished from a declared file must stop the check. ' +
     `It printed:\n${stdout}`);
-  assert.match(stdout, /MISSING\s+docs\/GONE\.md/);
+  // And it says which file named it. *Why that is asserted: the scan reads
+  // every declared file now, so a bare "MISSING docs/GONE.md" leaves the
+  // reader grepping the repository for the sentence to fix.*
+  assert.match(stdout, /MISSING\s+docs\/GONE\.md\s+\(named in docs\/METHOD\.md\)/);
   rmSync(root, { recursive: true, force: true });
 });
 
@@ -413,5 +416,72 @@ test('a name declared as mentioned that the file no longer contains stops the ch
     'a mention declared for a file that does not name it is a standing ' +
     `pre-approval and must stop the check. It printed:\n${stdout}`);
   assert.match(stdout, /STALE\s+AGENTS\.md\s+declares the mention\s+docs\/PRECEDENTS\.md/);
+  rmSync(root, { recursive: true, force: true });
+});
+
+// --- The same two guards, over a file charged to nobody --------------------
+//
+// WHY THESE EXIST. The second review of pull request 22 found that both guards
+// above lived inside the walk that charges files to a session, so neither could
+// reach a declared file no session pays for. docs/THE-CHECK.md was exactly
+// that: declared, charged to nobody, and its own list of mentions was therefore
+// the unverified pre-approval the stale guard exists to refuse. Proven before
+// the fix by appending an undeclared backticked path to that page and by
+// pushing a name it does not contain onto its mentions list — the check passed
+// both times, where the same two edits to AGENTS.md stopped it. Both runs are
+// in docs/REFUSALS.md. A declaration is a promise about a file's contents, and
+// a file at zero bytes of charge makes the same promise as one every session
+// loads.
+
+// Declared in the reading list, and reached by nothing: no skill, no agent
+// definition and no charged file sends a session here.
+function withUnchargedPage(root) {
+  writeAt(root, 'docs/MECHANISM.md',
+    'How the counting works, for somebody changing the check. The rest of the\n' +
+    'reasoning is in `docs/UNSEEN.md`.\n' + filler(900));
+  writeAt(root, 'docs/UNSEEN.md', filler(200));
+  return declare(root, 'docs/MECHANISM.md', { reads: [], mentions: ['docs/UNSEEN.md'] });
+}
+
+function declare(root, rel, entry) {
+  const reads = JSON.parse(readFileSync(join(root, 'tools/reads.json'), 'utf8'));
+  reads[rel] = entry;
+  writeFileSync(join(root, 'tools/reads.json'), JSON.stringify(reads, null, 2) + '\n');
+  return reads;
+}
+
+test('a backticked name left unclassified in a declared file charged to nobody stops the check', () => {
+  const root = buildFixture();
+  const before = run(root);
+  withUnchargedPage(root);
+  const clean = run(root);
+  assert.equal(clean.status, 0, `the fixture must start clean. It printed:\n${clean.stdout}`);
+  // The point of the test: this page moves neither number, so the charging
+  // walk never reaches it.
+  assert.equal(clean.everyBytes, before.everyBytes, 'the page must be charged to no session');
+  assert.equal(clean.heaviestBytes, before.heaviestBytes, 'the page must be charged to no session');
+
+  declare(root, 'docs/MECHANISM.md', { reads: [], mentions: [] });
+  const { status, stdout } = run(root);
+  assert.equal(status, 1,
+    'a backticked name classified in neither list must stop the check even when ' +
+    `no session is charged for the file that writes it. It printed:\n${stdout}`);
+  assert.match(stdout, /UNDECLARED\s+docs\/UNSEEN\.md\s+\(named in docs\/MECHANISM\.md\)/);
+  rmSync(root, { recursive: true, force: true });
+});
+
+test('a stale mention declared for a file charged to nobody stops the check', () => {
+  const root = buildFixture();
+  withUnchargedPage(root);
+  assert.equal(run(root).status, 0, 'the fixture must start clean');
+
+  declare(root, 'docs/MECHANISM.md',
+    { reads: [], mentions: ['docs/UNSEEN.md', 'docs/PRECEDENTS.md'] });
+  const { status, stdout } = run(root);
+  assert.equal(status, 1,
+    'a mention declared for a file that does not contain it is a standing ' +
+    'pre-approval wherever that file sits in the count, including at zero. ' +
+    `It printed:\n${stdout}`);
+  assert.match(stdout, /STALE\s+docs\/MECHANISM\.md\s+declares the mention\s+docs\/PRECEDENTS\.md/);
   rmSync(root, { recursive: true, force: true });
 });

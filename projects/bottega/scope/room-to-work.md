@@ -8,7 +8,9 @@ there were about 101.
 
 The room comes from one place: the part of `AGENTS.md` that explains how the
 budget check counts. That is a description of a tool's arithmetic, not a rule
-anybody follows. It moves to `docs/THE-CHECK.md` and nobody is sent to read it.
+anybody follows. It moves to `docs/THE-CHECK.md`, which `AGENTS.md` points at
+conditionally — open it only if you are changing the check — on the judgement
+that ordinary work here never opens it.
 
 ## What done looks like
 
@@ -23,8 +25,9 @@ anybody follows. It moves to `docs/THE-CHECK.md` and nobody is sent to read it.
   declarations file works, the symbolic link, the tests, and why the prompt
   number is a record rather than a measurement.
 - `docs/THE-CHECK.md` opens by saying it is the dodge the anti-dodge rule warns
-  about, that it is allowed only because nobody is sent there, and that the day
-  a rule sends somebody there it is charged back to every session.
+  about, that what allows it is a judgement rather than a fact — the pointer to
+  it is conditional and ordinary work never follows it — and that the day a rule
+  sends somebody there it is charged back to every session.
 - `tools/reads.json` classifies it as mentioned, with that reasoning in its
   note, where Da Vinci sees it.
 - `docs/OPEN.md` carries the same as a standing thing to watch.
@@ -34,7 +37,7 @@ anybody follows. It moves to `docs/THE-CHECK.md` and nobody is sent to read it.
   test suite as "one for each of the two faults it really had", which stopped
   being true at five tests; the replacement in `docs/THE-CHECK.md` says what
   each test is for.
-- The check exits 0 and `node --test` passes 7 of 7.
+- The check exits 0 and `node --test` passes 9 of 9.
 
 **Added after the review of pull request 22, which found that the move broke
 something:**
@@ -57,6 +60,33 @@ something:**
   appears. `AGENTS.md` does point there, conditionally. What makes it a mention
   is a judgement that ordinary work never opens it — not a fact, and nothing can
   check it.
+
+**Added after the second review of pull request 22, which found the guards
+could not reach the page they were built for:**
+
+- Both declaration guards — every backticked name classified, and no mention
+  declared for a name the file does not contain — now run over every file
+  `tools/reads.json` declares, not only over the files some session is charged
+  for. They used to sit inside the charging walk, which stops at charged files,
+  so `docs/THE-CHECK.md` — declared and charged to nobody — was the one file
+  neither could see. Its own list of mentions was therefore written unverified.
+  The widened guard refused two of those names on its first run; both were
+  wrong and both are out.
+- A dead reference now says which file wrote the path. The check already worked
+  that out and printed only the missing name.
+- `AGENTS.md` no longer says the dead-reference pass reads backticks in
+  `AGENTS.md` alone. That stopped being true in the commit before this one.
+- `docs/REVIEWER.md`'s list of what the automatic checks do is literal again:
+  there is no install step, and the test step runs the tests rather than
+  nothing. The method itself is untouched.
+- `docs/THE-CHECK.md` counted five tests when there were seven. It says nine
+  now, and says what each group is for.
+- `docs/OPEN.md` no longer rests the move on "nobody is sent to read the new
+  page". It rests on the same judgement the other three places state.
+- `docs/REFUSALS.md` carries what was watched: two probes that the check passes
+  at the head of this branch and refuses on this version, a third for the dead
+  reference that now names its source, and the run where three tests failed
+  against the check without the fix and all nine passed against it.
 
 ## What is out
 

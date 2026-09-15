@@ -215,6 +215,59 @@ const unclassified = new Map(); // "file -> ref" so it is reported once
 const staleDeclarations = new Map(); // declared as mentioned, not in the file
 const deadReads = new Map();
 
+// Every file tools/reads.json declares, that is really there. Used twice: the
+// two guards below run over all of them, and so does the dead-reference pass.
+function declaredFiles() {
+  const out = [];
+  for (const rel of Object.keys(declarations || {})) {
+    if (!rel.includes('/') && !rel.endsWith('.md')) continue; // the notes at the top
+    const full = join(ROOT, rel);
+    if (existsSync(full) && statSync(full).isFile()) out.push(full);
+  }
+  return out;
+}
+
+// THE TWO GUARDS OVER ONE FILE.
+//
+// First: the backticks are how an undeclared file is caught — anything this
+// file names that has not been classified either way stops the check.
+//
+// Second: A DECLARATION THE FILE NO LONGER EARNS. A name listed as a mention
+// that the file does not contain is a standing pre-approval: the next change
+// to write that name is classified before anybody looks at it, which is the
+// one thing tools/reads.json exists to prevent. Reads are exempt — a file can
+// be handed to a session without its name ever appearing in backticks, which
+// is why reads are charged from the declaration and not the text.
+//
+// *Why this is a function called from two places rather than the tail of the
+// charging walk it used to be: the walk only reaches files charged to some
+// session, and on 15 September 2026 docs/THE-CHECK.md was declared and charged
+// to nobody — so neither guard could see it. The seven names its declaration
+// listed were themselves the unverified pre-approval the second guard exists
+// to refuse. A declaration is a promise about a file's contents wherever that
+// file sits in the count, including at zero.*
+//
+// The third guard — a file declared as read that is not there — stays inside
+// the charging walk. *Why: it is a statement about what a session would be
+// handed, so it has something to say only where something is charged, and a
+// declared file nobody opens that lists a read has that read checked the day
+// anything starts opening it. There is no such file here today.*
+function classifyNames(full) {
+  const rel = relative(ROOT, full);
+  const entry = (declarations && declarations[rel]) || {};
+  const reads = Array.isArray(entry.reads) ? entry.reads : [];
+  const mentions = Array.isArray(entry.mentions) ? entry.mentions : [];
+
+  const namedHere = new Set(referencesIn(full));
+  for (const ref of namedHere) {
+    if (reads.includes(ref) || mentions.includes(ref)) continue;
+    unclassified.set(`${rel} -> ${ref}`, { from: rel, ref });
+  }
+  for (const ref of mentions) {
+    if (!namedHere.has(ref)) staleDeclarations.set(`${rel} -> ${ref}`, { from: rel, ref });
+  }
+}
+
 // Charge these files, and everything they send a session on to read.
 // `exclude` holds real paths already charged elsewhere, so the same bytes are
 // never paid for twice inside one number.
@@ -230,7 +283,6 @@ function chargeReading(seeds, exclude) {
     const rel = relative(ROOT, full);
     const entry = (declarations && declarations[rel]) || {};
     const reads = Array.isArray(entry.reads) ? entry.reads : [];
-    const mentions = Array.isArray(entry.mentions) ? entry.mentions : [];
 
     // What is charged comes from the declaration, not from the backticks.
     // *Why: a file can be handed to a session without its name ever being set
@@ -247,23 +299,7 @@ function chargeReading(seeds, exclude) {
       else queue.push(target);
     }
 
-    // The backticks are how an undeclared file is caught: anything this file
-    // names that has not been classified either way stops the check.
-    const namedHere = new Set(referencesIn(full));
-    for (const ref of namedHere) {
-      if (reads.includes(ref) || mentions.includes(ref)) continue;
-      unclassified.set(`${rel} -> ${ref}`, { from: rel, ref });
-    }
-
-    // A DECLARATION THE FILE NO LONGER EARNS. A name listed here that the file
-    // does not contain is a standing pre-approval: the next change to write
-    // that name is classified before anybody looks at it, which is the one
-    // thing tools/reads.json exists to prevent. Reads are exempt — a file can
-    // be handed to a session without its name ever appearing in backticks,
-    // which is why reads are charged from the declaration and not the text.
-    for (const ref of mentions) {
-      if (!namedHere.has(ref)) staleDeclarations.set(`${rel} -> ${ref}`, { from: rel, ref });
-    }
+    classifyNames(full);
   }
   return charged;
 }
@@ -364,13 +400,13 @@ if (!existsSync(agentsPath)) {
 // have been deleted with the check still green. A path in backticks is how you
 // ask to be warned when a file disappears, and that promise has to hold
 // wherever the path is written, not only in one file.*
-const scanned = new Set([agentsPath]);
-for (const rel of Object.keys(declarations || {})) {
-  if (rel.includes('/') || rel.endsWith('.md')) {
-    const full = join(ROOT, rel);
-    if (existsSync(full) && statSync(full).isFile()) scanned.add(full);
-  }
-}
+const scanned = new Set([agentsPath, ...declaredFiles()]);
+
+// The other two guards reach the same set, and for the same reason. The
+// charging walk that used to carry them stops at files some session pays for,
+// so a declared file charged to nobody had its backticks classified by nobody
+// and its mentions list checked against nothing.
+for (const full of scanned) classifyNames(full);
 const refSource = new Map(); // ref -> the file that names it
 for (const f of scanned) {
   for (const ref of referencesIn(f)) {
@@ -635,7 +671,10 @@ console.log(
 );
 if (dead.length) {
   console.log('These are named in backticks but are not in the repository:');
-  for (const ref of dead) console.log(`  MISSING  ${ref}`);
+  // Which file named it, not only what is missing. *Why: the scan now reads
+  // every declared file, so "MISSING docs/X.md" on its own leaves the reader
+  // grepping the repository for the sentence to fix.*
+  for (const ref of dead) console.log(`  MISSING  ${ref}  (named in ${refSource.get(ref)})`);
   console.log(
     'Either put the file back, or stop naming it in the rules. A rules file ' +
     'that points at things which are not there stops being believed.'

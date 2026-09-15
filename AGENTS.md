@@ -247,9 +247,10 @@ guessed could be beaten by rewording the sentence. Calling a large file "only
 mentioned" is still possible, but it has to be written down where Da Vinci sees
 it.*
 
-For dead references the check takes every path written in backticks in
-`AGENTS.md` and checks that it is really there. So writing a path in backticks
-is how you ask to be warned when it disappears.
+For dead references the check takes every path written in backticks — in
+`AGENTS.md` and in every file `tools/reads.json` declares — and checks that it
+is really there. So writing a path in backticks is how you ask to be warned
+when it disappears, wherever you write it.
 
 **It also prints a third number that is not a budget and has no limit: how big
 the prompt was that started a session.** *Why no limit: nobody has yet seen

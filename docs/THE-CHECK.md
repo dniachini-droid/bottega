@@ -53,10 +53,13 @@ once, and counting `AGENTS.md` counts exactly what arrives.
 
 ## The tests
 
-`tools/check-budgets.test.mjs` is the tests for that check. Each was watched
-failing against the broken version before it was trusted: two for the faults the
-counting really had, two for the prompt record, and one for a backticked name
-left in neither list. `node --test` runs them in the same automatic checks, so a
+`tools/check-budgets.test.mjs` is the tests for that check, nine of them. Each
+was watched failing against the broken version before it was trusted: two for the
+faults the counting really had, two for the prompt record, one for a backticked
+name left in neither list, and four for the guards the reviews of pull request 22
+asked for — a backticked path watched for disappearing wherever it is written, a
+mention declared for a file that no longer contains it, and both of those again
+over a file this list declares but no session is charged for. `node --test` runs them in the same automatic checks, so a
 failing test on `main` cannot sit unnoticed. No session ever reads them, so they
 cost nothing against either limit.
 

@@ -915,3 +915,87 @@ declaration and not from the text.
 Two tests were added to `tools/check-budgets.test.mjs`, one for each guard. Run
 against the check as it stood on `main`, which has neither, **both failed** —
 5 passing, 2 failing. Against the new one, all 7 pass.
+
+---
+
+## The same two guards, over a page charged to nobody, and a dead reference that says where it was written
+
+**15 September 2026, all three found by the second review of pull request 22.**
+
+### The fault: a guard that could not reach the file it was built for
+
+Both guards above — every backticked name classified, and no mention declared
+for a name the file does not contain — lived inside the walk that charges files
+to a session. `docs/THE-CHECK.md` is declared in `tools/reads.json` and charged
+to nobody, so the walk never reached it and neither guard ever looked at it.
+The seven-name mentions list written for that page at this pull request was
+therefore itself the unverified pre-approval the second guard exists to refuse.
+
+Both probes were run against two copies of this repository in a scratch folder,
+one carrying the check as it stood at the head of this branch and one carrying
+the widened version. Nothing in the repository itself was edited.
+
+```
+PROBE A — an undeclared backticked path appended to docs/THE-CHECK.md:
+  head of branch   Budget check passed.                                exit=0
+  widened          UNDECLARED  docs/PLAN.md  (named in docs/THE-CHECK.md)
+                   BUDGET CHECK FAILED.                                exit=1
+
+PROBE B — docs/PRECEDENTS.md pushed onto that page's own mentions list:
+  head of branch   Budget check passed.                                exit=0
+  widened          STALE  docs/THE-CHECK.md  declares the mention  docs/PRECEDENTS.md
+                   BUDGET CHECK FAILED.                                exit=1
+```
+
+Both guards now run over every file `tools/reads.json` declares, charged or
+not. **The first real run refused two names immediately**, neither of which any
+review had looked at:
+
+```
+Names declared in tools/reads.json that the file does not contain:
+  STALE  docs/THE-CHECK.md  declares the mention  docs/REVIEWER.md
+  STALE  docs/THE-CHECK.md  declares the mention  tools/check-budgets.mjs
+BUDGET CHECK FAILED.
+```
+
+Both were taken out of the list, because that page does not name either file.
+That is the whole point of the guard: the list now says what the page contains
+rather than what somebody expected it to contain.
+
+### A dead reference now says which file named it
+
+The widened dead-reference pass reads many files, so `MISSING docs/X.md` on its
+own leaves the reader grepping for the sentence to fix. The check already built
+that fact and threw it away. Same probe, same two copies, with
+`.github/workflows/checks.yml` deleted:
+
+```
+  head of branch   MISSING  .github/workflows/checks.yml               exit=1
+  widened          MISSING  .github/workflows/checks.yml  (named in AGENTS.md)
+```
+
+### The tests, watched failing first
+
+Two tests were added for the widened guards, and the existing test for a
+disappearing path was made to assert that the report says where the path was
+written. Run against the check as it stands at the head of this branch, which
+has none of the three, **all three failed** — 6 passing, 3 failing:
+
+```
+not ok 6 - a backticked path in a declared file, not only in AGENTS.md, is watched for disappearing
+not ok 8 - a backticked name left unclassified in a declared file charged to nobody stops the check
+not ok 9 - a stale mention declared for a file charged to nobody stops the check
+# tests 9
+# pass 6
+# fail 3
+```
+
+Against the fixed check, all 9 pass. The bad input for tests 8 and 9 is built
+by the tests in a temporary folder and kept with them; the bad input for the
+three probes above was a copy of this repository in a scratch folder, and the
+repository itself was never edited.
+
+**What no test can check, stated plainly:** whether `docs/THE-CHECK.md` really
+is a page ordinary work never opens. That is still a judgement, written down in
+`tools/reads.json` where Da Vinci sees it. What has changed is only that the
+declaration is now held to what the page actually contains.
