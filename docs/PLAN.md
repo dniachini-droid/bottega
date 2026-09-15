@@ -46,6 +46,15 @@ idea — only work that is next.
   acting on recorded in `docs/OPEN.md`. Pull request #12, merged.
 - **What the prompt that starts a session should contain**, surveyed and
   written down. Pull request #9, merged after five review rounds.
+- **A scope stage that listens.** Stage 1 looks at the code before it asks
+  anything, stage 2 says back what it understood before the scope page is
+  written, and the fifth question — how we will know it is right — is drafted
+  for the owner to correct rather than asked cold. Pull request 24. It was on
+  no list: the three came out of the survey of a system he found easier to
+  use, in `docs/research/WHAT-MAKES-IT-EASY.md`. A fourth idea from the same
+  survey, a session refusing a job as unbuildable or not worth building, he
+  decided against on 15 September 2026; that decision is written on the
+  research page itself, where somebody proposing it again would be reading.
 
 ## Next, in this order
 

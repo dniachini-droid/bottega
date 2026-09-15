@@ -173,6 +173,12 @@ that number is the one this measurement exists for, and nothing else in the
 path ever goes back to an earlier pull request. Without this it reads "none
 yet" for ever, which looks exactly like a review that caught everything.*
 
+**Look at the code before you ask anything.** Read how the thing he is asking
+about is built now, and what the real alternatives are, and then ask questions
+that name them. *Why: this is the change most likely to produce "it interpreted
+what I was asking", and the rule below says to ask only what would change what
+gets built — looking is how you find out which questions those are.*
+
 It is a fixed, short script. Five questions, asked plainly, in this order:
 
 1. What should it do, in one sentence?
@@ -181,10 +187,16 @@ It is a fixed, short script. Five questions, asked plainly, in this order:
 4. What must it **not** do yet?
 5. **How will we know it is right?**
 
-The fifth is load-bearing and is never dropped for time. His answer becomes
-the list Da Vinci checks against at stage 4. *Why: a reviewer given a
-detailed list written by the person who wanted the thing passed 10 runs in 10.
-A reviewer asked "did you check it?" passed 5 in 10.*
+The fifth is load-bearing and is never dropped for time. It becomes the list
+Da Vinci checks against at stage 4. *Why: a reviewer given a detailed list
+written by the person who wanted the thing passed 10 runs in 10. A reviewer
+asked "did you check it?" passed 5 in 10.*
+
+**Draft the fifth rather than asking it.** Propose what right looks like, from
+the code you read and his first four answers, and ask him to correct it. *Why:
+it is the hardest of the five to produce cold, and for an owner who is not an
+engineer, correcting a draft is easier than writing one. What changes is who
+writes the first version; it is still his list.*
 
 ### When to stop asking
 
@@ -205,8 +217,14 @@ the decision, say what it was, and move on.
 
 ## Stage 2 — SLICE
 
-Propose the smallest version worth having, in plain words, and wait for him to
-say yes.
+**Say back what you understood, before anything is written down.** In his
+words: the one sentence, what he would see working, what is out, and the fifth
+answer as he corrected it. Short enough that a wrong line is easy to spot.
+*Why: this becomes the list Da Vinci checks against, and a misunderstanding
+written into it is one the review will confirm rather than catch.*
+
+Next, propose the smallest version worth having, in plain words, and wait for
+him to say yes.
 
 Then write it to `projects/<project-id>/scope/<short-name>.md` — creating the
 folders if they are not there yet. **The scope page lives in this repository,
