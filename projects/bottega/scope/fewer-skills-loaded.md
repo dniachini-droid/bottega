@@ -19,10 +19,10 @@ number it does not know it should recompute.
 ## What done looks like
 
 - `.claude/settings.json` switches off nineteen names. Every spelling is the
-  one the harness uses — established by asking for each name and watching it
-  come back refused, against a control of a name that does not exist, which
-  comes back as unknown instead. A name that failed silently was the whole
-  risk.
+  one the harness uses — established by counting the listing a session is
+  offered and finding exactly the seven meant to survive, because a name
+  spelled wrong in the block would have left its skill sitting in the listing.
+  A name that failed silently was the whole risk.
 - `build` and `virgil` are not switched off, and neither is
   `anthropic-skills:skill-creator` — this workshop's two deliverables are
   skills, so the skill that makes and improves them earns its place.
