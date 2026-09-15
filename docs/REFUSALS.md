@@ -845,3 +845,156 @@ only one stage. That is on the word of whoever wrote the declaration, visible in
 `tools/reads.json` where Da Vinci sees it. It is the same answer this check
 already gives for calling a large file "only mentioned", and the budget table
 already says which parts of this are held on trust.
+
+---
+
+## The handoff check, on every one of the things it refuses
+
+**15 September 2026.** `tools/check-handoff.mjs` is new: it reads the seven
+lines of a handoff before the handoff is sent and refuses it. Every one of its
+refusals was watched firing before it was trusted, and the accept is recorded
+alongside them — *why that one too: seven records of a program saying no prove
+nothing on their own, because a program that refused everything would produce
+all seven.*
+
+**Where the bad input is.** All of it is written by the tests and kept with
+them, in `tools/check-handoff.test.mjs`, which builds a small make-believe
+repository in a temporary folder — a scope page, a branch named after it, and a
+bare repository standing in for the remote. Nothing anybody uses was made worse
+to get these refusals, and nothing was left changed. The one exception is the
+first run below, which was done against this repository and this branch, and
+which refused because the new file was not yet committed. That was true when it
+said so, and committing the file was the fix.
+
+### Against this repository, before anything was committed
+
+A handoff for this change, written by hand off `claude/isolation-that-holds`,
+saying `status: clean`. Exit code 1:
+
+```
+  status: says
+      clean
+    and `git status --short` says
+      ?? tools/check-handoff.mjs
+```
+
+Corrected to say what the tree really said, the same handoff was accepted:
+`Handoff accepted: seven fields, each checked against the branch.`, exit 0.
+So the `done-looks-like` comparison was made against a real scope page on a
+real branch, and passed.
+
+### A field missing
+
+`diffstat` left out. Exit 1: `diffstat: missing. All seven fields are
+required.`
+
+### An eighth field
+
+A line `my-view: this is ready to merge` added after the seventh. Exit 1:
+
+```
+  line 12: `my-view` is not one of the seven fields. An extra field is refused
+  — it is how an opinion of the work arrives in a handoff that should only
+  carry facts.
+```
+
+### A commit code that is not a commit
+
+`head` set to forty zeroes — which is what a code written from memory looks
+like. Exit 1:
+
+```
+  head: there is no commit `0000000000000000000000000000000000000000` in this
+  repository. A commit code written from memory rather than looked up is the
+  fault this check was built for.
+```
+
+### A real commit that is not on the branch
+
+`head` set to a commit made on another branch and never merged. This is the one
+a shape check can never catch: it is a real forty-character code, and it is
+wrong. Exit 1, on two counts:
+
+```
+  head: commit bf8a43cb3249 is not on branch `claude/make-believe`.
+
+  pull-request: pull request 7 is at fd1243fcc071, and this handoff says the
+  head is bf8a43cb3249.
+```
+
+### A commit on the branch that is not its tip
+
+`head` set to the commit before the tip. Exit 1:
+
+```
+  head: the tip of `claude/make-believe` is fd1243fcc071, not 15cf23994665.
+  The reviewer would read a different tree from the one this handoff
+  describes.
+```
+
+### A pull request the remote does not have
+
+`pull-request: 9`, where the remote only has 7. Exit 1: `pull-request: origin
+has no pull request 9.`
+
+### A `done-looks-like` with one word changed — the second half of the job
+
+"Tuesday" changed to "Wednesday" in one bullet of a four-bullet list. Exit 1:
+
+```
+  done-looks-like: is not word for word the "What done looks like" section of
+  projects/make-believe/scope/make-believe.md.
+    At line 2 of the list, the page says
+        - it does it on Tuesday;
+    and the handoff says
+        - it does it on Wednesday;
+```
+
+And with the last two bullets dropped instead:
+
+```
+  done-looks-like: stops short.
+  projects/make-believe/scope/make-believe.md still has, at line 3 of the list:
+        - it does not do it twice.
+    The reviewer would have to go to the pull request thread for the rest.
+```
+
+*Why that message names the thread: the list being short is not a formatting
+slip. It is the reviewer being sent to find the rest of its job somewhere the
+handoff cannot reach, which is the isolation breaking.*
+
+### The scope page is read off the branch, not the working copy
+
+The working copy's scope page was edited to agree with a handoff, and not
+committed. The check still refused, because it reads the page with `git show`
+at the branch — which is the page the reviewer will actually see.
+
+### The tests, watched failing first
+
+Nine tests in `tools/check-handoff.test.mjs`. Each was run against a copy of
+the check with exactly one guard taken out, and each failed against the copy
+that was missing its own guard and against no other:
+
+| copy with this taken out | tests that failed |
+|---|---|
+| the missing-field guard | 2 — a field missing |
+| the extra-field guard | 3 — an eighth field |
+| the on-the-branch guard | 4 — a head not on the branch |
+| the is-it-the-tip guard | 5 — a head that is not the tip |
+| the status guard | 6 — a status that does not match |
+| the pull-request guard | 7 — a pull request that is not there |
+| the `done-looks-like` guard | 8 and 9 — both comparisons |
+| reading the working copy instead of the branch | 9 — off the branch |
+
+Eight of eight failed exactly where they should and nowhere else. Against the
+real check, all nine pass. The whole suite is 14 tests, 14 passing.
+
+*Where those broken copies are now: nowhere. They were copies made in a
+temporary folder, one guard removed from each, and deleted afterwards.
+`tools/check-handoff.mjs` itself was never in a broken state on this branch.*
+
+**What no test here checks, stated plainly:** that anybody ran the check before
+dispatching. Stage 4 of the build path says to run it, and nothing enforces
+that it was run. That gap is deliberate and is written down in the scope page
+for this change — a check that the check was run is a second mechanism guarding
+the first, and nothing has yet established that anybody skips it.

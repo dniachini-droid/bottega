@@ -42,7 +42,7 @@
     ]
   },
   ".claude/skills/build/SKILL.md": {
-    "note": "The registry is read ('Look the id up in projects/registry.json ... It is the only place that address is read from'). .gitignore is opened to add a registered project's id to it. OPEN.md and PLAN.md are cited for where a decision or an assumption is written down, not handed to the session.",
+    "note": "The registry is read ('Look the id up in projects/registry.json ... It is the only place that address is read from'). .gitignore is opened to add a registered project's id to it. OPEN.md and PLAN.md are cited for where a decision or an assumption is written down, not handed to the session. tools/check-handoff.mjs is run at stage 4, not read: a session is told to run a command, and the program is for the machine rather than for the session.",
     "reads": [
       "projects/registry.json",
       ".gitignore"
@@ -51,7 +51,8 @@
       ".claude/agents/da-vinci.md",
       "AGENTS.md",
       "docs/OPEN.md",
-      "docs/PLAN.md"
+      "docs/PLAN.md",
+      "tools/check-handoff.mjs"
     ]
   },
   ".claude/skills/virgil/SKILL.md": {

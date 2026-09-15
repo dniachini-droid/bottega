@@ -93,7 +93,26 @@ blocking findings, where the others returned `merge_with_caution`. That is
 one run, it is a correlation, and it is not proof of anything. It is recorded
 because it is the only evidence there is, not because it settles the question.*
 
-### 3. The check before a commit
+### 3. A review that a building session cannot have reported as fresh
+
+Every review started by a building session reports `reviewer_mode: challenger`
+rather than `fresh_eyes`, whatever actually reached it. `docs/REVIEWER.md` sets
+that test on how the review was started — a helper another session spawned is
+`challenger`, and when it cannot tell, it is `challenger`. So a building
+session may be unable to produce the fresh review `AGENTS.md` requires, and the
+rule and the machinery disagree about what counts as one.
+
+*What the evidence is, and all it is: the four runs recorded in
+`docs/REFUSALS.md` on 14 September 2026 were all helpers started by the session
+that built the reviewer. Nothing of that session reached them, so they were
+isolated by construction, and they still are not the fresh session the rules
+call for. Nothing here has established what the label costs, if anything.*
+
+**The owner decided on 15 September 2026 to park this as its own item** rather
+than widen "Isolation that holds", which checks the handoff and does not touch
+this. Where it belongs in the order above is not settled.
+
+### 4. The check before a commit
 
 The same checks that run after a push, run before a commit as well.
 
@@ -101,7 +120,7 @@ The automatic checks cannot be bypassed and they stand between the work and
 the merge. The check on this machine is faster and comes earlier. They are not
 alternatives to each other and neither replaces the other.
 
-### 4. Two small ones, in either order
+### 5. Two small ones, in either order
 
 - **The control test on Da Vinci, started the way the rules require.** It has
   been run twice — `docs/REFUSALS.md` records four runs against made-up inputs
@@ -131,7 +150,7 @@ impossible until somebody checks, and this one had been sitting in the register
 as a standing instruction to the owner to go and do something he did not need
 to do.*
 
-### 5. Memory
+### 6. Memory
 
 Claude Code's own per-agent memory, at project scope. Plain markdown,
 committed, readable by the owner. Plus a prune when a piece of work closes.
@@ -140,7 +159,7 @@ No vector store. No embeddings. No infrastructure. *Why: this is already
 decided in `docs/VISION.md`, and every failure in that field is stale entries
 poisoning what gets found, not too little storage.*
 
-### 6. Zibaldone
+### 7. Zibaldone
 
 Only after the loop above has run end to end on Bottega itself, several times,
 and worked.
