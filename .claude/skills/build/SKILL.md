@@ -167,6 +167,12 @@ agent builds the wrong thing, it traces back to a gap the person left in the
 request — not to the model getting it wrong afterwards. An hour saved here is
 paid back with interest at stage 5.*
 
+**If what he wants is a fault in something already built here, find the pull
+request that merged it and add it to that line's second half first.** *Why:
+that number is the one this measurement exists for, and nothing else in the
+path ever goes back to an earlier pull request. Without this it reads "none
+yet" for ever, which looks exactly like a review that caught everything.*
+
 It is a fixed, short script. Five questions, asked plainly, in this order:
 
 1. What should it do, in one sentence?

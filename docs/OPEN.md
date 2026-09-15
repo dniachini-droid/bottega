@@ -628,6 +628,8 @@ would break its own isolation doing so.*
 
 **Status:** OPEN — item 2 of `docs/PLAN.md` carries both halves.
 
+---
+
 ## A reason that was wrong once, kept out of the instructions
 
 **15 September 2026.** The build path explains why a project is cloned beside
@@ -657,7 +659,8 @@ removable thing charged to the heaviest session.*
 **It did not pay for what it was moved to make room for.** The move freed about
 437 bytes; counting the review round cost about 984. The heaviest session went
 up by about 137 tokens, not down, and the room left fell from about 488 to
-about 351. The move made the addition possible, and that is all it did.*
+about 351. The move made the addition possible, and that is all it did.
 
-**Status:** CLOSED for the entry above it that named it as removable. Recorded
-here so the wrong reason is not reinstated.
+**Status:** CLOSED. This is the passage nominated as removable by the entry
+headed "The heaviest startup number is close to its limit". Recorded here so
+the wrong reason is not reinstated.
