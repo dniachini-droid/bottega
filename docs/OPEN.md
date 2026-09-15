@@ -443,21 +443,22 @@ front of him.
 
 ---
 
-## The heaviest startup number has about 716 tokens of room left
+## The heaviest startup number is close to its limit — run the check, do not read a number here
 
-Adding the rule about what goes in a prompt, and the note about the third
-number, to `AGENTS.md` moved the heavier of the two startup numbers from about
-8,477 tokens to about 9,036, against the limit of 10,000. `AGENTS.md` is
-charged to every session, so prose added there is paid for twice — once in each
-number.
+**No figure for it is written down on this page, deliberately.** Every time one
+has been, it has gone stale: written at 8,477, restated at 9,036, restated
+again at 9,284 while the same change was still being fixed, and wrong by 76
+tokens within the hour. A session that sizes an addition against a number on
+this page will be refused somewhere it did not expect.
 
-**Updated 15 September 2026.** Adding the missing half of the "watch it
-refuse" budget moved it again, from about 9,036 to about 9,284. **Run the
-check rather than trusting the number in this heading** — it has now been
-stale twice, and a session sizing an addition against a stale figure will be
-refused somewhere it did not expect.
+`node tools/check-budgets.mjs` prints both numbers and the room left in each.
+It is the only honest answer and it takes a second.
 
-The lighter number is about 4,105 and is not the constraint.
+What does not change: the heavier of the two numbers is the constraint, not the
+lighter one. `AGENTS.md` is charged to every session, so prose added there is
+paid for twice, once in each number. The largest single thing charged to the
+heaviest session is the build skill, and if room has to be found, that is where
+to look first.
 
 *Why this is worth an entry rather than a shrug: the previous round left this
 number with about 1,500 of room and said so in the prompt that started this

@@ -178,6 +178,15 @@ deliberately bad example that lives beside the tests and never reaches a user.
 The line is not whether something was broken. It is whether it was left
 broken.*
 
+**And if a check genuinely cannot be exercised without damaging the product,
+that check has not been watched refusing anything, and this budget is not at
+zero.** That is the correct reading and there is no standoff between the two
+rules: the budget records a real gap and the gap goes in `docs/OPEN.md`. *Why
+it resolves that way rather than the other: a guard that can only be
+demonstrated by making the product worse is a guard in the wrong place, and
+moving it somewhere it can be fed bad input is the fix. A budget that quietly
+counted it as satisfied would hide exactly the thing it exists to surface.*
+
 **Dead file references in `AGENTS.md` — 0.** *Why: in that same framework, 11
 of the 21 links in the files a session reads first are broken — including the
 rules file it tells every session to go and read.*
