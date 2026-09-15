@@ -621,3 +621,23 @@ have to go and read five pull request comments to find out what happened, and
 would break its own isolation doing so.*
 
 **Status:** OPEN — item 2 of `docs/PLAN.md` carries both halves.
+
+## The guide window is now the heaviest session, not the builder
+
+**15 September 2026.** Splitting the build path into seven stages took a build
+session from about 9,512 tokens to about 8,124. It did not take the *heaviest*
+number down by as much, because the guide window's skill — which was second all
+along — is now the largest thing charged to any session.
+
+So the room left grew from about 488 tokens to about 1,135, and the next change
+that needs room will be constrained by the guide window rather than by the
+builder.
+
+**Status:** OPEN — the same split would work there. The guide window's skill
+has sections that are plainly separable: how a session is started, what may be
+merged without the owner, and how work is kept track of. Nobody has looked at
+whether a guide session really opens one of those at a time, and that question
+has to be answered honestly before the stages mechanism is pointed at it.
+*Why that caution: the check cannot confirm a session opens only one stage. It
+takes the declaration's word. Declaring stages for a file a session genuinely
+reads end to end would undercount, and nothing would catch it.*

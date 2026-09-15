@@ -233,8 +233,21 @@ For the startup count it reports the two numbers above, and fails if either is
 over. Every session is charged `AGENTS.md`, `.claude/settings.json`, and the
 name and description of each skill and each agent definition — all a session
 is shown of them until it opens one. The heaviest session is that, plus the
-largest single skill or agent definition in full, counting any supporting
-files that sit beside it. Bytes divided by four.
+largest single skill or agent definition, counting any supporting files that
+sit beside it. Bytes divided by four.
+
+**A skill whose body is split into stages is charged one stage, not all of
+them** — the one that costs most once its own reading is followed. A skill
+declares its stages in `tools/reads.json`, and the check refuses a declaration
+of fewer than two, refuses a stage that is not there, and refuses a skill
+that names its own skill file as a stage. *Why this is not the hole above wearing a
+different hat: the bulk does not move anywhere, it stays in the skill's own
+folder and is charged the moment a session could be handed it. What changes is
+that a session at one stage stops being charged for six it will never open.
+Every stage is still charged in full at least once, which is what keeps the
+reading and the undeclared-name checks working on all of them. What no check
+can confirm is that a session really opens only one, and that is on the word of
+the declaration, written where Da Vinci sees it.*
 
 **A file that the instructions send a session to read is charged to that
 session, wherever in the repository it sits** — not only when it happens to

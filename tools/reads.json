@@ -1,7 +1,7 @@
 {
   "what_this_is": "Which files a session is actually sent to open, and which are only named in passing. The budget check charges what a skill or an agent definition sends a session to read, wherever in the repository that file lives. It does not try to work out from the wording which is which: a path written in backticks is either declared here as a file the session opens ('reads'), or declared as a file the text only names ('mentions'). A path that is in neither list fails the check.",
   "why_declared_and_not_guessed": "The two cases look identical to a machine. 'Read docs/X.md' and 'the reasoning is in docs/X.md' are the same shape. A check that guessed from the verb could be defeated by rewording the sentence, and nothing about what the session loads would change. A check that silently dropped what it could not classify would be under-counting, which is the dangerous direction. Refusing until somebody writes down which it is means a new pointer out of a skill can never slip through unnoticed - and writing 'this is only a mention' next to a large file is a visible act that Da Vinci sees.",
-  "how_to_use_it": "One entry per file that is charged to a session and names a path in backticks. Both lists hold paths exactly as they are written in the backticks. A path in 'reads' must exist, and a path ending in / is followed to every file inside it. A path in 'mentions' need not exist.",
+  "how_to_use_it": "One entry per file that is charged to a session and names a path in backticks. Both lists hold paths exactly as they are written in the backticks. A path in 'reads' must exist, and a path ending in / is followed to every file inside it. A path in 'mentions' need not exist. A skill whose body is split into stages gets one more entry, keyed by its folder with a trailing slash, holding 'stages': the files a session chooses between. The check charges the stage that costs most once its own reading is followed, and none of the others \u2014 so every stage must still have its own entry above, and every stage is scanned even when it is not the one charged. Fewer than two stages is refused, and so is naming the skill's own SKILL.md as a stage.",
   "AGENTS.md": {
     "note": "Every path AGENTS.md names, it names as a subject - what a file is, where something is written down, or where something is to be put. It never tells a session to go and read one. Checked by grepping every occurrence. docs/OPEN.md is named as the place a gap is recorded when a check cannot be watched refusing; that is where to write, not what to read, and charging it would put 30,404 bytes on every session. The tests are named as the thing that holds the check honest; nobody is sent to read them, and a session that opened them would be reading test code instead of doing the work.",
     "reads": [],
@@ -42,12 +42,20 @@
     ]
   },
   ".claude/skills/build/SKILL.md": {
-    "note": "The registry is read ('Look the id up in projects/registry.json ... It is the only place that address is read from'). .gitignore is opened to add a registered project's id to it. OPEN.md and PLAN.md are cited for where a decision or an assumption is written down, not handed to the session.",
+    "note": "The seven stage files are listed here as mentions, not reads, and the reason matters. A session IS sent to open one of them \u2014 but only one, and which one depends on the stage it is at, which this file cannot know. Charging them as reads would charge all seven to every build session, which is the over-count this split exists to remove. What charges them is the folder entry above, which names them as stages, so the check charges the one that costs most. Written down here rather than left to be worked out, because calling a file a mention is exactly the move that has to be visible where Da Vinci sees it.",
     "reads": [
       "projects/registry.json",
       ".gitignore"
     ],
     "mentions": [
+      "stages/",
+      "stages/1-scope.md",
+      "stages/2-slice.md",
+      "stages/3-build.md",
+      "stages/4-review.md",
+      "stages/5-fix.md",
+      "stages/6-see-it.md",
+      "stages/7-merge.md",
       ".claude/agents/da-vinci.md",
       "AGENTS.md",
       "docs/OPEN.md",
@@ -69,6 +77,56 @@
     "reads": [],
     "mentions": [
       "docs/OPEN.md"
+    ]
+  },
+  ".claude/skills/build/": {
+    "note": "The build path is seven stages and a session opens the one it is at, never the other six. SKILL.md says so in those words and lists them. Charged at the stage that costs most once its own reading is followed, which is stage 3 \u2014 it is both the largest stage and the one that starts a session.",
+    "stages": [
+      "stages/1-scope.md",
+      "stages/2-slice.md",
+      "stages/3-build.md",
+      "stages/4-review.md",
+      "stages/5-fix.md",
+      "stages/6-see-it.md",
+      "stages/7-merge.md"
+    ]
+  },
+  ".claude/skills/build/stages/1-scope.md": {
+    "reads": [],
+    "mentions": []
+  },
+  ".claude/skills/build/stages/2-slice.md": {
+    "reads": [],
+    "mentions": []
+  },
+  ".claude/skills/build/stages/3-build.md": {
+    "reads": [],
+    "mentions": []
+  },
+  ".claude/skills/build/stages/4-review.md": {
+    "note": "Names the rules file and the reviewer's definition as subjects. The window starts Da Vinci; it does not read its definition.",
+    "reads": [],
+    "mentions": [
+      "AGENTS.md",
+      ".claude/agents/da-vinci.md"
+    ]
+  },
+  ".claude/skills/build/stages/5-fix.md": {
+    "note": "Names the rules file as the place a rule is written down.",
+    "reads": [],
+    "mentions": [
+      "AGENTS.md"
+    ]
+  },
+  ".claude/skills/build/stages/6-see-it.md": {
+    "reads": [],
+    "mentions": []
+  },
+  ".claude/skills/build/stages/7-merge.md": {
+    "note": "Names the rules file as the place the merge rule is written down.",
+    "reads": [],
+    "mentions": [
+      "AGENTS.md"
     ]
   }
 }
