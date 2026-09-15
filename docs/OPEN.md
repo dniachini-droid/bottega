@@ -206,8 +206,10 @@ and the pull request the owner is told to merge is one Virgil opened.
 
 ## The startup budget was measuring the wrong thing
 
-The 9,980-of-10,000 recorded here after the previous round was an artefact of
-the measurement, not a real shortage. The check was adding up every
+The shortage recorded here after the previous round — the number was all but
+touching the limit — was an artefact of the measurement, not a real shortage.
+*The figure itself is not repeated, for the reason at the top of this page.*
+The check was adding up every
 instruction file in the workshop whole, including skill and agent bodies that
 a session is never given unless it opens them.
 
@@ -607,11 +609,18 @@ in this repository. That was wrong: `.claude/settings.json` takes a
 `skillOverrides` block, it travels with the repository, and nineteen of those
 names are now switched off for any session that runs here.
 
-*How it was established rather than assumed: the names were switched off, each
-one was then asked for, and every one came back refused — against a control of
-a name that does not exist, which came back as unknown rather than disabled. So
-the harness tells a matched name from an unmatched one, and none of them failed
-silently, which was the whole risk.*
+*How it was established rather than assumed: the listing a session is offered
+was counted before and after. It came back holding exactly the seven names meant
+to survive and nothing else. That is the test that matters, because a name
+spelled wrong in the block would leave its skill sitting in the listing — and
+none did. Each of the nineteen was also asked for by name and came back refused;
+that alone would not have been enough, because nothing here has established what
+the harness says about a name in the block that matches no real skill, and a
+refusal echoed back for a name that does nothing would look identical. The
+listing cannot be fooled that way. Not done: feeding the block a deliberately
+bogus name and watching what comes back. That needs a write and a fresh session
+to see the effect, and it is the one thing that would settle what a wrong
+spelling does.*
 
 **It does not close completely, and its reach is wider than "this repository"
 makes it sound.** A conversation that starts anywhere else still offers all of
