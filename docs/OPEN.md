@@ -466,13 +466,25 @@ by the time it was read. One more change of the size of a recent one does not
 fit. The next session to add anything to the rules file will meet the refusal
 rather than the warning — so run the check before writing, not after.*
 
-What is known to be removable is already written down: the build skill still
-explains at length what an earlier wrong reason was and why it was wrong, which
-is history rather than instruction, and it is the largest thing charged to the
-heaviest session.
+**15 September 2026:** the build skill's long account of an earlier wrong
+reason was moved out, to the entry headed "A reason that was wrong once, kept
+out of the instructions". **That did not bring the heaviest number down.** The
+same change added the counting of the review round, which cost more than the
+move freed, so the number went **up** and the room left fell. The move made
+that addition possible; it did not pay for it.
 
-**Status:** OPEN — closes when either the heaviest number comes down or the
-owner decides the limit should move. Nobody has put the second question to him.
+*The figures are deliberately not here. They were, for one round, and they were
+wrong by 95 tokens before the change they described had even been handed to a
+review — which is the fault this entry is about, committed inside the entry
+about it. They are on pull request 19 and in that change's scope page, where
+they describe one moment and are not read as current. Run the check.*
+
+What is left to take out has not been surveyed. Nobody has looked at the guide
+window's skill with this question in mind, and nobody has put the other
+question to the owner either — whether the limit itself should move.
+
+**Status:** OPEN — closes when either the heaviest number comes down far enough
+to stop constraining the work, or the owner decides the limit should move.
 
 ---
 
@@ -621,3 +633,41 @@ have to go and read five pull request comments to find out what happened, and
 would break its own isolation doing so.*
 
 **Status:** OPEN — item 2 of `docs/PLAN.md` carries both halves.
+
+---
+
+## A reason that was wrong once, kept out of the instructions
+
+**15 September 2026.** The build path explains why a project is cloned beside
+the workshop rather than inside it. That reason was once stated wrongly, and
+the correction was written into the skill and carried by every build session
+from then on.
+
+It is history rather than instruction, so it lives here now and costs nobody
+anything. What it says:
+
+> The reason is **not** that a careless `git add -A` in the project's clone
+> sweeps the workshop's files into the project's commit. Two clones never share
+> an index. Run in the project's clone it staged the project's own file and
+> nothing else, nested or beside. The direction that needs preventing is the
+> other one.
+
+*Only the six lines above were moved. The evidence for the direction that does
+need preventing — what `git add -A` actually staged, nested and beside — is
+still in the skill where it belongs, and is not duplicated here.*
+
+*Why it was moved rather than deleted: a rule here is kept or deleted on the
+strength of its reason, so a reason that was once wrong is worth keeping
+somewhere — otherwise the wrong version gets re-derived. Why it was moved
+rather than left where it was: the register itself nominated it as the largest
+removable thing charged to the heaviest session.*
+
+**It did not pay for what it was moved to make room for.** Counting the review
+round cost about three times what this move freed. The heaviest session went
+up, not down, and the room left fell. The move made the addition possible, and
+that is all it did. *The numbers are on pull request 19, not here — see the
+entry about that page carrying no figures.*
+
+**Status:** CLOSED. This is the passage nominated as removable by the entry
+headed "The heaviest startup number is close to its limit". Recorded here so
+the wrong reason is not reinstated.
