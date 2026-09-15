@@ -7,6 +7,12 @@ cannot fire. This file is the record of having watched.
 Each entry says what was done to provoke the refusal, what came back, and the
 date. An entry is only written after the refusal was actually seen.
 
+**An entry also says what the bad input was and where it lives.** If the
+answer is that the product itself was changed to provoke the refusal, the
+entry does not count and the change comes back out. *Why: the rule and its
+reason are in `AGENTS.md`, under this budget. This line is here because this
+file is where somebody writing an entry will be looking.*
+
 **On the names in this file.** The two agents were renamed on 14 September
 2026: the builder became Michelangelo, the reviewer became Da Vinci, and
 `.claude/agents/reviewer.md` became `.claude/agents/da-vinci.md`. Every entry
