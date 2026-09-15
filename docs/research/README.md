@@ -63,6 +63,12 @@ qualifier, and by then nobody can tell which numbers were checked.*
   may be, how it is produced, and whether anything should measure it.
 - `USAGE.md` — where a session's usage actually goes, and how other people cut
   it across a whole agent system.
+- `WHAT-MAKES-IT-EASY.md` — why a user found the Praxis suite easier to work
+  with than a plain session, read out of its own instruction files: what it does
+  before it asks a question, how it captures what was wanted, the rules it sets
+  for how it talks, and what of that is worth borrowing here. **Read from the
+  files, never watched running** — everything in it is what that system tells a
+  model to do, not what anybody observed it doing.
 - `OUTSIDE-THE-SPEC.md` — how defects outside the written requirements are
   found elsewhere, how a check is watched refusing without weakening what it
   protects, and what actually holds scope. **Nothing in it was read at source:
