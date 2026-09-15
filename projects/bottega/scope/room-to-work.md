@@ -34,7 +34,29 @@ anybody follows. It moves to `docs/THE-CHECK.md` and nobody is sent to read it.
   test suite as "one for each of the two faults it really had", which stopped
   being true at five tests; the replacement in `docs/THE-CHECK.md` says what
   each test is for.
-- The check exits 0 and `node --test` passes 5 of 5.
+- The check exits 0 and `node --test` passes 7 of 7.
+
+**Added after the review of pull request 22, which found that the move broke
+something:**
+
+- The dead-reference pass scans every file `tools/reads.json` declares, not
+  only `AGENTS.md`. Moving the section took `CLAUDE.md`, `.claude/settings.json`
+  and `tools/check-budgets.test.mjs` out of the only file that pass looked at,
+  so deleting the symbolic link every session's rules arrive through left the
+  check green. Reproduced by hand, then fixed, then reproduced again as a
+  refusal. `docs/REFUSALS.md` has both runs.
+- A name declared in `tools/reads.json` as a mention, for a file that does not
+  contain it, stops the check. The move left three such standing
+  pre-approvals — the one thing that file exists to prevent.
+- One test for each guard, both watched failing against the check on `main` and
+  passing against this one.
+- `docs/REVIEWER.md` no longer writes `package.json` in backticks inside the
+  sentence saying there is no such file. The widened scan refused it correctly;
+  the sentence reads the same without the backticks.
+- The claim that nobody is sent to `docs/THE-CHECK.md` is corrected wherever it
+  appears. `AGENTS.md` does point there, conditionally. What makes it a mention
+  is a judgement that ordinary work never opens it — not a fact, and nothing can
+  check it.
 
 ## What is out
 

@@ -258,8 +258,12 @@ leaving out what the session needed, which moves the cost somewhere nothing can
 see. Print it, watch it, argue about a number later with evidence.*
 
 How the check counts, what it can and cannot see, and why the prompt number is
-a record rather than a measurement, are in `docs/THE-CHECK.md`. Nobody is sent
-to read it. Open it if you are changing the check.
+a record rather than a measurement, are in `docs/THE-CHECK.md`. **Open it only
+if you are changing the check itself.** That is a pointer, not an unconditional
+one, and it is declared as a mention rather than a read — which is a judgement
+that a session doing ordinary work here never opens it, not a fact any check can
+establish. If sessions start opening it anyway, it has become required reading
+and `tools/reads.json` has to say so.
 
 The rest are on their word: the other half of that budget — a blocking finding
 with no test — and checks never seen refusing, the count of agent definitions,

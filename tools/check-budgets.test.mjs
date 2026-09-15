@@ -366,3 +366,52 @@ test('a backticked name a skill leaves unclassified stops the check', () => {
   assert.match(stdout, /UNDECLARED\s+docs\/UNDECLARED\.md/);
   rmSync(root, { recursive: true, force: true });
 });
+
+// --- Two guards the review of pull request 22 asked for --------------------
+//
+// WHY THESE EXIST. Moving a section out of AGENTS.md into docs/THE-CHECK.md to
+// make room took three paths with it — CLAUDE.md among them, the symbolic link
+// every session's rules arrive through. The dead-reference pass read backticks
+// in AGENTS.md and nowhere else, so all three silently stopped being watched:
+// deleting the link left the check green. That was reproduced by hand before
+// either fix, and what was seen is in docs/REFUSALS.md.
+//
+// The second guard came out of the same review. Taking the paragraphs out left
+// their names sitting in tools/reads.json, pre-approved for a file that no
+// longer contained them — so the next change to write one of those names would
+// have been classified before anybody looked at it, which is the one thing that
+// file exists to prevent.
+
+test('a backticked path in a declared file, not only in AGENTS.md, is watched for disappearing', () => {
+  const root = buildFixture();
+  // docs/METHOD.md is declared in the reading list and names docs/GONE.md.
+  writeAt(root, 'docs/METHOD.md',
+    'The precedents are in `docs/PRECEDENTS.md`. Read that before you report.\n' +
+    'The rest of it is in `docs/GONE.md`.\n' + filler(1200));
+  writeAt(root, 'docs/GONE.md', filler(200));
+  const reads = JSON.parse(readFileSync(join(root, 'tools/reads.json'), 'utf8'));
+  reads['docs/METHOD.md'].mentions.push('docs/GONE.md');
+  writeFileSync(join(root, 'tools/reads.json'), JSON.stringify(reads, null, 2) + '\n');
+  assert.equal(run(root).status, 0, 'the fixture must start clean');
+
+  rmSync(join(root, 'docs/GONE.md'));
+  const { status, stdout } = run(root);
+  assert.equal(status, 1,
+    'a backticked path that vanished from a declared file must stop the check. ' +
+    `It printed:\n${stdout}`);
+  assert.match(stdout, /MISSING\s+docs\/GONE\.md/);
+  rmSync(root, { recursive: true, force: true });
+});
+
+test('a name declared as mentioned that the file no longer contains stops the check', () => {
+  const root = buildFixture();
+  const reads = JSON.parse(readFileSync(join(root, 'tools/reads.json'), 'utf8'));
+  reads['AGENTS.md'].mentions.push('docs/PRECEDENTS.md');
+  writeFileSync(join(root, 'tools/reads.json'), JSON.stringify(reads, null, 2) + '\n');
+  const { status, stdout } = run(root);
+  assert.equal(status, 1,
+    'a mention declared for a file that does not name it is a standing ' +
+    `pre-approval and must stop the check. It printed:\n${stdout}`);
+  assert.match(stdout, /STALE\s+AGENTS\.md\s+declares the mention\s+docs\/PRECEDENTS\.md/);
+  rmSync(root, { recursive: true, force: true });
+});

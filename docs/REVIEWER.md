@@ -71,7 +71,7 @@ invent. There is nothing downstream to catch a fabrication.*
 - `node tools/check-budgets.mjs` — the startup token total, and whether every
   path written in backticks in `AGENTS.md` is really there
 - an install step and a test step, both of which do nothing for as long as
-  there is no `package.json` in the repository
+  this repository has no package file for them to act on
 
 *Why: restating what an automatic check already said is the single largest
 source of real review noise. Keep this list literal and update it when the

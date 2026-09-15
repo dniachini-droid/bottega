@@ -2,15 +2,21 @@
 
 This is the mechanism behind the two enforced budgets. It was moved out of
 `AGENTS.md` on 15 September 2026 to make room, and the move is the exact thing
-the anti-dodge rule in `AGENTS.md` warns about — so it was done the only way
-that is honest: **nobody is sent here.** A session working in this repository
-does not need to know how the counting works. It needs to know the check exists,
-to run it before committing, and that a path in backticks must be declared. All
-three stayed behind. Open this file if you are changing the check itself.
+the anti-dodge rule in `AGENTS.md` warns about. **Said precisely, because the
+looser version of this sentence was a finding at pull request 22: the rules file
+does point here, conditionally — open this only if you are changing the check
+itself.** What makes that a mention rather than a read is a judgement, not a
+fact: a session doing ordinary work in this repository never needs to know how
+the counting works. It needs to know the check exists, to run it before
+committing, and that a path in backticks must be declared. All three stayed
+behind.
 
-*If that ever stops being true — if a rule starts telling sessions to read this
-page — then it is required reading and `tools/reads.json` has to say so, which
-charges it back to every session. That is the rule working, not a problem.*
+*Nothing can check that judgement. The budget check has no slot for a session
+that is neither a skill nor an agent definition, so no number moves either way,
+and the only thing standing behind the classification is that it is written down
+in `tools/reads.json` where Da Vinci sees it. If sessions start opening this
+page as a matter of course, it is required reading, the declaration has to move
+to `reads`, and it is charged back to every session.*
 
 ---
 

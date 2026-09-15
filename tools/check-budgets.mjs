@@ -7,7 +7,8 @@
 //   1. What a session loads before it does any work — must be under 10,000
 //      tokens. Context volume by itself degrades accuracy, so this is a
 //      correctness budget and not only a cost one.
-//   2. Whether every file path written in backticks in AGENTS.md is really
+//   2. Whether every file path written in backticks in AGENTS.md, or in any
+//      file tools/reads.json declares, is really
 //      there — must be all of them. A rules file that points at files which
 //      no longer exist teaches every session to distrust it.
 //
@@ -211,6 +212,7 @@ function referencesIn(full) {
 }
 
 const unclassified = new Map(); // "file -> ref" so it is reported once
+const staleDeclarations = new Map(); // declared as mentioned, not in the file
 const deadReads = new Map();
 
 // Charge these files, and everything they send a session on to read.
@@ -247,9 +249,20 @@ function chargeReading(seeds, exclude) {
 
     // The backticks are how an undeclared file is caught: anything this file
     // names that has not been classified either way stops the check.
-    for (const ref of referencesIn(full)) {
+    const namedHere = new Set(referencesIn(full));
+    for (const ref of namedHere) {
       if (reads.includes(ref) || mentions.includes(ref)) continue;
       unclassified.set(`${rel} -> ${ref}`, { from: rel, ref });
+    }
+
+    // A DECLARATION THE FILE NO LONGER EARNS. A name listed here that the file
+    // does not contain is a standing pre-approval: the next change to write
+    // that name is classified before anybody looks at it, which is the one
+    // thing tools/reads.json exists to prevent. Reads are exempt — a file can
+    // be handed to a session without its name ever appearing in backticks,
+    // which is why reads are charged from the declaration and not the text.
+    for (const ref of mentions) {
+      if (!namedHere.has(ref)) staleDeclarations.set(`${rel} -> ${ref}`, { from: rel, ref });
     }
   }
   return charged;
@@ -344,7 +357,27 @@ if (!existsSync(agentsPath)) {
   console.log('\nBUDGET CHECK FAILED.');
   process.exit(1);
 }
-const referenced = referencesIn(agentsPath).sort();
+// EVERY DECLARED FILE IS SCANNED, NOT ONLY AGENTS.md. *Why: on 15 September
+// 2026 the paragraphs naming CLAUDE.md, .claude/settings.json and the tests
+// moved out of AGENTS.md into docs/THE-CHECK.md, and all three silently lost
+// this warning — the symbolic link every session's rules arrive through could
+// have been deleted with the check still green. A path in backticks is how you
+// ask to be warned when a file disappears, and that promise has to hold
+// wherever the path is written, not only in one file.*
+const scanned = new Set([agentsPath]);
+for (const rel of Object.keys(declarations || {})) {
+  if (rel.includes('/') || rel.endsWith('.md')) {
+    const full = join(ROOT, rel);
+    if (existsSync(full) && statSync(full).isFile()) scanned.add(full);
+  }
+}
+const refSource = new Map(); // ref -> the file that names it
+for (const f of scanned) {
+  for (const ref of referencesIn(f)) {
+    if (!refSource.has(ref)) refSource.set(ref, relative(ROOT, f));
+  }
+}
+const referenced = [...refSource.keys()].sort();
 
 const dead = [];
 for (const ref of referenced) {
@@ -597,10 +630,11 @@ if (deadReads.size) {
 }
 
 console.log(
-  `\nFile paths written in backticks in AGENTS.md: ${referenced.length} checked.`
+  `\nFile paths written in backticks, in AGENTS.md and every file ` +
+  `${READS_FILE} declares: ${referenced.length} checked.`
 );
 if (dead.length) {
-  console.log('These are named in AGENTS.md but are not in the repository:');
+  console.log('These are named in backticks but are not in the repository:');
   for (const ref of dead) console.log(`  MISSING  ${ref}`);
   console.log(
     'Either put the file back, or stop naming it in the rules. A rules file ' +
@@ -610,8 +644,21 @@ if (dead.length) {
   console.log('All of them exist.');
 }
 
+if (staleDeclarations.size) {
+  console.log('\nNames declared in ' + READS_FILE + ' that the file does not contain:');
+  for (const { from, ref } of staleDeclarations.values()) {
+    console.log(`  STALE  ${from}  declares the mention  ${ref}`);
+  }
+  console.log(
+    'A mention listed for a file that no longer names it is a standing ' +
+    'pre-approval: the next change to write that name is classified before ' +
+    'anybody looks at it. Take it out of the list, or put the name back.'
+  );
+}
+
 if (everyOver || heaviestOver || dead.length || readsProblem ||
-    unclassified.size || deadReads.size || promptProblems.length) {
+    unclassified.size || deadReads.size || promptProblems.length ||
+    staleDeclarations.size) {
   console.log('\nBUDGET CHECK FAILED.');
   process.exit(1);
 }
