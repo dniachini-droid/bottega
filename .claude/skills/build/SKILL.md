@@ -98,13 +98,6 @@ the project nested, `git add -A` in the workshop staged it as mode 160000 with
 git's own warning about an embedded repository; with the project in its own
 directory beside the workshop, there was nothing to stage.*
 
-*What this reason is not, because it was wrong here once and a rule in this
-repository is kept or deleted on the strength of its reason: it is not that a
-careless `git add -A` in the project's clone sweeps Bottega's files into the
-project's commit. Two clones never share an index. Run in the project's clone
-it staged the project's own file and nothing else, nested or beside. The
-direction that needs preventing is the other one.*
-
 Bottega's `.gitignore` is the second lock on the same door: it lists each
 registered project's id, so a clone that lands inside anyway is not staged.
 **Registering a project adds its id to `.gitignore` as well as to the
@@ -173,6 +166,12 @@ is. A reply that does not say costs him a question to find out.*
 agent builds the wrong thing, it traces back to a gap the person left in the
 request — not to the model getting it wrong afterwards. An hour saved here is
 paid back with interest at stage 5.*
+
+**If what he wants is a fault in something already built here, find the pull
+request that merged it and add it to that line's second half first.** *Why:
+that number is the one this measurement exists for, and nothing else in the
+path ever goes back to an earlier pull request. Without this it reads "none
+yet" for ever, which looks exactly like a review that caught everything.*
 
 It is a fixed, short script. Five questions, asked plainly, in this order:
 
@@ -303,6 +302,8 @@ arrives one useful file at a time.*
   that produced the change, and the preference for one's own output is the
   thing being designed around.*
 - **One pass.** When the review reports, this stage is over.
+- **Count what it found.** How many findings, and how many blocked. Two
+  numbers, written on the pull request at stage 7 with what got past them.
 
 *The reasons for a fresh session and for one pass only are in `AGENTS.md`,
 attached to the rules they belong to, and are not copied here.*
@@ -363,6 +364,21 @@ What happens here depends on what the change touched. The rule and its reasons
 are in `AGENTS.md`; this is the shape it takes in the path. The number is
 filled in and the project named, because the pull request is in the project's
 repository and not in this one.
+
+**Before any of them, one line on the pull request: what the review caught, and
+what got past it.**
+
+> Review: 3 findings, 1 blocking. Got past: none yet.
+
+The second half is only ever known later, so it starts at "none yet" and is
+added to whenever a fault turns up in work that was already reviewed — by
+editing that line, on that pull request. *Why this and no limit: there are six
+budgets here about how big things are and how sessions work, and none asks
+whether the review round produces better software than no review round. That is
+most of what this workshop is and the only part of it nobody has measured.
+After a dozen changes the two columns answer it — and if they say the review
+does not earn its cost, it can be deleted and the budgets will show the saving.
+Print the number first; argue about a limit afterwards.*
 
 **A small reversible change that a fresh session has reviewed** — Virgil may
 merge it, then says:
