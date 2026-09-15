@@ -25,6 +25,22 @@ are most likely the model.
 
 ---
 
+
+
+**On the quotations.** Every quotation here is an excerpt and several were cut
+before the end of the passage. Four rounds of review found unmarked cuts on
+this page, twice in places where the missing sentence qualified the argument
+being made from it. The ones that were found are now marked with `…` or
+restored. **Sections 5 point 4 onward, 6 and 7 have not been checked
+quotation-by-quotation against the source**, so more unmarked cuts may remain
+there. Read a quotation here as a pointer to the line it names, not as the
+whole of what that line says.
+
+*Why this is said rather than fixed: the cuts that mattered were the ones that
+removed a qualifier, and those were found and put back. Auditing the rest would
+be a fifth round on a document that, by this folder's own rule, governs
+nothing.*
+
 ## 1. What the user types, and what comes back
 
 ### The front door
@@ -152,16 +168,21 @@ codebase. A question like that is answerable by somebody who does not know the
 code, because it names both options.
 
 `user_skill_level` is a real config field (`_praxis/px/workflows/config.yaml`,
-set to `intermediate`) but it is consulted in only **four** places across eight
-mentions in the whole repository: the line above, one line in Quick Dev's final
-summary (`{Explain what was implemented based on user_skill_level}`), the code
-review's instructions (`workflows/dev/code-review/instructions.xml`), and one
-in the brainstorming workflow. The rest are declarations and the config line
-itself. It is not a system-wide register.
+set to `intermediate`) but it is actually **read** in only three places: the
+line above, one line in Quick Dev's final summary (`{Explain what was
+implemented based on user_skill_level}`), and the code review's instructions
+(`workflows/dev/code-review/instructions.xml`). Eleven mentions in all — the
+other eight are declarations, config-loading bullets, and three in `_archive/`.
+It is not a system-wide register.
 
-*The first version of this page said three places and missed the code review's,
-which is a stronger use than either of the two it named. Caught by the review
-of pull request 18. The conclusion is unchanged on the real count.*
+*This figure took three attempts and the page should say so. The first version
+said three places but named the wrong three, missing the code review's, which
+is the strongest of them. The second said four, by counting a config-loading
+bullet in the brainstorming workflow as a use when it is the same shape as the
+declarations named beside it, and said eight mentions by silently dropping the
+archived ones. Both were caught by the review of pull request 18. The
+conclusion has survived all three counts unchanged, which is the only reason
+any of them mattered little.*
 
 ### Mechanism two: capture, then read back for confirmation
 
@@ -318,7 +339,7 @@ And there is an explicit prohibition on the modal alternative:
 > collaborating with the user. Present questions inline in your response as
 > plain markdown — numbered options `(1)` / `(2)` / `(3)` so the user can type a
 > number, AND/OR free-form text. Free text replies are always valid; never
-> insist on a numbered pick. If you have multiple questions in one turn, label
+> insist on a numbered pick. …If you have multiple questions in one turn, label
 > them `Q1` / `Q2` so the user can answer mixed.
 >
 > **Why**: The modal forces discrete choices and breaks the user's ability to
@@ -417,7 +438,8 @@ There is a second, shorter section, § Naming and Labeling Discipline:
 > (`P-147`, `ARG-FA-001`, `CAND-H`, `§C-Option-2`, `Tier 1/2/3`, etc.) exist for
 > cross-agent state-tracking inside knowledge files, pattern databases, and
 > audit folders — they MUST NOT lead a user-facing sentence without a
-> plain-English form alongside.
+> plain-English form alongside. Reference codes can appear in parentheses after
+> the plain description …, never alone.
 
 Its stated reason is a direct quotation from the owner:
 
@@ -436,7 +458,7 @@ Its stated reason is a direct quotation from the owner:
 ### Done — **{h:MM am/pm}**
 {One line: what actually changed or was decided this session.}
 {One line: what is left, or "Nothing open."}
-{Durability line}
+{Durability line — see DURABILITY LINE below}
 Next: /px-{agent} on {ID} — {why them, in a few words}
 ```
 
@@ -445,7 +467,8 @@ item id in it, so the user can paste it straight in.
 
 **Is there anything about writing for a non-engineer?** Not directly. There is
 no rule anywhere in Praxis that says the reader is not a programmer. The
-closest things are: `user_skill_level` in three places; one parenthetical about
+closest things are: `user_skill_level`, which is read in three places; one
+parenthetical about
 the owner being dyslexic (which is why timestamps carry no date); and the
 plain-words rules above, which are written for a reader who dislikes jargon
 rather than one who could not follow it. **Praxis writes clearly for a
@@ -813,8 +836,10 @@ sharpest contrast on the page, and the numbers are checkable.
 | Praxis, one `/px-smith` session | about **60,600** |
 
 The Praxis figure is `base-rules.md` (164,932 bytes) plus `smith.md` (32,097)
-plus the config and the seven sidecar files the activation steps require —
-242,546 bytes, at four bytes to the token. Bottega's figures are what
+plus the config and the sidecar files the activation steps require — Smith's
+step 4 names **ten**, of which two sit outside Smith's own sidecar and one is
+not present; the nine that exist come to 45,300 bytes. With the config that is
+243,601 bytes, at four bytes to the token. Bottega's figures are what
 `tools/check-budgets.mjs` printed on `main` on 15 September 2026. Praxis is
 roughly **six times** Bottega's heaviest session, and would be over Bottega's
 10,000-token limit **six times over**.
