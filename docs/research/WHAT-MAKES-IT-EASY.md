@@ -152,10 +152,16 @@ codebase. A question like that is answerable by somebody who does not know the
 code, because it names both options.
 
 `user_skill_level` is a real config field (`_praxis/px/workflows/config.yaml`,
-set to `intermediate`) but it is consulted in only **three** places in the
-whole repository: the line above, one line in Quick Dev's final summary
-(`{Explain what was implemented based on user_skill_level}`), and a variable
-declaration. It is not a system-wide register.
+set to `intermediate`) but it is consulted in only **four** places across eight
+mentions in the whole repository: the line above, one line in Quick Dev's final
+summary (`{Explain what was implemented based on user_skill_level}`), the code
+review's instructions (`workflows/dev/code-review/instructions.xml`), and one
+in the brainstorming workflow. The rest are declarations and the config line
+itself. It is not a system-wide register.
+
+*The first version of this page said three places and missed the code review's,
+which is a stronger use than either of the two it named. Caught by the review
+of pull request 18. The conclusion is unchanged on the real count.*
 
 ### Mechanism two: capture, then read back for confirmation
 
@@ -271,7 +277,10 @@ The governing rule is in `base-rules.md` § Communication:
 > and say what you did — offer the undo rather than the choice. Ask the user to
 > decide **only** when the answer genuinely changes the outcome and you cannot
 > settle it from the code, the files, or a sensible default; then ask once, at
-> the end, as one question.
+> the end, as one question. **Unchanged**: destructive or hard-to-reverse
+> actions are still confirmed first (§ Quality Gates), and a real ambiguity
+> still gets one short clarifying question — safety and correctness beat
+> brevity.
 
 ### Mechanism six: a separate agent whose only job is intent
 
@@ -328,7 +337,11 @@ helpfully then redisplay menu`.
 
 **Note the tension inside Praxis itself.** § Communication says *don't hand the
 steering back every turn*; the workflow files halt at a menu at nearly every
-step. Both are in force at once and nothing reconciles them. Which one wins in
+step. Both are in force at once, and the rule reconciles part of it in its own
+last sentence — a real ambiguity still earns one question, and anything
+destructive is still confirmed. What it does not reconcile is a numbered menu
+offered at a step that is neither ambiguous nor destructive, which is most of
+them. Which one wins in
 a live session is **not observed running**.
 
 ---
@@ -466,10 +479,21 @@ with a quota and an anti-padding clause:
 > count. If you cannot find 10 real issues, report fewer with higher quality
 > rather than padding.
 
-**2. Zero findings is treated as a failure.** In three separate files:
+**2. Zero findings is treated as a failure — in some of its files, and the
+opposite in others.** Three files say:
 
 > **If zero findings:** HALT - this is suspicious. Re-analyze or request user
 > guidance.
+
+**And two say the reverse.** `_praxis/px/pxb/agents/patrol.md:131`:
+
+> Zero findings is a valid result — don't invent problems
+
+with the same line in that agent's drift anchor. *This one is worth Bottega
+noticing rather than borrowing: the half of Praxis that says a clean result is
+valid is the half that agrees with `docs/REVIEWER.md`, which says no findings
+is a complete review and warns that a reviewer which must produce findings will
+produce them. The half that halts on zero is the one to leave alone.*
 
 **3. The critic loop — up to three rounds.** `smith-sidecar/workflows/
 critic-loop.md`:
@@ -784,16 +808,24 @@ sharpest contrast on the page, and the numbers are checkable.
 
 | | tokens loaded before work |
 |---|---|
-| Bottega, every session | about 4,805 |
-| Bottega, heaviest session | about 8,865 |
+| Bottega, every session | about 4,581 |
+| Bottega, heaviest session | about 9,512 |
 | Praxis, one `/px-smith` session | about **60,600** |
 
 The Praxis figure is `base-rules.md` (164,932 bytes) plus `smith.md` (32,097)
 plus the config and the seven sidecar files the activation steps require —
 242,546 bytes, at four bytes to the token. Bottega's figures are what
-`tools/check-budgets.mjs` printed on 15 September 2026. Praxis is roughly
-**seven times** Bottega's heaviest session, and its own budget would be blown
-almost thirteen times over.
+`tools/check-budgets.mjs` printed on `main` on 15 September 2026. Praxis is
+roughly **six times** Bottega's heaviest session, and would be over Bottega's
+10,000-token limit **six times over**.
+
+*The first version of this page printed 4,805 and 8,865 here, said it would be
+over thirteen times, and worked out the room left from the lighter number. All
+three were wrong and the review of pull request 18 caught them. The two figures
+were taken from a branch that has not merged and may not; thirteen was
+60,600 divided by the every-session load, which is not a budget; and the room
+that matters is the room in the heaviest session, not the lighter one. **Run
+the check. Do not copy a figure out of a document, including this one.***
 
 Bottega's reason:
 
@@ -808,8 +840,11 @@ section whose purpose is to keep heavy reading out of the main context, and a
 "drift anchor" re-read every 15 tool calls to survive the compaction that a
 context this size makes inevitable. **A good deal of Praxis's machinery exists
 to manage a problem Bottega's budget prevents.** Anything copied from Praxis
-has to be paid for out of Bottega's remaining 5,195 tokens, and most of what is
-worth copying is a short instruction, not a file.
+has to be paid for out of the room in the **heaviest** session, because every
+recommendation above would be written into the build path — and that room was
+**about 488 tokens** when this was written, not the 5,419 the lighter number
+would suggest. Most of what is worth copying is a short instruction rather than
+a file, which is the only reason any of it fits.
 
 **4. Menus.** Praxis's default interface is a numbered menu at nearly every
 step. Virgil's rule is the opposite:
