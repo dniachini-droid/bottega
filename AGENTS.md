@@ -50,11 +50,13 @@ material is relevant.*
 **Say what you did not do**, as plainly as what you did. *Why: the owner can
 only act on a gap he has been told about.*
 
-**Plain language for the owner.** Do not use a technical term and then define
-it. Say the thing in ordinary words instead. File names, branch names and
-identifiers are yours to carry, not his. *Why: he is not a software engineer
-and does not want to become one. Two earlier repositories of his became too
-complex to follow, and this one is a deliberate reset.*
+**Plain language for the owner, and say it once.** Do not use a technical term
+and then define it — say the thing in ordinary words. Do not restate what you
+just said, explain your own sentence, or tell him what he already knows. File
+names and identifiers are yours to carry, not his. *Why: he is not a software
+engineer and does not want to become one, and on 15 September 2026 he said the
+padding was the thing making replies here worse. A reply he skims past has not
+reached him.*
 
 **Review is proportionate to blast radius.** A change to the file that starts
 every future session gets a review. A typo does not. *Why: reviewing
