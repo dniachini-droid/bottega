@@ -102,7 +102,38 @@ blocking findings, where the others returned `merge_with_caution`. That is
 one run, it is a correlation, and it is not proof of anything. It is recorded
 because it is the only evidence there is, not because it settles the question.*
 
-### 3. A review that a building session cannot have reported as fresh
+### 3. The handoff checker cannot check a project build
+
+`tools/check-handoff.mjs` verifies a review dispatch before it is sent. It only
+knows the repository it is run inside. That is fine for a change to the
+workshop, where the code and the scope page sit together. **A project build has
+the code in the project's repository and the scope page here**, and the checker
+can see only one of them.
+
+**Observed, 15 September 2026, on the first project build ever run** — pull
+request 1 in Zibaldone. The handoff was correct and the checker refused it,
+saying the commit did not exist, because it was looking in the wrong
+repository. It refused rather than waving it through, which is the right way to
+be wrong. But every project build is dispatched unchecked until this is fixed,
+and the facts were verified by hand instead — which is exactly the arrangement
+this check was built to replace.
+
+What it needs: to be told which repository holds the code and which holds the
+scope page, rather than assuming one repository holds both. The four things it
+checks do not change.
+
+*Why it matters more for a project build than for a workshop one: a project
+build is larger, the owner is further from the code, and the job description is
+the only thing standing between what he approved and what a reviewer measures.
+That is the thing most worth checking, and it is the one case the checker
+cannot reach.*
+
+*Why it was not fixed on the spot: a build was in flight against the very
+scope page the fix would touch, and the owner had just said to stop improving
+the system and start using it. He asked for this on the roadmap rather than
+done immediately, on 15 September 2026.*
+
+### 4. A review that a building session cannot have reported as fresh
 
 Every review started by a building session reports `reviewer_mode: challenger`
 rather than `fresh_eyes`, whatever actually reached it. `docs/REVIEWER.md` sets
@@ -117,11 +148,36 @@ that built the reviewer. Nothing of that session reached them, so they were
 isolated by construction, and they still are not the fresh session the rules
 call for. Nothing here has established what the label costs, if anything.*
 
+**And the label is not reliable, which is worse than the label being wrong.**
+*Observed 15 September 2026: every review that day was started the same way, as
+a helper spawned by the guide window. Some reported `challenger` and some
+reported `fresh_eyes` — the same starting condition, opposite answers, from the
+sessions whose own method says that starting condition decides it. So the one
+signal anybody has about whether a review was independent is produced by the
+review grading itself, and it does not agree with itself. A self-assessment that
+varies is not a check.*
+
+**The real difficulty, named, because neither half of it is obvious:** Da Vinci
+is a defined role with its writing tools **removed** — it cannot edit, commit or
+push, because those tools are not there. That is an absence, not a promise.
+Starting it as a helper keeps that absence and loses the independence. Starting
+it as its own session gains the independence and loses the absence: a plain
+separate session *could* write to the repository and is only asked not to.
+**Nobody has built the arrangement that gives both**, and that is the work, not
+the label.
+
+*Why it matters: this is the weakest joint in the whole loop. The one
+multi-agent pattern with a clean replicated benefit is a fresh session for
+review, and that benefit is the entire reason `AGENTS.md` allows two agent
+definitions rather than one. If the review is not actually fresh, the budget is
+paying for something it is not getting.*
+
 **The owner decided on 15 September 2026 to park this as its own item** rather
 than widen "Isolation that holds", which checks the handoff and does not touch
-this. Where it belongs in the order above is not settled.
+this. He asked on the same day that the two paragraphs above be added to it.
+Where it belongs in the order is not settled.
 
-### 4. The check before a commit
+### 5. The check before a commit
 
 The same checks that run after a push, run before a commit as well.
 
@@ -129,7 +185,7 @@ The automatic checks cannot be bypassed and they stand between the work and
 the merge. The check on this machine is faster and comes earlier. They are not
 alternatives to each other and neither replaces the other.
 
-### 5. Two small ones, in either order
+### 6. Two small ones, in either order
 
 - **The control test on Da Vinci, started the way the rules require.** It has
   been run twice — `docs/REFUSALS.md` records four runs against made-up inputs
@@ -159,7 +215,7 @@ impossible until somebody checks, and this one had been sitting in the register
 as a standing instruction to the owner to go and do something he did not need
 to do.*
 
-### 6. Memory
+### 7. Memory
 
 Claude Code's own per-agent memory, at project scope. Plain markdown,
 committed, readable by the owner. Plus a prune when a piece of work closes.
@@ -168,7 +224,7 @@ No vector store. No embeddings. No infrastructure. *Why: this is already
 decided in `docs/VISION.md`, and every failure in that field is stale entries
 poisoning what gets found, not too little storage.*
 
-### 7. Zibaldone
+### 8. Zibaldone
 
 Only after the loop above has run end to end on Bottega itself, several times,
 and worked.
