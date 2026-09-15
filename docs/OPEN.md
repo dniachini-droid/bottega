@@ -466,10 +466,12 @@ by the time it was read. One more change of the size of a recent one does not
 fit. The next session to add anything to the rules file will meet the refusal
 rather than the warning — so run the check before writing, not after.*
 
-**Done, 15 September 2026:** the build skill's long account of an earlier wrong
+**15 September 2026:** the build skill's long account of an earlier wrong
 reason has been moved to the entry at the bottom of this file, freeing about
-109 tokens. The room it freed paid for the build path learning to count what
-its own review round found.
+109 tokens. **That did not bring the heaviest number down.** The same change
+added the counting of the review round, which cost about 246, so the number
+went up by about 137 and the room left fell from about 488 to about 351. The
+move made that addition possible; it did not pay for it.
 
 What is left to take out has not been surveyed. Nobody has looked at the guide
 window's skill with this question in mind, and nobody has put the other
@@ -640,18 +642,22 @@ anything. What it says:
 > sweeps the workshop's files into the project's commit. Two clones never share
 > an index. Run in the project's clone it staged the project's own file and
 > nothing else, nested or beside. The direction that needs preventing is the
-> other one — the workshop staging the project as a pointer to a commit nobody
-> who clones the workshop can fetch. Observed both ways round: with the project
-> nested, `git add -A` in the workshop staged it as mode 160000 with git's own
-> warning about an embedded repository; with the project beside the workshop,
-> there was nothing to stage.
+> other one.
+
+*Only the six lines above were moved. The evidence for the direction that does
+need preventing — what `git add -A` actually staged, nested and beside — is
+still in the skill where it belongs, and is not duplicated here.*
 
 *Why it was moved rather than deleted: a rule here is kept or deleted on the
 strength of its reason, so a reason that was once wrong is worth keeping
 somewhere — otherwise the wrong version gets re-derived. Why it was moved
 rather than left where it was: the register itself nominated it as the largest
-removable thing charged to the heaviest session, and the room it freed paid for
-the build path learning to measure its own review round.*
+removable thing charged to the heaviest session.*
+
+**It did not pay for what it was moved to make room for.** The move freed about
+437 bytes; counting the review round cost about 984. The heaviest session went
+up by about 137 tokens, not down, and the room left fell from about 488 to
+about 351. The move made the addition possible, and that is all it did.*
 
 **Status:** CLOSED for the entry above it that named it as removable. Recorded
 here so the wrong reason is not reinstated.

@@ -22,8 +22,10 @@ register rather than being deleted.
 - The reason is attached, and it says plainly that no limit is set and why.
 - The wrong reason is preserved in `docs/OPEN.md` rather than lost, and the
   entry that nominated it as removable records that it went.
-- The heaviest session is lower than it was on `main`, measured from a run of
-  the check.
+- The heaviest session is **higher** than it was on `main` — about 9,649
+  against 9,512 — and the change says so plainly rather than implying the move
+  paid for the addition. Counting the review costs about 984 bytes; the history
+  that came out freed about 437. Measured from a run of the check on both.
 - The budget check exits 0 and the tests pass.
 
 ## What is out
