@@ -55,6 +55,8 @@ else.**
 - `scope/` — one page per piece of work: what it does, what done looks like,
   what is out. Written at stage 2 of a build, and the page Da Vinci checks
   the finished work against.
+- `voice.md` — the answer to "can he talk to it?", with what was and was not
+  checked. Written by the notebook build, 15 September 2026.
 - Findings worth keeping — what a review caught, what turned out to be wrong
   about an assumption, what the owner said he actually wanted.
 - Lessons — the things a later session would have to learn the hard way again
