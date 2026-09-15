@@ -343,111 +343,26 @@ test('a saved prompt that is empty, or that does not say which session it is, st
     `refused instead of counted.\nIt printed:\n${onMisnamed.stdout}`);
 });
 
-// --- Stages: a skill that hands a session one stage at a time --------------
+// --- A backticked name inside a skill that is in neither list ---------------
 //
-// WHY THESE EXIST. On 15 September 2026 the check was taught that a skill may
-// declare its stages, and be charged every other file in its folder plus the
-// largest single stage rather than all of them. That is a change which makes a
-// budget EASIER to satisfy, and this repository has twice had a measurement go
-// wrong in exactly that direction. So the three ways it could be turned into a
-// way of hiding bulk each have a test, and each was watched failing against a
-// check that did not yet know about stages before it was trusted.
+// WHY THIS EXISTS. This test was written on 15 September 2026 as the stages
+// machinery came out. Six tests went with it; this one was rewritten rather
+// than deleted, because the guard it exercises is not part of stages and is
+// still live: a file a session is sent to read may name another file, and a
+// name that tools/reads.json puts in neither the reads list nor the mentions
+// list stops the check rather than being quietly dropped. Watched failing
+// against a check with that guard removed before it was trusted.
 
-function withStages(root, stages, files = {}) {
-  for (const [name, bytes] of Object.entries(files)) {
-    writeAt(root, `.claude/skills/heavy/${name}`, filler(bytes));
-  }
-  const reads = JSON.parse(readFileSync(join(root, 'tools/reads.json'), 'utf8'));
-  reads['.claude/skills/heavy/'] = { note: 'for the test', stages };
-  writeFileSync(join(root, 'tools/reads.json'), JSON.stringify(reads, null, 2) + '\n');
-}
-
-test('fewer than two stages is refused: there is nothing to choose between', () => {
+test('a backticked name a skill leaves unclassified stops the check', () => {
   const root = buildFixture();
-  withStages(root, ['stage-one.md'], { 'stage-one.md': 4000 });
-  const { status, stdout } = run(root);
-  assert.equal(status, 1, 'a one-stage declaration must stop the check');
-  assert.match(stdout, /nothing to choose between/);
-  rmSync(root, { recursive: true, force: true });
-});
-
-test('a stage that is not there is refused, rather than charged as nothing', () => {
-  const root = buildFixture();
-  withStages(root, ['here.md', 'not-here.md'], { 'here.md': 4000 });
-  const { status, stdout } = run(root);
-  assert.equal(status, 1, 'a stage that does not exist must stop the check');
-  assert.match(stdout, /not-here\.md/);
-  assert.match(stdout, /charged nothing and read by nobody/);
-  rmSync(root, { recursive: true, force: true });
-});
-
-test('declared stages are charged at the largest one, and the others are not charged at all', () => {
-  const plain = buildFixture();
-  const before = run(plain).heaviestBytes;
-  rmSync(plain, { recursive: true, force: true });
-
-  const root = buildFixture();
-  withStages(root, ['small.md', 'large.md'], { 'small.md': 3000, 'large.md': 5000 });
-  const { status, heaviestBytes } = run(root);
-  assert.equal(status, 0, 'a well-formed stage declaration must not stop the check');
-
-  // 8,000 bytes of stages were added. Only the larger 5,000 may be charged.
-  const grew = heaviestBytes - before;
-  const tolerance = 120; // the filler rounds up to whole words
-  assert.ok(Math.abs(grew - 5000) <= tolerance,
-    `the heaviest number grew by ${grew} bytes; charging the largest stage alone ` +
-    `should grow it by about 5,000, and charging both by about 8,000`);
-  rmSync(root, { recursive: true, force: true });
-});
-
-test('the stage charged is the one that costs most once its reading is followed, not the biggest file', () => {
-  // The hole this closes, found by review on 15 September 2026: picking the
-  // largest stage by raw size charges the wrong one whenever a small stage
-  // points at a large file — and the stages not picked were dropped before
-  // anything read them, so their onward reading was charged nothing.
-  const root = buildFixture();
-  writeAt(root, '.claude/skills/heavy/stage-fat.md', filler(5000));
-  writeAt(root, '.claude/skills/heavy/stage-thin.md',
-    'Read `docs/HUGE.md` before you start.\n');
-  writeAt(root, 'docs/HUGE.md', filler(40000));
-  const reads = JSON.parse(readFileSync(join(root, 'tools/reads.json'), 'utf8'));
-  reads['.claude/skills/heavy/'] = { note: 'for the test', stages: ['stage-fat.md', 'stage-thin.md'] };
-  reads['.claude/skills/heavy/stage-thin.md'] = { reads: ['docs/HUGE.md'], mentions: [] };
-  reads['docs/HUGE.md'] = { reads: [], mentions: [] };
-  writeFileSync(join(root, 'tools/reads.json'), JSON.stringify(reads, null, 2) + '\n');
-
-  const { status, heaviestBytes, stdout } = run(root);
-  // The thin stage really costs 40,000+ bytes. Charging the fat one hides that.
-  assert.ok(heaviestBytes > 40000,
-    `the heaviest number is ${heaviestBytes} bytes; a session on the thin stage really ` +
-    `loads over 40,000, so charging the fat stage instead hides it. Report:\n${stdout}`);
-  assert.equal(status, 1, 'that much reading is over the limit and must stop the check');
-  rmSync(root, { recursive: true, force: true });
-});
-
-test('a skill may not declare its own SKILL.md as a stage', () => {
-  const root = buildFixture();
-  writeAt(root, '.claude/skills/heavy/other.md', filler(2000));
-  const reads = JSON.parse(readFileSync(join(root, 'tools/reads.json'), 'utf8'));
-  reads['.claude/skills/heavy/'] = { note: 'for the test', stages: ['SKILL.md', 'other.md'] };
-  writeFileSync(join(root, 'tools/reads.json'), JSON.stringify(reads, null, 2) + '\n');
-  const { status, stdout } = run(root);
-  assert.equal(status, 1, 'declaring SKILL.md a stage must stop the check');
-  assert.match(stdout, /the one a session always gets/);
-  rmSync(root, { recursive: true, force: true });
-});
-
-test('a stage that is not charged is still scanned, so a name it leaves unclassified stops the check', () => {
-  const root = buildFixture();
-  writeAt(root, '.claude/skills/heavy/stage-fat.md', filler(5000));
-  writeAt(root, '.claude/skills/heavy/stage-thin.md',
-    'The rules for this stage are in `docs/UNDECLARED.md`.\n');
+  writeAt(root, '.claude/skills/heavy/extra.md',
+    'The rules for this part are in `docs/UNDECLARED.md`.\n');
   writeAt(root, 'docs/UNDECLARED.md', filler(300));
   const reads = JSON.parse(readFileSync(join(root, 'tools/reads.json'), 'utf8'));
-  reads['.claude/skills/heavy/'] = { note: 'for the test', stages: ['stage-fat.md', 'stage-thin.md'] };
+  reads['.claude/skills/heavy/extra.md'] = { note: 'for the test' };
   writeFileSync(join(root, 'tools/reads.json'), JSON.stringify(reads, null, 2) + '\n');
   const { status, stdout } = run(root);
-  assert.equal(status, 1, 'an undeclared name inside any stage must stop the check');
+  assert.equal(status, 1, 'an undeclared name inside a skill must stop the check');
   assert.match(stdout, /UNDECLARED\s+docs\/UNDECLARED\.md/);
   rmSync(root, { recursive: true, force: true });
 });

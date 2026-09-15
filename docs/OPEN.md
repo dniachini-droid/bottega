@@ -39,6 +39,39 @@ current state and may stay.*
 
 ---
 
+## The stages machinery was built, went unused, and came out again
+
+**15 September 2026.** The budget check was taught that a skill may declare its
+stages and be charged the largest one instead of all of them. It was built to
+let the build skill be split. The split was then measured and closed without
+merging: one guide window runs all seven stages, so declaring them as separate
+would have been a false claim to the check, and declaring them honestly made
+the number **worse** than not splitting at all, because splitting adds files and
+every file costs.
+
+That left about a hundred lines of correct, tested machinery that nothing in the
+workshop used and nothing was going to. It is now out, along with six of its
+tests. One test was rewritten rather than deleted, because the guard it
+exercised — a backticked name that `tools/reads.json` classifies in neither
+list — is not part of stages and is still live. The check reports the same
+numbers, byte for byte, as it did before the removal.
+
+*Why it came out rather than being left in case it is wanted: the owner asked
+directly whether dead machinery should go, and there is no answer to that which
+keeps it. A check nobody exercises is a check nobody maintains, and this one was
+already carrying a hole its own comments claimed was shut — found by review, at
+pull request 16, a day before it was removed.*
+
+*Why the refusal records were kept: `docs/REFUSALS.md` records what was watched
+happening, and it happened. The section now says at its head that the check no
+longer does this.*
+
+**Status:** CLOSED — removed, 15 September 2026. Open only as a question nobody
+needs to answer now: if a skill ever really does hand a session one stage at a
+time, this is in the history and can come back.
+
+---
+
 ## The workshop and the application were separated
 
 This repository was called `cabinet` and opened, in its rules file, with a

@@ -761,6 +761,16 @@ assertion names, not something in the same neighbourhood.*
 
 ## The budget check, on a skill that declares its stages
 
+**This machinery was taken out again on 15 September 2026, the same day it went
+in. The record below stays, and describes something the check no longer does.**
+The thing it was built for — splitting the build skill so a session is charged
+one stage instead of seven — was measured and closed without merging, because
+one guide window runs all seven stages, so declaring them would have been a
+false claim. Nothing else has that shape. *Why the record is kept rather than
+deleted: what was observed was observed, and a refusal record that vanishes when
+its check does leaves nobody able to tell a check that was removed from one that
+was never watched.*
+
 **15 September 2026.** The check was taught that a skill may hand a session one
 stage at a time, and be charged every other file in its folder plus the largest
 single stage rather than all of them.
