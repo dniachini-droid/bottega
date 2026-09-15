@@ -159,11 +159,14 @@ watched refusing something at least once, and what was seen written down in
 `docs/REFUSALS.md`. *Why: a check never seen refusing anything cannot be
 told apart from one that cannot fire.*
 
-**Feed the check something bad. Never make the thing it protects worse.** The
-bad input is written for the test and lives with the tests; it never ships. If
-the only way to watch a check refuse is to change what the owner or a user
-actually gets, stop — **that is the finding.** Write it down and leave the
-change unmade. *Why: on 14 September 2026 a session obeyed this budget by
+**Feed the check something bad. Never leave the thing it protects worse.** The
+bad input is one of two things: written for the test and kept with the tests,
+or a temporary edit that is put back afterwards. Both are proper, and most
+entries in `docs/REFUSALS.md` are the second — a file padded until the check
+refused, then restored. What is never allowed is buying a refusal with a
+change that **stays**. If what the owner or a user actually gets is worse
+afterwards, stop — **that is the finding.** Write it down and leave the change
+unmade. *Why: on 14 September 2026 a session obeyed this budget by
 taking the smallest allowed value off a number box so that its empty-workout
 guard would have something to refuse. Two reviewers who had never seen this
 rule each recorded that as a defect in the product. The budget was right and
@@ -171,7 +174,9 @@ the session was right to want the guard seen firing; what was missing was
 where to make room for it. Breaking something on purpose and putting it back
 is ordinary practice elsewhere — it is how a safety mechanism is shown to
 work, and a widely used code checker requires every rule to arrive with a
-deliberately bad example that lives beside the tests and never reaches a user.*
+deliberately bad example that lives beside the tests and never reaches a user.
+The line is not whether something was broken. It is whether it was left
+broken.*
 
 **Dead file references in `AGENTS.md` — 0.** *Why: in that same framework, 11
 of the 21 links in the files a session reads first are broken — including the

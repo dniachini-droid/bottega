@@ -443,13 +443,19 @@ front of him.
 
 ---
 
-## The heaviest startup number has about 960 tokens of room left
+## The heaviest startup number has about 716 tokens of room left
 
 Adding the rule about what goes in a prompt, and the note about the third
 number, to `AGENTS.md` moved the heavier of the two startup numbers from about
 8,477 tokens to about 9,036, against the limit of 10,000. `AGENTS.md` is
 charged to every session, so prose added there is paid for twice — once in each
 number.
+
+**Updated 15 September 2026.** Adding the missing half of the "watch it
+refuse" budget moved it again, from about 9,036 to about 9,284. **Run the
+check rather than trusting the number in this heading** — it has now been
+stale twice, and a session sizing an addition against a stale figure will be
+refused somewhere it did not expect.
 
 The lighter number is about 4,105 and is not the constraint.
 
