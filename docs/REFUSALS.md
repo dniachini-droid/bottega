@@ -993,6 +993,28 @@ real check, all nine pass. The whole suite is 14 tests, 14 passing.
 temporary folder, one guard removed from each, and deleted afterwards.
 `tools/check-handoff.mjs` itself was never in a broken state on this branch.*
 
+### On the real handoff for this change, once it was committed
+
+Written off the branch at commit `00d52c6` and run for real. It refused
+something nobody had planned to test: the `diffstat` line had come out empty,
+because the command that filled it in had been given a branch name that is not
+here.
+
+```
+  diffstat: empty. A field with nothing in it is a field that is missing.
+```
+
+*Why that is worth recording: nothing was wrong with the handoff's shape — the
+field was present and the line was there. What was missing was the fact. That
+is the same class as the commit code written from memory, and it was caught by
+the guard that was written for the dull case.*
+
+With the diffstat filled in from the branch it really compares against, the
+same handoff was accepted: `Handoff accepted: seven fields, each checked
+against the branch.`, exit 0 — seven fields, the head matching the tip and
+pull request 23, a clean tree, and `done-looks-like` word for word off
+`projects/bottega/scope/isolation-that-holds.md` as it stands on the branch.
+
 **What no test here checks, stated plainly:** that anybody ran the check before
 dispatching. Stage 4 of the build path says to run it, and nothing enforces
 that it was run. That gap is deliberate and is written down in the scope page
