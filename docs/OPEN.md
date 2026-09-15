@@ -50,8 +50,8 @@ the number **worse** than not splitting at all, because splitting adds files and
 every file costs.
 
 That left about a hundred lines of correct, tested machinery that nothing in the
-workshop used and nothing was going to. It is now out, along with six of its
-tests. One test was rewritten rather than deleted, because the guard it
+workshop used and nothing was going to. It is now out, along with five of its
+tests. A sixth was rewritten rather than deleted, because the guard it
 exercised — a backticked name that `tools/reads.json` classifies in neither
 list — is not part of stages and is still live. The check reports the same
 numbers, byte for byte, as it did before the removal.
@@ -66,9 +66,39 @@ pull request 16, a day before it was removed.*
 happening, and it happened. The section now says at its head that the check no
 longer does this.*
 
+*The count above said six deleted and a seventh rewritten when pull request 21
+merged. Five and a sixth is right; the review caught it and it was corrected in
+the next change rather than by another review round over one digit.*
+
 **Status:** CLOSED — removed, 15 September 2026. Open only as a question nobody
 needs to answer now: if a skill ever really does hand a session one stage at a
 time, this is in the history and can come back.
+
+---
+
+## The check's mechanism was moved out of the rules to make room, which is the dodge the rules warn about
+
+**15 September 2026.** Four Praxis-derived additions to the scoping stage need
+about 243 tokens and there were about 101. So `AGENTS.md` lost the part of its
+budget section that explains how `tools/check-budgets.mjs` counts, to
+`docs/THE-CHECK.md`.
+
+**That is precisely the move `AGENTS.md` names as the way to defeat the budget**
+— take the bulk out, point at it from one line, and neither number moves. It was
+allowed here on one ground only: **nobody is sent to read the new page.** What
+stayed behind is everything that binds a session — that the check exists, to run
+it before committing, that a backticked path must be declared in
+`tools/reads.json`, and the anti-dodge rule itself. What went is how the
+arithmetic works, which only matters to somebody changing the check.
+
+**What holds it honest, and it is thin.** `tools/reads.json` classifies the new
+page as mentioned, where Da Vinci sees it. Nothing can check that claim; if a
+rule ever starts sending sessions there, somebody has to notice and move the
+entry to `reads`, which charges it back to every session.
+
+**Status:** OPEN — as a thing to watch, not a thing to do. The next session that
+adds a pointer to `docs/THE-CHECK.md` from a rule or a skill owes the
+declarations file a correction.
 
 ---
 
