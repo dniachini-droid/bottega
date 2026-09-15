@@ -1,18 +1,16 @@
 {
   "what_this_is": "Which files a session is actually sent to open, and which are only named in passing. The budget check charges what a skill or an agent definition sends a session to read, wherever in the repository that file lives. It does not try to work out from the wording which is which: a path written in backticks is either declared here as a file the session opens ('reads'), or declared as a file the text only names ('mentions'). A path that is in neither list fails the check.",
-
   "why_declared_and_not_guessed": "The two cases look identical to a machine. 'Read docs/X.md' and 'the reasoning is in docs/X.md' are the same shape. A check that guessed from the verb could be defeated by rewording the sentence, and nothing about what the session loads would change. A check that silently dropped what it could not classify would be under-counting, which is the dangerous direction. Refusing until somebody writes down which it is means a new pointer out of a skill can never slip through unnoticed - and writing 'this is only a mention' next to a large file is a visible act that Da Vinci sees.",
-
   "how_to_use_it": "One entry per file that is charged to a session and names a path in backticks. Both lists hold paths exactly as they are written in the backticks. A path in 'reads' must exist, and a path ending in / is followed to every file inside it. A path in 'mentions' need not exist.",
-
   "AGENTS.md": {
-    "note": "Every path AGENTS.md names, it names as a subject - what a file is, or where something is written down. It never tells a session to go and read one. Checked by grepping every occurrence. The tests are named as the thing that holds the check honest; nobody is sent to read them, and a session that opened them would be reading test code instead of doing the work.",
+    "note": "Every path AGENTS.md names, it names as a subject - what a file is, where something is written down, or where something is to be put. It never tells a session to go and read one. Checked by grepping every occurrence. docs/OPEN.md is named as the place a gap is recorded when a check cannot be watched refusing; that is where to write, not what to read, and charging it would put 30,404 bytes on every session. The tests are named as the thing that holds the check honest; nobody is sent to read them, and a session that opened them would be reading test code instead of doing the work.",
     "reads": [],
     "mentions": [
-      "AGENTS.md",
-      "CLAUDE.md",
       ".claude/settings.json",
       ".github/workflows/checks.yml",
+      "AGENTS.md",
+      "CLAUDE.md",
+      "docs/OPEN.md",
       "docs/REFUSALS.md",
       "docs/REVIEWER.md",
       "docs/VISION.md",
@@ -21,16 +19,18 @@
       "tools/reads.json"
     ]
   },
-
   ".claude/agents/da-vinci.md": {
     "note": "'Read docs/REVIEWER.md before you look at the change. That is the method, all of it.' Unconditional, for every Da Vinci session.",
-    "reads": ["docs/REVIEWER.md"],
+    "reads": [
+      "docs/REVIEWER.md"
+    ],
     "mentions": []
   },
-
   "docs/REVIEWER.md": {
     "note": "Sends Da Vinci on to the precedents: 'Read it before you report.' The rest it names as sources and subjects.",
-    "reads": ["docs/PRECEDENTS.md"],
+    "reads": [
+      "docs/PRECEDENTS.md"
+    ],
     "mentions": [
       ".claude/",
       ".claude/agents/da-vinci.md",
@@ -41,10 +41,12 @@
       "package.json"
     ]
   },
-
   ".claude/skills/build/SKILL.md": {
     "note": "The registry is read ('Look the id up in projects/registry.json ... It is the only place that address is read from'). .gitignore is opened to add a registered project's id to it. OPEN.md and PLAN.md are cited for where a decision or an assumption is written down, not handed to the session.",
-    "reads": ["projects/registry.json", ".gitignore"],
+    "reads": [
+      "projects/registry.json",
+      ".gitignore"
+    ],
     "mentions": [
       ".claude/agents/da-vinci.md",
       "AGENTS.md",
@@ -52,16 +54,21 @@
       "docs/PLAN.md"
     ]
   },
-
   ".claude/skills/virgil/SKILL.md": {
     "note": "'Read that file before answering anything about a project. Never from memory.' and 'Before designing anything that waits, read docs/SIGNALS.md'.",
-    "reads": ["projects/registry.json", "docs/SIGNALS.md"],
-    "mentions": ["AGENTS.md"]
+    "reads": [
+      "projects/registry.json",
+      "docs/SIGNALS.md"
+    ],
+    "mentions": [
+      "AGENTS.md"
+    ]
   },
-
   "docs/SIGNALS.md": {
     "note": "Names OPEN.md as the place that carries what has not been observed. A citation, not a handoff.",
     "reads": [],
-    "mentions": ["docs/OPEN.md"]
+    "mentions": [
+      "docs/OPEN.md"
+    ]
   }
 }

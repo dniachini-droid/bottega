@@ -460,10 +460,11 @@ paid for twice, once in each number. The largest single thing charged to the
 heaviest session is the build skill, and if room has to be found, that is where
 to look first.
 
-*Why this is worth an entry rather than a shrug: the previous round left this
-number with about 1,500 of room and said so in the prompt that started this
-one. One more change of this size does not fit. The next session to add
-anything to the rules file will meet the refusal rather than the warning.*
+*Why this is worth an entry rather than a shrug: every round so far has left
+less room than the round before, and each one recorded a figure that was wrong
+by the time it was read. One more change of the size of a recent one does not
+fit. The next session to add anything to the rules file will meet the refusal
+rather than the warning — so run the check before writing, not after.*
 
 What is known to be removable is already written down: the build skill still
 explains at length what an earlier wrong reason was and why it was wrong, which
