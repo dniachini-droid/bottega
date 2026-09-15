@@ -40,6 +40,41 @@ piece is worth having on its own.*
 2. **The filing.** The model reads each capture and maintains the wiki.
 3. **The asking.** Research with real sources, written back in as pages.
 
+## Two doors, and two ways of filing — decided 15 September 2026
+
+**The wiki is markdown files in a repository.** *Why that and not a database:
+it is what the pattern this is built on actually is, it makes "he can get
+everything out as files" true rather than a feature to build, and — the reason
+the owner chose it — it means Claude Code can read and write the wiki directly.*
+
+**So there are two doors to the deep research, and he wants both.**
+
+- **From his phone.** Wherever he is. This costs money per question, because the
+  application is reaching a model on his behalf.
+- **From Claude Code, at his computer, on the repository.** Him asking, himself,
+  in a tool he already pays for. No separate bill for the expensive part.
+
+*Where the line is, and it is not negotiable: a person driving a session is
+ordinary use of a subscription. An application routing its automated work
+through that subscription to avoid a bill is not, and is not to be built. The
+test is whether a human is asking.*
+
+**Filing works both ways too, and he wants both.**
+
+- **Instant, on capture, from the phone.** Costs money per capture.
+- **In a batch, when he next sits down at Claude Code.** Free, and captures wait
+  until then.
+
+*Why both rather than one: instant filing is what makes the wiki feel alive, and
+batch filing is what makes it affordable to use twenty times a day. Neither on
+its own is the thing he asked for.*
+
+**Two things he was told and accepted when he decided this.** His raw captures —
+health, feelings, private thoughts — would live in a private repository on
+somebody else's servers. And a repository handles text well and photographs
+badly at any volume, so the photographs may have to live elsewhere with the text
+pointing at them.
+
 **The look is decided in piece one, not last.** Da Vinci's notebook — cream
 paper, brown ink, margin notes, diagrams. Not Medici gilt, not Michelangelo's
 marble. *Why the notebook: a zibaldone is the commonplace book Leonardo's
