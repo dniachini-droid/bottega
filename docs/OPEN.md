@@ -444,13 +444,14 @@ size of the copy. If the window saves nothing there is no number, and nothing
 the check could reach is substituted. If the window saves something other than
 what it sent, nothing here can tell.
 
-The first saved prompt is this change's own, at about 658 tokens — and it was
+The first saved prompt was this change's own, measured on 14 September 2026 at
+about 658 tokens — and it was
 transcribed by the session that received it, not saved by the window that sent
 it, because the window had no such instruction when it dispatched. So the one
 number now in the repository is the one kind of copy the arrangement does not
 call for.
 
-*Why it is recorded anyway: 658 tokens is nothing like the 27,400 that made
+*Why it is recorded anyway: that is nothing like the 27,400 that made
 this worth doing, so the first datum is already evidence that prompts vary by a
 factor of forty, and a limit picked from either end would have been wrong.*
 
@@ -463,10 +464,13 @@ front of him.
 
 ## The heaviest startup number is close to its limit — run the check, do not read a number here
 
-**No figure for it is written down on this page, deliberately.** Every time one
-has been, it has gone stale: written at 8,477, restated at 9,036, restated
-again at 9,284 while the same change was still being fixed, and wrong by 76
-tokens within the hour. A session that sizes an addition against a number on
+**No figure for it is written down on this page, deliberately, and not even as
+an example of one that went stale.** Every time one has been written here it has
+gone stale: four different values for the same number inside four days, the last
+of them wrong within the hour, while the change it described was still being
+fixed. *The values themselves are not repeated here, because a superseded figure
+on this page is still a figure on this page, and the argument does not need them
+— which is the test of whether they were ever doing work.* A session that sizes an addition against a number on
 this page will be refused somewhere it did not expect.
 
 `node tools/check-budgets.mjs` prints both numbers and the room left in each.
@@ -609,9 +613,23 @@ a name that does not exist, which came back as unknown rather than disabled. So
 the harness tells a matched name from an unmatched one, and none of them failed
 silently, which was the whole risk.*
 
-**It closes here only, and it does not close completely.** Any other
-repository, and any conversation outside one, still offers all of them. Making
-it account-wide is a separate decision and has not been made. And nineteen was
+**It does not close completely, and its reach is wider than "this repository"
+makes it sound.** A conversation that starts anywhere else still offers all of
+them. But a session building an *application* starts here — the build path says
+its repository is Bottega every time, and the project is cloned into a directory
+beside it — so these nineteen are switched off for application builds too, not
+only for work on the workshop. Making it account-wide is a separate decision and
+has not been made.
+
+**What that costs, said in the same breath as the saving.** A session building
+Zibaldone, or any later application, that reaches for `design`, `code-review`,
+`simplify`, `run`, `init`, `pdf` or `docx` will be refused by name. Nothing here
+has established that no application will ever want one of those; what was
+established is that nothing in *this workshop* opens them. Switching any of them
+back on is one line in `.claude/settings.json` and costs only that name's
+description. *Why it is written down rather than pre-emptively reversed: the
+owner asked for these off, and a saving undone on a guess about a session that
+has not run yet is a saving nobody keeps.* And nineteen was
 not all of them: a session running here is still offered `dataviz`,
 `artifact-design`, `artifact-diagramming` and `artifact-capabilities`, four
 names that nothing in this tree references. They were left on because switching
