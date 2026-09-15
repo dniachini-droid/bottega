@@ -21,6 +21,21 @@ attention and becomes a history nobody reads.*
 
 ---
 
+
+**No token figure goes on this page.** Not in a heading, not in a status line,
+not in a passage explaining why figures go stale. `node tools/check-budgets.mjs`
+prints both numbers and the room left in each; that is the only honest answer
+and it takes a second.
+
+*Why it is a rule for the whole page rather than one entry: on 15 September 2026
+four separate figures here were found wrong in a single day — one of them inside
+the paragraph warning that this repository has twice been wrong about its own
+measurements in the direction that flattered them, and another written to
+correct a stale figure and stale within the hour. Every one was caught by a
+reviewer reading the files, never by a check, because nothing can check prose
+against a number it does not know it should recompute. The limit itself, and a
+dated record of what something measured on the day, are not figures about the
+current state and may stay.*
 ## The workshop and the application were separated
 
 This repository was called `cabinet` and opened, in its rules file, with a
@@ -194,17 +209,16 @@ instruction file in the workshop whole, including skill and agent bodies that
 a session is never given unless it opens them.
 
 Measured honestly, and in the two numbers the check now reports: what **every**
-session loads is about 3,033 tokens, and what the **heaviest single** session
-loads — Michelangelo, once it opens the build skill — is about 7,968. Both
-against the same limit of 10,000. Those numbers include the files the
-instructions send a session away to read, which the first version of this
-count charged nothing for; the entry below says how that was found.
+session loads, and what the **heaviest single** session loads once it opens the
+build skill. Both against the same limit of 10,000. Those numbers include the
+files the instructions send a session away to read, which the first version of
+this count charged nothing for. **Run the check for the figures** — this page
+does not keep them, for the reason in the entry headed "the heaviest startup
+number is close to its limit".
 
-The candidates for trimming that this entry used to list are still worth
-doing and are no longer urgent. The build skill still explains at length what
-an earlier wrong reason was and why it was wrong, which is history rather than
-instruction. That material is now charged to the heavier number, which has
-about 2,032 tokens of room.
+The candidates for trimming that this entry used to list are still worth doing.
+The build skill's long account of an earlier wrong reason has since been moved
+out; what else could go has not been surveyed.
 
 **Status:** OPEN — the limit itself was deliberately not touched. Whether
 10,000 still measures anything, now that the every-session number sits at
@@ -584,7 +598,8 @@ spent on material the workshop did not write and cannot delete.
 recorded as the owner's setting to change and not a change anybody could make
 in this repository. That was wrong: `.claude/settings.json` takes a
 `skillOverrides` block, it travels with the repository, and a session working
-here is now offered six skills rather than about thirty.
+here is now offered only the handful this workshop actually uses, rather than
+everything the harness has available.
 
 *How it was established rather than assumed: the names were switched off, each
 one was then asked for, and every one came back refused — against a control of
@@ -596,10 +611,9 @@ silently, which was the whole risk.*
 one, still offers all of them. Making it account-wide is a separate decision
 and has not been made.
 
-*Why it is recorded here despite that: the budget check reports what every
-session loads as about 4,105 tokens, and a reader could reasonably take that
-for the whole of what a session carries before it starts. It is not. The real
-figure is roughly twice that, and the half the workshop does not control is the
+*Why it was recorded here despite that: a reader could reasonably take the
+every-session number the check reports for the whole of what a session carries
+before it starts. It is not, and the half the workshop did not control was the
 larger half.*
 
 **Status:** CLOSED for this repository, 15 September 2026, by pull request 20.
@@ -690,12 +704,13 @@ the wrong reason is not reinstated.
 ## The budget check cannot see the largest saving this workshop has made
 
 **15 September 2026.** Switching off nineteen skills took what a session is
-offered from about thirty down to seven. The check reports none of it.
+offered from everything available down to the handful this workshop uses. The
+check reports none of it.
 
 What it reports is the opposite: `.claude/settings.json` grew from 299 bytes to
 about 950 to hold the block, and that file is charged to both enforced numbers.
-So the heaviest session went **up** by about 160 tokens on the day the real load
-came down by far more.
+So the heaviest session went **up** on the day the real load came down by far
+more.
 
 *Why this is not a fault in the check: it measures what this repository hands a
 session, and a skill listing is handed to a session by the harness. It never
@@ -705,8 +720,8 @@ settings file rather than the instructions.*
 
 **What follows, and it is not comfortable.** Both enforced numbers are now
 smaller than what a session really carries, by more than the budget itself. A
-session reading "about 9,679 of 10,000" is reading the part of its load this
-repository wrote, not the whole of it. That was always true — the harness's own
+session reading the heaviest number against its limit of 10,000 is reading the
+part of its load this repository wrote, not the whole of it. That was always true — the harness's own
 instructions and tool descriptions were never counted either — but until today
 the uncounted part was not something anybody here could change, so it read as
 background rather than as a gap.
