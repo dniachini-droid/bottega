@@ -4,12 +4,35 @@
       {
         "matcher": "Read",
         "hooks": [
-          { "type": "command",
+          {
+            "type": "command",
             "command": "\"$CLAUDE_PROJECT_DIR\"/tools/read-guard.sh",
             "timeout": 10,
-            "statusMessage": "checking read size" }
+            "statusMessage": "checking read size"
+          }
         ]
       }
     ]
+  },
+  "skillOverrides": {
+    "anthropic-skills:docx": "off",
+    "anthropic-skills:pdf": "off",
+    "anthropic-skills:pptx": "off",
+    "anthropic-skills:xlsx": "off",
+    "anthropic-skills:import-memory": "off",
+    "anthropic-skills:morning": "off",
+    "keybindings-help": "off",
+    "session-start-hook": "off",
+    "claude-api": "off",
+    "workflow-authoring": "off",
+    "update-config": "off",
+    "init": "off",
+    "run": "off",
+    "security-review": "off",
+    "simplify": "off",
+    "code-review": "off",
+    "fewer-permission-prompts": "off",
+    "loop": "off",
+    "design": "off"
   }
 }
