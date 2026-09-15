@@ -15,9 +15,25 @@
     ]
   },
   "skillOverrides": {
+    "anthropic-skills:docx": "off",
+    "anthropic-skills:pdf": "off",
+    "anthropic-skills:pptx": "off",
+    "anthropic-skills:xlsx": "off",
+    "anthropic-skills:skill-creator": "off",
+    "anthropic-skills:import-memory": "off",
+    "anthropic-skills:morning": "off",
     "keybindings-help": "off",
     "session-start-hook": "off",
     "claude-api": "off",
-    "workflow-authoring": "off"
+    "workflow-authoring": "off",
+    "update-config": "off",
+    "init": "off",
+    "run": "off",
+    "security-review": "off",
+    "simplify": "off",
+    "code-review": "off",
+    "fewer-permission-prompts": "off",
+    "loop": "off",
+    "design": "off"
   }
 }
