@@ -36,6 +36,9 @@ reviewer reading the files, never by a check, because nothing can check prose
 against a number it does not know it should recompute. The limit itself, and a
 dated record of what something measured on the day, are not figures about the
 current state and may stay.*
+
+---
+
 ## The workshop and the application were separated
 
 This repository was called `cabinet` and opened, in its rules file, with a
@@ -221,8 +224,9 @@ The build skill's long account of an earlier wrong reason has since been moved
 out; what else could go has not been surveyed.
 
 **Status:** OPEN — the limit itself was deliberately not touched. Whether
-10,000 still measures anything, now that the every-session number sits at
-about a quarter of it, is the owner's decision and nobody has put it to him.
+10,000 still measures anything, given how far under it the every-session number
+now runs, is the owner's decision and nobody has put it to him. **Run the check
+for how far under** — this page does not keep that figure either.
 
 ---
 
@@ -584,22 +588,20 @@ rounds running. Nobody has looked.
 
 ---
 
-## About 4,200 tokens go on describing skills that are never used here
+## Descriptions of skills never used here were costing every session — mostly closed
 
-A session in this workshop is shown the name and description of every skill
+A session in this workshop was shown the name and description of every skill
 available to it, including a large set that has nothing to do with Bottega —
-document formats, design tools, spreadsheets. Roughly 4,200 tokens of a
-session's context goes on descriptions of things no session here will open.
-
-That is more than the entire every-session number the workshop holds itself to,
-spent on material the workshop did not write and cannot delete.
+document formats, design tools, spreadsheets. *Measured on 14 September 2026:
+roughly 4,200 tokens of a session's context, spent on descriptions of things no
+session here will open.* That was more than the whole of what the workshop's own
+instructions cost at the time, on material the workshop did not write.
 
 **Closed on 15 September 2026, and the way it closed was a surprise.** This was
 recorded as the owner's setting to change and not a change anybody could make
 in this repository. That was wrong: `.claude/settings.json` takes a
-`skillOverrides` block, it travels with the repository, and a session working
-here is now offered only the handful this workshop actually uses, rather than
-everything the harness has available.
+`skillOverrides` block, it travels with the repository, and nineteen of those
+names are now switched off for any session that runs here.
 
 *How it was established rather than assumed: the names were switched off, each
 one was then asked for, and every one came back refused — against a control of
@@ -607,18 +609,29 @@ a name that does not exist, which came back as unknown rather than disabled. So
 the harness tells a matched name from an unmatched one, and none of them failed
 silently, which was the whole risk.*
 
-**It closes here only.** Any other repository, and any conversation outside
-one, still offers all of them. Making it account-wide is a separate decision
-and has not been made.
+**It closes here only, and it does not close completely.** Any other
+repository, and any conversation outside one, still offers all of them. Making
+it account-wide is a separate decision and has not been made. And nineteen was
+not all of them: a session running here is still offered `dataviz`,
+`artifact-design`, `artifact-diagramming` and `artifact-capabilities`, four
+names that nothing in this tree references. They were left on because switching
+a name off is only safe once somebody has established that nothing here wants
+it, and that was established for nineteen and not for these four. *Why the
+remainder is written down rather than swept into the next commit: a closed entry
+that overstates its own result is worse than an open one, because nobody
+re-checks it.*
 
 *Why it was recorded here despite that: a reader could reasonably take the
 every-session number the check reports for the whole of what a session carries
 before it starts. It is not, and the half the workshop did not control was the
 larger half.*
 
-**Status:** CLOSED for this repository, 15 September 2026, by pull request 20.
-OPEN as a question the owner has not been asked: whether he wants the same
+**Status:** CLOSED for this repository, 15 September 2026, by pull request 20,
+for the nineteen names it switched off. OPEN for the four named above, and open
+as a question the owner has not been asked: whether he wants the same
 everywhere, which is his account's setting and not this repository's.
+
+---
 
 ## A reviewer that has to check a claim recorded only in a pull request breaks its own isolation to do it
 
@@ -703,12 +716,13 @@ the wrong reason is not reinstated.
 
 ## The budget check cannot see the largest saving this workshop has made
 
-**15 September 2026.** Switching off nineteen skills took what a session is
-offered from everything available down to the handful this workshop uses. The
-check reports none of it.
+**15 September 2026.** Switching off nineteen skills took most of the listing a
+session is offered out of its context — not all of it; four names are still
+offered and are recorded in the entry above. The check reports none of the
+saving.
 
 What it reports is the opposite: `.claude/settings.json` grew from 299 bytes to
-about 950 to hold the block, and that file is charged to both enforced numbers.
+919 to hold the block, and that file is charged to both enforced numbers.
 So the heaviest session went **up** on the day the real load came down by far
 more.
 
