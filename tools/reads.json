@@ -1,21 +1,19 @@
 {
   "what_this_is": "Which files a session is actually sent to open, and which are only named in passing. The budget check charges what a skill or an agent definition sends a session to read, wherever in the repository that file lives. It does not try to work out from the wording which is which: a path written in backticks is either declared here as a file the session opens ('reads'), or declared as a file the text only names ('mentions'). A path that is in neither list fails the check.",
   "why_declared_and_not_guessed": "The two cases look identical to a machine. 'Read docs/X.md' and 'the reasoning is in docs/X.md' are the same shape. A check that guessed from the verb could be defeated by rewording the sentence, and nothing about what the session loads would change. A check that silently dropped what it could not classify would be under-counting, which is the dangerous direction. Refusing until somebody writes down which it is means a new pointer out of a skill can never slip through unnoticed - and writing 'this is only a mention' next to a large file is a visible act that Da Vinci sees.",
-  "how_to_use_it": "One entry per file that is charged to a session and names a path in backticks. Both lists hold paths exactly as they are written in the backticks. A path in 'reads' must exist, and a path ending in / is followed to every file inside it. A path in 'mentions' need not exist.",
+  "how_to_use_it": "One entry per file that is charged to a session and names a path in backticks. Both lists hold paths exactly as they are written in the backticks. A path in 'reads' must exist, and a path ending in / is followed to every file inside it. A path in 'mentions' need not exist. Every file declared here is scanned, whether or not any session is charged for it: a declaration is a promise about a file's contents, and a file at zero bytes of charge makes the same promise as one every session loads.",
   "AGENTS.md": {
-    "note": "Every path AGENTS.md names, it names as a subject - what a file is, where something is written down, or where something is to be put. It never tells a session to go and read one. Checked by grepping every occurrence. docs/OPEN.md is named as the place a gap is recorded when a check cannot be watched refusing; that is where to write, not what to read, and charging it would put 30,404 bytes on every session. The tests are named as the thing that holds the check honest; nobody is sent to read them, and a session that opened them would be reading test code instead of doing the work.",
+    "note": "Every path AGENTS.md names, it names as a subject - what a file is, where something is written down, or where something is to be put. It never tells a session to go and read one. Checked by grepping every occurrence. docs/OPEN.md is named as the place a gap is recorded when a check cannot be watched refusing; that is where to write, not what to read, and charging it would put 30,404 bytes on every session. The tests are named as the thing that holds the check honest; nobody is sent to read them, and a session that opened them would be reading test code instead of doing the work. docs/THE-CHECK.md is the mechanism behind the check, moved out of this file on 15 September 2026; the sentence naming it points there conditionally - open it only if you are changing the check - and says that calling it a mention is a judgement that ordinary work never opens it rather than a fact any check can establish, and the three things a working session actually needs - that the check exists, to run it before committing, and that a backticked path must be declared - all stayed in AGENTS.md. If a rule ever starts sending sessions there, this entry moves to 'reads' and it is charged to every session.",
     "reads": [],
     "mentions": [
-      ".claude/settings.json",
       ".github/workflows/checks.yml",
       "AGENTS.md",
-      "CLAUDE.md",
       "docs/OPEN.md",
       "docs/REFUSALS.md",
       "docs/REVIEWER.md",
+      "docs/THE-CHECK.md",
       "docs/VISION.md",
       "tools/check-budgets.mjs",
-      "tools/check-budgets.test.mjs",
       "tools/reads.json"
     ]
   },
@@ -27,7 +25,7 @@
     "mentions": []
   },
   "docs/REVIEWER.md": {
-    "note": "Sends Da Vinci on to the precedents: 'Read it before you report.' The rest it names as sources and subjects.",
+    "note": "Sends Da Vinci on to the precedents: 'Read it before you report.' The rest it names as sources and subjects, including the two automatic checks and what they read, which the list of what not to report has to state literally.",
     "reads": [
       "docs/PRECEDENTS.md"
     ],
@@ -38,7 +36,8 @@
       "AGENTS.md",
       "docs/REFUSALS.md",
       "docs/research/REVIEWER-CRAFT.md",
-      "package.json"
+      "tools/check-budgets.test.mjs",
+      "tools/reads.json"
     ]
   },
   ".claude/skills/build/SKILL.md": {
@@ -69,6 +68,17 @@
     "reads": [],
     "mentions": [
       "docs/OPEN.md"
+    ]
+  },
+  "docs/THE-CHECK.md": {
+    "note": "Describes the check. Names AGENTS.md, CLAUDE.md, settings.json, the tests and tools/reads.json as its subjects. AGENTS.md points here conditionally - 'open it only if you are changing the check itself' - so this is a mention by judgement, not because nothing points at it: a session doing ordinary work here never opens it. Nothing can check that judgement, which is why it is written down. If sessions start opening it as a matter of course, this entry moves to 'reads'. The list below was written unverified while the classification guards could not reach a file charged to nobody; two names it carried - docs/REVIEWER.md and tools/check-budgets.mjs - were standing pre-approvals for names this file does not contain, and the widened guard refused them on 15 September 2026.",
+    "reads": [],
+    "mentions": [
+      ".claude/settings.json",
+      "AGENTS.md",
+      "CLAUDE.md",
+      "tools/check-budgets.test.mjs",
+      "tools/reads.json"
     ]
   }
 }

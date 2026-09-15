@@ -227,71 +227,44 @@ reasons — the thing that does work — to buy a number that does not.*
 
 `tools/check-budgets.mjs` checks two of them and fails loudly: the startup
 token count, and dead file references. It runs on every push and every pull
-request, through `.github/workflows/checks.yml`.
-
-For the startup count it reports the two numbers above, and fails if either is
-over. Every session is charged `AGENTS.md`, `.claude/settings.json`, and the
-name and description of each skill and each agent definition — all a session
-is shown of them until it opens one. The heaviest session is that, plus the
-largest single skill or agent definition in full, counting any supporting
-files that sit beside it. Bytes divided by four.
+request, through `.github/workflows/checks.yml`. **Run it before you commit.**
 
 **A file that the instructions send a session to read is charged to that
 session, wherever in the repository it sits** — not only when it happens to
 sit inside a skill's own folder. *Why: otherwise the way to get under the
 budget is to move the bulk somewhere else and point at it from one line, and
-neither number moves. That is not hypothetical. Da Vinci's method was
-split out of its agent definition into `docs/REVIEWER.md` in order to fit
-under this budget, and 6,540 bytes that every Da Vinci session is required to
-read were then charged as nothing.* Reading is followed onward: a
-file that sends the session to a third file is charged for that one too,
-each file once.
+neither number moves. That is not hypothetical. Da Vinci's method was split out
+of its agent definition into `docs/REVIEWER.md` in order to fit under this
+budget, and 6,540 bytes that every Da Vinci session is required to read were
+then charged as nothing.* Reading is followed onward, each file once.
 
-Which files those are is written down in `tools/reads.json`, one entry per
-file, saying which of the names it uses a session is sent to open and which it
-only mentions. **A name that is in neither list stops the check.** *Why it is
-written down rather than worked out: "read this file" and "the reasoning is in
-this file" are the same shape to a machine, so a check that guessed from the
-wording could be beaten by rewording the sentence — and a check that
-quietly dropped what it could not tell apart would undercount, which is the
-direction that does harm. Refusing until somebody says which it is means a new
-pointer out of a skill cannot pass unnoticed. Calling a large file "only
-mentioned" is still possible, but it has to be written down where Da Vinci
-sees it.*
+So every path written in backticks in a file that is charged to a session has
+to be declared in `tools/reads.json` as either a file the session opens or a
+name it only mentions. **A name in neither list stops the check.** *Why it is
+written down rather than worked out from the wording: "read this file" and "the
+reasoning is in this file" are the same shape to a machine, so a check that
+guessed could be beaten by rewording the sentence. Calling a large file "only
+mentioned" is still possible, but it has to be written down where Da Vinci sees
+it.*
 
-`CLAUDE.md` is a symbolic link to `AGENTS.md`: the same bytes under a second
-name, not a second file. A session is given that text once, so it is counted
-once, and counting `AGENTS.md` counts exactly what arrives.
+For dead references the check takes every path written in backticks — in
+`AGENTS.md` and in every file `tools/reads.json` declares — and checks that it
+is really there. So writing a path in backticks is how you ask to be warned
+when it disappears, wherever you write it.
 
-For dead references it takes every path written in backticks in `AGENTS.md`
-and checks that it is really there. So writing a path in backticks is how you
-ask to be warned when it disappears.
+**It also prints a third number that is not a budget and has no limit: how big
+the prompt was that started a session.** *Why no limit: nobody has yet seen
+what a normal prompt looks like, and a limit set before that gets met by
+leaving out what the session needed, which moves the cost somewhere nothing can
+see. Print it, watch it, argue about a number later with evidence.*
 
-`tools/check-budgets.test.mjs` is the tests for that check: one for each of
-the two faults it really had, each watched failing against the broken version
-before it was trusted. `node --test` runs them in the same automatic checks, so
-a failing test on `main` cannot sit unnoticed. No session ever reads them, so
-they cost nothing against either limit above.
-
-**The check also prints a third number that is not a budget and has no limit:
-how big the prompt was that started a session.** *Why no limit: nobody has yet
-seen what a normal prompt looks like, and a limit set before that gets met by
-leaving out what the session needed, which moves the cost somewhere nothing
-can see. Print it, watch it, argue about a number later with evidence.*
-
-The check cannot measure a prompt. A prompt is never a file here — it is
-written in the guide window and handed to the session at the moment it starts,
-and nothing on disk holds it. So the window saves a copy beside that project's
-scope pages, one file per prompt, named for the pull request and the stage,
-holding the prompt and nothing else. What is printed is the size of that copy.
-**It is a record, not a measurement**, and nothing here can tell whether the
-copy matches what was sent. Nothing saved prints nothing, and nothing the
-check could reach is put in its place. *Why not: the scope page and the empty
-template in the build skill are both things it could measure and call the
-prompt, and neither is the prompt. A number that measures the wrong thing is
-worse than no number, because it would be watched and trusted.* It is printed
-beside the two budgets and added to neither, because both limits were settled
-against the instruction numbers alone.
+How the check counts, what it can and cannot see, and why the prompt number is
+a record rather than a measurement, are in `docs/THE-CHECK.md`. **Open it only
+if you are changing the check itself.** That is a pointer, not an unconditional
+one, and it is declared as a mention rather than a read — which is a judgement
+that a session doing ordinary work here never opens it, not a fact any check can
+establish. If sessions start opening it anyway, it has become required reading
+and `tools/reads.json` has to say so.
 
 The rest are on their word: the other half of that budget — a blocking finding
 with no test — and checks never seen refusing, the count of agent definitions,

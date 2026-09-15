@@ -68,10 +68,12 @@ invent. There is nothing downstream to catch a fabrication.*
 
 `.github/workflows/checks.yml` runs, on every push and every pull request:
 
-- `node tools/check-budgets.mjs` — the startup token total, and whether every
-  path written in backticks in `AGENTS.md` is really there
-- an install step and a test step, both of which do nothing for as long as
-  there is no `package.json` in the repository
+- `node tools/check-budgets.mjs` — the two startup token totals, whether every
+  path written in backticks in `AGENTS.md` or in any file `tools/reads.json`
+  declares is really there, whether every such path is classified in that file,
+  and whether a name declared there as a mention is still in the file
+- `node --test` — the tests in `tools/check-budgets.test.mjs`. Nothing is
+  installed first: there is no package file here and nothing to install
 
 *Why: restating what an automatic check already said is the single largest
 source of real review noise. Keep this list literal and update it when the
