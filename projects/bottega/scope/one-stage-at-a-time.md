@@ -17,8 +17,15 @@ groundwork for splitting the build skill, which is a separate change.
 
 ## What done looks like
 
-- The check accepts a stage declaration and charges the largest stage only.
-- It refuses a declaration of fewer than two stages, and says why.
+- The check accepts a stage declaration and charges the stage that costs most
+  once its own onward reading is followed — not the largest file.
+- Every declared stage is charged in full at least once, so a stage that is
+  never the most expensive is still scanned: its reading is followed and a name
+  it leaves classified in neither list still stops the check.
+- A skill may not declare its own `SKILL.md` as a stage.
+- It refuses a declaration of fewer than two stages, and the reason it gives
+  is true: with fewer than two there is nothing to choose between, and nothing
+  is hidden meanwhile.
 - It refuses a stage that is not there, and says why.
 - Each of those three was watched happening before the change was trusted, and
   what was seen is in `docs/REFUSALS.md`.

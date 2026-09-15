@@ -770,19 +770,18 @@ has twice had a measurement go wrong in exactly that direction.** So each way
 it could be turned into a way of hiding bulk was watched being refused before
 the change was trusted.
 
-### It refused a declaration of one stage
+### It refused a declaration of fewer than two stages
 
-`tools/reads.json` was given `.claude/skills/build/` with a single stage,
-`SKILL.md`. `node tools/check-budgets.mjs` returned exit code 1:
+`tools/reads.json` was given `.claude/skills/build/` with a single stage.
+`node tools/check-budgets.mjs` returned exit code 1, saying a stage declaration
+means a session opens one of several and never the others, so with fewer than
+two there is nothing to choose between.
 
-```
-  .claude/skills/build/ declares 1 stage in tools/reads.json. One stage is not
-  a choice — it is a file moved sideways, and charging only it would hide the
-  rest. Declare two or more, or none.
-```
-
-*Why that is the shape of the hole: with one stage allowed, the way under the
-budget is to call the whole body a stage and charge nothing else.*
+**The first version of this message claimed that charging one stage would hide
+the rest. That was false and the review of pull request 16 caught it** — the
+recharging is gated on there being two or more, so a one-stage declaration
+never changed a number. The guard is worth keeping; the reason it gave was not,
+and the message now says plainly that nothing is hidden meanwhile.
 
 ### It refused a stage that was not there
 
@@ -808,6 +807,28 @@ Three tests were added to `tools/check-budgets.test.mjs`, one for each of the
 above. Run against the check as it stood on `main`, which does not know what a
 stage is, all three failed. Run against the new one, all three passed. The whole
 suite is 7 tests, 7 passing.
+
+### The hole the first version really had, found by review
+
+**The first version picked the largest stage by raw size, and dropped the
+others before anything looked at them.** Da Vinci demonstrated it: a skill with
+`stage-fat.md` at 5,000 bytes pointing nowhere, and `stage-thin.md` at 1,057
+bytes declared as reading a 40,000-byte file. The check reported about 1,777
+tokens and exit 0. A session handed the thin stage really loads about 10,797 —
+**over the limit.** Worse, leaving that 40,000-byte file classified in neither
+list still gave exit 0 with no `UNDECLARED` line, because the stage naming it
+was never charged and so never scanned.
+
+**Three of the defences the code claimed were holding that shut were satisfied
+in that reproduction.** The change now charges every stage in full, each on top
+of the rest of the folder, and takes the largest of those totals — which is
+also what makes the other guards work, because following a file's reading and
+catching an unclassified name both happen during charging.
+
+Watched against the broken version at commit `6c93340`: the test for the cost
+of a stage, the test for `SKILL.md` being declared a stage, and the test that
+an uncharged stage is still scanned **all three failed.** Against the fix, all
+three passed. The suite is 10 tests, 10 passing.
 
 **What no test can check, stated plainly:** whether a session really does open
 only one stage. That is on the word of whoever wrote the declaration, visible in

@@ -309,6 +309,7 @@ for (const entry of skillEntries) {
   const full = join(ROOT, SKILL_DIR, entry.name);
   if (entry.isDirectory()) {
     let files = walk(full);
+    let stageCandidates = null;
     const offered = offeredLine(join(full, 'SKILL.md'));
     if (offered !== null) {
       const folderRel = `${SKILL_DIR}/${entry.name}/`;
@@ -317,8 +318,11 @@ for (const entry of skillEntries) {
         if (stages.length < 2) {
           stageProblems.push(
             `${folderRel} declares ${stages.length} stage${stages.length === 1 ? '' : 's'} in ` +
-            `${READS_FILE}. One stage is not a choice — it is a file moved sideways, and ` +
-            `charging only it would hide the rest. Declare two or more, or none.`);
+            `${READS_FILE}. A stage declaration says a session opens one of several and ` +
+            `never the others; with fewer than two there is nothing to choose between, so ` +
+            `it says nothing. Name them all, or take the declaration out. ` +
+            `(Nothing is hidden meanwhile — a declaration this check refuses changes no ` +
+            `number, and every file in the folder is still charged.)`);
         }
         const stageFull = stages.map((rel) => join(ROOT, folderRel, rel));
         const missing = stages.filter((rel, i) => !existsSync(stageFull[i]));
@@ -327,16 +331,24 @@ for (const entry of skillEntries) {
             `${folderRel} declares the stage ${rel} in ${READS_FILE}, and it is not there. ` +
             `A stage that does not exist is charged nothing and read by nobody.`);
         }
-        if (stages.length >= 2 && missing.length === 0) {
+        const skillMd = realOf(join(ROOT, folderRel, 'SKILL.md'));
+        if (stageFull.some((f) => realOf(f) === skillMd)) {
+          stageProblems.push(
+            `${folderRel} declares its own SKILL.md as a stage in ${READS_FILE}. ` +
+            `That file is not one of several a session might open — it is the one a ` +
+            `session always gets, and it is read directly to find the name and ` +
+            `description. Calling it a stage would drop its body and everything it ` +
+            `sends the session to read out of the count while the skill still looked ` +
+            `present.`);
+        }
+        if (stages.length >= 2 && missing.length === 0 &&
+            !stageFull.some((f) => realOf(f) === skillMd)) {
           const stageSet = new Set(stageFull.map(realOf));
-          const inStage = files.filter((f) => stageSet.has(realOf(f)));
-          const rest = files.filter((f) => !stageSet.has(realOf(f)));
-          let biggest = inStage[0];
-          for (const f of inStage) if (sizeOf(f) > sizeOf(biggest)) biggest = f;
-          files = biggest ? [...rest, biggest] : rest;
+          stageCandidates = files.filter((f) => stageSet.has(realOf(f)));
+          files = files.filter((f) => !stageSet.has(realOf(f)));
         }
       }
-      sets.push({ label: folderRel, offered, seeds: files });
+      sets.push({ label: folderRel, offered, seeds: files, stageCandidates });
       continue;
     }
     // No readable SKILL.md front matter: we cannot tell when this is loaded,
@@ -367,7 +379,28 @@ const everyTokens = Math.floor(everyBytes / BYTES_PER_TOKEN);
 // in the every-session floor, so it is not charged a second time here.
 const alwaysKeys = new Set(alwaysCharged.keys());
 for (const s of sets) {
-  s.charged = chargeReading(s.seeds, alwaysKeys);
+  // STAGES, CHARGED HONESTLY. The stage a session is handed costs its own bytes
+  // plus everything it sends the session on to read. Picking the largest stage
+  // by raw size charges the wrong one whenever a small stage points at a large
+  // file — and the stages not picked were dropped before anything scanned them,
+  // so their onward reading was charged nothing and their backticked names were
+  // never checked against the declarations.
+  //
+  // So every stage is charged in full, each on top of the rest of the folder,
+  // and the largest of those totals is what the set costs. Running them all is
+  // what makes the other guards work: chargeReading is what follows a file's
+  // reading and what catches a name classified in neither list, so a stage that
+  // is never charged is a stage nothing looks at.
+  if (s.stageCandidates && s.stageCandidates.length) {
+    let worst = null;
+    for (const stage of s.stageCandidates) {
+      const charged = chargeReading([...s.seeds, stage], alwaysKeys);
+      if (worst === null || sumOfMap(charged) > sumOfMap(worst)) worst = charged;
+    }
+    s.charged = worst;
+  } else {
+    s.charged = chargeReading(s.seeds, alwaysKeys);
+  }
   s.rows = [...s.charged.entries()]
     .map(([full, bytes]) => [relative(ROOT, full), bytes])
     .sort((a, b) => a[0].localeCompare(b[0]));

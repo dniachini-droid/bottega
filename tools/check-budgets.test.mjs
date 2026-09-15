@@ -362,12 +362,12 @@ function withStages(root, stages, files = {}) {
   writeFileSync(join(root, 'tools/reads.json'), JSON.stringify(reads, null, 2) + '\n');
 }
 
-test('one stage is refused: a single stage is a file moved sideways, not a choice', () => {
+test('fewer than two stages is refused: there is nothing to choose between', () => {
   const root = buildFixture();
   withStages(root, ['stage-one.md'], { 'stage-one.md': 4000 });
   const { status, stdout } = run(root);
   assert.equal(status, 1, 'a one-stage declaration must stop the check');
-  assert.match(stdout, /One stage is not a choice/);
+  assert.match(stdout, /nothing to choose between/);
   rmSync(root, { recursive: true, force: true });
 });
 
@@ -397,5 +397,57 @@ test('declared stages are charged at the largest one, and the others are not cha
   assert.ok(Math.abs(grew - 5000) <= tolerance,
     `the heaviest number grew by ${grew} bytes; charging the largest stage alone ` +
     `should grow it by about 5,000, and charging both by about 8,000`);
+  rmSync(root, { recursive: true, force: true });
+});
+
+test('the stage charged is the one that costs most once its reading is followed, not the biggest file', () => {
+  // The hole this closes, found by review on 15 September 2026: picking the
+  // largest stage by raw size charges the wrong one whenever a small stage
+  // points at a large file — and the stages not picked were dropped before
+  // anything read them, so their onward reading was charged nothing.
+  const root = buildFixture();
+  writeAt(root, '.claude/skills/heavy/stage-fat.md', filler(5000));
+  writeAt(root, '.claude/skills/heavy/stage-thin.md',
+    'Read `docs/HUGE.md` before you start.\n');
+  writeAt(root, 'docs/HUGE.md', filler(40000));
+  const reads = JSON.parse(readFileSync(join(root, 'tools/reads.json'), 'utf8'));
+  reads['.claude/skills/heavy/'] = { note: 'for the test', stages: ['stage-fat.md', 'stage-thin.md'] };
+  reads['.claude/skills/heavy/stage-thin.md'] = { reads: ['docs/HUGE.md'], mentions: [] };
+  reads['docs/HUGE.md'] = { reads: [], mentions: [] };
+  writeFileSync(join(root, 'tools/reads.json'), JSON.stringify(reads, null, 2) + '\n');
+
+  const { status, heaviestBytes, stdout } = run(root);
+  // The thin stage really costs 40,000+ bytes. Charging the fat one hides that.
+  assert.ok(heaviestBytes > 40000,
+    `the heaviest number is ${heaviestBytes} bytes; a session on the thin stage really ` +
+    `loads over 40,000, so charging the fat stage instead hides it. Report:\n${stdout}`);
+  assert.equal(status, 1, 'that much reading is over the limit and must stop the check');
+  rmSync(root, { recursive: true, force: true });
+});
+
+test('a skill may not declare its own SKILL.md as a stage', () => {
+  const root = buildFixture();
+  writeAt(root, '.claude/skills/heavy/other.md', filler(2000));
+  const reads = JSON.parse(readFileSync(join(root, 'tools/reads.json'), 'utf8'));
+  reads['.claude/skills/heavy/'] = { note: 'for the test', stages: ['SKILL.md', 'other.md'] };
+  writeFileSync(join(root, 'tools/reads.json'), JSON.stringify(reads, null, 2) + '\n');
+  const { status, stdout } = run(root);
+  assert.equal(status, 1, 'declaring SKILL.md a stage must stop the check');
+  assert.match(stdout, /the one a session always gets/);
+  rmSync(root, { recursive: true, force: true });
+});
+
+test('a stage that is not charged is still scanned, so a name it leaves unclassified stops the check', () => {
+  const root = buildFixture();
+  writeAt(root, '.claude/skills/heavy/stage-fat.md', filler(5000));
+  writeAt(root, '.claude/skills/heavy/stage-thin.md',
+    'The rules for this stage are in `docs/UNDECLARED.md`.\n');
+  writeAt(root, 'docs/UNDECLARED.md', filler(300));
+  const reads = JSON.parse(readFileSync(join(root, 'tools/reads.json'), 'utf8'));
+  reads['.claude/skills/heavy/'] = { note: 'for the test', stages: ['stage-fat.md', 'stage-thin.md'] };
+  writeFileSync(join(root, 'tools/reads.json'), JSON.stringify(reads, null, 2) + '\n');
+  const { status, stdout } = run(root);
+  assert.equal(status, 1, 'an undeclared name inside any stage must stop the check');
+  assert.match(stdout, /UNDECLARED\s+docs\/UNDECLARED\.md/);
   rmSync(root, { recursive: true, force: true });
 });
