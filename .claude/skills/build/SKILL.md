@@ -179,7 +179,8 @@ that name them. *Why: this is the change most likely to produce "it interpreted
 what I was asking", and the rule below says to ask only what would change what
 gets built — looking is how you find out which questions those are.*
 
-It is a fixed, short script. Five questions, asked plainly, in this order:
+It is a fixed, short script. Five questions, in this order — the first four
+asked plainly, the fifth drafted rather than asked (below):
 
 1. What should it do, in one sentence?
 2. What would you see on the screen when it is working?
@@ -220,11 +221,14 @@ the decision, say what it was, and move on.
 **Say back what you understood, before anything is written down.** In his
 words: the one sentence, what he would see working, what is out, and the fifth
 answer as he corrected it. Short enough that a wrong line is easy to spot.
-*Why: this becomes the list Da Vinci checks against, and a misunderstanding
-written into it is one the review will confirm rather than catch.*
-
-Next, propose the smallest version worth having, in plain words, and wait for
-him to say yes.
+**Wait for him to say yes to that, and only then propose the smallest version
+worth having, in plain words, and wait for a second yes.** *Why the read-back: this becomes the
+list Da Vinci checks against, and a misunderstanding written into it is one the
+review will confirm rather than catch. Why two yeses rather than one: combined,
+a misunderstanding arrives already built into a plan he is being asked to
+approve, and correcting it means unpicking the plan. Separate, it is caught
+before it shapes what gets proposed. The owner settled this on 15 September
+2026.*
 
 Then write it to `projects/<project-id>/scope/<short-name>.md` — creating the
 folders if they are not there yet. **The scope page lives in this repository,

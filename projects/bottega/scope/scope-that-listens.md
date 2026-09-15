@@ -23,6 +23,15 @@ to use than a plain session and asked which of it Bottega lacks.
   correct it. *Why: the scope page becomes the list Da Vinci checks against.
   A misunderstanding written into it is a misunderstanding the review will
   confirm rather than catch.*
+  **What it became:** the build session made the read-back and the proposal of
+  the smallest version share one yes, flagged that it had done so, and asked.
+  On 15 September 2026 the owner said separate them: he confirms the read-back
+  first, and only then is the smallest version proposed and a second yes asked
+  for. *His reason: combined, a misunderstanding arrives already built into a
+  plan he is being asked to approve, and correcting it means unpicking the
+  plan. Separate, it is caught before it shapes what gets proposed, which is
+  the whole reason the read-back was added.* This is his instruction after the
+  build, not something a review caught.
 - **It drafts the fifth answer rather than asking for it.** "How will we know
   it is right?" is the load-bearing question and the hardest to produce cold.
   The session proposes an answer from what it has learned and he corrects it.
@@ -42,7 +51,18 @@ to use than a plain session and asked which of it Bottega lacks.
 - The budget check exits 0 and the whole test suite passes, on this branch
   merged into `main`. The heaviest startup number stays under 10,000. It stood
   at about 9,554 tokens with about 446 of room before this change; report what
-  it is afterwards.
+  it is afterwards. **It ended at about 9,932 tokens, with about 68 of room
+  left.** Nothing was taken out of the file to make the two yeses fit.
+
+## One other thing that changed
+
+The sentence introducing the five stage-1 questions described all five as
+"asked plainly", which contradicted the new rule that the fifth is drafted
+rather than asked. The review raised this as advisory, not blocking. It was
+fixed anyway, because this fix session was already editing that exact passage
+and because a session asking the fifth question outright is the precise
+behaviour this change exists to remove. Advisory findings are not fixed here
+as a matter of course.
 
 ## What is out
 
