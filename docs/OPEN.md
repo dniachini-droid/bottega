@@ -466,13 +466,17 @@ by the time it was read. One more change of the size of a recent one does not
 fit. The next session to add anything to the rules file will meet the refusal
 rather than the warning — so run the check before writing, not after.*
 
-What is known to be removable is already written down: the build skill still
-explains at length what an earlier wrong reason was and why it was wrong, which
-is history rather than instruction, and it is the largest thing charged to the
-heaviest session.
+**Done, 15 September 2026:** the build skill's long account of an earlier wrong
+reason has been moved to the entry at the bottom of this file, freeing about
+109 tokens. The room it freed paid for the build path learning to count what
+its own review round found.
 
-**Status:** OPEN — closes when either the heaviest number comes down or the
-owner decides the limit should move. Nobody has put the second question to him.
+What is left to take out has not been surveyed. Nobody has looked at the guide
+window's skill with this question in mind, and nobody has put the other
+question to the owner either — whether the limit itself should move.
+
+**Status:** OPEN — closes when either the heaviest number comes down far enough
+to stop constraining the work, or the owner decides the limit should move.
 
 ---
 
@@ -621,3 +625,33 @@ have to go and read five pull request comments to find out what happened, and
 would break its own isolation doing so.*
 
 **Status:** OPEN — item 2 of `docs/PLAN.md` carries both halves.
+
+## A reason that was wrong once, kept out of the instructions
+
+**15 September 2026.** The build path explains why a project is cloned beside
+the workshop rather than inside it. That reason was once stated wrongly, and
+the correction was written into the skill and carried by every build session
+from then on.
+
+It is history rather than instruction, so it lives here now and costs nobody
+anything. What it says:
+
+> The reason is **not** that a careless `git add -A` in the project's clone
+> sweeps the workshop's files into the project's commit. Two clones never share
+> an index. Run in the project's clone it staged the project's own file and
+> nothing else, nested or beside. The direction that needs preventing is the
+> other one — the workshop staging the project as a pointer to a commit nobody
+> who clones the workshop can fetch. Observed both ways round: with the project
+> nested, `git add -A` in the workshop staged it as mode 160000 with git's own
+> warning about an embedded repository; with the project beside the workshop,
+> there was nothing to stage.
+
+*Why it was moved rather than deleted: a rule here is kept or deleted on the
+strength of its reason, so a reason that was once wrong is worth keeping
+somewhere — otherwise the wrong version gets re-derived. Why it was moved
+rather than left where it was: the register itself nominated it as the largest
+removable thing charged to the heaviest session, and the room it freed paid for
+the build path learning to measure its own review round.*
+
+**Status:** CLOSED for the entry above it that named it as removable. Recorded
+here so the wrong reason is not reinstated.
