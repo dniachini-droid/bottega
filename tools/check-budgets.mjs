@@ -267,10 +267,40 @@ for (const rel of ALWAYS_FILES) {
   if (existsSync(full)) alwaysSeeds.push(full);
 }
 
+// STAGES. A skill whose body is one file is charged that file. A skill that
+// hands a session one stage at a time is a different shape: the session opens
+// the stage it is on and never the other six. Charging it all seven would
+// count six files nobody reads, which is the same over-counting this check
+// already refuses one level up, where a session is charged the largest single
+// skill rather than every skill.
+//
+// So a skill may declare its stages in tools/reads.json, and the check then
+// charges every file in the folder EXCEPT the stages, plus the largest single
+// stage. Largest, because that is the worst a session can be handed.
+//
+// THE HOLE THIS COULD OPEN, AND WHAT HOLDS IT SHUT. If anything could be
+// called a stage, the way under the budget would be to declare the bulk of a
+// skill as stages and have the number fall while every session still reads all
+// of it. Three things stand against that. The declaration is written down in
+// tools/reads.json, where Da Vinci sees it, which is the same answer this
+// check already gives for calling a large file "only mentioned". A stage that
+// is not really there stops the check. And fewer than two stages is refused
+// outright: one stage is not a choice, it is a file moved sideways.
+//
+// What the check cannot do is confirm a session really opens only one. That is
+// on the word of whoever wrote the declaration, and the budget table already
+// says which parts of this are on their word.
+function declaredStages(folderRel) {
+  const entry = declarations && declarations[folderRel];
+  if (!entry || !Array.isArray(entry.stages)) return null;
+  return entry.stages;
+}
+const stageProblems = [];
+
 // Each folder under .claude/skills that has a SKILL.md with a name and a
 // description is one set. Its supporting files count with it, not separately:
 // a skill that grows a large reference file has grown, and the heavier number
-// must show that.
+// must show that — unless the file is a declared stage, above.
 let skillEntries = [];
 try {
   skillEntries = readdirSync(join(ROOT, SKILL_DIR), { withFileTypes: true });
@@ -278,10 +308,35 @@ try {
 for (const entry of skillEntries) {
   const full = join(ROOT, SKILL_DIR, entry.name);
   if (entry.isDirectory()) {
-    const files = walk(full);
+    let files = walk(full);
     const offered = offeredLine(join(full, 'SKILL.md'));
     if (offered !== null) {
-      sets.push({ label: `${SKILL_DIR}/${entry.name}/`, offered, seeds: files });
+      const folderRel = `${SKILL_DIR}/${entry.name}/`;
+      const stages = declaredStages(folderRel);
+      if (stages !== null) {
+        if (stages.length < 2) {
+          stageProblems.push(
+            `${folderRel} declares ${stages.length} stage${stages.length === 1 ? '' : 's'} in ` +
+            `${READS_FILE}. One stage is not a choice — it is a file moved sideways, and ` +
+            `charging only it would hide the rest. Declare two or more, or none.`);
+        }
+        const stageFull = stages.map((rel) => join(ROOT, folderRel, rel));
+        const missing = stages.filter((rel, i) => !existsSync(stageFull[i]));
+        for (const rel of missing) {
+          stageProblems.push(
+            `${folderRel} declares the stage ${rel} in ${READS_FILE}, and it is not there. ` +
+            `A stage that does not exist is charged nothing and read by nobody.`);
+        }
+        if (stages.length >= 2 && missing.length === 0) {
+          const stageSet = new Set(stageFull.map(realOf));
+          const inStage = files.filter((f) => stageSet.has(realOf(f)));
+          const rest = files.filter((f) => !stageSet.has(realOf(f)));
+          let biggest = inStage[0];
+          for (const f of inStage) if (sizeOf(f) > sizeOf(biggest)) biggest = f;
+          files = biggest ? [...rest, biggest] : rest;
+        }
+      }
+      sets.push({ label: folderRel, offered, seeds: files });
       continue;
     }
     // No readable SKILL.md front matter: we cannot tell when this is loaded,
@@ -609,8 +664,19 @@ if (dead.length) {
   console.log('All of them exist.');
 }
 
+if (stageProblems.length) {
+  console.log('\nA skill declares stages that this check will not accept:');
+  for (const problem of stageProblems) console.log(`  ${problem}`);
+  console.log(
+    'A stage declaration is how a skill says a session opens one of these and ' +
+    'never the others, so only the largest is charged. It is refused rather ' +
+    'than trusted when it cannot mean that.'
+  );
+}
+
 if (everyOver || heaviestOver || dead.length || readsProblem ||
-    unclassified.size || deadReads.size || promptProblems.length) {
+    unclassified.size || deadReads.size || promptProblems.length ||
+    stageProblems.length) {
   console.log('\nBUDGET CHECK FAILED.');
   process.exit(1);
 }

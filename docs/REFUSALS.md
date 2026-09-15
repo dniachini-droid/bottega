@@ -756,3 +756,61 @@ like a pass. A test that goes green while something is broken, next to a
 different test going red, is exactly the reading that gets taken for
 confirmation. Anybody repeating this has to break the specific thing the
 assertion names, not something in the same neighbourhood.*
+
+---
+
+## The budget check, on a skill that declares its stages
+
+**15 September 2026.** The check was taught that a skill may hand a session one
+stage at a time, and be charged every other file in its folder plus the largest
+single stage rather than all of them.
+
+**That is a change which makes a budget easier to satisfy, and this repository
+has twice had a measurement go wrong in exactly that direction.** So each way
+it could be turned into a way of hiding bulk was watched being refused before
+the change was trusted.
+
+### It refused a declaration of one stage
+
+`tools/reads.json` was given `.claude/skills/build/` with a single stage,
+`SKILL.md`. `node tools/check-budgets.mjs` returned exit code 1:
+
+```
+  .claude/skills/build/ declares 1 stage in tools/reads.json. One stage is not
+  a choice — it is a file moved sideways, and charging only it would hide the
+  rest. Declare two or more, or none.
+```
+
+*Why that is the shape of the hole: with one stage allowed, the way under the
+budget is to call the whole body a stage and charge nothing else.*
+
+### It refused a stage that was not there
+
+The same entry was given two stages, `stage-1.md` and `stage-2.md`, neither of
+which existed. Exit code 1, naming both:
+
+```
+  .claude/skills/build/ declares the stage stage-1.md in tools/reads.json, and
+  it is not there. A stage that does not exist is charged nothing and read by
+  nobody.
+```
+
+### And it charged the largest stage rather than all of them
+
+Two real files were put in the build skill's folder, 3,000 and 5,000 bytes, and
+declared as stages. The heaviest session's charge went from 19,724 bytes to
+24,724 — **up by 5,000, not by 8,000.** Both files were then removed and the
+number returned to 19,724 exactly.
+
+### The tests, watched failing first
+
+Three tests were added to `tools/check-budgets.test.mjs`, one for each of the
+above. Run against the check as it stood on `main`, which does not know what a
+stage is, all three failed. Run against the new one, all three passed. The whole
+suite is 7 tests, 7 passing.
+
+**What no test can check, stated plainly:** whether a session really does open
+only one stage. That is on the word of whoever wrote the declaration, visible in
+`tools/reads.json` where Da Vinci sees it. It is the same answer this check
+already gives for calling a large file "only mentioned", and the budget table
+already says which parts of this are held on trust.

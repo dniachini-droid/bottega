@@ -50,7 +50,7 @@
 import { test } from 'node:test';
 import assert from 'node:assert/strict';
 import { spawnSync } from 'node:child_process';
-import { mkdtempSync, mkdirSync, writeFileSync, copyFileSync, statSync, rmSync } from 'node:fs';
+import { mkdtempSync, mkdirSync, writeFileSync, readFileSync, copyFileSync, statSync, rmSync } from 'node:fs';
 import { join, dirname } from 'node:path';
 import { tmpdir } from 'node:os';
 import { fileURLToPath } from 'node:url';
@@ -341,4 +341,61 @@ test('a saved prompt that is empty, or that does not say which session it is, st
   assert.deepEqual(onMisnamed.prompts, [],
     'a badly named prompt was measured anyway, beside the refusal. It must be ' +
     `refused instead of counted.\nIt printed:\n${onMisnamed.stdout}`);
+});
+
+// --- Stages: a skill that hands a session one stage at a time --------------
+//
+// WHY THESE EXIST. On 15 September 2026 the check was taught that a skill may
+// declare its stages, and be charged every other file in its folder plus the
+// largest single stage rather than all of them. That is a change which makes a
+// budget EASIER to satisfy, and this repository has twice had a measurement go
+// wrong in exactly that direction. So the three ways it could be turned into a
+// way of hiding bulk each have a test, and each was watched failing against a
+// check that did not yet know about stages before it was trusted.
+
+function withStages(root, stages, files = {}) {
+  for (const [name, bytes] of Object.entries(files)) {
+    writeAt(root, `.claude/skills/heavy/${name}`, filler(bytes));
+  }
+  const reads = JSON.parse(readFileSync(join(root, 'tools/reads.json'), 'utf8'));
+  reads['.claude/skills/heavy/'] = { note: 'for the test', stages };
+  writeFileSync(join(root, 'tools/reads.json'), JSON.stringify(reads, null, 2) + '\n');
+}
+
+test('one stage is refused: a single stage is a file moved sideways, not a choice', () => {
+  const root = buildFixture();
+  withStages(root, ['stage-one.md'], { 'stage-one.md': 4000 });
+  const { status, stdout } = run(root);
+  assert.equal(status, 1, 'a one-stage declaration must stop the check');
+  assert.match(stdout, /One stage is not a choice/);
+  rmSync(root, { recursive: true, force: true });
+});
+
+test('a stage that is not there is refused, rather than charged as nothing', () => {
+  const root = buildFixture();
+  withStages(root, ['here.md', 'not-here.md'], { 'here.md': 4000 });
+  const { status, stdout } = run(root);
+  assert.equal(status, 1, 'a stage that does not exist must stop the check');
+  assert.match(stdout, /not-here\.md/);
+  assert.match(stdout, /charged nothing and read by nobody/);
+  rmSync(root, { recursive: true, force: true });
+});
+
+test('declared stages are charged at the largest one, and the others are not charged at all', () => {
+  const plain = buildFixture();
+  const before = run(plain).heaviestBytes;
+  rmSync(plain, { recursive: true, force: true });
+
+  const root = buildFixture();
+  withStages(root, ['small.md', 'large.md'], { 'small.md': 3000, 'large.md': 5000 });
+  const { status, heaviestBytes } = run(root);
+  assert.equal(status, 0, 'a well-formed stage declaration must not stop the check');
+
+  // 8,000 bytes of stages were added. Only the larger 5,000 may be charged.
+  const grew = heaviestBytes - before;
+  const tolerance = 120; // the filler rounds up to whole words
+  assert.ok(Math.abs(grew - 5000) <= tolerance,
+    `the heaviest number grew by ${grew} bytes; charging the largest stage alone ` +
+    `should grow it by about 5,000, and charging both by about 8,000`);
+  rmSync(root, { recursive: true, force: true });
 });
