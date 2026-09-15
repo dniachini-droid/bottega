@@ -267,10 +267,40 @@ for (const rel of ALWAYS_FILES) {
   if (existsSync(full)) alwaysSeeds.push(full);
 }
 
+// STAGES. A skill whose body is one file is charged that file. A skill that
+// hands a session one stage at a time is a different shape: the session opens
+// the stage it is on and never the other six. Charging it all seven would
+// count six files nobody reads, which is the same over-counting this check
+// already refuses one level up, where a session is charged the largest single
+// skill rather than every skill.
+//
+// So a skill may declare its stages in tools/reads.json, and the check then
+// charges every file in the folder EXCEPT the stages, plus the largest single
+// stage. Largest, because that is the worst a session can be handed.
+//
+// THE HOLE THIS COULD OPEN, AND WHAT HOLDS IT SHUT. If anything could be
+// called a stage, the way under the budget would be to declare the bulk of a
+// skill as stages and have the number fall while every session still reads all
+// of it. Three things stand against that. The declaration is written down in
+// tools/reads.json, where Da Vinci sees it, which is the same answer this
+// check already gives for calling a large file "only mentioned". A stage that
+// is not really there stops the check. And fewer than two stages is refused
+// outright: one stage is not a choice, it is a file moved sideways.
+//
+// What the check cannot do is confirm a session really opens only one. That is
+// on the word of whoever wrote the declaration, and the budget table already
+// says which parts of this are on their word.
+function declaredStages(folderRel) {
+  const entry = declarations && declarations[folderRel];
+  if (!entry || !Array.isArray(entry.stages)) return null;
+  return entry.stages;
+}
+const stageProblems = [];
+
 // Each folder under .claude/skills that has a SKILL.md with a name and a
 // description is one set. Its supporting files count with it, not separately:
 // a skill that grows a large reference file has grown, and the heavier number
-// must show that.
+// must show that — unless the file is a declared stage, above.
 let skillEntries = [];
 try {
   skillEntries = readdirSync(join(ROOT, SKILL_DIR), { withFileTypes: true });
@@ -278,10 +308,47 @@ try {
 for (const entry of skillEntries) {
   const full = join(ROOT, SKILL_DIR, entry.name);
   if (entry.isDirectory()) {
-    const files = walk(full);
+    let files = walk(full);
+    let stageCandidates = null;
     const offered = offeredLine(join(full, 'SKILL.md'));
     if (offered !== null) {
-      sets.push({ label: `${SKILL_DIR}/${entry.name}/`, offered, seeds: files });
+      const folderRel = `${SKILL_DIR}/${entry.name}/`;
+      const stages = declaredStages(folderRel);
+      if (stages !== null) {
+        if (stages.length < 2) {
+          stageProblems.push(
+            `${folderRel} declares ${stages.length} stage${stages.length === 1 ? '' : 's'} in ` +
+            `${READS_FILE}. A stage declaration says a session opens one of several and ` +
+            `never the others; with fewer than two there is nothing to choose between, so ` +
+            `it says nothing. Name them all, or take the declaration out. ` +
+            `(Nothing is hidden meanwhile — a declaration this check refuses changes no ` +
+            `number, and every file in the folder is still charged.)`);
+        }
+        const stageFull = stages.map((rel) => join(ROOT, folderRel, rel));
+        const missing = stages.filter((rel, i) => !existsSync(stageFull[i]));
+        for (const rel of missing) {
+          stageProblems.push(
+            `${folderRel} declares the stage ${rel} in ${READS_FILE}, and it is not there. ` +
+            `A stage that does not exist is charged nothing and read by nobody.`);
+        }
+        const skillMd = realOf(join(ROOT, folderRel, 'SKILL.md'));
+        if (stageFull.some((f) => realOf(f) === skillMd)) {
+          stageProblems.push(
+            `${folderRel} declares its own SKILL.md as a stage in ${READS_FILE}. ` +
+            `That file is not one of several a session might open — it is the one a ` +
+            `session always gets, and it is read directly to find the name and ` +
+            `description. Calling it a stage would drop its body and everything it ` +
+            `sends the session to read out of the count while the skill still looked ` +
+            `present.`);
+        }
+        if (stages.length >= 2 && missing.length === 0 &&
+            !stageFull.some((f) => realOf(f) === skillMd)) {
+          const stageSet = new Set(stageFull.map(realOf));
+          stageCandidates = files.filter((f) => stageSet.has(realOf(f)));
+          files = files.filter((f) => !stageSet.has(realOf(f)));
+        }
+      }
+      sets.push({ label: folderRel, offered, seeds: files, stageCandidates });
       continue;
     }
     // No readable SKILL.md front matter: we cannot tell when this is loaded,
@@ -312,7 +379,28 @@ const everyTokens = Math.floor(everyBytes / BYTES_PER_TOKEN);
 // in the every-session floor, so it is not charged a second time here.
 const alwaysKeys = new Set(alwaysCharged.keys());
 for (const s of sets) {
-  s.charged = chargeReading(s.seeds, alwaysKeys);
+  // STAGES, CHARGED HONESTLY. The stage a session is handed costs its own bytes
+  // plus everything it sends the session on to read. Picking the largest stage
+  // by raw size charges the wrong one whenever a small stage points at a large
+  // file — and the stages not picked were dropped before anything scanned them,
+  // so their onward reading was charged nothing and their backticked names were
+  // never checked against the declarations.
+  //
+  // So every stage is charged in full, each on top of the rest of the folder,
+  // and the largest of those totals is what the set costs. Running them all is
+  // what makes the other guards work: chargeReading is what follows a file's
+  // reading and what catches a name classified in neither list, so a stage that
+  // is never charged is a stage nothing looks at.
+  if (s.stageCandidates && s.stageCandidates.length) {
+    let worst = null;
+    for (const stage of s.stageCandidates) {
+      const charged = chargeReading([...s.seeds, stage], alwaysKeys);
+      if (worst === null || sumOfMap(charged) > sumOfMap(worst)) worst = charged;
+    }
+    s.charged = worst;
+  } else {
+    s.charged = chargeReading(s.seeds, alwaysKeys);
+  }
   s.rows = [...s.charged.entries()]
     .map(([full, bytes]) => [relative(ROOT, full), bytes])
     .sort((a, b) => a[0].localeCompare(b[0]));
@@ -609,8 +697,19 @@ if (dead.length) {
   console.log('All of them exist.');
 }
 
+if (stageProblems.length) {
+  console.log('\nA skill declares stages that this check will not accept:');
+  for (const problem of stageProblems) console.log(`  ${problem}`);
+  console.log(
+    'A stage declaration is how a skill says a session opens one of these and ' +
+    'never the others, so only the largest is charged. It is refused rather ' +
+    'than trusted when it cannot mean that.'
+  );
+}
+
 if (everyOver || heaviestOver || dead.length || readsProblem ||
-    unclassified.size || deadReads.size || promptProblems.length) {
+    unclassified.size || deadReads.size || promptProblems.length ||
+    stageProblems.length) {
   console.log('\nBUDGET CHECK FAILED.');
   process.exit(1);
 }
