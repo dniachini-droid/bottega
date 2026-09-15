@@ -467,11 +467,17 @@ fit. The next session to add anything to the rules file will meet the refusal
 rather than the warning — so run the check before writing, not after.*
 
 **15 September 2026:** the build skill's long account of an earlier wrong
-reason has been moved to the entry at the bottom of this file, freeing about
-109 tokens. **That did not bring the heaviest number down.** The same change
-added the counting of the review round, which cost about 246, so the number
-went up by about 137 and the room left fell from about 488 to about 351. The
-move made that addition possible; it did not pay for it.
+reason was moved out, to the entry headed "A reason that was wrong once, kept
+out of the instructions". **That did not bring the heaviest number down.** The
+same change added the counting of the review round, which cost more than the
+move freed, so the number went **up** and the room left fell. The move made
+that addition possible; it did not pay for it.
+
+*The figures are deliberately not here. They were, for one round, and they were
+wrong by 95 tokens before the change they described had even been handed to a
+review — which is the fault this entry is about, committed inside the entry
+about it. They are on pull request 19 and in that change's scope page, where
+they describe one moment and are not read as current. Run the check.*
 
 What is left to take out has not been surveyed. Nobody has looked at the guide
 window's skill with this question in mind, and nobody has put the other
@@ -656,10 +662,11 @@ somewhere — otherwise the wrong version gets re-derived. Why it was moved
 rather than left where it was: the register itself nominated it as the largest
 removable thing charged to the heaviest session.*
 
-**It did not pay for what it was moved to make room for.** The move freed about
-437 bytes; counting the review round cost about 984. The heaviest session went
-up by about 137 tokens, not down, and the room left fell from about 488 to
-about 351. The move made the addition possible, and that is all it did.
+**It did not pay for what it was moved to make room for.** Counting the review
+round cost about three times what this move freed. The heaviest session went
+up, not down, and the room left fell. The move made the addition possible, and
+that is all it did. *The numbers are on pull request 19, not here — see the
+entry about that page carrying no figures.*
 
 **Status:** CLOSED. This is the passage nominated as removable by the entry
 headed "The heaviest startup number is close to its limit". Recorded here so

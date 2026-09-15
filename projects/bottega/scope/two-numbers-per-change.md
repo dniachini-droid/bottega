@@ -25,8 +25,11 @@ register rather than being deleted.
 - The reason is attached, and it says plainly that no limit is set and why.
 - The wrong reason is preserved in `docs/OPEN.md` rather than lost, and the
   entry that nominated it as removable records that it went.
+- `docs/OPEN.md` records what happened without any figure in it, because the
+  entry it goes in exists to keep figures off that page. The figures live here
+  and on the pull request, where they describe one moment.
 - The heaviest session is **higher** than it was on `main` — about 9,744
-  against 9,512 — and the change says so plainly rather than implying the move
+  against 9,512, room left about 256 against 488 — and the change says so plainly rather than implying the move
   paid for the addition. Counting the review and collecting the
   second number cost about 1,364 bytes between them; the history that came out
   freed about 437. Measured from a run of the check on both.
