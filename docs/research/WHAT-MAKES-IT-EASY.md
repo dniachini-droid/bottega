@@ -777,6 +777,16 @@ anywhere in Praxis.
    a job as unbuildable, over-queued, or not worth building. Praxis's
    Feasibility Gate does all four, and frames a block as the system working.
 
+   **Decided against. The owner decided on 15 September 2026 to leave this
+   out, and it is off the roadmap.** Not "not yet" and not "waiting for a
+   reason" — decided, by him, and not to be proposed again without him
+   reopening it. Items 1, 2 and 4 above were built at the same time and are
+   in stages 1 and 2 of the build path; this one was the only one of the four
+   he turned down. *Why it is written here rather than simply not done: this
+   page recommends it, so anybody reading the page finds it recommended and
+   nothing against it, and proposes it again. A decision nobody wrote down
+   gets rediscovered as a gap.*
+
 6. **A structured pre-deploy sweep.** `/preflight` finds and fixes before
    anything ships. Bottega's stage 6 tells the owner what to look at; nothing
    checks the build first.
