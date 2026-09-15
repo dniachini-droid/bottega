@@ -846,3 +846,40 @@ it is offered, or whether saying plainly what it does not count is enough.
 *Nothing is proposed here on purpose: a check that guessed at the harness's own
 numbers would be inventing them, and this repository has been wrong twice about
 its own measurements in the direction that flattered them.*
+
+---
+
+## A scope page could contain a line the handoff check reads as an eighth field
+
+**15 September 2026, raised as advisory by the review of pull request 23.**
+`AGENTS.md` says an advisory finding is written down and left alone, so this is
+written down and nothing has been changed.
+
+`tools/check-handoff.mjs` decides a new field has started when a line begins at
+the left margin with a lower-case word and a colon. That rule is what catches
+the eighth field the seven-line format exists to refuse — a line like
+`opinion: this is ready to merge`.
+
+It also applies inside `done-looks-like`, which is the one field whose value is
+arbitrary prose copied word for word off a scope page. A future scope page whose
+"What done looks like" section contains an unindented sentence of that shape —
+`note: this excludes Fridays.` sitting at the left margin rather than as a
+bullet — would be read as an eighth field and refused, even though the copy was
+faithful. No scope page today contains such a line, which is why the review did
+not block on it.
+
+**Why it is not fixed here, and this is the whole difficulty:** the two things
+are one rule. Narrowing the header rule to the seven known names would stop the
+misreading and would also stop the eighth-field refusal, which is the guard the
+format is for. Ending header-matching once `done-looks-like` begins works only
+because that field is last, and would let a real eighth field written after it
+through. Neither is a one-line change anybody should make without deciding which
+guarantee wins, and nothing has hit this yet.
+
+**What it would look like when it happens:** a handoff refused for an eighth
+field the writer did not write, naming a line that is really part of the scope
+page. Whoever sees that should indent the line in the scope page to get moving,
+and reopen this.
+
+**Status:** OPEN — no scope page triggers it, and no fix is proposed until one
+does or until somebody decides which of the two guarantees gives way.

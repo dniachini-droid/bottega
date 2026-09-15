@@ -315,6 +315,11 @@ page's "what done looks like" list copied in word for word, and **no eighth
 line.** *Why: it refuses an unexpected field, and the field you would want to
 add is your own opinion of the work.*
 
+**Run `tools/check-handoff.mjs` on those seven lines before you send them —
+`node tools/check-handoff.mjs <file>`.** *Why before: a bad dispatch cannot be
+repaired — the correction is a second message, and the reviewer that reads it
+is no longer isolated.*
+
 ---
 
 ## Stage 5 — FIX
