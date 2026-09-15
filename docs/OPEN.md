@@ -443,20 +443,28 @@ front of him.
 
 ---
 
-## The heaviest startup number has about 960 tokens of room left
+## The heaviest startup number is close to its limit — run the check, do not read a number here
 
-Adding the rule about what goes in a prompt, and the note about the third
-number, to `AGENTS.md` moved the heavier of the two startup numbers from about
-8,477 tokens to about 9,036, against the limit of 10,000. `AGENTS.md` is
-charged to every session, so prose added there is paid for twice — once in each
-number.
+**No figure for it is written down on this page, deliberately.** Every time one
+has been, it has gone stale: written at 8,477, restated at 9,036, restated
+again at 9,284 while the same change was still being fixed, and wrong by 76
+tokens within the hour. A session that sizes an addition against a number on
+this page will be refused somewhere it did not expect.
 
-The lighter number is about 4,105 and is not the constraint.
+`node tools/check-budgets.mjs` prints both numbers and the room left in each.
+It is the only honest answer and it takes a second.
 
-*Why this is worth an entry rather than a shrug: the previous round left this
-number with about 1,500 of room and said so in the prompt that started this
-one. One more change of this size does not fit. The next session to add
-anything to the rules file will meet the refusal rather than the warning.*
+What does not change: the heavier of the two numbers is the constraint, not the
+lighter one. `AGENTS.md` is charged to every session, so prose added there is
+paid for twice, once in each number. The largest single thing charged to the
+heaviest session is the build skill, and if room has to be found, that is where
+to look first.
+
+*Why this is worth an entry rather than a shrug: every round so far has left
+less room than the round before, and each one recorded a figure that was wrong
+by the time it was read. One more change of the size of a recent one does not
+fit. The next session to add anything to the rules file will meet the refusal
+rather than the warning — so run the check before writing, not after.*
 
 What is known to be removable is already written down: the build skill still
 explains at length what an earlier wrong reason was and why it was wrong, which
