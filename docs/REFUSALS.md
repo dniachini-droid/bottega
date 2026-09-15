@@ -1175,3 +1175,81 @@ is a page ordinary work never opens. That is still a judgement, written down in
 `tools/reads.json` where Da Vinci sees it. What has changed is only that the
 declaration is now held to what the page actually contains.
 
+---
+
+## The stale-declaration guard, three hours old, refusing the next change
+
+**15 September 2026, found by the review of pull request 23.** Nothing was
+built to produce this one. Pull request 22 added a guard that same afternoon:
+a name listed as a mention in `tools/reads.json` has to appear in the declaring
+file as its own backtick-wrapped path, or the check refuses. Pull request 23
+was cut before 22 landed, so the two had never met.
+
+### What was seen
+
+Pull request 23 wrote the new program into the build path as one backtick span:
+
+```
+**Run `node tools/check-handoff.mjs <file>` on those seven lines before you
+send them.**
+```
+
+and declared the bare path `tools/check-handoff.mjs` in `tools/reads.json` as a
+mention. To the budget check a span with spaces and an angle-bracket
+placeholder is prose, not a path — so the bare path never appeared anywhere in
+that file, and the declaration was a promise about contents the file did not
+have.
+
+The branch on its own passed: `node tools/check-budgets.mjs` exited 0, with 43
+tokens of headroom. Merged into `main` — a real merge commit, the conflict in
+this file resolved by keeping both sections — the same command, unchanged,
+refused:
+
+```
+Names declared in tools/reads.json that the file does not contain:
+  STALE  .claude/skills/build/SKILL.md  declares the mention  tools/check-handoff.mjs
+A mention listed for a file that no longer names it is a standing
+pre-approval: the next change to write that name is classified before anybody
+looks at it. Take it out of the list, or put the name back.
+
+BUDGET CHECK FAILED.
+```
+
+Exit 1. `.github/workflows/checks.yml` runs that command on every push, so this
+would have turned `main` red the moment pull request 23 merged.
+
+### The fix, and the same command afterwards
+
+The build path now writes the path on its own as well as inside the command:
+
+```
+**Run `tools/check-handoff.mjs` on those seven lines before you send them —
+`node tools/check-handoff.mjs <file>`.**
+```
+
+`node tools/check-budgets.mjs` on the merged tree then exits 0, 21 backticked
+paths checked and all of them present, the heaviest session about 9,554 tokens
+with about 446 left. `node --test` — the command the automatic checks run —
+passes 18 of 18.
+
+### What this entry is for
+
+The other entries in this file are checks fed something bad on purpose. This
+one was not arranged. The guard was three hours old and it caught a real fault
+in the very next change, before that change could reach `main` — the case the
+budget "checks never observed refusing anything" exists to buy, happening by
+itself.
+
+**No new test was written for it, and that is deliberate.** `AGENTS.md` says a
+blocking finding becomes a test, and this one already is one: the guard's two
+tests were written with pull request 22 and are in
+`tools/check-budgets.test.mjs`, each watched failing against a version without
+the guard. The fault here was in what a file said, not in the program, and the
+thing that holds it is `node tools/check-budgets.mjs` itself, run on every push.
+Adding a third test of the same guard would be chasing the finding rather than
+holding it.
+
+**What no check here catches, stated plainly:** that a branch passes alone and
+fails once it meets `main`. The automatic checks run on the branch as pushed.
+Nothing ran them on the merge result — a person did, once, because a review said
+to.

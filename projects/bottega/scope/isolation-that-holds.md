@@ -38,10 +38,18 @@ check, watch it refuse, mark the item done, and leave the real fault untouched.*
   budget here and it is zero.*
 - A test for each refusal, each watched failing against a version without that
   guard before it is trusted.
-- The build path says to run it before dispatching a review, at stage 4.
-- The budget check exits 0 and the whole test suite passes. The heaviest
-  startup number stays under 10,000 with room left for about 243 tokens of
-  later additions.
+- The build path says to run it before dispatching a review, at stage 4, and
+  writes the program's path on its own between backticks as well as inside the
+  command. *Why on its own: a path bundled into a longer backtick span is not a
+  path to the budget check, so declaring it in `tools/reads.json` is a
+  declaration the file does not earn — which is what the stale-declaration
+  guard refuses, and did refuse here.*
+- The budget check exits 0 and the whole test suite passes **on this branch
+  merged into `main`**, not only on the branch standing alone. *Why the merged
+  result: this branch was cut before pull request 22 landed, and it passed
+  alone while failing the moment it met `main`.* The heaviest startup number
+  stays under 10,000 — it is about 9,554 tokens, with about 446 tokens of room
+  left for later additions.
 
 ## What is out
 
