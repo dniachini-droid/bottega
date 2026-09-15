@@ -4,7 +4,7 @@
     {
       "id": "zibaldone",
       "repository": "https://github.com/dniachini-droid/zibaldone",
-      "what_it_is": "A second mind. The owner captures a thought, an idea or a concept of his own — half-formed, in his own words — and the application helps him hold it and shows what it connects to in what he has already written. It is not an encyclopaedia of external facts; it is a map of his own thinking. Version one: capture, card, search, related."
+      "what_it_is": "A second mind. The owner captures a thought, a remark, a feeling or a photo from his phone; a model files it into a wiki it maintains; later he asks it questions and it researches real answers using that wiki plus the internet, writing them back in as new pages. Being built in three pieces: the notebook, the filing, the asking."
     }
   ]
 }
