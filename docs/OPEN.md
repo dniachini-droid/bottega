@@ -1036,7 +1036,19 @@ the article instead: two captures on one day would then be indistinguishable, an
 nothing could find its way back to the entry. The id is the machine's business
 and should stay the machine's business.*
 
+**And tapping it opens that entry, with a way back to the article.** His words,
+minutes later: *"Tap it to show the article but back again to get back to the
+Disegno article."* So: the date is a link, it opens what he wrote that day, and
+from there one step returns him to the article he was reading — not to the top of
+a section, and not to wherever he happened to be before.
+
+*Why it is worth saying twice: this is the same fault he found in Codex an hour
+earlier, where opening a page left him with no way back to the list. Wherever a
+tap takes him, there is a step back to where he was. It should be a rule of the
+app rather than a fix applied twice.*
+
 **Status:** OPEN — to be folded into the change now taking the checker out of
-the way, which is already altering how an article is written and shown. Recorded
-here because that session could not be reached while it ran.
+the way, which is already altering how an article is written and shown, and
+alongside the Codex back button already under way. Recorded here because neither
+session could be reached while it ran.
 
