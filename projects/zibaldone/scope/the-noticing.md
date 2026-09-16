@@ -344,7 +344,7 @@ made it the earliest place the failure shows.*
 His decision of 16 September 2026, after the filing's first real run, replacing
 a two-section shape this page carried earlier:
 
-1. **The notebook** — what he put in. Already built.
+1. **Zibaldone** — what he put in. Already built, renamed from "the notebook".
 2. **Codex** — one page per subject, the mind's summary of what he has said.
 3. **Disegno** — articles it wrote unprompted, and answers to questions he
    asked.
@@ -354,6 +354,20 @@ commonplace book a Florentine threw things into as they came; a **codex** is the
 bound, ordered book as against loose sheets, and Leonardo's own notebooks are
 called codices; **disegno** is Vasari's word for the conception that precedes
 the work. Thrown in, ordered, conceived.*
+
+*Why the first is the application's own name over again, rather than plain
+English: "Notebook" between two Italian names reads as an afterthought, and in
+use the tab says **where I throw things**, which is what a zibaldone is.*
+
+*Why the third breaks the pattern, and it was nearly named **Ricordi** to
+complete a set of three books: Zibaldone and Codex are both records of what he
+said — one raw, one ordered, the same material. Disegno is the only one that is
+not. That is the spine of this design: it is why the log is never rewritten, why
+an article is its own page rather than folded into his, why the writer is kept
+from what he liked. A matching third book would quietly say "more of the same",
+and Ricordi means recollections — the one section that is not a record of the
+past would have been the one named after memory. The name breaks the pattern
+because the thing does.*
 
 *Why three and not two: this whole design turns on keeping what he said apart
 from what a model concluded about him — it is why the log is never rewritten,
