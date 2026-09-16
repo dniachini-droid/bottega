@@ -109,10 +109,21 @@ suspect is the clock and the test is to file a week by hand and compare.*
   fit. It is also what he said in the first place — that the trend check is the
   same work as collating — and splitting them was a decision of this page's, not
   his.*
-- **Four or five checks a day is the working figure on Pro**, the last of them
-  carrying the trend check. On Max there is room for more. *Why written as a
-  plan rather than a number: it is his account, and the first thing to do is
-  look at what his plan allows.*
+- **He is on Max, so the cap is fifteen a day and is not the constraint.**
+  Settled 16 September 2026, in his words: *"But doesn't have to be 6 per day.
+  It can just be 2 per day if that makes it easier."*
+- **Start at three a day, the last of them carrying the trend check, and raise
+  it on evidence.** *Why start low when there is room for five times that: what
+  an empty check actually costs has still never been measured, and the number is
+  trivial to raise once it has been. Why three and not his two: two checks
+  twelve hours apart make the phone's asking feel like the overnight batch it
+  was supposed to improve on, and the third is what buys the "ask in the morning,
+  answered by evening" he was shown. Why not six: nothing yet says the extra
+  three buy anything he would notice.*
+- **Running it by hand does not touch the cap.** Typing "file what's new" at
+  Claude Code is an ordinary session, not a Routine. *Why worth saying: it means
+  he can always get an answer now, whatever the clock is set to and whatever the
+  cap has left.*
 - **Two runs never overlap, and a run never collides with him.** *Why this is
   named rather than assumed: the filing was designed around one writer at one
   door, which was true while he ran it by hand. A clock plus a man at a
