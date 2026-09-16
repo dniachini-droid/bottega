@@ -18,14 +18,20 @@ then making comment."*
 **It must stay free, and it must be responsive at least nightly.** His
 instruction of 16 September 2026, and the constraint everything below is built
 inside. **It is free, and how was settled on 16 September 2026**: the run is a
-Routine, which is a shipped feature for scheduled unattended Claude Code work
-and draws on the subscription he already pays for. Nobody has to ask for an
-article for that to hold. *Why it is said here rather than assumed: this piece
-is the hardest case of it — no human asks for anything, a scheduled session
-decides on its own to write. And the answer comes with a condition that kills
-the obvious implementation: the Agent SDK, `claude -p` and GitHub Actions are
-charged separately from the subscription, so the run must be a Routine. The
-record is in `docs/OPEN.md`.*
+Routine, which is the feature built for scheduled unattended Claude Code work
+and is stated to draw on the subscription he already pays for. Nobody has to ask
+for an article for that to hold. *Why it is said here rather than assumed: this
+piece is the hardest case of it — no human asks for anything, a scheduled
+session decides on its own to write. The record is in `docs/OPEN.md`.*
+
+**And it spends from a cap this piece does not own.** Routine runs are limited
+to five a day on Pro and fifteen on Max, **shared by everything on the
+account** — so the asking's checks and this piece's trend check come out of one
+allowance. Past the cap runs are rejected, and on an account with usage credits
+turned on they run as metered overage, which is a bill. *Why it is on this page
+and not only the asking's: whoever builds this reads this page, and a nightly
+schedule set against an allowance it does not know exists is the failure. It is
+also why the trend check is not its own run — see below.*
 
 *Why this is a piece of its own rather than part of the filing: the filing
 looks at one capture and asks where it belongs. This looks at the whole mind and
@@ -64,9 +70,13 @@ rule would fall apart if its number were wrong, that is said.
   inside a week" impossible until months have passed — which is the whole point
   of the piece, unavailable for its first season. Everything the ledger holds is
   derivable from the log, so this costs one pass over what is already there.*
-- **The trend check runs once a day, at an hour he sets**, over the ledger. It
-  is mechanical: which subjects are recurring, which co-occur, what contradicts
-  a page. No model judgement, and nothing written.
+- **The trend check rides on one of the day's filing runs — the last he sets —
+  rather than having a schedule of its own.** It reads the ledger: which
+  subjects are recurring, which co-occur, what contradicts a page. Mechanical,
+  no model judgement, nothing written. *Why not its own run: it would spend a
+  second slot out of a cap of five, and it is what he said in the first place —
+  that the trend check is the same work as collating. Splitting them was this
+  page's idea and it was wrong.*
 - **An article is written only when the check trips a line**, which may be any
   day. **A slower sweep**, monthly, looks for what never trips one.
 - **He can run any of it by hand from Claude Code, whenever.**
@@ -190,9 +200,13 @@ and honest and said they trusted them more.
   wiki and the article-writer reads them. **What he liked and disliked is never
   shown to the call that decides what an article says**; a separate pass may use
   it for length and tone. *Why this is the single most important rule in the
-  piece: blinding the writer to his taste is the only guard that removes the
-  problem by construction rather than reducing it, and every study above is the
-  control arm of that same experiment.*
+  piece: blinding the writer to his taste is the strongest guard there is, and
+  every study above is the control arm of that same experiment.* **It is no
+  longer a guard by construction, and this page used to claim it was.** When the
+  rule was "a reply goes no further" a door either opened or it did not. Now that
+  the split is by kind, a model decides sentence by sentence which kind it is
+  looking at, and it can be wrong in both directions. Which way it errs is
+  settled below; that it can err at all is why the monthly numbers matter.
 - **And the log is a third road to the same place, which has to be closed.** A
   reply goes into the log verbatim; the filing then works it into a page; the
   writer reads pages. So *"right, but I did not want to read about my mother
@@ -209,15 +223,25 @@ and honest and said they trusted them more.
   - **Anything he says about his life in the box**, which he certainly will, is
     filed like any other capture too.
 
+  **When a sentence is two kinds at once, the taste reading wins and the whole
+  sentence stops at the log.** *"I have had enough of reading about my mother,
+  she is fine now"* goes no further, and the fact about his mother is lost with
+  it. *Why it errs that way: wrongly holding back a fact costs him one thing he
+  said, which he can say again and probably will. Wrongly passing his taste to
+  the writer costs him flattery, which he cannot see, which compounds, and which
+  the research says he would rate as honesty. The two mistakes are not the same
+  size.* **And the box is labelled for it** — it says plainly that it is for
+  what he thought of the article, and that anything about his life belongs in an
+  ordinary capture. *Why a label counts as part of the design here: it is the
+  cheapest thing that reduces how often the hard case arises at all.*
+
   *Why by kind and not simply "a reply goes no further", which an earlier version
   of this page said: that rule threw away his corrections along with his taste,
   and corrections are the half of his feedback that makes the mind more accurate.
   A design that kept only the other half would get steadily more agreeable and
   never more right — the exact failure this whole section exists to prevent. Why
-  the design cannot simply trust the door: the box takes his own words, and
-  "this is wrong, she moved in March, and honestly I have been dreading it" is
-  all three kinds at once. Why the log at all: it is the layer the evidence calls
-  safe, and a reply is his own dated words about himself.*
+  the log at all: it is the layer the evidence calls safe, and a reply is his own
+  dated words about himself.*
 - **His own views are not his taste, and the writer reads them.** What he thinks
   about his job, his family, a decision — that is his life and the material this
   is made of. What is withheld is only what he thought of an article. *Why the

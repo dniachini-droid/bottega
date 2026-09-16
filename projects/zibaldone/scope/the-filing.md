@@ -121,7 +121,12 @@ page whoever builds the filing reads.*
   says what he thought of the article** — the buttons, and any words about the
   writing. That part gets its log entry and stops: no verdict, no page, no
   amendment. A correction of fact in the same reply, and anything he says about
-  his own life in it, are filed exactly as any capture is. *Why the exception:
+  his own life in it, are filed exactly as any capture is. **When a sentence is
+  both at once — "I have had enough of reading about my mother, she is fine
+  now" — the whole sentence stops at the log.** *Why it errs that way: holding
+  back a fact costs him one thing he said and will say again; passing his taste
+  to the article-writer costs him flattery, which he cannot see and which
+  compounds.* *Why the exception:
   what he thought of an article is about this program rather than about his
   life, and letting it reach a page would hand the article-writer exactly what
   the noticing's design goes to some trouble to keep from it. Why only that part

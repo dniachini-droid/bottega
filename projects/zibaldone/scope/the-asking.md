@@ -82,19 +82,37 @@ suspect is the clock and the test is to file a week by hand and compare.*
   files and explicitly excludes the prompt, and a run of his notebook also pays
   for the model's own setup, the fetch and the thinking. Measure one empty check
   before settling the number of checks a day.*
-- **The run is a Routine, and nothing else.** Settled on 16 September 2026, and
-  the record is in `docs/OPEN.md`. Routines are a shipped feature for scheduled
-  unattended Claude Code work and draw on the subscription he already has; the
-  consumer terms exempt the Claude Code command line from the rule against
-  automated access. *Why "and nothing else": since mid-2026 the Agent SDK,
-  `claude -p` and GitHub Actions are charged against a separate credit rather
-  than the subscription. Building this as a GitHub Action is the obvious way and
-  the way this workshop already runs its own checks, and it would put a bill on
-  him.*
-- **How many checks a day is measured, not chosen.** There is a daily cap on
-  Routine runs per account and the number is not published. *Why it is written
-  down here: six a day is this page's working figure and nobody has checked it
-  against the cap.*
+- **The run is a Routine.** Settled on 16 September 2026; the record is in
+  `docs/OPEN.md`. Anthropic's own page says routines draw down subscription usage
+  the same way interactive sessions do. *Why a Routine rather than a GitHub
+  Action, which is the obvious way and the way this workshop runs its own
+  checks: a Routine is the feature built for this and is stated to draw on the
+  subscription, where nothing states that of a workflow calling Claude. An
+  earlier version of this page gave a stronger reason — that the Agent SDK and
+  `claude -p` had been moved to a separate credit in mid-2026 — and **that is
+  wrong**: the change was announced for 15 June 2026 and paused before it took
+  effect, and subscription usage still covers them. The decision stands; the
+  reason it stood on did not.*
+- **Routines are in research preview**, and Anthropic says their behaviour,
+  limits and interface may change. *Why on the page: the whole of this design
+  being free rests on one preview feature.*
+- **The daily cap is five runs on Pro and fifteen on Max, shared by everything
+  on the account**, and he can see what he has left on his own routines page.
+  *Why this replaces "measure it", which an earlier version of this page said:
+  the number is published, and telling a builder to go and measure something he
+  can read off a screen is how a working figure survives unchecked. Why it is
+  load-bearing: past the cap, runs are simply rejected — and on an account with
+  usage credits turned on they run as metered overage, which is a bill. This is
+  the one place where "it costs nothing" could quietly stop being true.*
+- **The filing check and the noticing's daily trend check are one run, not
+  two.** *Why: they share the cap, and on five a day two schedules cannot both
+  fit. It is also what he said in the first place — that the trend check is the
+  same work as collating — and splitting them was a decision of this page's, not
+  his.*
+- **Four or five checks a day is the working figure on Pro**, the last of them
+  carrying the trend check. On Max there is room for more. *Why written as a
+  plan rather than a number: it is his account, and the first thing to do is
+  look at what his plan allows.*
 - **Two runs never overlap, and a run never collides with him.** *Why this is
   named rather than assumed: the filing was designed around one writer at one
   door, which was true while he ran it by hand. A clock plus a man at a

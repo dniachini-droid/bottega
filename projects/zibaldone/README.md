@@ -62,10 +62,11 @@ the owner chose it — it means Claude Code can read and write the wiki directly
 - **From Claude Code, at his computer, on the repository.** Him asking, himself,
   in a tool he already pays for. No separate bill for the expensive part.
 
-*Where the line is, and it is not negotiable: a person driving a session is
-ordinary use of a subscription. An application routing its automated work
-through that subscription to avoid a bill is not, and is not to be built. The
-test is whether a human is asking.*
+*Where the line is: a person driving a session is ordinary use of a
+subscription. An application routing its automated work through that
+subscription to avoid a bill is not, and is not to be built.* **The test this
+line used to give — "is a human asking" — was overturned on 16 September 2026
+and no longer decides it. See the corrections at the end of this section.**
 
 **Filing works both ways too, and he wants both.**
 
@@ -95,11 +96,22 @@ noticing carry the replacements.*
   the next run. It stays a clearly separate option in the app — not because it
   costs money, but so he always knows which he is using and when the answer will
   come.
-- **The boundary above still governs, and it has not been settled for a run on
-  a clock.** "The test is whether a human is asking" was written for a person
-  driving a session. A scheduled session answering a question he typed into a
-  phone hours earlier is not plainly on either side of that line. The asking's
-  scope records this as open and to be settled before it is built.
+- **The boundary above has been settled for a run on a clock, and the test it
+  gave is overturned.** Anthropic ships Routines for scheduled unattended Claude
+  Code work and states that they draw on subscription usage the same way an
+  interactive session does — so a run on a clock is ordinary use whether or not
+  anybody asked for the particular thing it produces. What governs instead is a
+  published cap: **five runs a day on Pro, fifteen on Max, shared across the
+  whole account.** Past it runs are rejected, or billed as metered overage on an
+  account with usage credits turned on. So "it costs nothing" now depends on
+  staying under a number, and the scope pages for the asking and the noticing
+  carry it. Routines are in research preview and their limits may change.
+- **One thing that was written here and is wrong**, recorded because it was used
+  as a reason: that the Agent SDK, `claude -p` and GitHub Actions had been moved
+  off subscription usage onto a separate credit in mid-2026. That change was
+  announced for 15 June 2026 and **paused before it took effect**; those still
+  draw on the subscription. It had been the whole argument for one design
+  decision, which survives on a weaker reason.
 
 **Two things he was told and accepted when he decided this.** His raw captures —
 health, feelings, private thoughts — would live in a private repository on

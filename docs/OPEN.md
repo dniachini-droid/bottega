@@ -886,52 +886,6 @@ does or until somebody decides which of the two guarantees gives way.
 
 ---
 
-## Whether a run on a clock is ordinary use of the owner's subscription
-
-Zibaldone's front page draws a line: *"a person driving a session is ordinary
-use of a subscription. An application routing its automated work through that
-subscription to avoid a bill is not. The test is whether a human is asking."*
-
-The asking, scoped on 16 September 2026, puts the filing on a clock several
-times a day, and answers questions he wrote into his phone hours earlier. A
-nightly batch he set up, on his own account, filing his own captures, is on the
-ordinary side of that line. A question typed into a phone and answered by a
-scheduled session is not plainly on either side.
-
-*Why this is here and not only in the scope page: the whole cost case for the
-asking rests on it — every claim that this costs him nothing beyond hosting —
-and if it is wrong the answer is not a redesign but a bill.*
-
-**And the noticing is the harder case, not the asking.** Nobody asks for an
-article at all. A scheduled session wakes, reads the ledger, decides on its own
-that something is worth saying, and writes it.
-
-**Settled on 16 September 2026, and it covers both.** Routines are a shipped
-Anthropic feature on the Pro and Max plans, built for exactly this — scheduled,
-unattended Claude Code work — and they draw on the subscription the way a
-session he is sitting at does. The consumer terms exempt the Claude Code CLI
-from the rule against automated access. So a run on a clock, on his own account,
-doing his own work, is the feature being used as intended, whether or not he
-asked for the particular thing it produces.
-
-**Two conditions came with the answer, and both change what is built.**
-
-- **The run must be a Routine.** Since mid-2026 the Agent SDK, `claude -p` and
-  GitHub Actions are charged against a separate credit rather than the
-  subscription. Building the nightly run as a GitHub Action — the obvious way,
-  and the way this repository already runs its checks — would have put a bill on
-  him. Both scope pages now say so.
-- **There is a daily cap on how many Routine runs an account may start**, and
-  Anthropic does not publish the number. It bears directly on the asking's six
-  checks a day, so the number of checks is to be measured against the cap rather
-  than chosen in advance.
-
-**Status:** CLOSED — the answer and both conditions are written into
-`projects/zibaldone/scope/the-asking.md` and
-`projects/zibaldone/scope/the-noticing.md`.
-
----
-
 ## The noticing's evidence was gathered by search, not by reading
 
 Both research jobs of 16 September 2026 — `projects/zibaldone/noticing-research.md`
