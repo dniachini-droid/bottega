@@ -229,6 +229,17 @@ poisoning what gets found, not too little storage.*
 Only after the loop above has run end to end on Bottega itself, several times,
 and worked.
 
+**One question the research job did not get asked.** The noticing's scope now
+carries the owner's idea of 16 September 2026: every article can be answered —
+right, wrong, not for me, or in his own words — and what he answers is written
+into a preferences file the next run reads. The research on the noticing was
+already running in the cloud when he raised it and could not be reached, so it
+was never asked what evidence exists on feedback loops of that kind: whether
+they are measured to improve what gets written, how fast they converge on
+blandness when only complaints are counted, and whether anyone has separated
+"this is wrong" from "this is right but I did not want it". Ask it when the
+first findings land, before that part is built.
+
 ---
 
 ## Why that order, and this reason is the point of it
