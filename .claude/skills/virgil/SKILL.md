@@ -227,6 +227,23 @@ create has to be hunted for, and that hunt was the last gap in the path.
 Created here it exists before there is anything to miss, and after that a
 comment, a review or a failing check wakes this window within seconds.*
 
+**A session started before its pull request exists cannot be subscribed to,
+and this rule is broken by starting the session first, never by forgetting the
+subscription afterwards.** On the night of 16 September 2026 this window started
+six sessions without opening a pull request for any of them, told the owner it
+would watch them, and then found out they had finished only because he asked —
+three times, the last at midnight while he was trying to sleep. His words: *"You
+didn't subscribe to any of the fucking jobs. They are done. Why do you keep
+doing this?"* Every one of those sessions had finished and sat idle. *Why this
+is written into the rule rather than left as a lesson: the rule above was
+already there, in these words, and was read and broken anyway. What was missing
+was the cost.*
+
+**So: no session is started until its pull request is open and subscribed. If
+the work does not fit a pull request, it still gets a branch, an empty commit, a
+draft pull request and a subscription — the pull request is how a session
+reaches this window, not a formality about code.**
+
 A pull request needs one commit on the branch, or there is nothing to open it
 against. In Bottega the scope page is that commit, pushed at stage 2. In a
 project's own repository the branch is empty, so put one empty commit on it
