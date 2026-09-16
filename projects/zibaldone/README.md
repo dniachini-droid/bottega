@@ -44,6 +44,21 @@ piece is worth having on its own.*
 4. **The noticing.** The mind reads itself and writes about what it sees, and
    learns from what he says back. *Added 16 September 2026.*
 
+**The asking before the noticing**, settled 16 September 2026. *Why that way
+round: the asking is what he described wanting in the first place, and the
+noticing cannot work without the ledger, which the filing has to build.*
+
+**And each of the two is cut into two or three changes, not sent whole.**
+Settled the same day, on the evidence of the piece before them. *Why: the
+filing went in as one change of 2,461 lines across 18 files and took five
+rounds of review to get clean. Three of the four serious faults were in one
+feature — taking something out — which should have been a small change of its
+own. The rounds were not waste: each found something worse than the last, and
+the fourth round's fault was caused by the second round's fix. But the total
+work would have been smaller if the pieces had been. This workshop's own rule
+already says a small change under review catches about three times more defects
+than a large one; this is that rule meeting a real number.*
+
 ## Two doors, and two ways of filing — decided 15 September 2026
 
 **Partly overturned the next day. Read the corrections at the end of this

@@ -903,3 +903,28 @@ quote the number.*
 that would change the design if wrong against the papers themselves. The two
 that would: that a user profile in the prompt raises agreement by 16–45%, and
 that a checker blind to the claim roughly doubles precision.
+
+---
+
+## Two things on Zibaldone the owner has seen and waved through
+
+*Both were put to him on 16 September 2026 with what they cost, and he accepted
+both. They are here because accepted is not the same as fixed, and the next
+session to touch either file should know.*
+
+- **The deploy's passphrase guard does not see a non-breaking space.** The guard
+  refuses a passphrase padded with an ordinary space; the invisible space a Mac
+  makes from Option+Space gets past it. *Why it went unseen through five review
+  rounds: the test double modelled the trimming with the same rule the guard
+  used, so the double and the guard agreed with each other and neither agreed
+  with the real tool. That is the finding worth remembering, more than the bug.*
+  It bites only if he ever puts one of those characters in a passphrase. One
+  line to fix, whenever somebody is in that file for another reason.
+- **His passphrase sits in the record of whatever session he types it into.**
+  The filing needs it once per session on the web version, or once ever on his
+  own computer. No alternative was found that does not mean him doing the whole
+  filing by hand in a browser.
+
+**Status:** OPEN — neither is being fixed now, by his decision. Neither blocks
+anything.
+
