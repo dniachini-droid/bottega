@@ -128,24 +128,48 @@ number, not a redesign.*
   faithfully described while the pattern drawn across them is invented, and
   that is this piece's characteristic failure. Nothing here catches it; the
   monthly numbers below are what stand in its place.
-- **Articles are written as an adviser, in the third person, and as a question
-  where the evidence is thin.** *Why these three: third-person framing alone cut flattery by up to
-  63.8% in one benchmark, and turning a statement into a question took it to near
-  zero where the statement form was 24 points worse. The adviser voice has no
-  number behind it and is here on one report that it keeps judgement more
-  independent. Two other guards measured the same way sit elsewhere on this page:
-  not writing his claim down as a fact, and telling the writer plainly not to
-  flatter — the second helps, but by substantially less than changing how the
-  material is put to it.*
+- **The material is put to the writer in the third person** — *he wrote this*,
+  never *you wrote this*. *Why: this is the guard with a number behind it —
+  third-person framing cut flattery by up to 63.8% in one benchmark, and turning
+  a statement into a question took it to near zero where the statement form was
+  24 points worse. It happens entirely out of his sight and costs nothing. Two
+  other guards measured the same way sit elsewhere on this page: not writing his
+  claim down as a fact, and telling the writer plainly not to flatter.*
+- **But the article speaks to him directly, in the second person, and says hard
+  things.** His decision of 16 September 2026, after an earlier version of this
+  page had it written about him in the third person: *"I don't just want it
+  calling out commonalities - I want it to give me human insights."* *Why this
+  does not fight the rule above, and the distinction was got wrong here once
+  already: the measured guard is about what the **writer is shown**, not about
+  what he reads. How an article addresses him was never measured by anyone, and
+  this page implied it was.*
+- **Direct is right rather than merely allowed.** *Why: flattery is telling him
+  what he wants to hear, so an observation that lands badly is the opposite of
+  the failure. The sting rate — how often he marks an article **right, but I did
+  not want to read it** — is this piece's earliest warning, and a design that
+  wrote carefully around him would contradict its own success measure.*
+- **The line is between interpretation and instruction, not between observing
+  and interpreting.** *"You stop going to the gym in the weeks the visa comes
+  up. It has happened three times now"* is the thing he asked for. *"You should
+  book three sessions a week"* is a coach, and a coach is what makes these
+  unbearable within a month.
+- **The price of being direct is evidence: every claim points at what he
+  actually wrote.** *Why it is the price and not a nicety: a machine telling him
+  something about himself that he cannot trace back to his own words is a
+  machine inventing him. It is also the only thing that closes the gap named
+  below — the checker can verify every ingredient of an article and still miss
+  that the pattern across them was invented. Citation is what lets **him** catch
+  that, and nothing else can.*
+- **A question where the evidence is thin**, rather than a statement.
 - **A diagram is text that draws itself**, stored in the page. *Why not an image
   file: a repository keeps every version forever, so images accumulate and can
   never be taken back out; and text can be read, corrected and searched when the
   drawing is wrong.*
-- **It never proposes an action or a plan.** It observes, and it may comment.
-  *Why the line sits there and not at "no comment at all": he asked for
-  something that reads his diary and gives its view, so commentary is the point.
-  What is out is being told what to do with his life — the register that makes
-  these systems insufferable, and the one that most invites flattery.*
+- **It never proposes an action, a plan, an exercise or a next step.** *Why
+  that is the whole of the restriction, after 16 September 2026: he said he does
+  not mind being called out and does not want to be managed. Commentary about
+  him is the point of the piece; instruction is the register that makes these
+  systems insufferable.*
 - **How we will know it is right**: after a month he can point at one article
   and say it told him something he had not put together himself — and at least
   one week produced nothing.
@@ -321,9 +345,15 @@ His decision of 16 September 2026, after the filing's first real run, replacing
 a two-section shape this page carried earlier:
 
 1. **The notebook** — what he put in. Already built.
-2. **The pages** — one per subject, the mind's summary of what he has said.
+2. **Codex** — one page per subject, the mind's summary of what he has said.
 3. **Disegno** — articles it wrote unprompted, and answers to questions he
    asked.
+
+*Why those names, his choice on 16 September 2026: a **zibaldone** is the
+commonplace book a Florentine threw things into as they came; a **codex** is the
+bound, ordered book as against loose sheets, and Leonardo's own notebooks are
+called codices; **disegno** is Vasari's word for the conception that precedes
+the work. Thrown in, ordered, conceived.*
 
 *Why three and not two: this whole design turns on keeping what he said apart
 from what a model concluded about him — it is why the log is never rewritten,
