@@ -61,7 +61,9 @@
       "docs/SIGNALS.md"
     ],
     "mentions": [
-      "AGENTS.md"
+      "AGENTS.md",
+      "projects/",
+      "tools/check-handoff.mjs"
     ]
   },
   "docs/SIGNALS.md": {

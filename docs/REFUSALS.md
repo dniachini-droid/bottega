@@ -1253,3 +1253,59 @@ holding it.
 fails once it meets `main`. The automatic checks run on the branch as pushed.
 Nothing ran them on the merge result — a person did, once, because a review said
 to.
+
+---
+
+## The handoff check, on a real bad dispatch that had already been sent
+
+**16 September 2026.** Not arranged, and not caught in time. Four review
+handoffs went out this evening and **none of them was put through
+`tools/check-handoff.mjs` first.** Two were refused by the reviewer that
+received them, which is the thing the check exists to prevent — its own header
+says a bad dispatch cannot be repaired after sending, because the correction is
+a second message and a reviewer that has read two messages is no longer the
+isolated one.
+
+The second refusal was an eighth line, `base`, added to a seven-line handoff.
+Afterwards the check was fed the handoff exactly as it had been sent:
+
+```
+REFUSED — 1 thing wrong with this handoff.
+
+  line 4: `base` is not one of the seven fields. An extra field is refused — it
+  is how an opinion of the work arrives in a handoff that should only carry
+  facts.
+
+Nothing was sent. A bad dispatch cannot be repaired afterwards:
+the correction is a second message, and the reviewer that reads it
+is no longer isolated. Fix the handoff and check it again.
+```
+
+Word for word the reviewer's own objection, available before the round was
+spent rather than after.
+
+**Where the bad input is.** The handoff is written for this entry and kept in
+the session's scratch space, not in the repository, and nothing anybody uses was
+changed to get the refusal. The `base` line was real — it is what was actually
+sent — so this is a check refusing a genuine fault, not a padded one.
+
+### What this entry is for, and what it does not cover
+
+The check works. The check was not run. A check nobody runs is
+indistinguishable from one that cannot fire, which is the exact wording of the
+budget it was built to satisfy — and this is the budget failing from the other
+end, where the program is sound and the habit is missing.
+
+**And it would not have caught the first refusal.** That one was a handoff whose
+seven lines were correct but whose surrounding brief carried the building
+session's account of its own work. `tools/check-handoff.mjs` reads the seven
+lines. It does not read the prose sent with them, so it cannot see an answer key
+arriving beside a well-formed handoff. **That gap is real and is logged in
+`docs/OPEN.md`.** Stating it here rather than quietly widening the check: what
+the check can see is a fact, and what it should see is a decision for the owner.
+
+**No new test.** The refusal above is already held by
+`tools/check-handoff.test.mjs`, which watched this same refusal fire when the
+check was written. The fault this time was in what a session did, not in what
+the program does, and a second test of the same rule would hold nothing the
+first one does not.

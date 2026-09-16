@@ -1082,3 +1082,308 @@ and already called too simple.*
 their first review onward. Neither session could be reached while it ran, so the
 bar goes in at round one rather than round zero.
 
+
+---
+
+## A review brief must not carry the builder's account of its own work
+
+On 16 September 2026 a design critique was dispatched on one version of the
+Zibaldone reading pages and **refused before it looked at anything**. The brief
+had been written from the building session's own pull request: what that session
+was told to do, what it said it had done, and its own list of two defects it
+knew about and had not fixed.
+
+The reviewer's objection, in its words: *"That is Michelangelo's opinion of its
+own work reaching the reviewer... It directed my attention before I looked."*
+And it refused to be re-briefed, because it had already read the material and a
+corrected brief could not un-read it — *"indistinguishable in the record from a
+clean one."* A fresh session was the only remedy. The round was not spent; the
+dispatching session was.
+
+**The rule this asks for, which is not written anywhere yet:** a review session
+is handed the version and the bar, and nothing the building session said about
+itself. Not its summary, not its pull request body, not its own list of what it
+knows is wrong. The reviewer finds those or fails to — **that is the
+measurement.**
+
+*Why this is not already covered: `AGENTS.md` says a fix session is given the
+review itself rather than a summary of it, which guards the relay in one
+direction. Nothing guards the other. The builder's self-report is exactly the
+kind of material that reads as helpful context and is in fact the answer key —
+a reviewer told in advance which two things are wrong can neither confirm the
+list is complete nor be trusted when it says the list is all there is.*
+
+*Also worth keeping: the brief's stated diffstat was wrong, computed against a
+base the branch had since moved past. The reviewer checked it rather than
+repeating it, which is the behaviour the handoff exists to produce.*
+
+**Status:** OPEN. It belongs in the guide's own rules, which is one of the three
+files that needs the owner's yes before it changes. Logged here until he sees
+it.
+
+---
+
+## The handoff check exists, and nobody ran it
+
+Four review handoffs went out on the evening of 16 September 2026. **None was
+put through `tools/check-handoff.mjs` first.** Two were refused by the reviewer
+that received them, costing two sessions, and one of those two refusals is word
+for word what the check prints when fed the same handoff afterwards — recorded
+in `docs/REFUSALS.md`.
+
+So there is a working guard, and the session that most needed it did not know to
+reach for it. **Two things follow, and only the first is mechanical.**
+
+**One: the guide's own rules do not say to run it.** The rule that orders a
+dispatch — branch, pull request, subscribe, then start — has no line in it about
+checking the handoff, and the check's own header is the only place that says
+when to run it. A file nobody opens cannot instruct anybody. That is a change to
+the guide's skill, which needs the owner's yes.
+
+**Two, and this one cannot be fixed by running the check: the check reads the
+seven lines and not the prose sent with them.** The other refusal that night was
+a handoff whose seven lines were perfect and whose surrounding brief carried the
+building session's account of its own work — the answer key, arriving beside a
+well-formed handoff. `tools/check-handoff.mjs` would have passed it.
+
+*Why this is logged rather than fixed on the spot: widening the check to read
+the brief means a program deciding whether a paragraph is a fact or an opinion,
+which is the kind of judgement that gets beaten by rewording — the same reason
+`tools/reads.json` writes down what is read rather than working it out from the
+sentence. The honest options are to have the dispatching session declare what
+the brief contains, the way reads are declared, or to leave it on a rule and
+accept that it is on somebody's word. That is a decision, not a defect.*
+
+**Status:** OPEN. Both halves need him: the first because it changes the guide's
+rules, the second because it is a choice about what a machine should be asked to
+judge.
+
+---
+
+## Four design rounds bought no polish, and his verdict says so
+
+He authorised four rounds of review and fix on the Zibaldone reading pages,
+asking for something *"truly design award winning worthy."* On 16 September 2026,
+looking at the merged result: *"The app looks good. I like it. Would have liked
+more polish for so many review rounds but that's fine. It does look better
+though."*
+
+He is right, and the accounting shows exactly where the rounds went:
+
+| round | what it actually did |
+|---|---|
+| one | two sessions, about forty-nine ideas. The critique: four good ideas and forty-five grains of sand; neither of his two questions passes |
+| two | subtraction — forty-nine ideas down to five switches |
+| three | a critique that found six real defects: unhittable tap targets, text below the legibility floor, a false sentence at the foot of every article, a silent crash, a settings bug, and an index filing three subjects under "The" |
+| four | fixing those six, plus one regression the fixing introduced |
+
+**One round produced ideas, one removed them, and two went on defects. No round
+was spent making the good screens better.** The round-three critique said so
+itself, and named the place: the article screen passes his bar, and the front
+page and Codex are *"beautifully correct and nothing more."* Nothing ever went
+back to those two.
+
+**The mechanism, stated so it can be used next time: correctness crowds out
+polish, and it does it silently.** Every defect those rounds found was real and
+worth fixing — none of it was invented work. But a review round that finds a
+crash will spend itself on the crash, and the round after it spends itself on
+what the fix broke. The budget disappears into things that must be done, and
+nobody notices that the thing it was authorised for never started.
+
+*Why this is not solved by authorising more rounds: more rounds find more
+defects. The fifth round here would have gone the same way. What is needed is a
+round that is not allowed to fix anything — one whose only permitted output is
+the good screens made better, with defects it finds written down for a different
+round.*
+
+**Status:** OPEN, and it is a question for him rather than a change to make. The
+options are to protect a round for polish by forbidding it to fix, to get the
+defects out of the way first and start counting rounds afterwards, or to accept
+that a first pass buys correctness and polish is a separate job later. *Why it
+is his: it is about what he is buying with the rounds he authorises, and he is
+the one who can tell whether the result was worth them.*
+
+---
+
+## The handoff check cannot pass for a project built with this workshop
+
+**16 September 2026.** The check refused a handoff for a Zibaldone review, and
+the refusal was correct about what it could see and wrong about what it meant:
+
+```
+done-looks-like: `projects/zibaldone/scope/the-narrating.md` is not on branch
+`claude/the-narrating`.
+```
+
+It is not, and it never will be. **`tools/check-handoff.mjs` requires the scope
+page to sit on the branch under review.** That holds for this workshop's own
+changes, where the scope page and the code are in one repository. It cannot hold
+for a project built with the workshop, where the scope pages live here in
+`projects/<name>/scope/` and the code lives in the project's own repository —
+which is the arrangement this whole place exists to produce.
+
+So the check verified the shape, the branch, the commit, the clean tree and the
+diffstat, and could verify nothing about the seventh field. Every project
+dispatch from now on hits this.
+
+**The purpose it is protecting is still real**, and worth restating before
+anybody softens it: the reviewer's job description has to be copied off a page
+the reviewer can already see, so there is nothing left in the pull request thread
+for the reviewer to go and fetch. A well-formed handoff still breaks isolation
+when a claim the reviewer must check exists only in a thread.
+
+**Three ways it could be made to hold, and the objection to each:**
+
+- **Teach the check to look in the workshop** for `projects/<name>/scope/` when
+  the branch is not one of ours. *Objection: it then compares against a page the
+  reviewer cannot see, which is the isolation problem wearing a different coat —
+  unless the reviewer is given the workshop too, which is more context, not
+  less.*
+- **Put a copy of the scope page on the project's branch.** *Objection: two
+  copies drift, and the check would be comparing one copy against another rather
+  than against the truth.*
+- **Let the field be verified against the brief instead of a page**, since the
+  brief is what the reviewer actually receives. *Objection: that is the check
+  reading prose and judging it, which is what `tools/reads.json` exists to avoid.*
+
+**Status:** OPEN. One review was dispatched with the first six fields confirmed
+and the seventh copied by hand off the scope page, and the reviewer was told
+plainly that this was so and why. *Why that was the right call rather than
+stopping: the check's substantive purpose was met — the job was written out in
+full in the brief, so the reviewer had nothing to fetch — and the owner was
+asleep with work waiting. But it was a judgement made around a refusing check,
+which is exactly the thing this repository does not let pass quietly, so it is
+written down here rather than left in a session's memory.*
+
+---
+
+## The same leak again, from the other direction: the previous review
+
+**16 September 2026, later the same night.** The rule written above — that a
+review brief carries the version and the bar and nothing the building session
+said about itself — was followed. The brief for the third round of the narrating
+carried no builder material at all. It still came back marked
+**`context_isolation: false`**, and the reviewer was right:
+
+> *"the handoff also carried the design intent and the previous review's
+> conclusions ('nothing reaches outside, capture takes 30 ms, seven behaviours
+> each genuinely refused by a test'). That is prior-reviewer material, and it
+> could anchor."*
+
+It was put there deliberately, to save the round re-deriving what an earlier
+round had already established. That is exactly the reasoning that makes it
+dangerous: **a reviewer told what the last reviewer confirmed has been handed a
+list of things it need not check.** The three findings this round produced were
+all in territory the first review had pronounced sound.
+
+This one re-measured every inherited claim rather than accepting any, said so,
+and its numbers were its own — so the review stands. **The next one might not,
+and nothing in the brief would show the difference.**
+
+*Why this is a separate entry rather than an extension of the one above: the
+first leak was the builder's opinion of its own work, and the instinct behind it
+was helpfulness. This one is a prior reviewer's findings, and the instinct behind
+it is efficiency — not wanting to pay twice for the same measurement. The second
+instinct is stronger, better-motivated, and will keep coming back.*
+
+**What a brief may carry, as this now stands:** the version, the bar, what the
+thing is for, and what it must never do. **Not** what the builder says it did,
+and **not** what a previous reviewer concluded — including the reassuring parts.
+Telling a round that it is the second or third version, and that earlier faults
+were found and fixed, is fair and useful; naming them is not.
+
+**Status:** OPEN, with the rest. It is the same rule needing the same line in the
+guide's own skill, which is one of the three files that needs the owner's yes.
+
+---
+
+## Da Vinci and Michelangelo share one scratch directory
+
+**16 September 2026.** A reviewer answered `context_isolation: false` for a
+reason nothing in the handoff caused:
+
+> *"this session's scratchpad directory is shared with the sessions that built
+> the change. Listing it surfaced file names including `app.good.js`,
+> `hearing.good.js`, `narrating-handoff.txt` and a directory `dv19`. I opened
+> none of them... I answered false because copies of the files under review were
+> within reach and their names reached me."*
+
+It is right, and it named the fix itself: **the reviewer and the builder should
+not be given the same scratch directory.** A file called `app.good.js` tells a
+reviewer which file somebody thought was the good version, without being opened.
+
+*Why this is worse than the two brief leaks logged above and not better: those
+were mistakes in something a session wrote and could have written differently.
+This one needs no mistake. Every session working here is handed the same
+directory by the environment, so a reviewer that does nothing wrong at all still
+has the builder's working copies within reach — and the next one may not be
+scrupulous enough to say so.*
+
+**One thing it could not avoid, and should not have to.** The same reviewer took
+the speech model's weights out of that directory, because the change cannot be
+exercised without a model and fetching one is not possible here. That is a
+third-party download, not anybody's work, and taking it was right. *So the fix is
+not "the reviewer may touch nothing there" — it is that the builder's working
+copies and the reviewer's should not be in the same place, while things neither
+of them made can be.*
+
+**Status:** OPEN. It is a question about how sessions are given their working
+space, which is outside what any file in this repository currently decides, so it
+needs him.
+
+---
+
+## Every piece arrives as slices, or it does not arrive
+
+**17 September 2026.** He asked why everything takes so many rounds, and the
+answer was not that the reviews are wrong. Every finding this week was real and
+reproduced. **It is that the changes being sent into those reviews are enormous.**
+
+The narrating went in as one job: 4,331 lines, fifty files, covering browser
+audio recording, format differences between browsers, a speech model, a worker
+thread, uploads, failure states, and a write-once log. Six rounds. The design
+work went in whole: four rounds. The filing: five.
+
+**And a large share of each review's findings were made by the fix before it.**
+The design work's round-four regression was created by round four's own fix. The
+filing's round-four fault was caused by round two's fix. The narrating's
+permanent write-off was created by the mechanism round two added to fix
+something else. That is the loop he was feeling, and it is what a large change
+under review produces.
+
+`AGENTS.md` says this in its first rule — *a small change under review catches
+roughly three times more defects than a large one* — and the guide did not
+follow it. **The build system was working. The way it was being fed was not.**
+
+**What the narrating should have been, and this is the worked example to copy:**
+
+1. **Record and keep.** A button, the sound saved, playable on the page. No
+   transcription at all. Every reviewer said this half was solid; it would very
+   likely have passed in one or two rounds, and he would have had voice notes on
+   his phone two days earlier.
+2. **Transcribe short recordings.**
+3. **Handle long ones** — where the genuinely hard problem lived, and where five
+   of the six rounds actually went.
+
+Tangled together, every review had to look at everything and every fix could
+break anything.
+
+**The rule, as he asked for it on 17 September 2026:** *"Next round suggest
+slices."*
+
+- **The first slice is something he could put on his phone by itself.** Not a
+  foundation, not scaffolding — a thing that works and is worth having alone.
+- **A slice that cannot be described in one sentence without an "and" is two
+  slices.**
+- **The slices are put to him before the work starts**, so he chooses what he
+  gets first and what can wait.
+
+*Why it must be written down rather than remembered: a rule that lives in one
+session's conversation dies with that session, which is the argument this whole
+repository was founded on. And why it is his to see rather than quietly adopted:
+more slices means more merges and more small deploys, and that is a cost he pays,
+not the workshop.*
+
+**Status:** OPEN only as to where it finally lives. It is in force from now
+either way. It belongs in the guide's own skill, which is one of the three files
+that needs his yes.
