@@ -1120,3 +1120,40 @@ repeating it, which is the behaviour the handoff exists to produce.*
 **Status:** OPEN. It belongs in the guide's own rules, which is one of the three
 files that needs the owner's yes before it changes. Logged here until he sees
 it.
+
+---
+
+## The handoff check exists, and nobody ran it
+
+Four review handoffs went out on the evening of 16 September 2026. **None was
+put through `tools/check-handoff.mjs` first.** Two were refused by the reviewer
+that received them, costing two sessions, and one of those two refusals is word
+for word what the check prints when fed the same handoff afterwards — recorded
+in `docs/REFUSALS.md`.
+
+So there is a working guard, and the session that most needed it did not know to
+reach for it. **Two things follow, and only the first is mechanical.**
+
+**One: the guide's own rules do not say to run it.** The rule that orders a
+dispatch — branch, pull request, subscribe, then start — has no line in it about
+checking the handoff, and the check's own header is the only place that says
+when to run it. A file nobody opens cannot instruct anybody. That is a change to
+the guide's skill, which needs the owner's yes.
+
+**Two, and this one cannot be fixed by running the check: the check reads the
+seven lines and not the prose sent with them.** The other refusal that night was
+a handoff whose seven lines were perfect and whose surrounding brief carried the
+building session's account of its own work — the answer key, arriving beside a
+well-formed handoff. `tools/check-handoff.mjs` would have passed it.
+
+*Why this is logged rather than fixed on the spot: widening the check to read
+the brief means a program deciding whether a paragraph is a fact or an opinion,
+which is the kind of judgement that gets beaten by rewording — the same reason
+`tools/reads.json` writes down what is read rather than working it out from the
+sentence. The honest options are to have the dispatching session declare what
+the brief contains, the way reads are declared, or to leave it on a rule and
+accept that it is on somebody's word. That is a decision, not a defect.*
+
+**Status:** OPEN. Both halves need him: the first because it changes the guide's
+rules, the second because it is a choice about what a machine should be asked to
+judge.
