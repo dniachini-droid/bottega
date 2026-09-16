@@ -965,6 +965,92 @@ allowed once.
 
 ---
 
+## Found in use on Zibaldone, and left for later
+
+*His own words as he used it, on the evening of 16 September 2026. None of these
+is being fixed now: the noticing is the focus and these are not in its way. They
+are here so they are not rediscovered from scratch.*
+
+- **A page in Codex has no way back to the list.** Open a subject and the only
+  ways out are the running head or the phone's own gesture. *"Only issue is, when
+  you select a codex entry, there is no back button to go back to the index."*
+  He called Codex beautiful and working otherwise.
+- **A weekly deep research pass over the wiki**, his idea the same evening and
+  worth more than a line: agents go through the pages, read the internet, and
+  write a detailed report on one subject. Four things settled about it when it is
+  built — one subject a week rather than all of them, because depth beats breadth
+  and it caps what is the most expensive thing in the design; the concrete
+  subjects only, never an automatic pass on how he feels, because a machine
+  researching psychology about his diary is a machine diagnosing him and that is
+  his to ask for deliberately; his words and the world's words visibly apart
+  inside one report; and the agents told to read their sources rather than search
+  them, since both research jobs of that day said plainly that they had not.
+
+**Status:** OPEN — none blocking, none scheduled. The research pass comes after
+the feedback loop, so that the thing that keeps it honest exists before the
+expensive work does.
+
+---
+
+## Running Zibaldone from his phone, and running it without him
+
+Both asked for on the evening of 16 September 2026, minutes apart, after the
+first day of real use.
+
+**From his phone.** *"I want a way to run it manually from my phone on Claude
+Code too, not my laptop."* This may already work: Claude Code on the web, opened
+on a phone against the program's repository, takes the same words. Two things
+make it worse than his Mac and neither is fatal — the web version keeps nothing
+between sessions, so it asks for the notebook's passphrase every time, and the
+mind has to be cloned fresh each run. **Nobody has tried it.** Try it before
+building anything; the answer may be that there is nothing to build but a line
+in the documentation.
+
+**Without him.** The clock, already scoped in
+`projects/zibaldone/scope/the-asking.md`, and blocked by the entry above about a
+scheduled run being unable to approve its own agents. That blocker is the single
+thing standing between him and a mind that keeps itself up to date, and it is
+now the most valuable unbuilt thing in the project.
+
+**Status:** OPEN — the phone: try it, then decide. The clock: blocked, and the
+blocker is the priority once Disegno is his.
+
+---
+
+## What a citation looks like to him
+
+His words, the night of 16 September 2026, having read the first real article:
+
+> *"When it writes the notes it shouldn't put the long number quote in brackets.
+> It should just have the date that I said it in brackets. The number file
+> doesn't mean anything."*
+
+Today an article ends a cited sentence with `[20260915T183000000Z-abc123]`. That
+is the capture's id: it is how the tool finds the entry, and it means nothing to
+a person reading a sentence about his own life on a phone.
+
+**The id stays in the file; the date is what he reads.** Disegno renders the
+citation as the day — *[15 September]* — and, where it can, as a link to that
+entry so he can read what he actually wrote. *Why not simply write the date into
+the article instead: two captures on one day would then be indistinguishable, and
+nothing could find its way back to the entry. The id is the machine's business
+and should stay the machine's business.*
+
+**And tapping it opens that entry, with a way back to the article.** His words,
+minutes later: *"Tap it to show the article but back again to get back to the
+Disegno article."* So: the date is a link, it opens what he wrote that day, and
+from there one step returns him to the article he was reading — not to the top of
+a section, and not to wherever he happened to be before.
+
+*Why it is worth saying twice: this is the same fault he found in Codex an hour
+earlier, where opening a page left him with no way back to the list. Wherever a
+tap takes him, there is a step back to where he was. It should be a rule of the
+app rather than a fix applied twice.*
+
+**Status:** OPEN — to be folded into the change now taking the checker out of
+the way, which is already altering how an article is written and shown, and
+alongside the Codex back button already under way. Recorded here because neither
+session could be reached while it ran.
 ## The standard the design work is held to
 
 His instruction, the night of 16 September 2026, about the two design jobs then
