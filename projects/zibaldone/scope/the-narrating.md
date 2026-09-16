@@ -94,6 +94,28 @@ recording only, and reading it during a run he starts himself.
 failure.** *Why written down: it is most of the value, and a session that treats
 it as defeat will reach for the paid service to avoid reporting it.*
 
+## Held back deliberately, and why it is held rather than dropped
+
+**Correcting a transcript by hand, after it is read.** He raised it himself on
+16 September 2026 and set the order: *"let's leave that for later if the direct
+transcribe doesn't work well."*
+
+*Why that order is right: an edit box is the answer to a transcript that is
+wrong often enough to be worth fixing by hand, and nobody knows yet whether this
+one is. Built first, it becomes the thing he uses, and the transcript never gets
+better because the editing hides how bad it is. Built second, it is a small
+addition to something already working, or it is not needed at all.*
+
+**The condition for building it is a number, not a feeling**: how often he has to
+correct what came back. That number does not exist until he has narrated into it
+for a while.
+
+*And one thing it must not become when it is built: an edit that rewrites the
+log. The log is his words as given, written once. A correction is a second layer
+over the first, the way a subject page is a reading of a capture rather than a
+replacement for it — otherwise the recording and the transcript disagree and
+there is no way to tell which was him.*
+
 ## What is out
 
 - **The paid API.** Settled above.
