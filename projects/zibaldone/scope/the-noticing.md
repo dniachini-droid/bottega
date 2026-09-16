@@ -50,6 +50,44 @@ second into the first would mean paying for it on every run.*
   and say it told him something he had not put together himself — and at least
   one week produced nothing.
 
+## Learning from him
+
+Every article carries a way for him to answer it, and what he answers changes
+what gets written next. *Why this is in scope and not a refinement: it is the
+only signal that can tell a useful observation from a plausible one, and
+without it the noise problem has no remedy except guessing.*
+
+- **Two different unhelpfuls, kept apart.** "This is wrong" and "this is right
+  but I did not want to read it" need opposite responses — the first should
+  change how it reasons, the second only what it surfaces. *Why this is the
+  first rule: collapsed into one button the system learns the wrong lesson from
+  half its feedback, and the more he uses it the further it goes wrong.*
+- **A free text box as well as the buttons**, because his own words about why
+  something missed are worth more than a score.
+- **What he says becomes a written preferences file** — the third of Karpathy's
+  layers, which this design has so far not built. The run reads it before
+  writing. *Why a file and not something learnt invisibly: he can open it, read
+  what it believes about him, and cross out a line that is wrong. Nothing else
+  here gives him that.*
+- **The preferences file is rewritten, never appended to, and capped.** Every
+  line names the article and date it came from. *Why: instruction files grow
+  226% over their lifetime and never shrink, and a line whose origin is lost is
+  one nobody dares delete. This is the same rule this workshop holds itself to.*
+- **"More of this" counts as much as "less of this", and it is allowed to say
+  things he does not like.** *Why, and this is the failure this design most
+  needs to avoid: a system tuned only against complaints learns to say less and
+  less until it says nothing worth reading. Blandness is the documented end
+  state of optimising against negative feedback, and it would arrive slowly
+  enough that neither of us would notice it happening.*
+- **Feedback is not a capture.** It lives beside the wiki, not in his log.
+  *Why: the log is the record of his life, and what he thought of an article is
+  a fact about this program.*
+- **It does not overreact to one night.** A single dismissal does not rewrite
+  what it believes he wants.
+- **How we will know the learning works**: the share of articles he marks
+  helpful rises over a month. If it does not move, the feedback is being
+  collected and not used, and we should find out which.
+
 ## The second section of the app
 
 This is where the wiki is read, and it holds three kinds of thing that should
