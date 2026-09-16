@@ -1157,3 +1157,48 @@ accept that it is on somebody's word. That is a decision, not a defect.*
 **Status:** OPEN. Both halves need him: the first because it changes the guide's
 rules, the second because it is a choice about what a machine should be asked to
 judge.
+
+---
+
+## Four design rounds bought no polish, and his verdict says so
+
+He authorised four rounds of review and fix on the Zibaldone reading pages,
+asking for something *"truly design award winning worthy."* On 16 September 2026,
+looking at the merged result: *"The app looks good. I like it. Would have liked
+more polish for so many review rounds but that's fine. It does look better
+though."*
+
+He is right, and the accounting shows exactly where the rounds went:
+
+| round | what it actually did |
+|---|---|
+| one | two sessions, about forty-nine ideas. The critique: four good ideas and forty-five grains of sand; neither of his two questions passes |
+| two | subtraction — forty-nine ideas down to five switches |
+| three | a critique that found six real defects: unhittable tap targets, text below the legibility floor, a false sentence at the foot of every article, a silent crash, a settings bug, and an index filing three subjects under "The" |
+| four | fixing those six, plus one regression the fixing introduced |
+
+**One round produced ideas, one removed them, and two went on defects. No round
+was spent making the good screens better.** The round-three critique said so
+itself, and named the place: the article screen passes his bar, and the front
+page and Codex are *"beautifully correct and nothing more."* Nothing ever went
+back to those two.
+
+**The mechanism, stated so it can be used next time: correctness crowds out
+polish, and it does it silently.** Every defect those rounds found was real and
+worth fixing — none of it was invented work. But a review round that finds a
+crash will spend itself on the crash, and the round after it spends itself on
+what the fix broke. The budget disappears into things that must be done, and
+nobody notices that the thing it was authorised for never started.
+
+*Why this is not solved by authorising more rounds: more rounds find more
+defects. The fifth round here would have gone the same way. What is needed is a
+round that is not allowed to fix anything — one whose only permitted output is
+the good screens made better, with defects it finds written down for a different
+round.*
+
+**Status:** OPEN, and it is a question for him rather than a change to make. The
+options are to protect a round for polish by forbidding it to fix, to get the
+defects out of the way first and start counting rounds afterwards, or to accept
+that a first pass buys correctness and polish is a separate job later. *Why it
+is his: it is about what he is buying with the rounds he authorises, and he is
+the one who can tell whether the result was worth them.*
