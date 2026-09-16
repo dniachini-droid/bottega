@@ -1202,3 +1202,55 @@ defects out of the way first and start counting rounds afterwards, or to accept
 that a first pass buys correctness and polish is a separate job later. *Why it
 is his: it is about what he is buying with the rounds he authorises, and he is
 the one who can tell whether the result was worth them.*
+
+---
+
+## The handoff check cannot pass for a project built with this workshop
+
+**16 September 2026.** The check refused a handoff for a Zibaldone review, and
+the refusal was correct about what it could see and wrong about what it meant:
+
+```
+done-looks-like: `projects/zibaldone/scope/the-narrating.md` is not on branch
+`claude/the-narrating`.
+```
+
+It is not, and it never will be. **`tools/check-handoff.mjs` requires the scope
+page to sit on the branch under review.** That holds for this workshop's own
+changes, where the scope page and the code are in one repository. It cannot hold
+for a project built with the workshop, where the scope pages live here in
+`projects/<name>/scope/` and the code lives in the project's own repository —
+which is the arrangement this whole place exists to produce.
+
+So the check verified the shape, the branch, the commit, the clean tree and the
+diffstat, and could verify nothing about the seventh field. Every project
+dispatch from now on hits this.
+
+**The purpose it is protecting is still real**, and worth restating before
+anybody softens it: the reviewer's job description has to be copied off a page
+the reviewer can already see, so there is nothing left in the pull request thread
+for the reviewer to go and fetch. A well-formed handoff still breaks isolation
+when a claim the reviewer must check exists only in a thread.
+
+**Three ways it could be made to hold, and the objection to each:**
+
+- **Teach the check to look in the workshop** for `projects/<name>/scope/` when
+  the branch is not one of ours. *Objection: it then compares against a page the
+  reviewer cannot see, which is the isolation problem wearing a different coat —
+  unless the reviewer is given the workshop too, which is more context, not
+  less.*
+- **Put a copy of the scope page on the project's branch.** *Objection: two
+  copies drift, and the check would be comparing one copy against another rather
+  than against the truth.*
+- **Let the field be verified against the brief instead of a page**, since the
+  brief is what the reviewer actually receives. *Objection: that is the check
+  reading prose and judging it, which is what `tools/reads.json` exists to avoid.*
+
+**Status:** OPEN. One review was dispatched with the first six fields confirmed
+and the seventh copied by hand off the scope page, and the reviewer was told
+plainly that this was so and why. *Why that was the right call rather than
+stopping: the check's substantive purpose was met — the job was written out in
+full in the brief, so the reviewer had nothing to fetch — and the owner was
+asleep with work waiting. But it was a judgement made around a refusing check,
+which is exactly the thing this repository does not let pass quietly, so it is
+written down here rather than left in a session's memory.*
