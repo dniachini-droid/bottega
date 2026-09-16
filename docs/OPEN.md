@@ -1082,3 +1082,41 @@ and already called too simple.*
 their first review onward. Neither session could be reached while it ran, so the
 bar goes in at round one rather than round zero.
 
+
+---
+
+## A review brief must not carry the builder's account of its own work
+
+On 16 September 2026 a design critique was dispatched on one version of the
+Zibaldone reading pages and **refused before it looked at anything**. The brief
+had been written from the building session's own pull request: what that session
+was told to do, what it said it had done, and its own list of two defects it
+knew about and had not fixed.
+
+The reviewer's objection, in its words: *"That is Michelangelo's opinion of its
+own work reaching the reviewer... It directed my attention before I looked."*
+And it refused to be re-briefed, because it had already read the material and a
+corrected brief could not un-read it — *"indistinguishable in the record from a
+clean one."* A fresh session was the only remedy. The round was not spent; the
+dispatching session was.
+
+**The rule this asks for, which is not written anywhere yet:** a review session
+is handed the version and the bar, and nothing the building session said about
+itself. Not its summary, not its pull request body, not its own list of what it
+knows is wrong. The reviewer finds those or fails to — **that is the
+measurement.**
+
+*Why this is not already covered: `AGENTS.md` says a fix session is given the
+review itself rather than a summary of it, which guards the relay in one
+direction. Nothing guards the other. The builder's self-report is exactly the
+kind of material that reads as helpful context and is in fact the answer key —
+a reviewer told in advance which two things are wrong can neither confirm the
+list is complete nor be trusted when it says the list is all there is.*
+
+*Also worth keeping: the brief's stated diffstat was wrong, computed against a
+base the branch had since moved past. The reviewer checked it rather than
+repeating it, which is the behaviour the handoff exists to produce.*
+
+**Status:** OPEN. It belongs in the guide's own rules, which is one of the three
+files that needs the owner's yes before it changes. Logged here until he sees
+it.
