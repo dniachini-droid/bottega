@@ -315,21 +315,48 @@ made it the earliest place the failure shows.*
 - **The verdict mix** — "nothing" and "amended" against "new page", which is
   already the filing's measure.
 
-## The second section of the app
+## The app becomes three sections, and the third is called Disegno
 
-This is where the wiki is read, and it holds three kinds of thing that should
-not look alike: **his subject pages**, **answers** he asked for, and **articles**
-it wrote unprompted.
+His decision of 16 September 2026, after the filing's first real run, replacing
+a two-section shape this page carried earlier:
 
-- **It opens on the most recent articles**, presented like a front page — a
-  title, a line, a date — not a list of files. *Why: a folder listing is what
+1. **The notebook** — what he put in. Already built.
+2. **The pages** — one per subject, the mind's summary of what he has said.
+3. **Disegno** — articles it wrote unprompted, and answers to questions he
+   asked.
+
+*Why three and not two: this whole design turns on keeping what he said apart
+from what a model concluded about him — it is why the log is never rewritten,
+why an article is its own page rather than merged into his, why the writer is
+blinded to what he liked. Putting his subject pages and its articles in one
+scrolling section undoes that separation at the moment he is actually reading
+it. They are also used differently: pages are reference, articles are news.*
+
+*Why answers sit with articles rather than alone: both are something new told to
+him, with sources, that he did not write. He asked for one and not the other.
+Within the section they should look different; they are not separate places.*
+
+*And there is no fourth section: the wiki's log is a copy of his captures, which
+the first section already shows.*
+
+**Disegno** is Vasari's word and the central term of Renaissance art theory —
+not drawing, but the conception that precedes the work, the intellectual grasp
+of a thing before the hand moves. *Why it and not "the noticing", which is what
+this page called it while it was being designed: he asked for a name on 16
+September 2026, was offered Ricordi, Disegno, Paragone and Speculum with what
+each actually is, and chose this one. It is the period's word for the faculty
+this section is built to exercise. It is opaque on a phone tab, so it carries a
+line under it saying what it holds.*
+
+- **Disegno opens like a front page** — a title, a line, a date — not a list of
+  files. *Why: a folder listing is what
   GitHub already gives him, and it is unreadable on a phone. The reason to build
   a second view at all is that it is not that.*
-- **Before the noticing is built** — that is, when the asking ships first — the
-  same view opens on the most recent answers to his questions, and there are no
-  articles and no controls. *Why said here: the asking's scope points at this section, and a
-  builder reading it would otherwise be told to build feedback buttons for
-  articles that do not exist yet.*
+- **Disegno is built before anything fills it**, so it must be real and empty,
+  say so gracefully, and take articles and answers when they come without being
+  rebuilt. *Why it is built first anyway: he said on 16 September 2026 that this
+  section is the point of the whole thing, and an empty shelf that arrives with
+  the thing it holds is better than a full one that arrives late.*
 - **Pages carry titles written for a person**, not file names.
 - **Diagrams draw themselves in the page**, on a phone.
 - **He can find a subject.** One search box, over titles and text.
