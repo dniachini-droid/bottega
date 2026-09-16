@@ -2,7 +2,7 @@
 
 ## What it does
 
-The second of three pieces of Zibaldone. The owner sits down at Claude Code
+The second of four pieces of Zibaldone. The owner sits down at Claude Code
 and says "file what's new". It fetches the captures his phone has taken since
 last time, reads them, and builds his second mind: a log of what happened and
 pages about the subjects he keeps returning to.

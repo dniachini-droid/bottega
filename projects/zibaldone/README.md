@@ -44,10 +44,10 @@ piece is worth having on its own.*
 4. **The noticing.** The mind reads itself and writes about what it sees, and
    learns from what he says back. *Added 16 September 2026.*
 
-## Two doors, and two ways of filing — decided 15 September 2026, and partly
-overturned the next day
+## Two doors, and two ways of filing — decided 15 September 2026
 
-**Read the corrections at the end of this section before building from it.**
+**Partly overturned the next day. Read the corrections at the end of this
+section before building from it.**
 
 **The wiki is markdown files in a repository.** *Why that and not a database:
 it is what the pattern this is built on actually is, it makes "he can get

@@ -883,3 +883,44 @@ and reopen this.
 
 **Status:** OPEN — no scope page triggers it, and no fix is proposed until one
 does or until somebody decides which of the two guarantees gives way.
+
+---
+
+## Whether a run on a clock is ordinary use of the owner's subscription
+
+Zibaldone's front page draws a line: *"a person driving a session is ordinary
+use of a subscription. An application routing its automated work through that
+subscription to avoid a bill is not. The test is whether a human is asking."*
+
+The asking, scoped on 16 September 2026, puts the filing on a clock several
+times a day, and answers questions he wrote into his phone hours earlier. A
+nightly batch he set up, on his own account, filing his own captures, is on the
+ordinary side of that line. A question typed into a phone and answered by a
+scheduled session is not plainly on either side.
+
+*Why this is here and not only in the scope page: the whole cost case for the
+asking rests on it — every claim that this costs him nothing beyond hosting —
+and if it is wrong the answer is not a redesign but a bill.*
+
+**Status:** OPEN — to be settled before the asking is built. Nothing depends on
+it until then.
+
+---
+
+## The noticing's evidence was gathered by search, not by reading
+
+Both research jobs of 16 September 2026 — `projects/zibaldone/noticing-research.md`
+and `projects/zibaldone/memory-research.md` — reached their academic sources
+through a search tool and say so themselves. Several rules in the noticing's
+scope quote their numbers, including the ones that decide how feedback is
+handled.
+
+*Why it is open rather than accepted: a number good enough to choose a design by
+is not good enough to be the only reason for one, and the scope page says so in
+as many words. The risk is that the caveat is dropped by the next session to
+quote the number.*
+
+**Status:** OPEN — before the noticing is built, check the handful of numbers
+that would change the design if wrong against the papers themselves. The two
+that would: that a user profile in the prompt raises agreement by 16–45%, and
+that a checker blind to the claim roughly doubles precision.

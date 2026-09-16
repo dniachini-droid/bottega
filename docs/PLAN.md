@@ -229,16 +229,17 @@ poisoning what gets found, not too little storage.*
 Only after the loop above has run end to end on Bottega itself, several times,
 and worked.
 
-**One question the research job did not get asked.** The noticing's scope now
-carries the owner's idea of 16 September 2026: every article can be answered —
-right, wrong, not for me, or in his own words — and what he answers is written
-into a preferences file the next run reads. The research on the noticing was
-already running in the cloud when he raised it and could not be reached, so it
-was never asked what evidence exists on feedback loops of that kind: whether
-they are measured to improve what gets written, how fast they converge on
-blandness when only complaints are counted, and whether anyone has separated
-"this is wrong" from "this is right but I did not want it". Ask it when the
-first findings land, before that part is built.
+**The question the first research job did not get asked, and where it was
+answered.** The owner raised the feedback loop on 16 September 2026 after the
+noticing's research had already started in the cloud, where it could not be
+reached, so that job was never asked what evidence exists on feedback loops of
+that kind. A second job, on memory and learning, was sent the same day and
+answered it: `projects/zibaldone/memory-research.md`. The short of it is that
+the danger is not blandness but flattery, that a preferences file in the prompt
+is measured to make a model more agreeable, and that the guard is to keep what
+he liked away from the call that decides what an article says. The noticing's
+scope carries the result. **Still not answered by anyone:** how fast such a loop
+narrows what a system will say. No study of it was found.
 
 ---
 

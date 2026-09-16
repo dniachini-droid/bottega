@@ -2,7 +2,7 @@
 
 ## What it does
 
-The third of three pieces of Zibaldone. He asks his second mind a question and
+The third of four pieces of Zibaldone. He asks his second mind a question and
 gets back real research, written into the wiki as a page he keeps.
 
 He can ask from either place. At Claude Code he types the question and the work
@@ -16,10 +16,23 @@ whether anything is new. Usually nothing is, and it stops. When something is,
 it files it — and answers any question among it.
 
 *This replaces the line in the filing's scope that put automatic and scheduled
-filing out. That was right when filing was the only thing on the clock and the
-only gain was saving him a keystroke. It stops being right once a question is
-waiting: on a nightly run an answer is up to a day away, and on a run every
-four hours it is a few hours away.*
+filing out. That decision of 15 September rested on three reasons. Two still
+hold and are kept: it costs nothing, and one writer at one door means no queue
+and nothing editing a page at the same time as something else. The third was
+that a batch sees a week at once and can tell that three captures over five days
+are about the same thing. **That reason no longer applies, and not because of
+anything here.** The filing's first review found a race between two captures
+about the same subject, and the fix decides captures one at a time, oldest
+first, each written before the next is decided — so what a run sees is the same
+whether it holds two captures or two hundred. What changed the decision is that
+a question can now be waiting: on a nightly run an answer is up to a day away,
+and on a run every four hours it is a few hours away.*
+
+*What the reviewer was right to ask about, and the answer: the filing's success
+measure counts "amended" and "nothing" against "new page", and short batches
+would break it if batch size changed the verdicts. It does not, for the reason
+above. If that measure does start drifting once this is running, the first
+suspect is the clock and the test is to file a week by hand and compare.*
 
 ## What done looks like
 
@@ -49,7 +62,8 @@ four hours it is a few hours away.*
   clearly marked, showing the wiki. *Why separate: the notebook is what he put
   in and must stay trustworthy as that.* What that view looks like is settled in
   the noticing's scope, because the articles it writes are most of what the view
-  is for.
+  is for — including what it shows when this piece ships first and there are no
+  articles yet.
 - **The wiki is pushed to the app by the run.** The app never reaches out for
   it. *Why: the app then holds no key to his private repository, and a running
   program that can read a repository is a program that can leak one.*
@@ -84,12 +98,21 @@ four hours it is a few hours away.*
   keyboard is two writers, and the filing pushes to a repository — the failure
   is silent and the loser is whichever finished first.*
 - **A run that fails says so where he will see it**, in the app, not only in a
-  log. *Why: a scheduled thing that fails quietly is worse than no scheduled
-  thing, because he stops checking.*
-- **How we will know it is right**: he asks something from his phone on a
-  Tuesday, and finds a researched page in the app the same day that cites his
-  own captures and says where the rest came from. And a week of runs where he
-  asked nothing costs him nothing he can feel.
+  log — and **the app notices a run that never arrives.** The run tells the app
+  when it starts and when it finishes; the app knows the hours it should hear
+  from, and says plainly when it has not. *Why the second half and not just the
+  first: the run pushes to the app, the app never reaches out to the run, so a
+  run that dies before pushing — or never starts, which is the commonest failure
+  of anything on a clock — has no road to tell him. Only the app noticing the
+  silence covers that, and it is the case the rule was written for.*
+- **How we will know it is right**: with the clock set to run several times a
+  day, he asks something from his phone on a Tuesday morning and finds a
+  researched page in the app that evening, citing his own captures and saying
+  where the rest came from. *Said with the setting attached because it is not
+  true of every setting: on a once-a-night clock the same test is "by the next
+  morning", and the page should not appear to promise something the hours he
+  chose cannot deliver.* And a week of runs where he asked nothing costs him
+  nothing he can feel.
 
 ## What is out
 
