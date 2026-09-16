@@ -1254,3 +1254,43 @@ full in the brief, so the reviewer had nothing to fetch — and the owner was
 asleep with work waiting. But it was a judgement made around a refusing check,
 which is exactly the thing this repository does not let pass quietly, so it is
 written down here rather than left in a session's memory.*
+
+---
+
+## The same leak again, from the other direction: the previous review
+
+**16 September 2026, later the same night.** The rule written above — that a
+review brief carries the version and the bar and nothing the building session
+said about itself — was followed. The brief for the third round of the narrating
+carried no builder material at all. It still came back marked
+**`context_isolation: false`**, and the reviewer was right:
+
+> *"the handoff also carried the design intent and the previous review's
+> conclusions ('nothing reaches outside, capture takes 30 ms, seven behaviours
+> each genuinely refused by a test'). That is prior-reviewer material, and it
+> could anchor."*
+
+It was put there deliberately, to save the round re-deriving what an earlier
+round had already established. That is exactly the reasoning that makes it
+dangerous: **a reviewer told what the last reviewer confirmed has been handed a
+list of things it need not check.** The three findings this round produced were
+all in territory the first review had pronounced sound.
+
+This one re-measured every inherited claim rather than accepting any, said so,
+and its numbers were its own — so the review stands. **The next one might not,
+and nothing in the brief would show the difference.**
+
+*Why this is a separate entry rather than an extension of the one above: the
+first leak was the builder's opinion of its own work, and the instinct behind it
+was helpfulness. This one is a prior reviewer's findings, and the instinct behind
+it is efficiency — not wanting to pay twice for the same measurement. The second
+instinct is stronger, better-motivated, and will keep coming back.*
+
+**What a brief may carry, as this now stands:** the version, the bar, what the
+thing is for, and what it must never do. **Not** what the builder says it did,
+and **not** what a previous reviewer concluded — including the reassuring parts.
+Telling a round that it is the second or third version, and that earlier faults
+were found and fixed, is fair and useful; naming them is not.
+
+**Status:** OPEN, with the rest. It is the same rule needing the same line in the
+guide's own skill, which is one of the three files that needs the owner's yes.
