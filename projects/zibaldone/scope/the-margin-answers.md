@@ -36,6 +36,22 @@ better local match or an honest mark, never a model.*
 assumed — no address appears anywhere in `server/`. This piece must not be the
 first thing to break it.
 
+## Cut into slices, 17 September 2026
+
+**Slice one, which is this job: the margin answers, and admits it is guessing.**
+Everything below describes it.
+
+**Slice two, not started and not to be started yet: the guess gets better.**
+*Why it waits: once slice one has run for a while there is a number that does
+not exist today — how often the guess matched what the filing decided that
+night. That number says whether better matching is worth building and what to
+aim at. Built first, it is a guess at a guess.*
+
+**He confirmed the correction on 17 September 2026**, in his own words: *"the
+margin title would be fixed at each Claude code round"*. Yes. The guess stands
+only until the next filing run and whatever that decides replaces it. Where the
+filing decides the thought belongs nowhere, the margin goes empty.
+
 ## What done looks like
 
 - **The guess is visibly a guess.** The design already has a language for ink
