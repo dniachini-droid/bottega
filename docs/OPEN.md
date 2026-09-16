@@ -928,3 +928,38 @@ session to touch either file should know.*
 **Status:** OPEN — neither is being fixed now, by his decision. Neither blocks
 anything.
 
+---
+
+## A scheduled run cannot approve its own agents, and the filing cannot run without them
+
+Found on 16 September 2026, in the filing's first real run on the owner's own
+captures — the run that no review could stand in for.
+
+The filing hands each capture to a fresh agent to decide about, and a second one
+to write. That separation is the design: *"Deciding and writing are two separate
+calls."* In the Claude Code desktop app in auto mode, starting those agents was
+**refused outright** — the classifier reads a skill saying "read this file and
+do what it says" as untrusted-code integration. The session stopped rather than
+do the deciding itself, which is what the skill tells it to do and the right
+answer.
+
+Out of auto mode it asks instead of refusing, and the owner had to approve every
+agent by hand. "Always allow" did not hold, because each agent call differs
+enough that the saved permission does not match the next one. What worked was
+allowing the Agent tool itself.
+
+**Why this blocks the clock, which is the next thing to be built.** A scheduled
+run has nobody there. Auto mode refuses the agents; asking has no one to ask.
+So a Routine running the filing would, as things stand, either be refused or
+stall — and the same is true of the noticing, which spawns agents for the same
+reason.
+
+*Why it is here rather than in a scope page: it is not a decision about what to
+build, it is a thing that must be found out. It may be a settings question, a
+different way for the skill to describe itself, or something about how a Routine
+is granted tools. Nobody here knows yet.*
+
+**Status:** OPEN — to be settled before the clock is built, and it gates the
+noticing too. The filing by hand is unaffected: it works, with the Agent tool
+allowed once.
+
