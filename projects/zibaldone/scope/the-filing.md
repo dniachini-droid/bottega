@@ -85,6 +85,25 @@ things editing the same page at once.*
   one page, not three. And the count shows "amended" and "nothing" together
   outnumbering "new page".
 
+## Two lines on this page his later decisions overturned
+
+*Added 16 September 2026, the same day, after he decided the asking. This page
+is otherwise unchanged: it is what the second piece was built against and it
+stays as it was. But whoever builds next reads this page, not another one, so
+what is no longer true is said here.*
+
+- **"It runs when he runs it. No schedule, no background work"**, and **"Any
+  automatic or scheduled filing"** under what is out. Overturned. The filing
+  goes on a clock he sets, several times a day, so that a question waiting in
+  the notebook is answered in hours rather than at his convenience. The asking's
+  scope carries it.
+- **"the phone one as its own clearly separate option so he always knows which
+  he is using and which costs money."** Half overturned. The phone way of asking
+  is still its own clearly separate option. But it costs nothing: it is a marked
+  line written into the notebook like any other capture, answered by the run.
+  The app never calls a model itself, so there is no per-question bill to warn
+  him about.
+
 ## What is out
 
 - **Asking it questions.** That is the third piece, and it has both doors: his

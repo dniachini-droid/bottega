@@ -58,12 +58,26 @@ four hours it is a few hours away.*
   Claude allowance he already pays for. A model called from the app is billed
   per question and is the only thing in the design that would put a separate
   bill on him.*
-- **An empty check is cheap.** It asks how many captures are unfiled and stops
-  on zero. *Why it is affordable at six times a day: the cost of an empty check
-  is the cost of starting a session, which this workshop holds under 10,000
-  tokens by budget. Why it matters that it is cheap: responsiveness is then
-  nearly free, because filing four times a day is the same work as filing once,
-  split up.*
+- **An empty check is cheap, and how cheap is to be measured rather than
+  assumed.** It asks how many captures are unfiled and stops on zero. *Why it is
+  expected to be affordable at six times a day: filing four times a day is the
+  same work as filing once, split up — same captures, same thinking — so
+  responsiveness costs almost nothing beyond the price of waking a session. What
+  that price actually is has not been measured here. It is not this workshop's
+  10,000-token startup budget: that number covers this repository's instruction
+  files and explicitly excludes the prompt, and a run of his notebook also pays
+  for the model's own setup, the fetch and the thinking. Measure one empty check
+  before settling the number of checks a day.*
+- **Whether a run on a clock is ordinary use of his subscription is an open
+  question, and it is load-bearing.** This project's front page draws the line
+  at whether a human is asking: a person driving a session is ordinary use; an
+  application routing its automated work through a personal subscription to
+  avoid a bill is not. A nightly batch he set up, on his own account, filing his
+  own captures, sits on the ordinary side of that line. A question he typed into
+  a phone, queued and answered by a scheduled session, sits closer to the other.
+  *Why it must be settled before this is built and not after: the whole cost
+  case for the asking rests on it, and if it is wrong the answer is not a
+  redesign but a bill.*
 - **Two runs never overlap, and a run never collides with him.** *Why this is
   named rather than assumed: the filing was designed around one writer at one
   door, which was true while he ran it by hand. A clock plus a man at a

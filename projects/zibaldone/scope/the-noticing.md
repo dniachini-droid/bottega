@@ -2,16 +2,32 @@
 
 ## What it does
 
-The fourth piece. Once a week the mind reads itself and asks what has changed
-shape — a subject he keeps returning to, two things that turn out to be one
-thing, a view of his that has quietly reversed, a pattern across months he
-cannot see from inside a week. Where there is something worth saying, it writes
-an article, or draws the shape of it, and files it like anything else.
+The fourth piece. The mind reads itself and asks what has changed shape — a
+subject he keeps returning to, two things that turn out to be one thing, a view
+of his that has quietly reversed, a pattern across months he cannot see from
+inside a week. Where there is something worth saying, it writes an article, or
+draws the shape of it, and files it like anything else.
 
-He can also run it by hand from Claude Code whenever he wants, without waiting
-for the week. *Why both: the clock is what makes it happen when he forgets, and
-the hand-run is what he uses the first time the clock does not, and when he has
-just captured something and wants to know what it connects to.*
+**Every night, with the filing, it does the bookkeeping** — what today's
+captures touched, what is recurring, what contradicts something already
+written. That is his own proposal of 16 September 2026, in his words: *"it
+should be nightly check for new inputs, and then a quick check if any new trends
+are there"*, on the ground that it is the same work as collating. **It writes
+only when the bookkeeping trips a line**, which may be any night. And **a slower
+sweep** looks for what never trips one.
+
+*Why writing is not nightly as well, and this is the one place his proposal was
+argued with rather than taken: asking "is there anything here" 365 times a year
+is 365 chances to answer yes about nothing, and a trend is not visible in a day.
+The nightly half is the half he was right about — it is cheap, it is mechanical,
+and without it nothing would ever notice in time. If, once it is running, the
+triggers turn out to hold back things he wanted, loosen them; that is a number,
+not a redesign.*
+
+He can also run the whole thing by hand from Claude Code whenever he wants.
+*Why: the clock is what makes it happen when he forgets, and the hand-run is
+what he uses the first time the clock does not, and when he has just captured
+something and wants to know what it connects to.*
 
 *Why this is a piece of its own rather than part of the filing: the filing looks
 at one capture and asks where it belongs. This looks at the whole mind and asks
@@ -20,11 +36,23 @@ second into the first would mean paying for it on every run.*
 
 ## What done looks like
 
-- **Weekly by default, on an hour he sets, and on demand from Claude Code.**
-  *Why weekly and not on every run: this is the only part of the system that
-  works when he has asked for nothing, so it is the only part with an
-  open-ended cost. A week is also the shortest span over which "he keeps
-  returning to this" means anything.*
+- **A ledger — his living file.** A small record, updated on every nightly run,
+  that briefly notes what each capture touched: the subject, the date, and
+  whether it added to, corrected or duplicated what was already there. His
+  words: *"almost like a living file that briefly references each input."* *Why
+  it is what makes the rest affordable: the nightly check then reads today
+  against the ledger rather than everything against everything, so the cost does
+  not grow as the mind grows. Without it, nightly is unaffordable within a year
+  and the weekly-versus-nightly argument is decided by cost rather than by what
+  is right.*
+- **Nightly bookkeeping, writing on a trigger, and a slower sweep.** The nightly
+  half updates the ledger and nothing else — mechanical, no judgement. Writing
+  happens when the ledger crosses a line: a subject returned to several times in
+  a fortnight, two subjects that keep appearing together, a capture that
+  contradicts a page. The thresholds are to be set from evidence where it
+  exists; the research job of 16 September 2026 was asked for published numbers
+  and what it found belongs here before this is built.
+- **He can run any of it by hand**, whenever, from Claude Code.
 - **Nothing is the ordinary answer, and it is counted.** A week where it
   observes nothing is a normal week, reported as such. *Why this is the
   load-bearing rule: a model asked to find insights will always find some. This
@@ -75,18 +103,26 @@ without it the noise problem has no remedy except guessing.*
   one nobody dares delete. This is the same rule this workshop holds itself to.*
 - **"More of this" counts as much as "less of this", and it is allowed to say
   things he does not like.** *Why, and this is the failure this design most
-  needs to avoid: a system tuned only against complaints learns to say less and
-  less until it says nothing worth reading. Blandness is the documented end
-  state of optimising against negative feedback, and it would arrive slowly
-  enough that neither of us would notice it happening.*
+  needs to avoid: a system tuned only against complaints has every reason to say
+  less and less until it says nothing worth reading, and it would arrive slowly
+  enough that neither of us would notice. **This is reasoning, not a measured
+  fact.** A research job was sent on 16 September 2026 to find what is actually
+  known about it; until that lands, the rule stands on the argument alone and
+  this page must not say otherwise. Sycophancy is the same danger wearing a
+  friendlier face: a mind that learns what he likes and tells him that is worse
+  than no mind at all.*
 - **Feedback is not a capture.** It lives beside the wiki, not in his log.
   *Why: the log is the record of his life, and what he thought of an article is
   a fact about this program.*
 - **It does not overreact to one night.** A single dismissal does not rewrite
   what it believes he wants.
-- **How we will know the learning works**: the share of articles he marks
-  helpful rises over a month. If it does not move, the feedback is being
-  collected and not used, and we should find out which.
+- **How we will know the learning works**: over fifty articles, not over a
+  month. *Why counted in articles: at a handful a month, and with weeks that
+  produce nothing counted as success, a month is three or four articles and a
+  share of three or four is noise. What to look at over those fifty: whether the
+  share he marks helpful rises, and — the one that matters more — whether he is
+  still marking anything wrong. If "this is wrong" stops appearing entirely, the
+  likeliest explanation is not that it became right.*
 
 ## The second section of the app
 
@@ -103,10 +139,20 @@ not look alike: **his subject pages**, **answers** he asked for, and
 - **He can find a subject.** One search box, over titles and text.
 - **It matches the notebook he already has** — the same hand, so the two
   sections feel like one thing he owns rather than two programs.
-- **It is read-only.** No editing, no notes, no marking. *Why: one writer. The
-  moment the app can change a page, the app and the weekly run are two things
-  writing the same mind, which is the failure the filing was designed to
-  avoid.*
+- **He cannot change a page, and he can answer an article.** Those are
+  different things and the distinction is the whole of it: nothing he does in
+  the app edits the wiki. *Why: one writer. The moment the app can change a
+  page, the app and the run are two things writing the same mind, which is the
+  failure the filing was designed to avoid.*
+- **What an article carries, exactly four controls**: *more of this*, *less of
+  this*, *this is wrong*, and a box for his own words. *Why written out: "two
+  unhelpfuls kept apart" plus "more of this" plus a box can be counted as three
+  controls or as four, and a builder should not have to guess.*
+- **How an answer gets back.** It is stored by the app beside his captures and
+  collected by the next run through the same route the captures come by. *Why
+  stated rather than assumed: the app never reaches into the wiki, so there is
+  no other road, and "it lives beside the wiki" says where it ends up rather
+  than how it travels.*
 
 ## What is out
 
@@ -115,8 +161,9 @@ not look alike: **his subject pages**, **answers** he asked for, and
 - **Tags, folders, or any structure he has to maintain.** *Why: the point is
   that he writes and it files. A structure he curates is a second job.*
 - **NotebookLM or any outside tool inside the run.** Researched on 16 September
-  2026: there is no official interface for an ordinary account, it caps at 100
-  sources where his mind grows without limit, it cannot write back into the
+  2026: there is no official interface for an ordinary account, it caps at 50 sources a notebook on the free account he
+  would be using, 100 on the first paid tier, where his mind grows without
+  limit, it cannot write back into the
   wiki, and automating it would mean his Google login sitting on a server. He
   can export and use it by hand whenever he likes; that needs nothing built.
 - **Splitting or reorganising pages that have grown long.** Still out, as in the
