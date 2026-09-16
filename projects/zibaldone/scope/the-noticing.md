@@ -403,7 +403,12 @@ line under it saying what it holds.*
 
 ## What is out
 
-- **Advice, plans, reminders, anything addressed to him in the second person.**
+- **Advice, plans, reminders, exercises, next steps** — anything telling him
+  what to do. *Not the second person, which an earlier version of this line
+  ruled out and which the paragraph above settles the opposite way: the article
+  speaks to him. The line is between interpretation and instruction. This line
+  said the opposite of that one for several hours and the build session caught
+  it from the outside.*
 - **Editing the wiki from the app.** Above, with its reason.
 - **A learned score of what he likes**, and **showing the writer his bad past
   articles as examples of what not to do.** *Why the second: models handle
