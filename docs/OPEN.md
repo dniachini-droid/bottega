@@ -883,3 +883,48 @@ and reopen this.
 
 **Status:** OPEN — no scope page triggers it, and no fix is proposed until one
 does or until somebody decides which of the two guarantees gives way.
+
+---
+
+## The noticing's evidence was gathered by search, not by reading
+
+Both research jobs of 16 September 2026 — `projects/zibaldone/noticing-research.md`
+and `projects/zibaldone/memory-research.md` — reached their academic sources
+through a search tool and say so themselves. Several rules in the noticing's
+scope quote their numbers, including the ones that decide how feedback is
+handled.
+
+*Why it is open rather than accepted: a number good enough to choose a design by
+is not good enough to be the only reason for one, and the scope page says so in
+as many words. The risk is that the caveat is dropped by the next session to
+quote the number.*
+
+**Status:** OPEN — before the noticing is built, check the handful of numbers
+that would change the design if wrong against the papers themselves. The two
+that would: that a user profile in the prompt raises agreement by 16–45%, and
+that a checker blind to the claim roughly doubles precision.
+
+---
+
+## Two things on Zibaldone the owner has seen and waved through
+
+*Both were put to him on 16 September 2026 with what they cost, and he accepted
+both. They are here because accepted is not the same as fixed, and the next
+session to touch either file should know.*
+
+- **The deploy's passphrase guard does not see a non-breaking space.** The guard
+  refuses a passphrase padded with an ordinary space; the invisible space a Mac
+  makes from Option+Space gets past it. *Why it went unseen through five review
+  rounds: the test double modelled the trimming with the same rule the guard
+  used, so the double and the guard agreed with each other and neither agreed
+  with the real tool. That is the finding worth remembering, more than the bug.*
+  It bites only if he ever puts one of those characters in a passphrase. One
+  line to fix, whenever somebody is in that file for another reason.
+- **His passphrase sits in the record of whatever session he types it into.**
+  The filing needs it once per session on the web version, or once ever on his
+  own computer. No alternative was found that does not mean him doing the whole
+  filing by hand in a browser.
+
+**Status:** OPEN — neither is being fixed now, by his decision. Neither blocks
+anything.
+

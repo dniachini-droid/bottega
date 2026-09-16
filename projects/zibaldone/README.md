@@ -30,7 +30,7 @@ a Tuesday, and nothing can recover it. Why no `health/` or `work/`: one doctor's
 note is personal and health and work and insurance at once, and a tree forces a
 wrong choice.*
 
-**Three builds, in this order.** *Why cut rather than built whole: the whole
+**Four builds, in this order.** *Why cut rather than built whole: the whole
 thing is far larger than anything this workshop has reviewed, and a review of
 one large change catches much less than the same work reviewed in pieces. Each
 piece is worth having on its own.*
@@ -38,9 +38,31 @@ piece is worth having on its own.*
 1. **The notebook.** Capture, photos read, everything kept, a list to scroll
    back through, a lock, and the look. No filing yet.
 2. **The filing.** The model reads each capture and maintains the wiki.
-3. **The asking.** Research with real sources, written back in as pages.
+3. **The asking.** Research with real sources, written back in as pages. Two
+   doors — Claude Code, and a marked line written into the notebook from his
+   phone — and one path out. The filing goes on a clock here.
+4. **The noticing.** The mind reads itself and writes about what it sees, and
+   learns from what he says back. *Added 16 September 2026.*
+
+**The asking before the noticing**, settled 16 September 2026. *Why that way
+round: the asking is what he described wanting in the first place, and the
+noticing cannot work without the ledger, which the filing has to build.*
+
+**And each of the two is cut into two or three changes, not sent whole.**
+Settled the same day, on the evidence of the piece before them. *Why: the
+filing went in as one change of 2,461 lines across 18 files and took five
+rounds of review to get clean. Three of the four serious faults were in one
+feature — taking something out — which should have been a small change of its
+own. The rounds were not waste: each found something worse than the last, and
+the fourth round's fault was caused by the second round's fix. But the total
+work would have been smaller if the pieces had been. This workshop's own rule
+already says a small change under review catches about three times more defects
+than a large one; this is that rule meeting a real number.*
 
 ## Two doors, and two ways of filing — decided 15 September 2026
+
+**Partly overturned the next day. Read the corrections at the end of this
+section before building from it.**
 
 **The wiki is markdown files in a repository.** *Why that and not a database:
 it is what the pattern this is built on actually is, it makes "he can get
@@ -49,15 +71,17 @@ the owner chose it — it means Claude Code can read and write the wiki directly
 
 **So there are two doors to the deep research, and he wants both.**
 
-- **From his phone.** Wherever he is. This costs money per question, because the
-  application is reaching a model on his behalf.
+- **From his phone.** Wherever he is. *This was to cost money per question,
+  because the application would reach a model on his behalf. Overturned 16
+  September 2026 — see below.*
 - **From Claude Code, at his computer, on the repository.** Him asking, himself,
   in a tool he already pays for. No separate bill for the expensive part.
 
-*Where the line is, and it is not negotiable: a person driving a session is
-ordinary use of a subscription. An application routing its automated work
-through that subscription to avoid a bill is not, and is not to be built. The
-test is whether a human is asking.*
+*Where the line is: a person driving a session is ordinary use of a
+subscription. An application routing its automated work through that
+subscription to avoid a bill is not, and is not to be built.* **The test this
+line used to give — "is a human asking" — was overturned on 16 September 2026
+and no longer decides it. See the corrections at the end of this section.**
 
 **Filing works both ways too, and he wants both.**
 
@@ -68,6 +92,41 @@ test is whether a human is asking.*
 *Why both rather than one: instant filing is what makes the wiki feel alive, and
 batch filing is what makes it affordable to use twenty times a day. Neither on
 its own is the thing he asked for.*
+
+### What he decided instead, on 16 September 2026
+
+*The two lines above about money are no longer what is being built. Both were
+overturned by him the following day, and the scope pages for the asking and the
+noticing carry the replacements.*
+
+- **The application never calls a model itself.** Not for filing, not for
+  asking. That removes the only per-use bill in the design. What is left is
+  hosting, about US$6 a month, and the Claude allowance he already pays for.
+- **Instant filing on capture is not being built.** His words on 15 September,
+  which the line above did not record: he does not want instant. Filing happens
+  in batches, and from 16 September on a clock he sets rather than only when he
+  sits down.
+- **Both doors for asking remain, and both are free to him.** The phone door is
+  a marked line written into the notebook like any other capture, answered by
+  the next run. It stays a clearly separate option in the app — not because it
+  costs money, but so he always knows which he is using and when the answer will
+  come.
+- **The boundary above has been settled for a run on a clock, and the test it
+  gave is overturned.** Anthropic ships Routines for scheduled unattended Claude
+  Code work and states that they draw on subscription usage the same way an
+  interactive session does — so a run on a clock is ordinary use whether or not
+  anybody asked for the particular thing it produces. What governs instead is a
+  published cap: **five runs a day on Pro, fifteen on Max, shared across the
+  whole account.** Past it runs are rejected, or billed as metered overage on an
+  account with usage credits turned on. So "it costs nothing" now depends on
+  staying under a number, and the scope pages for the asking and the noticing
+  carry it. Routines are in research preview and their limits may change.
+- **One thing that was written here and is wrong**, recorded because it was used
+  as a reason: that the Agent SDK, `claude -p` and GitHub Actions had been moved
+  off subscription usage onto a separate credit in mid-2026. That change was
+  announced for 15 June 2026 and **paused before it took effect**; those still
+  draw on the subscription. It had been the whole argument for one design
+  decision, which survives on a weaker reason.
 
 **Two things he was told and accepted when he decided this.** His raw captures —
 health, feelings, private thoughts — would live in a private repository on

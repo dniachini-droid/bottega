@@ -224,10 +224,42 @@ No vector store. No embeddings. No infrastructure. *Why: this is already
 decided in `docs/VISION.md`, and every failure in that field is stale entries
 poisoning what gets found, not too little storage.*
 
+### 7b. The guide's handoffs are not the shape the method asks for
+
+Every review dispatched on 16 September 2026 came back marked
+`context_isolation: false`. The handoffs carried the owner's own words, a
+description of the application, and lists of what to chase, where the method
+asks for seven lines. One reviewer said outright that it reviewed anyway rather
+than stop, and recorded it so the next person would know the review was not run
+clean. Another two said the same.
+
+*Why it matters rather than being a formality: the whole reason a fresh session
+reviews is that it has not been told what to think, and a brief that says what
+was changed and why is telling it what to think. The reviews found real faults
+anyway, so this is not an emergency — it is the guarantee being weaker than it
+claims.*
+
+Related to item 3 above, which records that the handoff checker cannot check a
+project build at all. **The owner agreed on 16 September 2026 that this be
+fixed, and that it wait until after the filing has been run against his real
+captures.**
+
 ### 8. Zibaldone
 
 Only after the loop above has run end to end on Bottega itself, several times,
 and worked.
+
+**The question the first research job did not get asked, and where it was
+answered.** The owner raised the feedback loop on 16 September 2026 after the
+noticing's research had already started in the cloud, where it could not be
+reached, so that job was never asked what evidence exists on feedback loops of
+that kind. A second job, on memory and learning, was sent the same day and
+answered it: `projects/zibaldone/memory-research.md`. The short of it is that
+the danger is not blandness but flattery, that a preferences file in the prompt
+is measured to make a model more agreeable, and that the guard is to keep what
+he liked away from the call that decides what an article says. The noticing's
+scope carries the result. **Still not answered by anyone:** how fast such a loop
+narrows what a system will say. No study of it was found.
 
 ---
 
