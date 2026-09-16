@@ -1051,4 +1051,34 @@ app rather than a fix applied twice.*
 the way, which is already altering how an article is written and shown, and
 alongside the Codex back button already under way. Recorded here because neither
 session could be reached while it ran.
+## The standard the design work is held to
+
+His instruction, the night of 16 September 2026, about the two design jobs then
+running: *"The outcome needs to be incredible. I mean truly design award winning
+worthy ... really invest in making it something beautiful."*
+
+**The mechanism is not more time. It is what the rounds ask.** He authorised four
+rounds of review and fix on each. A code review asks *is this correct*; that is
+the wrong question here and will produce four rounds of polish on a mediocre
+first idea. **The rounds are design critiques**, run on Opus, and they are
+allowed — expected — to answer *throw it away and start again*.
+
+**The bar, stated so it can be judged rather than felt:**
+
+> Would someone who collects this kind of work stop on it? Would a person who
+> has never heard of it look at one screen and want to know what it is?
+
+*Why that phrasing rather than "is it beautiful": beautiful is not a question
+anybody can answer against a screenshot, and every reviewer will say yes to
+avoid seeming philistine. The two questions above have a wrong answer, and a
+reviewer can give it.*
+
+**And rejection has to be real.** If a first cut is merely tidy, the answer is
+start again, not refine. *Why it is written down: four rounds spent improving
+the wrong idea end in something competent, and competent is what he already has
+and already called too simple.*
+
+**Status:** OPEN — applies to `claude/the-beautiful` and `claude/the-page` from
+their first review onward. Neither session could be reached while it ran, so the
+bar goes in at round one rather than round zero.
 
