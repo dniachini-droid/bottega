@@ -902,8 +902,13 @@ scheduled session is not plainly on either side.
 asking rests on it — every claim that this costs him nothing beyond hosting —
 and if it is wrong the answer is not a redesign but a bill.*
 
-**Status:** OPEN — to be settled before the asking is built. Nothing depends on
-it until then.
+**And the noticing is the harder case, not the asking.** Nobody asks for an
+article at all. A scheduled session wakes, reads the ledger, decides on its own
+that something is worth saying, and writes it. An answer of "he asked, so it is
+ordinary use" settles the asking and does not reach the noticing.
+
+**Status:** OPEN — to be settled before the asking is built, and settled again
+for the noticing, which the first answer may not cover.
 
 ---
 

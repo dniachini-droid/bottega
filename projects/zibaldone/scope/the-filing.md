@@ -104,6 +104,25 @@ what is no longer true is said here.*
   The app never calls a model itself, so there is no per-question bill to warn
   him about.
 
+## What later pieces need from the filing
+
+*Added 16 September 2026, for the same reason as the section above: this is the
+page whoever builds the filing reads.*
+
+- **The ledger.** The noticing's scope has the filing maintaining a small
+  running record of what each capture touched — the subject, the date, and
+  whether it added to, corrected or duplicated what was already there — updated
+  on every run. It is what lets the noticing read a day against a summary rather
+  than the whole mind, so its cost does not grow. It can be built later and
+  filled in from the log in one pass, but it is the filing's to build, not the
+  noticing's.
+- **A reply is filed and goes no further.** A capture marked as a reply to an
+  article gets its log entry and is given no verdict, no page and no amendment.
+  *Why it is named here: it is the one exception to "every capture is decided",
+  and it exists because a reply is about this program rather than about his
+  life — and because letting it reach a page would hand the article-writer
+  exactly what the noticing's design goes to some trouble to keep from it.*
+
 ## What is out
 
 - **Asking it questions.** That is the third piece, and it has both doors: his

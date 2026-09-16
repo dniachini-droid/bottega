@@ -17,7 +17,12 @@ then making comment."*
 
 **It must stay free, and it must be responsive at least nightly.** His
 instruction of 16 September 2026, and the constraint everything below is built
-inside.
+inside. **Whether this way of being free is allowed has not been settled, and
+this piece is the hardest case of it.** The project's front page draws the line
+at whether a human is asking; nobody asks for an article. A scheduled session
+wakes, reads the ledger, decides on its own to write, and writes. Even an answer
+of "he asked, so it is ordinary use" does not reach this piece. It is in
+`docs/OPEN.md` and it is to be settled before this is built.
 
 *Why this is a piece of its own rather than part of the filing: the filing
 looks at one capture and asks where it belongs. This looks at the whole mind and
@@ -29,7 +34,10 @@ inventing what he meant.*
 
 Two research jobs ran on 16 September 2026 and their documents are
 `projects/zibaldone/noticing-research.md` and
-`projects/zibaldone/memory-research.md`. Several rules here rest on numbers from
+`projects/zibaldone/memory-research.md`, both on this branch beside this page.
+*Why they travel with it rather than being left where they were written: a page
+that quotes a number and points at a file nobody can open is a page whose
+numbers cannot be argued with.* Several rules here rest on numbers from
 them. **Both jobs reached their sources through a search tool rather than by
 reading the papers**, and both say so. So a number quoted here is good enough to
 choose a design by and not good enough to be the only reason for one. Where a
@@ -46,6 +54,13 @@ rule would fall apart if its number were wrong, that is said.
   which is the work it exists to avoid. Why it exists at all: the trend check
   then reads the ledger rather than the whole mind, so the cost does not grow as
   the mind grows — which is what makes nightly affordable in year two.*
+- **The ledger is built from the log on the day it first runs**, so it covers
+  everything he has captured, not only what arrives afterwards. *Why this is a
+  rule and not an implementation detail: the noticing is the fourth build, and a
+  ledger that starts empty makes "a pattern across months he cannot see from
+  inside a week" impossible until months have passed — which is the whole point
+  of the piece, unavailable for its first season. Everything the ledger holds is
+  derivable from the log, so this costs one pass over what is already there.*
 - **The trend check runs once a day, at an hour he sets**, over the ledger. It
   is mechanical: which subjects are recurring, which co-occur, what contradicts
   a page. No model judgement, and nothing written.
@@ -83,8 +98,11 @@ number, not a redesign.*
   concluded about him must stay tellable apart, or in a year he cannot trust
   either.*
 - **Every observation names what it was drawn from** — which pages, which
-  captures, which weeks. *Why beyond honesty: it is what makes the check below
-  possible at all.*
+  captures, which weeks — **and a sentence stating a fact about him names the
+  log entry it rests on.** *Why the second half and not only the first: the
+  monthly provenance number samples sentences, and until now nothing required a
+  sentence to point anywhere, so the measurement had no rule under it. And it is
+  what makes the check below possible at all.*
 - **What is written is checked by a second call that never sees the claim.** The
   checker is given the evidence and a question it can answer — *does this
   capture say he was anxious about the move?* — not the article and *is this
@@ -92,12 +110,20 @@ number, not a redesign.*
   claim and asked to judge it is self-correction, which has been measured not to
   help and sometimes to hurt. A checker handed the source and asked something
   checkable is a different mechanism, and on a list task it roughly doubled
-  precision.*
+  precision.* **What this does not cover, said plainly: it checks the
+  ingredients, not the shape.** Every capture an article rests on can be
+  faithfully described while the pattern drawn across them is invented, and
+  that is this piece's characteristic failure. Nothing here catches it; the
+  monthly numbers below are what stand in its place.
 - **Articles are written as an adviser, in the third person, and as a question
-  where the evidence is thin.** *Why all three: they are the only guards against
-  flattery that anyone has measured from outside a model's training. Third-person
-  framing alone cut it by up to 63.8% in one benchmark; turning a statement into
-  a question took it to near zero where the statement form was 24 points worse.*
+  where the evidence is thin.** *Why these three: third-person framing alone cut flattery by up to
+  63.8% in one benchmark, and turning a statement into a question took it to near
+  zero where the statement form was 24 points worse. The adviser voice has no
+  number behind it and is here on one report that it keeps judgement more
+  independent. Two other guards measured the same way sit elsewhere on this page:
+  not writing his claim down as a fact, and telling the writer plainly not to
+  flatter — the second helps, but by substantially less than changing how the
+  material is put to it.*
 - **A diagram is text that draws itself**, stored in the page. *Why not an image
   file: a repository keeps every version forever, so images accumulate and can
   never be taken back out; and text can be read, corrected and searched when the
@@ -113,8 +139,8 @@ number, not a redesign.*
 
 ## Learning from him
 
-Every article carries a way for him to answer it, and what he answers changes
-what gets written. *Why this is in scope and not a refinement: it is the only
+Every article carries a way for him to reply to it, and what he says back
+changes what gets written. *Why this is in scope and not a refinement: it is the only
 signal that can tell a useful observation from a plausible one.*
 
 **It is also the most dangerous thing in the design, and the rules below are
@@ -125,23 +151,32 @@ What the research found, all of it against the naive version of this feature:
 a thumbs-up signal added to a shipped product was withdrawn after four days for
 exactly this; across 1.5 million conversations the ones judged most
 disempowering were rated *above* the baseline rate; and a user profile placed in
-the prompt — which is what a preferences file is — raised agreement by between
-16% and 45% depending on the model. He will not be able to see it: in one study
-71% of people detected no difference between a flattering assistant and a plain
-one, and rated the flattering one as the more honest.
+the prompt — which is what a preferences file is — raised agreement by 45%, 33%
+and 16% across three models, **and did not move the newest one tested at all**,
+across thirty-eight people over two weeks. He will not be able to see it: in one
+study 71% of people detected no difference between a flattering assistant and a
+plain one, and in a separate one people called the flattering answers objective
+and honest and said they trusted them more.
 
-- **Exactly four controls on an article**: *more of this*, *less of this*,
-  *this is wrong*, and a box for his own words. *Why written out: "two
-  unhelpfuls kept apart" plus "more of this" plus a box can be counted three
-  ways, and a builder should not have to guess.*
+- **Exactly four controls on an article, with these meanings**: *more of this*;
+  *this is wrong*; *right, but I did not want to read it*; and a box for his own
+  words. *Why the third is written out in full rather than as "less of this": it
+  is the one the earliest warning below counts, and its whole value is that it
+  says the article was correct. Built as an ordinary thumbs-down it stops being
+  able to say that, and both the control and the measurement lose their point.
+  Why written out at all: a builder should not have to work out from prose how
+  many buttons there are.*
 - **Two different unhelpfuls, kept apart.** *This is wrong* and *this is right
   but I did not want to read it* need opposite responses — the first should
   change how it reasons, the second only what it surfaces. *Why this is the
   first rule: collapsed into one button the system learns the wrong lesson from
   half its feedback. And the second of them is the only signal here that a
   thumbs-up cannot carry. No precedent for it was found anywhere.*
-- **An answer is a capture.** It goes into the raw layer verbatim, dated, marked
-  as an answer to which article, and gets a log entry like anything else. *Why
+- **A reply is a capture.** *Throughout these pages an **answer** is the
+  researched page the asking writes when he asks a question, and a **reply** is
+  what he says back about an article. They are different things and were being
+  called by the same word.* A reply goes into the raw layer verbatim, dated,
+  marked as a reply to which article, and gets a log entry like anything else. *Why
   this reverses what an earlier version of this page said: the research locates
   every failure in the derived layer — where a "maybe" becomes a fact, where a
   stored claim makes later writing sycophantic, where rewriting compounds. The
@@ -155,6 +190,25 @@ one, and rated the flattering one as the more honest.
   piece: blinding the writer to his taste is the only guard that removes the
   problem by construction rather than reducing it, and every study above is the
   control arm of that same experiment.*
+- **And the log is a third road to the same place, which has to be closed.** A
+  reply goes into the log verbatim; the filing then works it into a page; the
+  writer reads pages. So *"less of this, I did not want to read about my mother
+  again"* would reach the writer by the long way round, having been kept from it
+  by the short one. **So: a capture marked as a reply to an article is filed into
+  the log and goes no further.** It gets its log entry, it is the source the
+  preferences file is rebuilt from, and the filing gives it no verdict, no page
+  and no amendment. The article-writer never reads it. *Why this rule is made
+  here rather than looked up: the research recommends both the blinding and
+  putting replies in the log, and never reconciles them. Why the log rather than
+  nowhere: the log is the layer the evidence calls safe, and a reply is his own
+  dated words about himself. Why no verdict: a reply is about this program, not
+  about his life, and it is the one kind of capture that must not become part of
+  what the mind believes about him.*
+- **His own views are not his taste, and the writer reads them.** What he thinks
+  about his job, his family, a decision — that is his life and the material this
+  is made of. What is withheld is only what he thought of an article. *Why the
+  line is drawn there: withholding his opinions would make the articles useless,
+  and it is not what any of the evidence asks for.*
 - **The preferences file is small, dated, reasoned, expiring and rebuilt.** A
   handful of rules at most. Each carries its date, the reason, the log entry it
   came from, and which model it was written against. Each expires after a season
@@ -171,8 +225,11 @@ one, and rated the flattering one as the more honest.
   half is reasoning rather than measurement — the measured danger is flattery,
   not blandness, and no study of this feedback loop narrowing output over time
   was found.*
-- **It does not overreact to one night.** A single dismissal does not rewrite
-  what it believes he wants.
+- **It does not overreact to one night.** A rule enters the preferences file
+  only when he has said the same thing about more than one article. *Why: one
+  dismissal is as likely to be about his mood, or the hour, as about the
+  writing — and a rule written from it expires a season later having shaped
+  everything in between.*
 - **No learned score of what he likes**, ever. *Why: that is precisely the
   reward signal that was withdrawn from a shipped product in four days.*
 - **His hedges are kept.** A capture that says "maybe" is filed as "maybe".
@@ -192,13 +249,19 @@ one, and rated the flattering one as the more honest.
 from inside it, and every number below is here because something in the research
 made it the earliest place the failure shows.*
 
-- **The sting rate** — the share of answered articles marked *right but I did
-  not want to read it*. **If this falls towards zero while "wrong" holds steady,
+- **The sting rate** — of the articles he replied to at all, the share he
+  marked *right, but I did not want to read it*. **If this falls towards zero while "wrong" holds steady,
   the mind has learned to please him.** It is the earliest signal there is.
-- **The flip test** — ten articles regenerated with the taste file removed,
-  twice; count the claims that change sign, and subtract the difference between
-  the two blind runs, because about a third of the raw difference is ordinary
-  noise. Re-run whenever the model changes.
+- **The flip test** — ten articles regenerated with **his stated views stripped
+  out of the material**, twice; count the claims that change sign, and subtract
+  the difference between the two blind runs, because about a third of the raw
+  difference is ordinary noise. Re-run whenever the model changes. *Why his
+  views and not the taste file, which an earlier version of this page said: the
+  writer never sees the taste file, so removing it can change nothing and the
+  test would read zero however bad things were. The research's test is with and
+  without his stated view, and his views are exactly what the writer does read.
+  A test that cannot fail is worse than no test, because it is reported as a
+  pass.*
 - **The rules** — how many, how old the oldest is, and how many carry a reason
   and a source.
 - **Provenance** — twenty sentences sampled from pages; how many point at a log
@@ -220,8 +283,8 @@ it wrote unprompted.
   GitHub already gives him, and it is unreadable on a phone. The reason to build
   a second view at all is that it is not that.*
 - **Before the noticing is built** — that is, when the asking ships first — the
-  same view opens on his most recent answers, and there are no articles and no
-  controls. *Why said here: the asking's scope points at this section, and a
+  same view opens on the most recent answers to his questions, and there are no
+  articles and no controls. *Why said here: the asking's scope points at this section, and a
   builder reading it would otherwise be told to build feedback buttons for
   articles that do not exist yet.*
 - **Pages carry titles written for a person**, not file names.
@@ -233,8 +296,10 @@ it wrote unprompted.
   things and the distinction is the whole of it: nothing he does in the app edits
   the wiki. *Why: one writer. The moment the app can change a page, the app and
   the run are two things writing the same mind.*
-- **An answer travels the way a capture travels**, because it is one: stored by
-  the app with his captures, collected by the next run, given a log entry.
+- **A reply travels the way a capture travels**, because it is one: stored by
+  the app with his captures, collected by the next run, given a log entry. *An
+  answer, in the other sense, travels the opposite way: the run writes it into
+  the wiki and pushes the wiki to the app.*
 
 ## What is out
 
