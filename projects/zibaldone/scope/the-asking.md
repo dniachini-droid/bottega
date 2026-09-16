@@ -112,14 +112,14 @@ suspect is the clock and the test is to file a week by hand and compare.*
 - **He is on Max, so the cap is fifteen a day and is not the constraint.**
   Settled 16 September 2026, in his words: *"But doesn't have to be 6 per day.
   It can just be 2 per day if that makes it easier."*
-- **Start at three a day, the last of them carrying the trend check, and raise
-  it on evidence.** *Why start low when there is room for five times that: what
-  an empty check actually costs has still never been measured, and the number is
-  trivial to raise once it has been. Why three and not his two: two checks
-  twelve hours apart make the phone's asking feel like the overnight batch it
-  was supposed to improve on, and the third is what buys the "ask in the morning,
-  answered by evening" he was shown. Why not six: nothing yet says the extra
-  three buy anything he would notice.*
+- **Five a day, the last of them carrying the trend check.** His decision, on
+  being told what Max allows: *"if max means more it can be 5 per day. I don't
+  use any other routines."* *Why five is comfortable rather than merely
+  allowed: it is a third of the cap, so a hand-run, a retry after a failure and
+  a second routine he might want later all still fit. Why it is written as a
+  decision and not a measurement: what an empty check costs has still never been
+  measured, and if it turns out to matter the number comes down — but at five on
+  Max nothing about the cap forces that.*
 - **Running it by hand does not touch the cap.** Typing "file what's new" at
   Claude Code is an ordinary session, not a Routine. *Why worth saying: it means
   he can always get an answer now, whatever the clock is set to and whatever the
