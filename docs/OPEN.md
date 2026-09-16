@@ -963,3 +963,30 @@ is granted tools. Nobody here knows yet.*
 noticing too. The filing by hand is unaffected: it works, with the Agent tool
 allowed once.
 
+---
+
+## Found in use on Zibaldone, and left for later
+
+*His own words as he used it, on the evening of 16 September 2026. None of these
+is being fixed now: the noticing is the focus and these are not in its way. They
+are here so they are not rediscovered from scratch.*
+
+- **A page in Codex has no way back to the list.** Open a subject and the only
+  ways out are the running head or the phone's own gesture. *"Only issue is, when
+  you select a codex entry, there is no back button to go back to the index."*
+  He called Codex beautiful and working otherwise.
+- **A weekly deep research pass over the wiki**, his idea the same evening and
+  worth more than a line: agents go through the pages, read the internet, and
+  write a detailed report on one subject. Four things settled about it when it is
+  built — one subject a week rather than all of them, because depth beats breadth
+  and it caps what is the most expensive thing in the design; the concrete
+  subjects only, never an automatic pass on how he feels, because a machine
+  researching psychology about his diary is a machine diagnosing him and that is
+  his to ask for deliberately; his words and the world's words visibly apart
+  inside one report; and the agents told to read their sources rather than search
+  them, since both research jobs of that day said plainly that they had not.
+
+**Status:** OPEN — none blocking, none scheduled. The research pass comes after
+the feedback loop, so that the thing that keeps it honest exists before the
+expensive work does.
+
