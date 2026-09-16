@@ -47,7 +47,9 @@ four hours it is a few hours away.*
   from memory, and then it is worse than not having it.*
 - **The app can be read, not only written to.** A second view, separate and
   clearly marked, showing the wiki. *Why separate: the notebook is what he put
-  in and must stay trustworthy as that.*
+  in and must stay trustworthy as that.* What that view looks like is settled in
+  the noticing's scope, because the articles it writes are most of what the view
+  is for.
 - **The wiki is pushed to the app by the run.** The app never reaches out for
   it. *Why: the app then holds no key to his private repository, and a running
   program that can read a repository is a program that can leak one.*
