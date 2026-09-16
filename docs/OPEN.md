@@ -1015,3 +1015,28 @@ now the most valuable unbuilt thing in the project.
 **Status:** OPEN — the phone: try it, then decide. The clock: blocked, and the
 blocker is the priority once Disegno is his.
 
+---
+
+## What a citation looks like to him
+
+His words, the night of 16 September 2026, having read the first real article:
+
+> *"When it writes the notes it shouldn't put the long number quote in brackets.
+> It should just have the date that I said it in brackets. The number file
+> doesn't mean anything."*
+
+Today an article ends a cited sentence with `[20260915T183000000Z-abc123]`. That
+is the capture's id: it is how the tool finds the entry, and it means nothing to
+a person reading a sentence about his own life on a phone.
+
+**The id stays in the file; the date is what he reads.** Disegno renders the
+citation as the day — *[15 September]* — and, where it can, as a link to that
+entry so he can read what he actually wrote. *Why not simply write the date into
+the article instead: two captures on one day would then be indistinguishable, and
+nothing could find its way back to the entry. The id is the machine's business
+and should stay the machine's business.*
+
+**Status:** OPEN — to be folded into the change now taking the checker out of
+the way, which is already altering how an article is written and shown. Recorded
+here because that session could not be reached while it ran.
+
