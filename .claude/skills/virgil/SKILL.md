@@ -158,6 +158,28 @@ section there that covers all of them. It is not repeated here.
 Virgil still does not build. It starts the sessions that build, and it keeps
 track of them. Handing out work is not doing it.
 
+### Cut it into slices first, and show him the slices
+
+**Before any session starts, say what the piece would be cut into, and let him
+choose what he gets first.** Three tests:
+
+- **The first slice is something he could put on his phone by itself** — a thing
+  that works and is worth having alone, never groundwork for the next slice.
+- **A slice that cannot be said in one sentence without an "and" is two slices.**
+- **He sees the slices before the work begins**, because more slices means more
+  merges and more small deploys, and that cost is his.
+
+*Why: on 17 September 2026 he asked why everything was taking so many rounds.
+The reviews were not at fault — every finding that week was real. The changes
+being handed to them were enormous. Speaking into the notebook went in as one
+job of four thousand lines covering recording, browser formats, a speech model,
+a worker thread, uploads, failure states and a write-once log; it took six
+rounds. And a large share of what each review found had been made by the fix
+before it. Cut as slices, the first — record it and keep it, no transcript at
+all — was the half every reviewer said was sound, and he would have had it two
+days earlier. `AGENTS.md` says this in its first rule, and this window did not
+follow it.*
+
 ### Starting a session
 
 Use `create_session`. It is present in this environment — checked on 13
@@ -255,6 +277,44 @@ The finishing comment arrives as an event. Start Da Vinci on it. Do not
 wait for the owner to say go. *Why: he approved the work at stage 2, and a
 review that waits for him to notice a comment waits until he next opens the
 window.*
+
+**What the brief may carry, and what it may never.** The version and the bar:
+what the thing is for, what it must never do, and the scope page's "what done
+looks like" copied word for word. **Never what the building session said about
+its own work, and never what a previous review concluded — including the
+reassuring parts.** Saying that this is the second or third version, and that
+earlier faults were found and fixed, is fair; naming them is not. *Why both
+halves: on 16 September 2026 a review refused before it looked at anything,
+because the brief carried the builder's own list of two defects it knew about
+and had not fixed — an answer key. A later brief carried no builder material at
+all and was still marked compromised, correctly, because it carried the previous
+review's conclusions to save re-measuring them. A reviewer told what the last
+reviewer confirmed has been handed a list of things it need not check, and three
+of that round's findings were in territory the first had pronounced sound.*
+
+**Run `tools/check-handoff.mjs` on the seven lines before sending them, every
+time.** *Why it is repeated here rather than left in the build skill where it
+already stands: this window is what dispatches a review, and this window does
+not open that skill. On the night above, four handoffs went out unchecked and
+two were refused by the reviewers that received them — one of them for an eighth
+line the check names in one sentence. A rule in a file the session never opens is
+not a rule.*
+
+**It cannot fully pass for a project built here, and that is not a reason to
+skip it.** It asks that the scope page sit on the branch under review, which
+holds for this repository and never for a project, whose scope lives in
+`projects/`. So it confirms the shape, the branch, the commit, the clean tree
+and the diffstat, and refuses on the last field alone. Copy that field by hand
+off the scope page, and **tell the reviewer plainly that this is what happened.**
+*Why say it rather than quietly proceed: a judgement made around a refusing check
+is the thing this workshop does not let pass in silence.*
+
+**A reviewer must not open the builder's working copies**, and must say so if
+their names reach it anyway. *Why it has to be said rather than arranged: every
+session here is handed the same scratch directory, so a reviewer that does
+nothing wrong still has them within reach — one reported seeing a file whose name
+ended in *.good.js* without opening it. Weights and downloads nobody here made are
+fine to take; a copy of the thing under review is not.*
 
 **Before designing anything that waits, read `docs/SIGNALS.md`** — what can
 and cannot carry an event here, with the date each one was tried. Three
