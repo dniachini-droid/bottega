@@ -44,9 +44,23 @@ piece is worth having on its own.*
 4. **The noticing.** The mind reads itself and writes about what it sees, and
    learns from what he says back. *Added 16 September 2026.*
 
-**The asking before the noticing**, settled 16 September 2026. *Why that way
-round: the asking is what he described wanting in the first place, and the
-noticing cannot work without the ledger, which the filing has to build.*
+**The noticing before the asking**, settled 16 September 2026 — after the
+filing's first real run, and reversing an order set earlier the same day. His
+words: *"can we do the noticing and reading view in the app for the noticing?
+Please. And we do the asking after - which is less important."* *Why he changed
+it: he had just watched the filing work on his own thoughts and read the result
+as files on GitHub. What he wanted next was to see it properly and to be told
+something he had not noticed himself — not a way to ask it questions. The
+earlier order was reasoned from the ledger dependency, which turns out not to
+force anything: the ledger is the filing's to build and can be built with either
+piece.*
+
+**And the clock comes first, before either.** Once a day to begin with, his
+decision of the same day, replacing the five a day settled an hour earlier — he
+has seen how long a run takes and what it costs him in approvals. *Why it is
+first: it is the smallest of the three, it is what makes the mind keep itself up
+to date without him, and it is gated by a blocker neither of the other pieces
+can start without — see `docs/OPEN.md`.*
 
 **And each of the two is cut into two or three changes, not sent whole.**
 Settled the same day, on the evidence of the piece before them. *Why: the

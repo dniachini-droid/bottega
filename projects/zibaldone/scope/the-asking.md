@@ -112,9 +112,16 @@ suspect is the clock and the test is to file a week by hand and compare.*
 - **He is on Max, so the cap is fifteen a day and is not the constraint.**
   Settled 16 September 2026, in his words: *"But doesn't have to be 6 per day.
   It can just be 2 per day if that makes it easier."*
-- **Five a day, the last of them carrying the trend check.** His decision, on
-  being told what Max allows: *"if max means more it can be 5 per day. I don't
-  use any other routines."* *Why five is comfortable rather than merely
+- **Once a day to begin with.** His decision of 16 September 2026, after
+  watching the filing's first real run: *"Let's make it run once a day for the
+  time being."* It replaces the five a day settled an hour earlier, which was
+  reasoned from what his plan allows rather than from what a run is actually
+  like. *Why it moved: he had by then seen a run take several minutes and ask
+  him to approve an agent for every capture. Five a day was a number about a
+  cap; one a day is a number about the thing itself. Raise it once the clock has
+  run for a week and the blocker below is closed.*
+- *For the record, what the cap allows:* fifteen runs a day on Max, his plan,
+  shared across the whole account. *Why five is comfortable rather than merely
   allowed: it is a third of the cap, so a hand-run, a retry after a failure and
   a second routine he might want later all still fit. Why it is written as a
   decision and not a measurement: what an empty check costs has still never been
