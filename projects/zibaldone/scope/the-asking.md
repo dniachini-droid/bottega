@@ -82,16 +82,19 @@ suspect is the clock and the test is to file a week by hand and compare.*
   files and explicitly excludes the prompt, and a run of his notebook also pays
   for the model's own setup, the fetch and the thinking. Measure one empty check
   before settling the number of checks a day.*
-- **Whether a run on a clock is ordinary use of his subscription is an open
-  question, and it is load-bearing.** This project's front page draws the line
-  at whether a human is asking: a person driving a session is ordinary use; an
-  application routing its automated work through a personal subscription to
-  avoid a bill is not. A nightly batch he set up, on his own account, filing his
-  own captures, sits on the ordinary side of that line. A question he typed into
-  a phone, queued and answered by a scheduled session, sits closer to the other.
-  *Why it must be settled before this is built and not after: the whole cost
-  case for the asking rests on it, and if it is wrong the answer is not a
-  redesign but a bill.*
+- **The run is a Routine, and nothing else.** Settled on 16 September 2026, and
+  the record is in `docs/OPEN.md`. Routines are a shipped feature for scheduled
+  unattended Claude Code work and draw on the subscription he already has; the
+  consumer terms exempt the Claude Code command line from the rule against
+  automated access. *Why "and nothing else": since mid-2026 the Agent SDK,
+  `claude -p` and GitHub Actions are charged against a separate credit rather
+  than the subscription. Building this as a GitHub Action is the obvious way and
+  the way this workshop already runs its own checks, and it would put a bill on
+  him.*
+- **How many checks a day is measured, not chosen.** There is a daily cap on
+  Routine runs per account and the number is not published. *Why it is written
+  down here: six a day is this page's working figure and nobody has checked it
+  against the cap.*
 - **Two runs never overlap, and a run never collides with him.** *Why this is
   named rather than assumed: the filing was designed around one writer at one
   door, which was true while he ran it by hand. A clock plus a man at a

@@ -116,12 +116,18 @@ page whoever builds the filing reads.*
   than the whole mind, so its cost does not grow. It can be built later and
   filled in from the log in one pass, but it is the filing's to build, not the
   noticing's.
-- **A reply is filed and goes no further.** A capture marked as a reply to an
-  article gets its log entry and is given no verdict, no page and no amendment.
-  *Why it is named here: it is the one exception to "every capture is decided",
-  and it exists because a reply is about this program rather than about his
-  life — and because letting it reach a page would hand the article-writer
-  exactly what the noticing's design goes to some trouble to keep from it.*
+- **A reply to an article is split by kind, not turned away at the door.** A
+  capture marked as a reply is filed like any other, **except for the part that
+  says what he thought of the article** — the buttons, and any words about the
+  writing. That part gets its log entry and stops: no verdict, no page, no
+  amendment. A correction of fact in the same reply, and anything he says about
+  his own life in it, are filed exactly as any capture is. *Why the exception:
+  what he thought of an article is about this program rather than about his
+  life, and letting it reach a page would hand the article-writer exactly what
+  the noticing's design goes to some trouble to keep from it. Why only that part
+  and not the whole reply: his corrections are the half of his feedback that
+  makes the mind more accurate, and a design that kept only the other half would
+  get steadily more agreeable and never more right.*
 
 ## What is out
 

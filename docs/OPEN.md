@@ -904,11 +904,31 @@ and if it is wrong the answer is not a redesign but a bill.*
 
 **And the noticing is the harder case, not the asking.** Nobody asks for an
 article at all. A scheduled session wakes, reads the ledger, decides on its own
-that something is worth saying, and writes it. An answer of "he asked, so it is
-ordinary use" settles the asking and does not reach the noticing.
+that something is worth saying, and writes it.
 
-**Status:** OPEN — to be settled before the asking is built, and settled again
-for the noticing, which the first answer may not cover.
+**Settled on 16 September 2026, and it covers both.** Routines are a shipped
+Anthropic feature on the Pro and Max plans, built for exactly this — scheduled,
+unattended Claude Code work — and they draw on the subscription the way a
+session he is sitting at does. The consumer terms exempt the Claude Code CLI
+from the rule against automated access. So a run on a clock, on his own account,
+doing his own work, is the feature being used as intended, whether or not he
+asked for the particular thing it produces.
+
+**Two conditions came with the answer, and both change what is built.**
+
+- **The run must be a Routine.** Since mid-2026 the Agent SDK, `claude -p` and
+  GitHub Actions are charged against a separate credit rather than the
+  subscription. Building the nightly run as a GitHub Action — the obvious way,
+  and the way this repository already runs its checks — would have put a bill on
+  him. Both scope pages now say so.
+- **There is a daily cap on how many Routine runs an account may start**, and
+  Anthropic does not publish the number. It bears directly on the asking's six
+  checks a day, so the number of checks is to be measured against the cap rather
+  than chosen in advance.
+
+**Status:** CLOSED — the answer and both conditions are written into
+`projects/zibaldone/scope/the-asking.md` and
+`projects/zibaldone/scope/the-noticing.md`.
 
 ---
 

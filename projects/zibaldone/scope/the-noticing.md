@@ -17,12 +17,15 @@ then making comment."*
 
 **It must stay free, and it must be responsive at least nightly.** His
 instruction of 16 September 2026, and the constraint everything below is built
-inside. **Whether this way of being free is allowed has not been settled, and
-this piece is the hardest case of it.** The project's front page draws the line
-at whether a human is asking; nobody asks for an article. A scheduled session
-wakes, reads the ledger, decides on its own to write, and writes. Even an answer
-of "he asked, so it is ordinary use" does not reach this piece. It is in
-`docs/OPEN.md` and it is to be settled before this is built.
+inside. **It is free, and how was settled on 16 September 2026**: the run is a
+Routine, which is a shipped feature for scheduled unattended Claude Code work
+and draws on the subscription he already pays for. Nobody has to ask for an
+article for that to hold. *Why it is said here rather than assumed: this piece
+is the hardest case of it — no human asks for anything, a scheduled session
+decides on its own to write. And the answer comes with a condition that kills
+the obvious implementation: the Agent SDK, `claude -p` and GitHub Actions are
+charged separately from the subscription, so the run must be a Routine. The
+record is in `docs/OPEN.md`.*
 
 *Why this is a piece of its own rather than part of the filing: the filing
 looks at one capture and asks where it belongs. This looks at the whole mind and
@@ -72,7 +75,7 @@ rule would fall apart if its number were wrong, that is said.
 of 16 September was argued with rather than taken: asked to explain a pattern in
 data that had none, models claimed to find one most of the time — the best
 tested was right about half the time, and one was right 8% of the time. Asked
-instead whether to speak up at all, across 6,790 real situations, models were
+instead whether to speak up at all, across 6,790 labelled situations in a benchmark, models were
 right under half the time and almost never stayed silent. A daily invitation to
 find something is a daily chance to answer yes about nothing. The nightly half
 is the half he was right about: it is cheap, it is mechanical, and without it
@@ -192,18 +195,29 @@ and honest and said they trusted them more.
   control arm of that same experiment.*
 - **And the log is a third road to the same place, which has to be closed.** A
   reply goes into the log verbatim; the filing then works it into a page; the
-  writer reads pages. So *"less of this, I did not want to read about my mother
+  writer reads pages. So *"right, but I did not want to read about my mother
   again"* would reach the writer by the long way round, having been kept from it
-  by the short one. **So: a capture marked as a reply to an article is filed into
-  the log and goes no further.** It gets its log entry, it is the source the
-  preferences file is rebuilt from, and the filing gives it no verdict, no page
-  and no amendment. The article-writer never reads it. *Why this rule is made
-  here rather than looked up: the research recommends both the blinding and
-  putting replies in the log, and never reconciles them. Why the log rather than
-  nowhere: the log is the layer the evidence calls safe, and a reply is his own
-  dated words about himself. Why no verdict: a reply is about this program, not
-  about his life, and it is the one kind of capture that must not become part of
-  what the mind believes about him.*
+  by the short one. **So: the split is by kind, not by door.** Every reply is
+  filed into the log, and what happens next depends on what is in it, not on the
+  fact that it arrived as a reply:
+  - **What he thought of the article** — the three buttons, and any part of his
+    words that is about the writing — goes into the log and no further. No
+    verdict, no page, no amendment. It is the source the preferences file is
+    rebuilt from, and the article-writer never reads it.
+  - **A correction of fact** — *no, she moved in March, not May* — is filed like
+    any other capture and reaches the wiki, and the writer reads it there.
+  - **Anything he says about his life in the box**, which he certainly will, is
+    filed like any other capture too.
+
+  *Why by kind and not simply "a reply goes no further", which an earlier version
+  of this page said: that rule threw away his corrections along with his taste,
+  and corrections are the half of his feedback that makes the mind more accurate.
+  A design that kept only the other half would get steadily more agreeable and
+  never more right — the exact failure this whole section exists to prevent. Why
+  the design cannot simply trust the door: the box takes his own words, and
+  "this is wrong, she moved in March, and honestly I have been dreading it" is
+  all three kinds at once. Why the log at all: it is the layer the evidence calls
+  safe, and a reply is his own dated words about himself.*
 - **His own views are not his taste, and the writer reads them.** What he thinks
   about his job, his family, a decision — that is his life and the material this
   is made of. What is withheld is only what he thought of an article. *Why the
@@ -219,8 +233,8 @@ and honest and said they trusted them more.
   removed; rewriting in place is the step that compounds error; and a rule like
   "stop opening with praise" is a correction to one model's habit, which the next
   model will not have.*
-- **"More of this" counts as much as "less of this", and it is allowed to say
-  things he does not like.** *Why: a system tuned only against complaints has
+- **"More of this" counts as much as the two unhelpfuls, and it is allowed to
+  say things he does not like.** *Why: a system tuned only against complaints has
   every reason to say less and less until it says nothing worth reading. This
   half is reasoning rather than measurement — the measured danger is flattery,
   not blandness, and no study of this feedback loop narrowing output over time
@@ -232,6 +246,11 @@ and honest and said they trusted them more.
   everything in between.*
 - **No learned score of what he likes**, ever. *Why: that is precisely the
   reward signal that was withdrawn from a shipped product in four days.*
+- **The writer is told plainly not to flatter him.** *Why it is written down
+  when it sounds obvious: it is one of the few guards anyone has measured from
+  outside a model's training. It helps by substantially less than changing how
+  the material is put to the writer, which is why it is listed after them and
+  not instead of them — but it costs one sentence in the instruction.*
 - **His hedges are kept.** A capture that says "maybe" is filed as "maybe".
   *Why: memory products have been measured turning hearsay into confident fact
   between a quarter and a half of the time, and keeping the word costs nothing.*
