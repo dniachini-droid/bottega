@@ -990,3 +990,28 @@ are here so they are not rediscovered from scratch.*
 the feedback loop, so that the thing that keeps it honest exists before the
 expensive work does.
 
+---
+
+## Running Zibaldone from his phone, and running it without him
+
+Both asked for on the evening of 16 September 2026, minutes apart, after the
+first day of real use.
+
+**From his phone.** *"I want a way to run it manually from my phone on Claude
+Code too, not my laptop."* This may already work: Claude Code on the web, opened
+on a phone against the program's repository, takes the same words. Two things
+make it worse than his Mac and neither is fatal — the web version keeps nothing
+between sessions, so it asks for the notebook's passphrase every time, and the
+mind has to be cloned fresh each run. **Nobody has tried it.** Try it before
+building anything; the answer may be that there is nothing to build but a line
+in the documentation.
+
+**Without him.** The clock, already scoped in
+`projects/zibaldone/scope/the-asking.md`, and blocked by the entry above about a
+scheduled run being unable to approve its own agents. That blocker is the single
+thing standing between him and a mind that keeps itself up to date, and it is
+now the most valuable unbuilt thing in the project.
+
+**Status:** OPEN — the phone: try it, then decide. The clock: blocked, and the
+blocker is the priority once Disegno is his.
+
