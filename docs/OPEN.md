@@ -1330,3 +1330,60 @@ of them made can be.*
 **Status:** OPEN. It is a question about how sessions are given their working
 space, which is outside what any file in this repository currently decides, so it
 needs him.
+
+---
+
+## Every piece arrives as slices, or it does not arrive
+
+**17 September 2026.** He asked why everything takes so many rounds, and the
+answer was not that the reviews are wrong. Every finding this week was real and
+reproduced. **It is that the changes being sent into those reviews are enormous.**
+
+The narrating went in as one job: 4,331 lines, fifty files, covering browser
+audio recording, format differences between browsers, a speech model, a worker
+thread, uploads, failure states, and a write-once log. Six rounds. The design
+work went in whole: four rounds. The filing: five.
+
+**And a large share of each review's findings were made by the fix before it.**
+The design work's round-four regression was created by round four's own fix. The
+filing's round-four fault was caused by round two's fix. The narrating's
+permanent write-off was created by the mechanism round two added to fix
+something else. That is the loop he was feeling, and it is what a large change
+under review produces.
+
+`AGENTS.md` says this in its first rule — *a small change under review catches
+roughly three times more defects than a large one* — and the guide did not
+follow it. **The build system was working. The way it was being fed was not.**
+
+**What the narrating should have been, and this is the worked example to copy:**
+
+1. **Record and keep.** A button, the sound saved, playable on the page. No
+   transcription at all. Every reviewer said this half was solid; it would very
+   likely have passed in one or two rounds, and he would have had voice notes on
+   his phone two days earlier.
+2. **Transcribe short recordings.**
+3. **Handle long ones** — where the genuinely hard problem lived, and where five
+   of the six rounds actually went.
+
+Tangled together, every review had to look at everything and every fix could
+break anything.
+
+**The rule, as he asked for it on 17 September 2026:** *"Next round suggest
+slices."*
+
+- **The first slice is something he could put on his phone by itself.** Not a
+  foundation, not scaffolding — a thing that works and is worth having alone.
+- **A slice that cannot be described in one sentence without an "and" is two
+  slices.**
+- **The slices are put to him before the work starts**, so he chooses what he
+  gets first and what can wait.
+
+*Why it must be written down rather than remembered: a rule that lives in one
+session's conversation dies with that session, which is the argument this whole
+repository was founded on. And why it is his to see rather than quietly adopted:
+more slices means more merges and more small deploys, and that is a cost he pays,
+not the workshop.*
+
+**Status:** OPEN only as to where it finally lives. It is in force from now
+either way. It belongs in the guide's own skill, which is one of the three files
+that needs his yes.
