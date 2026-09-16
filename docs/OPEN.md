@@ -1294,3 +1294,39 @@ were found and fixed, is fair and useful; naming them is not.
 
 **Status:** OPEN, with the rest. It is the same rule needing the same line in the
 guide's own skill, which is one of the three files that needs the owner's yes.
+
+---
+
+## Da Vinci and Michelangelo share one scratch directory
+
+**16 September 2026.** A reviewer answered `context_isolation: false` for a
+reason nothing in the handoff caused:
+
+> *"this session's scratchpad directory is shared with the sessions that built
+> the change. Listing it surfaced file names including `app.good.js`,
+> `hearing.good.js`, `narrating-handoff.txt` and a directory `dv19`. I opened
+> none of them... I answered false because copies of the files under review were
+> within reach and their names reached me."*
+
+It is right, and it named the fix itself: **the reviewer and the builder should
+not be given the same scratch directory.** A file called `app.good.js` tells a
+reviewer which file somebody thought was the good version, without being opened.
+
+*Why this is worse than the two brief leaks logged above and not better: those
+were mistakes in something a session wrote and could have written differently.
+This one needs no mistake. Every session working here is handed the same
+directory by the environment, so a reviewer that does nothing wrong at all still
+has the builder's working copies within reach — and the next one may not be
+scrupulous enough to say so.*
+
+**One thing it could not avoid, and should not have to.** The same reviewer took
+the speech model's weights out of that directory, because the change cannot be
+exercised without a model and fetching one is not possible here. That is a
+third-party download, not anybody's work, and taking it was right. *So the fix is
+not "the reviewer may touch nothing there" — it is that the builder's working
+copies and the reviewer's should not be in the same place, while things neither
+of them made can be.*
+
+**Status:** OPEN. It is a question about how sessions are given their working
+space, which is outside what any file in this repository currently decides, so it
+needs him.
