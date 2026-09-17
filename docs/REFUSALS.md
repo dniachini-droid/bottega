@@ -1996,3 +1996,210 @@ photographed manual were left alone, as the direction said.
 **The OCR readings quoted in the tests were not re-verified against a live
 recogniser run**, and the screenshot images were not looked at. The two previous
 rounds left both alone and so did this one.
+
+## 17 September 2026 — Zibaldone #21, fourth round: a capital the phone supplied names a person, watched failing and then passing
+
+A fresh review of `40a8a1b` returned `changes_required` with one blocking
+finding and one advisory. Both are fixed; the blocking one is the test below.
+
+**The blocking finding.** The capital rule that the last two rounds won rests on
+what a phone keyboard does: it capitalises the start of a sentence and nothing
+else, so a capital in the *middle* of one is something he did on purpose. Only
+the first half of that had been written as code. Two thoughts that differ by one
+letter he did not type gave different answers:
+
+```
+"E la zia ha chiamato: coffee, the boiler, the lease."   ["Zia E.","The boiler","Coffee"]
+"La zia ha chiamato: coffee, the boiler, the lease."     ["The boiler","Coffee","The lease"]
+```
+
+The capital put `Zia E.` — an aunt he had not named — into the first door and
+pushed `The lease`, which he wrote himself, off the end of the three. That is
+the shape `docs/the-margin-guesses.md` calls "the worst of them" and "the shape
+this whole slice is built against", and it was reachable from an ordinary
+sentence of his own language. `A casa di zia domani.` did the same with
+`Zia A.`
+
+The behaviour was disclosed on that page, and the reason given there was wrong,
+which is why the reviewer raised it rather than letting it pass. The page said
+the behaviour "cannot go without taking *Zia A rang about Sunday* with it". It
+can: in *Zia A rang about Sunday* the capital is in the middle of the sentence,
+which is the case the same page argues is deliberate. The two are separable by
+where the letter sits. That paragraph is now corrected rather than left standing.
+
+**The rule chosen, and where a sentence starts.** At the head of a sentence the
+four one-letter words of his two languages — `a`, `e`, `i`, `o` — are read as
+words and not as initials. Only those four: a sentence beginning `L. rang this
+morning` still offers `L.`, and so does `L rang this morning`, because `l` is an
+everyday word in neither language and there is nothing there to protect against.
+
+A sentence starts at the beginning of the text, after a full stop, exclamation
+mark, question mark or ellipsis, and at the start of a line. The first two are
+what the keyboard itself capitalises after; the line start is there because he
+types a thought a fragment to a line and the keyboard capitalises after a
+newline too. Quotation marks and brackets on either side of the join do not move
+it. A colon, a comma and a semicolon are deliberately not on the list — no
+keyboard capitalises after them, so a capital there is his own, and
+`Ha chiamato: E poi la zia` still offers `Zia E.`
+
+### Watched failing against the broken version
+
+Two tests were added and run against `40a8a1b` with nothing else changed —
+`server/wiki.js` checked out from that commit underneath the new test file, and
+put straight back afterwards.
+
+```
+not ok 1 - a capital the phone supplied at the start of a sentence is not an initial
+  location: 'test/wiki.test.js:1091:1'
+  error: 'the capital the phone supplies on its own does not change the answer'
+  operator: 'deepStrictEqual'
+  expected:  0: 'The boiler'   1: 'Coffee'      2: 'The lease'
+  actual:    0: 'Zia E.'       1: 'The boiler'  2: 'Coffee'
+
+not ok 2 - an initial inside Italian quotation marks is still an initial
+  location: 'test/wiki.test.js:1136:1'
+  error: 'the quotation mark is not part of the word the initial stands clear of'
+  operator: 'deepStrictEqual'
+  expected:  0: 'L.'           1: 'The lease'
+  actual:    0: 'The lease'
+# tests 2  # pass 0  # fail 2
+```
+
+The first is the blocking finding, and it fails on the row the reviewer typed:
+the answer to the capitalised sentence is not the answer to the same sentence
+without the capital, and the door it loses is `The lease`.
+
+### Watched passing against the fix
+
+```
+ok 1 - a capital the phone supplied at the start of a sentence is not an initial
+ok 2 - an initial inside Italian quotation marks is still an initial
+# tests 2  # pass 2  # fail 0
+```
+
+The whole suite on the branch: `# tests 142  # pass 142  # fail 0`, up from 140
+at `40a8a1b`, including the door measurements under a real browser.
+
+### Reproduced through the real app before and after, not only in the tests
+
+A script delivered fifteen subject pages — `Zia E.`, `Zia A.`, `E.`, `A.`, `B.`,
+`L.`, `I.`, `M. B.`, `Zia L.`, `Vitamin D.`, `Mother`, `The lease`,
+`The boiler`, `The fig tree`, `Coffee` — through the running app's `/wiki`
+endpoint, kept each thought through `/keep`, and read the doors back out of the
+notebook page's own HTML. Left column is `40a8a1b`, right is the fix.
+
+```
+"E la zia ha chiamato: coffee,
+ the boiler, the lease."            ["Zia E.","The boiler",  ->  ["The boiler",
+                                     "Coffee"]                    "Coffee","The lease"]
+"A casa di zia domani."             ["Zia A."]              ->  []
+"Tutto bene. E la zia ha chiamato." ["Zia E."]              ->  []
+"Coffee. / E la zia ha chiamato."   ["Zia E.","Coffee"]     ->  ["Coffee"]
+"«L. non viene», ask about the
+ lease before Friday."              ["The lease"]           ->  ["L.","The lease"]
+```
+
+The first row is the blocking finding through the app he actually uses: the
+false name goes and `The lease`, which he wrote, comes back. The second is the
+same fault with `a`. The third and fourth are the two other places a sentence
+starts — after a stop, and at the start of a line — predicted by the rule and
+then checked. The last is the advisory.
+
+And what did not move — each of these gives the same answer on both versions,
+read the same way out of the same page:
+
+```
+"La zia ha chiamato: coffee,
+ the boiler, the lease."                 ["The boiler","Coffee","The lease"]
+"Zia A rang about Sunday."               ["Zia A."]
+"L. rang this morning."                  ["L."]
+"L rang this morning."                   ["L."]
+"Ha chiamato: E poi la zia."             ["Zia E."]
+"Ho parlato con zia E. ieri."            ["Zia E.","E."]
+"Ask L. about the lease before Friday."  ["L.","The lease"]
+"Ask L about the lease before Friday."   ["L.","The lease"]
+"M. B. called."                          ["M. B.","B."]
+"Zia L. rang about Sunday."              ["Zia L.","L."]
+"I. said no."                            ["I."]
+"Took vitamin D today."                  ["Vitamin D."]
+"L'anno scorso la casa era chiusa."      []
+"Mother sent the e-mail about the
+ lease and the fig tree."                ["The fig tree","The lease","Mother"]
+"Mother at 9 a.m. about the lease."      ["The lease","Mother"]
+"P.S. the lease runs out in March."      ["The lease"]
+"La zia è andata a casa."                []
+"Pane e latte, e poi la zia."            []
+"O vuoi il caffè o vuoi il tè."          []
+```
+
+The photograph side is untouched: the change is to how a capital in *his own
+typing* is read, and a photograph's words never carried an initial at all. The
+three Italian photographs from the earlier rounds — a page of a novel, a page of
+a second novel and a school circular — are asserted in the suite to give an
+empty margin, and the suite passes.
+
+`tools/measure-capture.mjs` on the fix: kept in 1.5–2.1 ms with the margin on
+and 1.6–1.8 ms with it off across 0/50/500/3000 subjects, and 80.0 file reads
+either way on 40 read photographs. The reviewer measured 1.7–2.4 ms and the same
+80 reads at `40a8a1b`, so this is the same band or slightly under it.
+
+### The advisory, fixed rather than logged
+
+`DOTTED` had `.-‑` written bare inside a character class, which a regular
+expression reads as a range from the full stop to the non-breaking hyphen —
+some 8,000 characters — and not as the three that were meant. `LONE`, three
+rules above, spells the same class with escapes and is correct, and the comment
+claimed the two rules turn on the same two things. So an initial written
+straight after `«`, the ordinary Italian quotation mark, was not read as one,
+while the same initial with no stop was. It is spelled now the way `LONE`
+spells it.
+
+It was fixed rather than written down because it is a defect the change under
+review introduced, not one it inherited. A test was written for it even though
+the workshop's rule does not require one for an advisory: the failing run was
+already set up for the blocking finding, so it cost one more assertion block,
+and a character class read as a range is exactly the kind of fault that comes
+back silently.
+
+### Where the bad input is
+
+**Nothing anybody uses was left worse.** The failing run above is the two new
+tests held against the version the review was of, with `server/wiki.js` checked
+out from `40a8a1b` and put straight back — `git status` clean afterwards,
+checked, and the restored file compared byte for byte against the fix. The
+faults were real and already pushed, not padded in to be caught. The
+before-and-after script that drives the running app was written for this entry,
+kept in the session's scratch space, and is not in the repository.
+
+### What this entry does not cover
+
+**The cost this fix carries, written down rather than argued away.** A sentence
+that really does begin with one of those four letters used as an initial — `E
+rang this morning`, `A ha chiamato` — no longer offers `E.` or `Zia E.` from it.
+He can write the stop himself, `E. rang this morning`, and be answered, and the
+same initial anywhere but the head of a sentence is untouched. This is a door
+lost, and it is the price of the false name that was taking a true one's place.
+It is on `docs/the-margin-guesses.md` in his words as well as here.
+
+**The lettered-list hole is unchanged in both directions, which was checked
+rather than assumed.** A list written with capitals — `A. milk / B. bread` — is
+still read as the two people `A.` and `B.`, on both versions. The sentence-start
+rule cannot touch it: it governs a bare capital standing alone, and `A.` there
+is a capital he wrote the stop for, which a different rule reads. The owner has
+been asked whether he writes lists that way and has not answered, so it was
+left alone as the direction said.
+
+**Nothing outside the two findings was touched.** The skip-window in `reached()`,
+the late reading, and subjects named after ordinary words arriving from a
+photographed manual were left alone.
+
+**Whether a phone keyboard capitalises after a newline was reasoned from, not
+measured on a device.** The line start is in the rule because he types a thought
+a fragment to a line and because iOS and Android both capitalise there; no
+handset was tested. If it turns out he types a lower-case fragment on a new line
+and means an initial by it, the line-start case is the one to take out, and it
+can be taken out on its own.
+
+**The OCR readings quoted in the tests were not re-verified against a live
+recogniser run**, and the screenshot images were not looked at. The three
+previous rounds left both alone and so did this one.
