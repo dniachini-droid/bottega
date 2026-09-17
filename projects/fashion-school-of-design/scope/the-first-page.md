@@ -143,8 +143,9 @@ These are his words and decisions, and the page carries them exactly:
   wearing. She'd be happy to help you do any of them."
 - **The form button** says "Send". The line "Or just ring Anna:" under the
   form goes; the number stays where it is given after sending.
-- **The certificate line** ends: "It is a certificate from SITAM in Italy, not
-  an Australian qualification, and not pretending to be."
+- **The certificate line** is: "Once you have finished book one, SITAM Italy
+  issues a certificate of completion." *His words, replacing a line the guide
+  window had written that he found insulting to the certificate.*
 - **After the site went live, 17 September 2026:** the section heading is
   "Meet Anna." and her portrait (at the black table, floral dress) fills the
   Anna slot; on a phone the first-screen photo is aimed at 68% across so Anna
