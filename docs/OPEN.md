@@ -1624,3 +1624,48 @@ The rule that would address it — a reviewer must not open the builder's workin
 copies — belongs in `.claude/agents/da-vinci.md` and needs the owner's yes. The
 arrangement that would remove the need for a rule is a separate directory per
 session, which nothing here controls.
+
+---
+
+## A rule permitted something there is nowhere to put, and the guide's skill is now 13 tokens from the ceiling
+
+**17 September 2026.** Fourth review of the same change. Two findings, both
+fixed.
+
+**The rule about what a review dispatch may carry permitted a sentence the
+format cannot hold.** It said that telling the reviewer this is the second or
+third version, and that earlier faults were found and fixed, is fair. Four
+paragraphs below, the same block says nothing is ever appended to the seven
+fields, and the reviewer's own definition says an extra line is refused. So the
+permitted sentence had nowhere to go: before the fields the check refuses it,
+after them it folds into the job description, and for a project — where the
+comparison that would catch it never runs — it reaches the reviewer inside the
+job description. That is the 17 September fault, permitted by a rule written to
+prevent it, for the second time in one day.
+
+The word *brief* was doing the damage. It appears in no other instruction file
+here, so it named a channel that does not exist, and a rule about what may go
+in a channel implies the channel. The rule now says there is no brief: the
+dispatch is the seven fields, and everything else the reviewer fetches itself.
+
+**`tools/reads.json` claimed `docs/OPEN.md` was 30,404 bytes.** It is 84,985 —
+this file, growing every time a gap is recorded, including by this entry. The
+note exists so that a future session weighing whether to charge this file to
+every session can see what that would cost. At the written figure it looks like
+about 7,600 tokens against a 10,000 budget, which nearly fits. The real figure
+is about 21,000, twice the whole budget. A stale number in exactly the place a
+decision is made from.
+
+**And the thing this round surfaced that is not a finding:** the guide's
+instructions are now the heaviest set in the repository at about 9,987 tokens,
+13 short of the limit. They were about 8,690 this morning. Every one of today's
+additions was a real fault being written up so it cannot recur, and the budget
+is now binding: the next rule cannot go in until something comes out.
+
+*Why that is the budget working rather than failing: the limit exists to force
+that question, and a file that can only grow is a countdown. But nobody has yet
+looked at what should come out, and the first session that needs to add a rule
+will be the one deciding under pressure.*
+
+**Status:** the two findings are fixed. The question of what comes out of
+`.claude/skills/virgil/SKILL.md` is OPEN and unassigned.

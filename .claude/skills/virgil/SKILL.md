@@ -278,12 +278,15 @@ wait for the owner to say go. *Why: he approved the work at stage 2, and a
 review that waits for him to notice a comment waits until he next opens the
 window.*
 
-**What the brief may carry, and what it may never.** The version and the bar:
-what the thing is for, what it must never do, and the scope page's "what done
-looks like" copied word for word. **Never what the building session said about
-its own work, and never what a previous review concluded — including the
-reassuring parts.** Saying that this is the second or third version, and that
-earlier faults were found and fixed, is fair; naming them is not. *Why both
+**What the dispatch may carry, and what it may never.** It is the seven fields
+and nothing else — there is no brief beside them and no channel for one.
+Everything else the reviewer is entitled to, it fetches for itself: the scope
+page on the branch says what the thing is for and what it must never do, and
+`head` and `pull-request` say which version this is and what came before.
+**Never what the building session said about its own work, and never what a
+previous review concluded — including the reassuring parts.** Not even that this
+is the second version and earlier faults were fixed: that has nowhere to go, and
+a sentence with nowhere to go ends up inside the job description. *Why both
 halves: on 16 September 2026 a review refused before it looked at anything,
 because the brief carried the builder's own list of two defects it knew about
 and had not fixed — an answer key. A later brief carried no builder material at
