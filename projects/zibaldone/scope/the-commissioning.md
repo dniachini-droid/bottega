@@ -45,6 +45,17 @@ the findings back; apply them to his material locally, where it never moved.
 *Why: his mind decides which questions to ask. It does not have to be in the
 asking.*
 
+**The design below takes that one step further, and the step is load-bearing.**
+The shape above still has a *specific* question going out and a specific answer
+coming back, and testing it on a real question showed that the only query worth
+citing was also the only one that identified him. So: **retrieve broadly and
+generally, narrow locally.** Pull the literature, not the answer, and do the
+narrowing on the machine where his particulars already live. *Why this is not a
+departure from what was settled but the same principle followed through: the
+settled rule is that his mind decides which questions to ask without being in the
+asking. Specificity is how he gets into the asking. Moving all of it to his side
+of the wire is what the rule was for.*
+
 **Where something specific genuinely must go out, it goes deidentified — and say
 plainly what that does not protect.** His name is easy to strip. *A man in his
 forties in Australia, aesthetics sales, Italian family, weighing a change* is
@@ -59,7 +70,90 @@ against the mind's own repository — a different place with different rules.
 
 # The design
 
-## How he asks
+## Two modes, and they are not the same instrument
+
+He named a second way this could run, on 17 September 2026: *"Or if I like it I
+can automate a topic chosen by the system once a week."*
+
+**Commissioned.** He asks a question. Described throughout this page.
+
+**Chosen.** Once a week, nothing asked, the system picks the topic itself and may
+decline to pick one at all.
+
+**They differ in exactly one respect that matters, and everything else on this
+page applies to both**: whether *nothing to say* is available in its clean,
+one-word form. It is not, in the commissioned mode; it is, in the chosen mode.
+The reasoning is under *Whether it may still say nothing*, below, and it is the
+most consequential difference in this design.
+
+### How a topic gets chosen
+
+**It rides the machinery that already exists rather than inventing a second
+one.** The ledger records what each capture touched and when; the counting road's
+trend check already reads it for which subjects recur, which co-occur, and what
+contradicts a page. *Why reuse it: that check is mechanical, costs nothing, and
+was built so the cost would not grow as the mind grows — which is the same
+problem this has.*
+
+**It must not choose by volume, and this is the trap.** The subject with the most
+captures is the subject he writes most freely about, which is the subject he is
+most comfortable with. **Selecting for material selects for comfort**, and a
+weekly piece about his most-written subject is the definition of an article that
+tells him what he already knows.
+
+**So it chooses for interest, and lets the material set the length.** The reading
+road's own list of what to look for is the right selector, and it is already
+written: what he circles back to and what he never mentions again after once; the
+gap between how he talks about one part of his life and another; what he said he
+would do against what he then wrote about having done; a view that has turned
+without his saying so. **A thin subject may be chosen precisely because it is
+thin** — and the rule that length is set by the material then caps what can be
+said about it, which is the right outcome rather than a conflict.
+
+### What stops it choosing the same comfortable subject every week
+
+- **A subject that has been chosen is not chosen again for a season**, unless
+  something new has been filed against it. *Why a season and not a week: the
+  point of a slow instrument is that it can wait, and the noticing's own rule is
+  that a recurring observation amends the article that already says it rather
+  than writing a second one.*
+- **The chosen topics are counted against the subjects the mind holds.** This is
+  the noticing's existing coverage measure, which exists because *narrowing is
+  small at each step and only visible against a count*. Applied here it answers
+  the exact question: is it circling three subjects out of forty?
+- **Declining is counted too**, and a run of weeks with nothing chosen is as much
+  a signal as a run of weeks all on one subject.
+
+### Which should be the default: the chosen one, once both exist
+
+**A view, since one was asked for rather than an even presentation.**
+
+**The chosen mode is the better instrument, for one reason above the others: it
+is the only one of the two that can refuse.** A weekly piece allowed to say
+nothing is honest by construction. One he has to ask for is under pressure to
+produce something every single time, and the whole of this page's difficulty —
+the count at the front, graded reach, the arc — is machinery built to withstand
+that pressure. The chosen mode does not need most of it.
+
+**And it is closer to what he asked the notebook for in the first place**:
+*"notices things I wouldn't."* A topic he chose is by definition one he already
+knows he cares about. The value of a second mind is in what he would not have
+thought to ask.
+
+**Against it, honestly: he asked for commissioning first and explicitly, and the
+chosen mode arrived as "or if I like it."** So the order to build is the order he
+said them — **commissioned first, because he asked for it and because it is the
+one that proves the machinery** — and the chosen mode becomes the default once it
+exists and he has seen both. *Why not simply build the better one first: a weekly
+instrument that chooses its own topics is hard to judge until there is something
+to judge it against, and the commissioned mode is where he finds out whether a
+long piece about himself is worth reading at all.*
+
+## How he asks, in the commissioned mode
+
+**In the chosen mode he does not ask at all**, and there is no door: a weekly
+Routine picks the subject or declines to. Everything in this section is about the
+commissioned mode only.
 
 **It is the asking's door, with one word different.** `the-asking.md` settles
 that a question is a capture like any other: it goes into the raw layer
@@ -100,8 +194,9 @@ must not appear to. Two things have to be added:
   run that never arrives. A commission that runs for an hour looks exactly like a
   failed run for that hour, and he has no way to tell the difference. The
   acknowledgement is what makes the silence readable.*
-- **A commission does not ride on a filing run.** It is its own run, started by
-  the filing when it finds a commission waiting. *Why: the asking's design has one
+- **Neither mode rides on a filing run.** A commission is its own run, started by
+  the filing when it finds one waiting; the chosen mode is its own weekly
+  Routine. *Why: the asking's design has one
   writer at one door, and a filing run that took an hour would block the next
   one and collide with him. Why this does not break the cap: it is one extra run
   on the days he commissions something, and he said himself these will be rare.*
@@ -154,44 +249,89 @@ It derives general questions — about the shape of the thing, not about him —
 **writes them to a file as literal query strings**. They are the outbound
 traffic, in full, before any of it moves.
 
-**They are capped, and the cap is on the run, not the query.** At most six
-outbound questions for a commission. *Why a cap at all when usage is not the
-constraint: the cap is not about cost. Each query on its own may be perfectly
-general, and the set of them still identifies him — see the worked question
-below, where exactly that happens. The number of questions is the only handle on
-the aggregate that a machine can actually hold.*
+**They name bodies of knowledge, not situations.** *"What is known about people
+who decide to leave and reverse it"* is a literature. *"Career decision making
+under immigration status uncertainty"* is a situation, and it is a situation only
+a few thousand people are in.
 
-**One mechanical rule on a query: it may name at most one of his particulars.**
-A particular is a place, a trade, a nationality, a family arrangement, a visa or
-health status, an employer, an age. *Why one and not none: none is
-unsearchable — a query with no particular in it returns advice columns. Why not
-two: one particular is a topic and two is a person. This is checkable by a
-program against a list the run writes down, which is the only kind of rule worth
-having here.*
+*Why this replaces the six-query cap and the one-particular rule an earlier
+version of this page proposed: those were weak handles on a problem correctly
+named — that the precision which makes a search useful is the same quantity as
+its power to identify. **Inverting the retrieval removes most of the problem
+instead of managing it.** Ask broadly, bring back the whole literature, and do
+the narrowing here, where his particulars already live. He loses no detail,
+because the detail is applied after retrieval rather than before it. It costs
+more, and he has said cost is not the constraint.*
 
 **Leaves the machine: nothing, yet.**
 
-### 4. Search, on those questions and nothing else. This is the only thing that leaves.
+### 4. Fetch what is known, broadly. This is the only stage that reaches out.
 
-Several agents, one question or two each, as he asked for. **Each agent is given
-its question and nothing else** — not the mind, not the pages, not the other
-agents' questions, not what the question was derived from.
+**Three ways, in order of preference, and the first two are the usual case.**
 
-*Why the agents are blinded to his material and not merely told not to send it:
-an agent that holds his mind can put a phrase of it into a query without anyone
-deciding to. An agent that was never given it cannot. This is the same mechanism
-as the noticing's per-sentence checkers, which see one capture and nothing else,
-and it is the one guard here that is structural rather than instructed.*
+**(a) Ask the model, with his material, and take no source mark for it.**
 
-**Leaves the machine: the six query strings, and nothing else. They are kept,
-and they are printed in the finished paper.** *Why printed rather than logged:
-the same reasoning as citation. He is the only one who can look at a query and
-say "that is me on a page". A log he never opens cannot tell him that.*
+For what is broadly known — what the literature holds about reversing a
+decision, what the phenomenon is called, which fields study it — a model already
+has it, and asking it is one provider under terms he is already on rather than an
+arbitrary search company.
 
-### 5. Write the paper, locally. Nothing leaves.
+*Why this is not the concession it looks like: **his words already go to a model,
+and have from the first day of the filing.*** `read.md` puts his entire mind into
+one call. The boundary this design protects has never been *his words never reach
+a model* — that was never true and was never the claim. It is **his words reach
+exactly one party, the one already reading them.** A search engine is a second
+party, and asking the model instead of searching collapses it entirely. That is a
+larger reduction in exposure than any rule about query wording could buy.
 
-His material and the findings are put together by a call that has both. His
-words never went anywhere; the findings came back as text.
+**And the price, which is exactly the right price: a model's recollection of the
+literature may not carry a source mark.** It is the machine's own reasoning and
+is marked as the third kind of sentence, below, and counted with it. *Why: the
+whole discipline here is that a claim he cannot go and check is a machine
+inventing him. That does not stop being true because the claim is about the world
+rather than about him. A paraphrase of "the research says" with nothing he can
+open is the same failure wearing a lab coat.*
+
+**(b) Where a claim needs a source he can open, prefer bulk over queries.**
+
+An open corpus fetched whole reveals that it was fetched whole. Every specific
+question against it then happens on his disk, where the question never leaves.
+*Why bulk is safer than it sounds: one download of a field's open literature is
+an act thousands of people perform, and it carries none of his particulars. The
+specificity moves to his side of the wire, which is the whole of this section.*
+
+**What this cannot do, and it bears directly on the questions he named.** Bulk
+open corpora are strong where the field is open — preprint archives, the open
+biomedical literature, open bibliographic collections. **The psychology of career
+decisions, which is his own first example, sits largely in paywalled journals.**
+So for exactly his kind of question, (b) is thin and most of the outside material
+will come from (a) and carry no source mark. **That is a real limit on what this
+piece can promise, and the count at the front is where he sees it.** *Nothing
+here verified which corpora are actually fetchable; that is a build-time
+question, and this page should not pretend it was answered.*
+
+**(c) An ordinary search, broadly worded, as the exception.**
+
+Where neither serves, a general query. Blinded agents, one question each, given
+the question and nothing else — not the mind, not the pages, not what the
+question was derived from. *Why the agents are blinded rather than instructed: an
+agent holding his mind can put a phrase of it into a query without anyone
+deciding to; one that was never given it cannot. Same mechanism as the noticing's
+per-sentence checkers, and the one guard here that is structural rather than
+asked for.*
+
+**Leaves the machine: the general questions and the corpus fetches, in full. They
+are kept, and they are printed in the finished paper.** *Why printed rather than
+logged: the same reasoning as citation. He is the only one who can look at what
+went out and say "that is me on a page", and a log he never opens cannot tell him
+that.*
+
+### 5. Narrow locally, and write the paper. Nothing leaves.
+
+**This is where the specificity lives.** The literature came back general; his
+particulars are applied to it here, on the machine, where they have not moved.
+Searching a fetched corpus for what bears on a visa, a trade, a family in another
+country is an ordinary search over files on his disk.
 
 **Leaves the machine: nothing.**
 
@@ -212,49 +352,76 @@ leave across six weeks, each reversed within days; the visa recurring alongside
 them; the gym stopping in the weeks the visa comes up; family in Italy; the
 trade he is in.
 
-**Stage 3 would write these six queries, literally:**
+**Under the shape this page first proposed, stage 3 wrote six queries** — and
+one of them, *career decision making under immigration status uncertainty*, was
+the only one worth citing and also the leak. That is what forced the inversion.
+The old list is not reproduced here; what matters is that its useful line and its
+dangerous line were the same line.
+
+**Under the inverted shape, here is what literally leaves the machine.**
+
+To the model, with no search engine involved (route **a**):
 
 ```
-1  research on deciding to leave a job and then reversing the decision
-2  status quo bias and omission bias in career change decisions
-3  why people abandon a career change after committing to it
-4  career decision making under immigration status uncertainty
-5  exercise adherence and physical activity during periods of uncertainty
-6  reversible and irreversible decisions how people weigh them
+What does the research literature hold about people who decide to leave
+a job and then reverse the decision? Name the effects, what they are
+called, and which fields study them.
+
+What is known about how people weigh reversible against irreversible
+decisions?
+
+What is known about how life decisions are made when they depend on a
+pending status or permission that has not yet been granted?
 ```
 
-**And this is where the shape breaks.** Not in the abstract — here, on this
-question, in these six lines.
+As bulk fetches, if the field is open (route **b**):
 
-**First: generality and usefulness pull against each other, and nothing in the
-scope's shape acknowledged that.** Query 1 and query 3 are safely general and
-will return advice columns and popular psychology. Query 4 is the one that would
-return something worth citing — and query 4 is the leak. The precision that makes
-a search useful is the same quantity as its power to identify. The scope's
-instruction to derive questions "which are general and have no him in them" reads
-as though generality were free. It is not. It is paid for in usefulness, and a
-design that does not say so will be quietly resolved in favour of usefulness by
-whoever builds it.
+```
+the open literature on career transitions and occupational change
+the open literature on decision reversal and commitment
+```
 
-**Second: no single query identifies him and the set of them does.** Taken one
-at a time, every line above is a question thousands of people have typed. Taken
-together, in one session, within one minute: someone is researching visa-
-contingent career reversal, exercise adherence under stress, and irreversibility.
-Add a seventh about family obligation abroad and it is a person. **The scope's
-protection is written per query and the exposure is per run.** That is the flaw,
-and it is why the cap above is on the run.
+**And then, on his disk and reaching nothing:** search what came back for
+*visa*, *residency*, *pending status*, *exercise adherence*, *family abroad* —
+every particular of his, applied to material that was fetched without them.
 
-**Third, and this one has no fix here: the question itself may be the leak.**
-*"Why do I keep talking myself out of leaving"* is already general. But *"should
-I take the offer from X"* cannot be made general without becoming useless, and
-there is no derivation that saves it.
+### Does the shape hold now? Largely yes, and here is the part that does not.
 
-**So the rule that falls out of the test: where the question cannot be made
-general, nothing goes out, and the paper is built from his material alone and
-says on its face that it searched nothing.** *Why this is a real outcome and not
-a failure: it is the narrating's rule — report the numbers, do not quietly build
-the paid version instead. Half the value of this piece is reading a year of his
-own words carefully, and that half never needed the internet.*
+**The leak that forced this page's first version is gone.** The dangerous query
+was dangerous because it married two of his particulars to a research question.
+Under the inversion there is no such query: the third question above asks about
+*a pending status or permission*, which is a category covering visas, licences,
+probation, planning permission, medical clearance and a dozen other things, and
+it is asked by anyone studying decision-making. The narrowing from that category
+to his visa happens on his machine.
+
+**The set no longer identifies him either**, because the set is now three
+literatures rather than six situations, and a literature is pulled by thousands
+of people a day.
+
+**What does not go away: the choice of which literatures to pull is still derived
+from his life.** Nobody pulls *career transitions* and *decision under pending
+permission* and *exercise adherence* in one week by coincidence. **That is a
+coarse silhouette rather than a portrait** — it says something like *a person
+thinking about work, waiting on something, and not exercising* — and it is a
+great deal less than a name, but it is not nothing and this page should not claim
+it is. *Why it cannot be removed: it is the irreducible residue. Any outward act
+chosen because of his life carries some information about his life. The design
+can make it coarse; it cannot make it absent.*
+
+**Decoy queries are not the answer and are ruled out.** *Why: anyone holding the
+logs filters noise trivially, so the protection is theatre, and it spends his
+allowance to buy it. He was offered them and declined.*
+
+**And the third break from the first version stands, unchanged by the
+inversion.** *"Why do I keep talking myself out of leaving"* generalises
+cleanly. *"Should I take the offer from X"* does not, and no inversion saves it:
+the question is the particular. **So: where the question cannot be generalised,
+nothing goes out at all, the paper is built from his material alone, and it says
+on its face that it searched nothing.** *Why this is a real outcome rather than a
+failure: it is the narrating's rule — report the numbers, do not quietly build
+the paid version instead. Half the value of this piece is a year of his own words
+read carefully, and that half never needed the internet.*
 
 ## What discipline this needs that a short article does not
 
@@ -294,6 +461,14 @@ page.
 - A sentence resting on **neither** is the machine's own reasoning, and carries
   nothing.
 
+**A model's unsourced recollection of the literature is the third kind, not the
+second.** It may not take a source mark. *Why this is the rule that makes route
+(a) above safe to prefer: asking the model instead of a search engine is a large
+reduction in exposure, and it would be bought at the price of unfalsifiable
+authority if "the research says" could wear a source mark with nothing behind it.
+A claim he cannot go and open is the machine's reasoning, whether it is about him
+or about the world.*
+
 **And the third kind is counted, and the count is shown.** *Why this and not a
 ban: the third kind is where the argument lives, and a paper with none of it is a
 bibliography. But it is also where the invention lives. The noticing's own scope
@@ -319,23 +494,39 @@ contain — the place where he is not typical is the place he could not have got
 from a search engine or from himself. Resolving it silently throws away the one
 thing that needed both halves.*
 
-### It may say what he should consider. It may not end there.
+### It may say what he should consider, and it may suggest a plan
 
-He struck the muzzle out on 16 September 2026: he does not mind being called out
-and does not want to be managed, and the code no longer carries the no-advice
-rule. `noticing/prompts/read.md` now says outright: *"Say what he should consider. Those are his
-words."* **That stands here.**
+**He settled this on 17 September 2026, in his own words:** *"I like reading what
+I should consider. Honestly it knows a lot about me and so if it finds a good
+plan it should suggest it."* **So a plan is in, at this length as at article
+length**, and a piece that has read a year of him and has a good suggestion is
+earning its place.
 
-**What changes at this length: it may not produce a list of steps, and the
-document may not end on its recommendations.** *Why the first: a plan was never
-the thing he asked for, and at white-paper length the pull toward one is far
-stronger, because a long document about a problem has a shape that wants
-recommendations at the end of it. Why the second, which is a rule about position
-and looks fussy: the last page is the position of authority, and what sits there
-is what he will remember. A consulting report ends on what to do. This ends on
-what it does not know — the part of his question its evidence could not reach.
-That is a real section with real content, and putting it last is the cheapest
-guard on this page.*
+**What is still out is being managed**, not being advised: reminders, chasing, a
+plan he did not ask for repeated at him. *Why this distinction survives when the
+rest of the restriction did not: he said on 16 September that he does not mind
+being called out and does not want to be handled, and those are different
+things.*
+
+**An earlier version of this page said the opposite** — that it may not produce a
+list of steps and may not end on its recommendations — **and it was wrong.** It
+was written before his decision of 17 September and it would have been the fourth
+time in a row that a session narrowed this one line and he widened it back. *Why
+that history is written here rather than quietly corrected: the line has now been
+wrong in three directions, each time by a session deciding on his behalf what he
+should be allowed to be told. The pattern is the finding. A session that reaches
+for a restriction here should assume it is repeating the mistake.*
+
+**What survives of the concern, turned from a restriction into a requirement.**
+The worry was real: a long document about a problem has a shape that wants
+recommendations at the end, and the last page is the position of authority. The
+answer is not to forbid the plan. It is that **the paper must carry a section
+naming what it could not establish, and that section must be real.** *Why a
+requirement rather than a rule about position: requiring the limits to be stated
+costs him nothing he wants, and telling a document where its plan may sit is
+exactly the fussiness that has been struck out three times. Where the section
+sits is the writer's business; that it exists and is not empty is the
+discipline.*
 
 ### The arc is the danger, not the sentences
 
@@ -368,52 +559,72 @@ Two things are proposed against it, and I am marking honestly which is which:
   here as it does there, and a long document has far more room to agree with him.
   This one has research behind it, through the noticing's page.*
 
-### Whether it may still say nothing, and the honest answer
+### Whether it may still say nothing — and this is the one place the two modes differ
 
-**Commissioning makes refusing harder, and a straight "nothing" would not
-survive.** He asked, he waited, he spent from his allowance, and a machine that
-comes back with one line has, to him, failed. The existing design is already
-tilting: `noticing/prompts/read.md` tells the reader that having nothing to say *"should be
-rare"*, because it was handed everything. A commission tilts further, because it
-was also asked.
+**In the commissioned mode, a straight "nothing" would not survive.** He asked,
+he waited, he spent from his allowance, and a machine that comes back with one
+line has, to him, failed. The existing design is already tilting:
+`noticing/prompts/read.md` tells the reader that having nothing to say *"should
+be rare"*, because it was handed everything. A commission tilts further, because
+it was also asked.
 
-**So refusal changes shape rather than being kept as a word nobody will use.**
-The paper always answers, and what it is allowed to answer is *how far your own
-material reaches*:
+**So in the commissioned mode refusal changes shape** rather than being kept as a
+word nobody will use. The paper always answers, and what it answers is *how far
+your own material reaches*:
 
 - It states at the front how many captures bear on the question. Four captures
   cannot support a paper about his psychology, and the number says so before any
   prose does.
-- It carries a closing section naming **what it could not establish** — the part
-  of his question the evidence did not reach.
+- It carries a section naming **what it could not establish** — the part of his
+  question the evidence did not reach.
 - **If that section is empty, that is the warning, not the reassurance.** A paper
   that could establish everything asked of it has stopped noticing where its
   evidence ends.
 
-*Why this rather than keeping the fourth verdict: a refusal that every force in
-the situation pushes against is a refusal that gets recorded as available and
-never used, which is worse than not having it — this workshop's own budget exists
+*Why this rather than keeping the fourth verdict here: a refusal that every force
+in the situation pushes against is one that gets recorded as available and never
+used, which is worse than not having it — this workshop's own budget exists
 because a check never seen refusing cannot be told from one that cannot fire.
 Graded reach is a refusal the machine will actually give, because giving it is
 not the same as coming back empty-handed.*
 
-*What this costs, said plainly: he loses the clean signal. "Nothing" was one word
-he could not misread. "Here is how far your material reaches" is a paragraph he
-has to actually read, and he may skim it. That is a real loss and it is the price
-of a refusal that gets used.*
+**In the chosen mode, the clean one-word "nothing" comes back, and it should.**
+Nobody asked, nobody waited, nothing was spent on his say-so. Every force that
+made refusing hard in the commissioned mode is simply absent. **This is exactly
+the ground the noticing already stands on** — it refuses most runs, it is told
+that nothing is the ordinary answer, and the research behind that rule is that
+models invent patterns in random data unless told they may say there is none.
+
+*Why this is not a small difference: it means the two modes have different
+failure modes and need different instruments. The commissioned mode's danger is
+producing something when there was nothing, and its guard is the count at the
+front. The chosen mode can simply decline, so its danger is the opposite one —
+declining so often it becomes furniture — and its guard is the coverage count,
+which the noticing already measures monthly.*
+
+**Both keep the graded answer as well.** *Nothing this week* and *here is a thin
+thing, and here is how thin* are different answers and both are wanted: the first
+for when no subject was worth choosing, the second for when one was and the
+material under it is slight.
 
 ## What it produces, and how it is told from an article
 
 A page in Disegno, and **it does not pretend to be an article**:
 
-- **It is marked as commissioned, and it names the question he asked**, in his
-  words, at the top.
+- **It says which mode made it.** Commissioned, and it names the question he
+  asked in his words at the top; or chosen, and it names the subject and says
+  plainly that nobody asked for it. *Why on the page and not only in the run
+  record: a piece he did not ask for is read differently from one he did, and he
+  should not have to work out which he is holding.*
 - **It opens with the count** — captures bearing on the question, span, outside
   sources found.
-- **It prints the queries that were sent out**, in full. *Why in the document and
-  not in a log: it is the only way he will ever look at them.*
+- **It prints what went out**, in full: the general questions asked of the model,
+  and any corpus fetched. *Why in the document and not in a log: he is the only
+  one who can look at it and say "that is me on a page", and a log he never opens
+  cannot tell him that.*
 - **It lists its outside sources**, which an article is forbidden to do.
-- **It ends on what it could not establish.**
+- **It carries a section naming what it could not establish**, and that section
+  is not empty.
 - **It carries the same four controls as an article** — *more of this*, *this is
   wrong*, *right, but I did not want to read it*, and his own words. *Why
   unchanged: they are what makes the piece measurable, and a commissioned paper
@@ -463,42 +674,66 @@ well once the mind is a few hundred captures, which is where the counting road
 takes over and nothing here measures the crossing."* The commissioning walks
 straight into the crossing, at greater length, with search results added.
 
-**One commission, estimated:**
+**How often, which is what makes the rest of this affordable.** His words, 17
+September 2026: *"It's not an often request so the usage is ok. It would only
+happen maybe once a week, maybe less frequently."* **So at most weekly, in either
+mode, and probably less.** *Why this is written into the design rather than noted
+beside it: it settles that a run may be expensive. Everything above is designed
+for a good answer rather than a cheap one — reading widely, fetching whole
+corpora, and running the thing twice — and none of that would be defensible at
+several runs a day. **Design for a good answer, not a cheap one** is the
+instruction, and weekly is what pays for it.*
+
+**One run, estimated:**
 
 | stage | tokens in | wall time |
 |---|---|---|
 | 1. read the mind | 40k–130k | 2–5 min |
 | 2. what the mind can carry | small | under a minute |
-| 3. write the queries | small | under a minute |
-| 4. search, 4–6 agents in parallel | 30k–60k each, 150k–350k total | 5–15 min |
-| 5. write the paper | 100k–200k | 5–15 min |
+| 3. write the general questions | small | under a minute |
+| 4. fetch: model routes, bulk corpus, or agents | 100k–400k | 5–20 min |
+| 5. narrow locally and write the paper | 150k–300k | 5–20 min |
 | the second independent run (above) | doubles stages 1–5 | doubles |
 
-**So: roughly 600,000 to 1.2 million tokens and 25 to 70 minutes, doubled if it
-is commissioned twice — call it an hour to two hours.** *How the search figure
-was reasoned: a search agent that reads eight to fifteen pages at two to five
-thousand tokens each lands in that band. Nothing here measured it.*
+**So: roughly 600,000 to 1.6 million tokens and 25 to 90 minutes, doubled where
+it is run twice — call it an hour to three hours.** *Why the range widened from
+this page's first version: fetching a corpus whole and searching it locally reads
+more than six queries did. That is the cost of the inversion, and it is paid in
+the resource he said is not the constraint.*
+
+*How the fetch figure was reasoned: an agent that reads eight to fifteen pages at
+two to five thousand tokens each lands in that band, and a bulk corpus is read
+selectively rather than whole. Nothing here measured any of it.*
 
 **Against his allowance.** Fifteen Routine runs a day on Max, shared across the
-account. **A commission is one run, so the cap is not the constraint** — he said
-himself these will be rare. What is unknown is whether a single run of this size
-hits a limit other than the cap; nobody here has run one. *This is the number
-most likely to be wrong on this page.*
+account. **One run a week against a cap of fifteen a day is not a constraint by
+any reading**, and that is the point of the frequency being settled. What is
+unknown is whether a single run of this size hits a limit other than the cap;
+nobody here has run one. *This is the number most likely to be wrong on this
+page.*
 
 ## What this costs him, and what it takes away
 
-- **An hour or two of not knowing.** The asking's promise of same-evening answers
-  does not hold for this, which is why the acknowledgement is in the design.
-- **Six questions about his life exist outside his machine**, and no promise here
-  makes that untrue. The design makes them few, general, and visible to him. It
-  does not make them private.
-- **The clean "nothing" is gone**, traded for a refusal he will actually be
-  given. Above, with its price.
+- **An hour to three of not knowing.** The asking's promise of same-evening
+  answers does not hold for this, which is why the acknowledgement is in the
+  design.
+- **A coarse silhouette of his week exists outside his machine**, and no promise
+  here makes that untrue. The inversion makes it literatures rather than
+  situations, and it is much less than the first version of this design would
+  have leaked. It is not nothing, and it is visible to him in the paper itself.
+- **In the commissioned mode the clean "nothing" is gone**, traded for a refusal
+  he will actually be given. Above, with its price. **In the chosen mode he keeps
+  it** — and the cost there is the opposite one: some weeks he is told nothing at
+  all, having got used to a weekly piece.
+- **Outside claims he cannot check.** Where the literature is paywalled, what the
+  paper can say arrives as the machine's own reasoning with no source mark. He
+  gets the reasoning and not the receipt, and the count is where he sees how much
+  of the paper that is.
 - **A second opinion he has to read.** Commissioning twice means he is shown
   disagreements rather than a settled answer. That is more work for him, and it
   is the point.
 - **A long document he may believe more than he should.** The count at the front,
-  the unmarked-sentence share and the closing section are the whole of what
+  the unmarked-sentence share and the limits section are the whole of what
   stands against that, and none of them can stop him.
 
 ## What will not survive contact, in the code as it stands
@@ -545,13 +780,29 @@ would refuse a commissioned paper outright.
 
 ## Where this design is weakest
 
-**The generality of the outbound questions.** Everything in the privacy half
-rests on the claim that a useful question can be made general enough not to
-identify him, and the worked question above shows that useful and general pull
-against each other. My six-query cap and one-particular rule are the best handles
-I found, and neither is strong. **For this to fail him it only takes a builder
-who wants better search results** — the pressure is constant, the loosening is
-invisible, and nothing downstream would ever show it.
+**The inversion moves the weak point rather than removing it.** Retrieving broadly
+and narrowing locally genuinely dissolves the leak that the first version of this
+page could not solve — there is no longer a query whose usefulness and whose
+danger are the same property. What remains is that **the choice of which
+literatures to pull is still derived from his life**, and that residue cannot be
+designed away. It is a coarse silhouette rather than a portrait, and it is much
+less than the old design leaked, but a page that called it solved would be
+lying.
+
+**And the pressure that worried me has not gone, it has moved.** Under the old
+design a builder who wanted better results would tighten a query. Under this one
+he will reach for route (c), an ordinary search, because it is the quickest thing
+that works — and (c) is where the old problem lives. **The ordering of the three
+routes is the whole guard, and an ordering is the easiest thing in a design to
+quietly reverse.** Nothing downstream would show it.
+
+**The bulk route may not be available for his own first example.** Career and
+decision psychology is largely paywalled. If route (b) turns out to be thin for
+the questions he actually asks, most outside material arrives by route (a),
+carrying no source mark and counted as the machine's own reasoning — which is
+honest, but it means a paper with far less he can go and check than the word
+*research* implies. **This is the most likely way the piece disappoints him**, and
+nothing here verified it either way.
 
 **The second-run proposal has no evidence behind it.** It is the main thing
 standing against the redemptive-arc failure, and it is my reasoning and nothing
@@ -586,3 +837,8 @@ many captures bear on this question" is a judgement wearing a number's clothes.
   design does not use one, and nothing here should be read as opening it.
 - **A merged verdict from two runs.** They disagree in front of him or they are
   not worth running twice.
+- **Decoy queries**, and any other manufactured noise around what goes out. *Why:
+  anyone holding the logs filters noise trivially, so it is theatre, and it
+  spends his allowance to buy the theatre. He was offered them and declined.*
+- **A second door for asking.** A commission is the asking's line with a second
+  word on it; the chosen mode has no door at all.
