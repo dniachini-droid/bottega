@@ -1309,3 +1309,98 @@ the check can see is a fact, and what it should see is a decision for the owner.
 check was written. The fault this time was in what a session did, not in what
 the program does, and a second test of the same rule would hold nothing the
 first one does not.
+
+---
+
+## A blocking finding, written as a test and watched failing: the stop list that ate an initial
+
+**17 September 2026.** Zibaldone pull request 21, the margin guess. A fresh
+review of `4f903c4` returned `changes_required` with one blocking finding: a
+photograph of ordinary printed Italian, with nothing typed beside it, still put
+a person he knows in the margin — whenever that person's initial happened to be
+**A.** or **I.**
+
+The cause was one line. A subject's name was its title less a list of English
+function words, and the two one-letter words on that list are `a` and `i`. So
+`Zia A.` kept only `[zia]` and never reached the rule that holds a short word in
+a name to his own hand, while `Zia E.` kept `[zia, e]` and did. The guard changed
+with the letter.
+
+### Watched failing against the broken version
+
+Two tests were written into `test/wiki.test.js` in the Zibaldone repository and
+run against `4f903c4` with no other change. The suite was 134 tests passing
+before they were added; with them it was 134 passing and 2 failing:
+
+```
+not ok 16 - a letter standing in a name is an initial, not a function word:
+            A and I are held to his hand exactly as L and E are
+    a novel saying "La zia era tornata" is not his Zia A., and not his Zia I. either
+    + actual - expected
+    + [ 'Zia A.', 'Zia I.' ]
+    - []
+
+not ok 17 - a subject named only by an initial is guessed when he types it,
+            and is not offered for somebody else
+    a person named only A. is a door, exactly as a person named only L. is
+      [ -   'A.',
+            'The lease' ]
+```
+
+The first is the blocking finding. The second is the advisory the same review
+raised, which the guide asked to be fixed in the same change because it is the
+same line and the same mistake.
+
+### Watched passing against the fix
+
+With the fix in place, the same two tests pass and the whole suite is **136
+passing, 0 failing**. The fix is that a letter written with a full stop is kept
+as a word of its own, `a.`, rather than as the bare letter — so it is never the
+article the stop list takes off, and it is two characters long, which is what
+the short-word rule already asks about. Nothing was taken off the list.
+
+### Reproduced through the real app before and after, not only in the tests
+
+Three photographs were made here — a rendered page of an Italian novel, a page
+of a second novel and a school circular, each rotated 2.4 degrees, blurred and
+saved as a quality-62 JPEG — and put through the running app with nothing typed
+beside them, read by the recogniser the app actually runs. Before the fix:
+
+```
+02-novel-it.jpg      typed=""   photo read   margin => [Zia A., Zia I.]
+03-family-it.jpg     typed=""   photo read   margin => [Nonna A., Zio A.]
+04-circolare-it.jpg  typed=""   photo read   margin => [Prof. A., Sig. A.]
+```
+
+After it, all three margins are empty, and the table the fault was found by is
+the same in every row:
+
+```
+  Zia L.   kept=[zia, l.]     Zia A.   kept=[zia, a.]
+  Zia E.   kept=[zia, e.]     Zia I.   kept=[zia, i.]
+```
+
+### Where the bad input is
+
+The photographs and the script that made them were written for this entry and
+kept in the session's scratch space, never in the repository, and were deleted
+afterwards. The three readings they produced are quoted verbatim into the tests,
+which is where they now live. **Nothing anybody uses was made worse to get any
+of this.** The failing run above is a test held against the version the review
+was of — the fault was real and already pushed, not padded in to be caught.
+
+### What this entry does not cover
+
+The tests hold the fault at the matcher. **Neither of them photographs anything**
+— they are fed the readings the recogniser returned, as the tests beside them
+already are. The end-to-end run above was done by hand, in this session, and
+nothing in the repository repeats it. If the path from a photograph to the
+margin breaks somewhere other than the matcher, these two tests will still pass.
+
+And one thing the fix does not reach, which is in the code comment as well as
+here: a subject written `Zia A` **without** the full stop still keeps only
+`[zia]`, and a photograph of a novel still names her. Nothing in the words tells
+that `A` from the `A` of `A walk before dinner`, and treating a bare letter as an
+initial would cost that subject its match from a photograph that really does say
+it. Every subject named by an initial in that repository, and every one in the
+finding, carries the stop.
