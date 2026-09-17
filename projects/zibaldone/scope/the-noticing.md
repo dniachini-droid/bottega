@@ -179,6 +179,15 @@ number, not a redesign.*
   it never proposes an action, a plan, an exercise or a next step. That line
   was written by a session, not by him, and he has now twice struck at the
   restriction it belongs to.*
+  **Not yet true of the running product.** The first half is: it already says
+  what he should consider. The second half is not — `noticing/prompts/write.md`
+  in the notebook's repository still tells the article to give *"a thing to
+  think about rather than a plan or a programme"*, which is the old restriction
+  in the writer's own instructions. Until that prompt changes, an article will
+  not suggest a plan however this page reads. *Why the page says so rather than
+  waiting quietly for the build: a scope page read as a description of the
+  product is how the next session decides what the product does, and a line
+  that is settled but unbuilt looks exactly like a line that is built.*
 
   **What is still out is being managed**, not being advised: reminders, chasing,
   a plan he did not ask for repeated at him. *Why the distinction survives when

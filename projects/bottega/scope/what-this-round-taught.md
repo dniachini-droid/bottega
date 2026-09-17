@@ -28,7 +28,7 @@ it.*
   how the handoff check is run, what it actually compares, and that nothing is
   ever appended to the seven fields. *Why three and not fewer: the brief fault
   happened twice in two days and the handoff fault three times. Why the slicing
-  rule despite coming from one occasion: the owner ruled on it himself on 16
+  rule despite coming from one occasion: the owner ruled on it himself on 17
   September 2026 after four rounds bought no polish, and a rule he settled is
   not the workshop adding one. Why nothing beyond those three: every other fault
   in this change is logged rather than ruled, because a rule for a fault seen

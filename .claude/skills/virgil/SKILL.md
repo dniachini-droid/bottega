@@ -316,9 +316,12 @@ fault the handoff exists to prevent.*
 **For a project it refuses on `done-looks-like` and cannot be made to pass —
 that one refusal is the only one you may send past, and any other is real.** It
 reads the page with `git show <branch>:<path>` inside `--repo`, and a project's
-scope pages live here while its branches live in its own repository. Copy that
-field off the page by hand, word for word. *Why written out rather than left to
-judgement: three dispatching sessions in two days were spent on this check, and
+scope pages live here while its branches live in its own repository.
+**Sending past it switches off the only thing that catches an appended line**,
+because prose past the seventh field is caught only as a side effect of that
+same word-for-word comparison — the one that did not run. So copy
+`done-looks-like` out of the page with a command rather than by typing, and
+write nothing after it. *Why written out rather than left to judgement: three dispatching sessions in two days were spent on this check, and
 the last read "REFUSED — nothing was sent" with no way to know which refusals
 were expected. `docs/OPEN.md` holds it open.*
 

@@ -1584,3 +1584,43 @@ the tree it asked about.
 now recurred twice. The `status`-against-the-wrong-tree behaviour is open — the
 check should refuse to compare a field it cannot compare against the right tree,
 rather than comparing it against the tree it happens to be in.
+
+---
+
+## His ruling is on the page and not in the product
+
+**17 September 2026.** He settled that the noticing may suggest a plan when it
+finds one. The scope page was updated. The product was not: the writer's own
+instructions in the notebook's repository still say the article must give *"a
+thing to think about rather than a plan or a programme"* — the old restriction,
+in the place that actually decides what an article says.
+
+The first half of his ruling is already built. It already says what he should
+consider. Only the plan half is missing.
+
+Caught by the third review of this change, which read the deployed prompt rather
+than the page describing it.
+
+**Status:** OPEN, and it is the next piece of work on the noticing — one file,
+one instruction, his own words. Written down here because a settled ruling that
+nobody schedules is indistinguishable from one nobody agreed to.
+
+---
+
+## Three reviews in a row now report the shared scratch directory
+
+**17 September 2026.** Every reviewer dispatched today marked
+`context_isolation: false`, and none of them for anything in its handoff. One
+saw three drafts of the dispatch it was reviewing. One saw a clone of the
+notebook's repository, because its own clone collided with the name. One saw
+`app.good.js` and `hearing.fixed.js`. All three opened nothing and said so.
+
+The drafts were this window's doing and are no longer left there. The rest is
+not: every session here is handed the same directory, and a reviewer that does
+nothing wrong still has the builder's working copies within reach.
+
+**Status:** OPEN, unchanged, and now the most-reported fault in this workshop.
+The rule that would address it — a reviewer must not open the builder's working
+copies — belongs in `.claude/agents/da-vinci.md` and needs the owner's yes. The
+arrangement that would remove the need for a rule is a separate directory per
+session, which nothing here controls.
