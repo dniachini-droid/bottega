@@ -62,7 +62,7 @@
     ],
     "mentions": [
       "AGENTS.md",
-      "projects/",
+      "docs/OPEN.md",
       "tools/check-handoff.mjs"
     ]
   },

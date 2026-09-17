@@ -300,21 +300,38 @@ two were refused by the reviewers that received them — one of them for an eigh
 line the check names in one sentence. A rule in a file the session never opens is
 not a rule.*
 
-**It cannot fully pass for a project built here, and that is not a reason to
-skip it.** It asks that the scope page sit on the branch under review, which
-holds for this repository and never for a project, whose scope lives in
-`projects/`. So it confirms the shape, the branch, the commit, the clean tree
-and the diffstat, and refuses on the last field alone. Copy that field by hand
-off the scope page, and **tell the reviewer plainly that this is what happened.**
-*Why say it rather than quietly proceed: a judgement made around a refusing check
-is the thing this workshop does not let pass in silence.*
+**Run it pointed at the right tree and the right page**, or it refuses on the
+first field and examines nothing after it:
 
-**A reviewer must not open the builder's working copies**, and must say so if
-their names reach it anyway. *Why it has to be said rather than arranged: every
-session here is handed the same scratch directory, so a reviewer that does
-nothing wrong still has them within reach — one reported seeing a file whose name
-ended in *.good.js* without opening it. Weights and downloads nobody here made are
-fine to take; a copy of the thing under review is not.*
+    node tools/check-handoff.mjs <file> --repo <checkout of the branch under
+      review> --scope <that change's scope page>
+
+*Why both: the check looks for the branch inside the tree it is given, and this
+repository does not contain a project's branches — run bare from here, a project
+handoff refuses with "there is no branch", and the pull request and job
+description are then never looked at at all. And it finds a scope page by the
+branch's name, so a branch not named after its change needs `--scope` to say
+which page.*
+
+**What it compares, exactly: `branch`, `head`, `status` and `pull-request`
+against the tree, and `done-looks-like` word for word against the scope page.**
+`repo` and `diffstat` are checked for shape only and compared to nothing.
+*Why written out: on 17 September 2026 this window told a reviewer that six of
+seven fields had been confirmed. Four had been. A field nothing checked, relayed
+as checked, is the fault the handoff exists to prevent, arriving from the
+dispatcher instead of the branch — and `docs/OPEN.md` carries it as open until
+the check compares the diffstat or stops being described as though it did.*
+
+**Nothing is ever appended to the seven fields — not a note, not an
+explanation, not a caveat.** A line past the seventh field is not a line past
+the handoff: the parser folds it into `done-looks-like`, so an explanation of
+the dispatch arrives inside the job description the reviewer is meant to work
+from. If the check refused and you sent it anyway, the reviewer will refuse too,
+and it will be right. Where the account of a refusal goes is the record — the
+pull request, `docs/OPEN.md` — never the handoff. *Why: on 17 September 2026
+this window ran the check, read "REFUSED — nothing was sent", and sent it with
+two paragraphs explaining why the refusal did not matter. Both paragraphs landed
+inside the seventh field. The reviewer refused before reading anything.*
 
 **Before designing anything that waits, read `docs/SIGNALS.md`** — what can
 and cannot carry an event here, with the date each one was tried. Three

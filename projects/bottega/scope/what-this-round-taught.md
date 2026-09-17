@@ -22,10 +22,25 @@ it.*
 - The rules added to `.claude/skills/virgil/SKILL.md` each carry the reason they
   exist and name the occasion that produced it. *Why: "rules with no stated
   reason" is a budget here and it is zero.*
-- The two rules are the two faults that recur: what a review brief may never
-  carry, and that the handoff check is run every time even when it cannot fully
-  pass. *Why only two: the rest are logged rather than ruled, because a rule
-  for a fault seen once is how an instruction file grows and never shrinks.*
+- **Three rules, and each is a fault that has already recurred or that the
+  owner ruled on himself:** cut a piece into slices and show him the slices
+  before work starts; what a review brief may carry and what it may never; and
+  how the handoff check is run, what it actually compares, and that nothing is
+  ever appended to the seven fields. *Why three and not fewer: the brief fault
+  happened twice in two days and the handoff fault three times. Why the slicing
+  rule despite coming from one occasion: the owner ruled on it himself on 16
+  September 2026 after four rounds bought no polish, and a rule he settled is
+  not the workshop adding one. Why nothing beyond those three: every other fault
+  in this change is logged rather than ruled, because a rule for a fault seen
+  once is how an instruction file grows and never shrinks.*
+- **The handoff rule is one rule in several parts**, because the check has
+  several ways of being got wrong and they all came out of the same night: not
+  run at all, run against the wrong tree, described as confirming more than it
+  does, and overridden by appending prose to the seven fields. Counting those
+  as four rules would be counting sentences.
+- The rule that a reviewer must not open the builder's working copies is **not**
+  in the guide's skill, because a reviewer never opens that file. It is logged
+  as belonging in `.claude/agents/da-vinci.md`, which needs the owner's yes.
 - `docs/REFUSALS.md` claims no refusal that was not watched, and each entry
   says what was fed in and what came back. *Why: a check never seen refusing
   cannot be told apart from one that cannot fire.*

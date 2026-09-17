@@ -1503,3 +1503,44 @@ fields and nothing else, with `--scope` naming the page.
 **Status:** OPEN on all three. Not fixed in this change, because this change is
 records and the check is code; a fix to the check is a build with tests and its
 own review.
+
+---
+
+## The rules written to stop the handoff faults restated two of them
+
+**17 September 2026.** A review of the change above found five things, four of
+them inside the rules that change adds to `.claude/skills/virgil/SKILL.md` —
+the file every future guide session reads. All five were fixed in the next
+version; they are recorded because of what they have in common.
+
+1. **The rule said the check confirms the diffstat.** It does not. It compares
+   four fields — `branch`, `head`, `status`, `pull-request`. The same commit's
+   own entry above says exactly that. So the rule written to stop a dispatcher
+   relaying an unchecked fact as checked relayed one itself, three paragraphs
+   from where the fault was written down.
+2. **The rule gave no invocation.** Run bare from this repository, a project
+   handoff refuses on the first field — there is no such branch here — and
+   nothing after it is examined, including the field the rule said was the only
+   one it refuses on. The reviewer ran it and showed the output.
+3. **The rule told sessions to explain to the reviewer that the check could not
+   fully pass.** There is no channel for that. An eighth field is refused; prose
+   is folded into the seventh. The same commit lists this as open, and the rule
+   nonetheless wrote the manoeuvre up as a routine step.
+4. **A rule addressed to reviewers sat in a file no reviewer opens**, three
+   paragraphs after the same section says a rule in a file the session never
+   opens is not a rule.
+5. **The scope page said two rules were added and the diff added five.**
+
+**What they have in common, which is the thing worth keeping:** every one is the
+fix for a fault committing the fault it fixes. The session writing them had all
+the evidence in front of it — it had just written the entry naming the four
+compared fields — and wrote the rule wrong anyway. Proximity to the evidence did
+not help. Only a fresh session reading the rules against the code caught them.
+
+*Why that matters beyond this change: the workshop's answer to a recurring fault
+is to write a rule, and this is the first measurement of how good the rules are.
+Four of five wrong in a file every future session reads.*
+
+**Status:** the five are fixed. The general finding is open — nothing checks a
+rule against the code it describes, and `tools/check-budgets.mjs` checks only
+that paths exist.
