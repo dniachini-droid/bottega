@@ -44,6 +44,29 @@ happen. That is a different guarantee and it needs its own evidence.*
   off the mind and the notebook, not inferred from a step's exit code.
 - **Never make the filing or the noticing do less in order to be checkable.**
 
+## And the second fault, which he found too
+
+*"So it wrote the article but didn't file. And therefore didn't include my new
+entries. So the deseno article is a similar style to the first one."* — 17
+September 2026, reading his own notebook.
+
+He is right, and it is worse than the first fault. The article was written from
+his whole mind, as that road always is, and his whole mind did not have what he
+had said since the last filing. It reads like the one before it because it was
+written from nearly the same material.
+
+**The noticing already has a guard for exactly this and the guard has a hole.**
+`ready()` in `noticing/noticing.js` refuses to look while the filing is
+unfinished, and it measures unfinished as captures the mind holds and has not
+decided on. Nothing was ever fetched, so nothing was owed, so the gate opened.
+It asks what the mind knows it owes, never what the notebook is still holding.
+
+*Why this matters more than a wasted run: a night that writes nothing is
+visibly nothing. A night that writes a confident piece about a man's mind,
+missing the part of his life he added most recently, is indistinguishable from
+a good one — to him, and to the machinery. He caught it by its style. That is
+not a check.*
+
 ## What done looks like
 
 - A night that files nothing when the notebook has captures the mind does not
@@ -59,6 +82,10 @@ happen. That is a different guarantee and it needs its own evidence.*
 - The check that catches a night doing nothing has been watched failing
   against a night that did nothing, and passing against one that filed, with
   what was seen written in `docs/REFUSALS.md`.
+- **The noticing refuses to write while the notebook holds captures the mind
+  does not have**, not only while the mind owes verdicts on captures it already
+  holds. Watched refusing in that exact case: a mind with nothing owed, a
+  notebook with something waiting, and the noticing declining to look.
 - The whole suite is green.
 
 ## What is out
