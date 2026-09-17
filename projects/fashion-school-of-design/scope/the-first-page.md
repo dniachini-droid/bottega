@@ -145,6 +145,14 @@ These are his words and decisions, and the page carries them exactly:
   form goes; the number stays where it is given after sending.
 - **The certificate line** ends: "It is a certificate from SITAM in Italy, not
   an Australian qualification, and not pretending to be."
+- **After the site went live, 17 September 2026:** the section heading is
+  "Meet Anna." and her portrait (at the black table, floral dress) fills the
+  Anna slot; on a phone the first-screen photo is aimed at 68% across so Anna
+  is in frame with the sign and the table pattern still behind her; and the
+  line above the form reads "Tell Anna a little about yourself and what you'd
+  love to make. She reads every message herself, gives you a call, and finds
+  a time that suits you for your free hour in the studio." *Made by the guide
+  window on the owner's authorisation, as a second pull request.*
 
 ## What is out
 
