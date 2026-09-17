@@ -165,11 +165,21 @@ number, not a redesign.*
   file: a repository keeps every version forever, so images accumulate and can
   never be taken back out; and text can be read, corrected and searched when the
   drawing is wrong.*
-- **It never proposes an action, a plan, an exercise or a next step.** *Why
-  that is the whole of the restriction, after 16 September 2026: he said he does
-  not mind being called out and does not want to be managed. Commentary about
-  him is the point of the piece; instruction is the register that makes these
-  systems insufferable.*
+- **It may say what he should consider, and it may suggest a plan when it has
+  found one.** *Why, settled by him on 17 September 2026 in his own words: "I
+  like reading what I should consider. Honestly it knows a lot about me and so
+  if it finds a good plan it should suggest it." This replaces a line that said
+  it never proposes an action, a plan, an exercise or a next step. That line
+  was written by a session, not by him, and he has now twice struck at the
+  restriction it belongs to.*
+
+  **What is still out is being managed**, not being advised: reminders, chasing,
+  a plan he did not ask for repeated at him. *Why the distinction survives when
+  the rest of the line did not: he said on 16 September that he does not mind
+  being called out and does not want to be handled, and those are different
+  things. A piece that has read a year of him and has a good suggestion is
+  earning its place; one that nags is the register that makes these systems
+  insufferable.*
 - **How we will know it is right**: after a month he can point at one article
   and say it told him something he had not put together himself — and at least
   one week produced nothing.
@@ -403,12 +413,14 @@ line under it saying what it holds.*
 
 ## What is out
 
-- **Advice, plans, reminders, exercises, next steps** — anything telling him
-  what to do. *Not the second person, which an earlier version of this line
-  ruled out and which the paragraph above settles the opposite way: the article
-  speaks to him. The line is between interpretation and instruction. This line
-  said the opposite of that one for several hours and the build session caught
-  it from the outside.*
+- **Being managed**: reminders, chasing, a plan he did not ask for repeated at
+  him. *Not advice, not a plan, and not saying what he should consider — all of
+  which he ruled in on 17 September 2026, and which the rules above now carry.
+  Not the second person either, which a still earlier version of this line ruled
+  out and which the article settles the opposite way: it speaks to him. This one
+  line has now been wrong in three different directions, each time by a session
+  narrowing what he may be told, and each time he has widened it back. That is
+  the pattern to notice before narrowing it a fourth time.*
 - **Editing the wiki from the app.** Above, with its reason.
 - **A learned score of what he likes**, and **showing the writer his bad past
   articles as examples of what not to do.** *Why the second: models handle
