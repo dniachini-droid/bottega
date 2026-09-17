@@ -1837,3 +1837,162 @@ owner's to settle if he wants it settled differently.
 **The OCR readings quoted in the tests were not re-verified against a live
 recogniser run**, and the screenshot images were not looked at. The previous
 review left both alone and so did this fix.
+
+## 17 September 2026 — Zibaldone #21, third round: an initial and an abbreviation are the same two characters, watched failing and then passing
+
+A fresh review of `bfef014` returned `changes_required` with one blocking
+finding.
+
+**The finding.** Keeping the full stop inside the word is what gives a page
+called `A.` a name to be found by at all — and it handed every abbreviation he
+types to the margin as a person. `a.m.`, `p.m.`, `i.e.`, `e.g.`, `P.S.` and a
+list written `a. milk / b. bread` all break into single letters carrying a stop,
+and each one is then a whole name. The `LONE_WORDS` guard that protects the
+bare-letter path could not reach the dotted one, because the stop is part of the
+word on purpose.
+
+**The rule chosen, and why it is not a list.** A list of `a.m.`, `p.m.`, `i.e.`,
+`e.g.`, `P.S.` is a list that is missing the next one — `n.b.`, `q.b.`, `ca.` —
+and it would have to be a list for both his languages. The rule is instead the
+two things he does when he writes an initial and does not do when he writes an
+abbreviation, and both are already how the bare-letter rule works. **A capital**,
+because an initial stands for a name: `a. milk` is lower case where `Ask L.
+about the lease` is not. **Standing clear**, because an abbreviation glues the
+next letter to the stop with no space — `a.m.`, `i.e.`, `P.S.` — where a name has
+a space: `M. B.` A lettered stop with a letter hard against it is not an
+initial, and neither is the letter on the other side of that stop. That second
+half is what takes `S.` out of `P.S.` and `M.` out of `9 a.m.`, both of which are
+capital enough to pass the first test on their own.
+
+The observation offered in the direction — the glue — was checked and holds, but
+it is not enough by itself: the shopping list `a. milk / b. bread` has a space
+after every stop and only the lower case tells it from a name. Each half of the
+rule carries one row of the reviewer's table and neither carries both.
+
+The letters that fall out are dropped, not read back as bare letters. On `main`
+the word `m` from `9 a.m.` matched the subject `M.`, because a page of that
+title kept the bare letter; here a page called `M.` keeps `m.`, so dropping is
+what closes the door rather than opening another one.
+
+### Watched failing against the broken version
+
+One test was added and run against `bfef014` with nothing else changed —
+`server/wiki.js` checked out from that commit underneath the new test file, and
+put straight back afterwards.
+
+```
+not ok 1 - a letter and a stop is an initial only where he wrote it as one,
+           not where it is an abbreviation
+  location: 'test/wiki.test.js:1018:1'
+  operator: 'deepStrictEqual'
+  error: 'a lettered list is a list, not two people'
+  expected: []
+  actual:
+    0: 'A.'
+    1: 'B.'
+# tests 1  # pass 0  # fail 1
+```
+
+The thought is a shopping list: `Shopping: / a. milk / b. bread / c. the good
+coffee`. It names nobody. The margin offered two people and nothing else.
+
+### Watched passing against the fix
+
+```
+ok 1 - a letter and a stop is an initial only where he wrote it as one,
+       not where it is an abbreviation
+# tests 1  # pass 1  # fail 0
+```
+
+The whole suite on the branch: **140 tests, 140 pass, 0 fail, 0 skipped** — the
+139 the reviewer counted at `bfef014`, plus this one. Nothing was skipped, so
+the real-browser check on the margin doors ran rather than being passed over.
+
+### Reproduced through the real app before and after, not only in the test
+
+A script delivered eighteen subject pages — `A.`, `B.`, `I.`, `L.`, `P.`, `S.`,
+`E.`, `G.`, `N.`, `U.`, `M. B.`, `Zia A.`, `Zia L.`, `Mother`, `The lease`,
+`The fig tree`, `Vitamin D.`, `Coffee` — through the running app's `/wiki`
+endpoint and asked it for the margin of each thought. Left column is `bfef014`,
+right is the fix.
+
+```
+"Shopping: / a. milk / b. bread /
+ c. the good coffee"                 ["A.","B.","Coffee"]   ->  ["Coffee"]
+"Mother at 9 a.m. about the lease."  ["A.","The lease",     ->  ["The lease",
+                                      "Mother"]                  "Mother"]
+"The lease, i.e. the flat one."      ["E.","I.","The lease"] -> ["The lease"]
+"P.S. the lease runs out in March."  ["The lease","P.","S."] -> ["The lease"]
+"Bring the lease, e.g. the second
+ page."                              ["E.","G.","The lease"] -> ["The lease"]
+"Home by 6 p.m., the fig tree
+ after."                             ["The fig tree","P."]  ->  ["The fig tree"]
+"N.B. the lease runs out in March."  ["B.","The lease","N."] -> ["The lease"]
+"He moved to the U.S.A. last year."  ["A.","S.","U."]       ->  []
+```
+
+The first row keeps `Coffee` on both sides, and should: he wrote the word
+himself, on the third line of his own list. What goes is `A.` and `B.`, the two
+doors onto people he had never mentioned. The last two rows are abbreviations the
+reviewer did not name and the rule was not written from — they were predicted by
+it and then checked.
+
+And what did not move — each of these gives the same answer on both versions:
+
+```
+"Ask L. about the lease before Friday."  ["L.","The lease"]
+"Ask L about the lease before Friday."   ["L.","The lease"]
+"Zia A. rang."                           ["Zia A.","A."]
+"Zia A rang about Sunday."               ["Zia A."]
+"M. B. called."                          ["M. B.","B."]
+"Zia L. rang about Sunday."              ["Zia L.","L."]
+"I. said no."                            ["I."]
+"Took vitamin D today."                  ["Vitamin D."]
+"L'anno scorso la casa era chiusa."      []
+"Mother sent the e-mail about the
+ lease and the fig tree."                ["The fig tree","The lease","Mother"]
+```
+
+The photograph side is untouched, and could not have moved: a letter and a stop
+is two characters, so it is slight, and a name with a slight word in it is never
+built from a photograph. The three Italian photographs from the earlier rounds —
+a page of a novel, a page of a second novel and a school circular — were re-run
+through the reading side and each still offers an empty margin.
+
+`tools/measure-capture.mjs` on the fix: kept in 1.5–2.0 ms with the margin on
+and 1.6–2.0 ms with it off across 0/50/500/3000 subjects, and 80.0 file reads
+either way on 40 read photographs. The reviewer measured 1.5–1.9 ms and 80 reads
+at `bfef014`, so this is the same band.
+
+### Where the bad input is
+
+**Nothing anybody uses was left worse.** The failing run above is the new test
+held against the version the review was of, with `server/wiki.js` checked out
+from `bfef014` and put straight back — `git status` clean afterwards, checked.
+The fault was real and already pushed, not padded in to be caught. The
+before-and-after script was written for this entry, kept in the session's scratch
+space and deleted afterwards.
+
+### What this entry does not cover
+
+**Two costs this fix carries, written down rather than argued away, both
+measured above.**
+
+A thought typed with no capitals at all — `ask l. about the lease before friday.`
+— no longer offers `L.` It still offers `The lease`. Before this the stop was
+enough on its own, so this is the same charge the capital rule already made on
+the bare-letter path, now made one step further. He types `Ask L.` or `Ask L`
+and is answered either way.
+
+And a lettered list written with capitals — `Shopping: / A. milk / B. bread` —
+is still read as `A.` and `B.` Nothing in the letters tells it from `A. rang`,
+and the capital is the evidence the whole rule rests on. Both versions do this;
+the fix neither causes it nor removes it.
+
+**Nothing outside the finding was touched.** The skip-window in `reached()`, the
+late reading, and subjects named after ordinary words arriving from a
+photographed manual were left alone, as the direction said.
+
+**The OCR readings quoted in the tests were not re-verified against a live
+recogniser run**, and the screenshot images were not looked at. The two previous
+rounds left both alone and so did this one.
