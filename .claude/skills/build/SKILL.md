@@ -327,20 +327,19 @@ arrives one useful file at a time.*
 - **Count what it found.** How many findings, and how many blocked. Two
   numbers, written on the pull request at stage 7 with what got past them.
 
-*The reasons for a fresh session and for one pass only are in `AGENTS.md`,
-attached to the rules they belong to, and are not copied here.*
+What Da Vinci is, and what it refuses, is `.claude/agents/da-vinci.md`. Hand it
+the seven lines that file opens with and **nothing else** — stamped off the
+branch at that moment, the scope page's "what done looks like" copied in word
+for word. *Why nothing else: a line past the seventh is folded into that
+last field, so your note arrives inside the reviewer's job description.*
 
-What Da Vinci is, and what it refuses, is `.claude/agents/da-vinci.md`.
-Start it the way every session here starts, and hand it the seven lines that
-file opens with — stamped off the branch at the moment of handoff, the scope
-page's "what done looks like" list copied in word for word, and **no eighth
-line.** *Why: it refuses an unexpected field, and the field you would want to
-add is your own opinion of the work.*
-
-**Run `tools/check-handoff.mjs` on those seven lines before you send them —
-`node tools/check-handoff.mjs <file>`.** *Why before: a bad dispatch cannot be
-repaired — the correction is a second message, and the reviewer that reads it
-is no longer isolated.*
+**Check them with `tools/check-handoff.mjs` first, pointed at the tree the
+branch is in —** `node tools/check-handoff.mjs <file> --repo <that
+checkout> --scope <the scope page>`. *Why pointed: bare from the workshop a project handoff refuses on
+`branch` while `status` is still compared, silently, against the wrong tree. It
+then refuses on `done-looks-like`, because a project's scope page is not on its
+branch; that one is the only refusal you may send past. A bad
+dispatch cannot be repaired.*
 
 ---
 

@@ -1087,6 +1087,12 @@ bar goes in at round one rather than round zero.
 
 ## A review brief must not carry the builder's account of its own work
 
+*The word "brief" in this entry and the two below is historical. There was a
+brief then; there is none now. On 17 September 2026 the guide's skill was
+corrected to say that a review dispatch is the seven fields and nothing else,
+because a rule about what may go in a channel implies the channel exists.
+Nothing in these entries is a remedy still on offer.*
+
 On 16 September 2026 a design critique was dispatched on one version of the
 Zibaldone reading pages and **refused before it looked at anything**. The brief
 had been written from the building session's own pull request: what that session
@@ -1222,9 +1228,15 @@ for a project built with the workshop, where the scope pages live here in
 `projects/<name>/scope/` and the code lives in the project's own repository —
 which is the arrangement this whole place exists to produce.
 
-So the check verified the shape, the branch, the commit, the clean tree and the
-diffstat, and could verify nothing about the seventh field. Every project
-dispatch from now on hits this.
+So the check verified the shape, and compared four fields against the tree —
+`branch`, `head`, `status`, `pull-request` — and could verify nothing about the
+seventh. It compares neither `repo` nor `diffstat` against anything; both are
+checked for shape alone. *Why that correction is here rather than made silently:
+this entry said for a day that six fields had been confirmed and named the
+diffstat among them, which is the same false assurance the entry two below is
+about, written into the record instead of spoken to a reviewer. A record is
+worse than a slip, because the next session reads it as established.* Every
+project dispatch from now on hits this.
 
 **The purpose it is protecting is still real**, and worth restating before
 anybody softens it: the reviewer's job description has to be copied off a page
@@ -1242,18 +1254,19 @@ when a claim the reviewer must check exists only in a thread.
 - **Put a copy of the scope page on the project's branch.** *Objection: two
   copies drift, and the check would be comparing one copy against another rather
   than against the truth.*
-- **Let the field be verified against the brief instead of a page**, since the
-  brief is what the reviewer actually receives. *Objection: that is the check
-  reading prose and judging it, which is what `tools/reads.json` exists to avoid.*
+- **Let the field be verified against the dispatch itself instead of a page.**
+  *Objection: that is the check reading prose and judging it, which is what
+  `tools/reads.json` exists to avoid — and there is nothing else in the dispatch
+  to verify it against, since the dispatch is the seven fields and nothing more.*
 
-**Status:** OPEN. One review was dispatched with the first six fields confirmed
-and the seventh copied by hand off the scope page, and the reviewer was told
-plainly that this was so and why. *Why that was the right call rather than
-stopping: the check's substantive purpose was met — the job was written out in
-full in the brief, so the reviewer had nothing to fetch — and the owner was
-asleep with work waiting. But it was a judgement made around a refusing check,
-which is exactly the thing this repository does not let pass quietly, so it is
-written down here rather than left in a session's memory.*
+**Status:** OPEN. One review was dispatched with four fields confirmed against
+the tree, the shape checked, and the seventh copied by hand off the scope page —
+and with a paragraph appended explaining that. *Both halves of that were wrong
+and are recorded as wrong: the appended paragraph landed inside the seventh
+field rather than beside it, and the reviewer refused before reading anything.
+What was right was copying the field off the page, which is what the check
+exists to force. The correct dispatch is seven fields and nothing else, with
+that one refusal the only one that may be sent past.*
 
 ---
 
@@ -1669,3 +1682,61 @@ will be the one deciding under pressure.*
 
 **Status:** the two findings are fixed. The question of what comes out of
 `.claude/skills/virgil/SKILL.md` is OPEN and unassigned.
+
+---
+
+## The budget bit, and something had to come out
+
+**17 September 2026.** The fifth review of this change asked that the corrected
+handoff invocation go into `.claude/skills/build/SKILL.md` as well, since build
+sessions dispatch reviews and never open the guide's skill. Adding it put that
+skill 97 tokens over the limit and `tools/check-budgets.mjs` refused the commit.
+
+Three rounds of tightening got it to 7 tokens over, which is where shaving
+adjectives stops being honest. What came out instead was a sentence that told a
+session where the reasons for two rules were kept rather than telling it
+anything it needed — pure navigation, no rule attached, nothing worse for its
+absence. That made room.
+
+*Why this is written down rather than treated as housekeeping: this is the first
+time in this workshop that a real addition has had to buy its space, and the
+budget's stated purpose is to force exactly that question. It worked. It also
+took three attempts and a near-miss at paying with a stated reason, which is the
+thing the reasons budget exists to stop. The next session in this position will
+be under more pressure, not less.*
+
+**And a second refusal in the same minute.** The rewrite bundled
+`tools/check-handoff.mjs` inside a longer backtick span, so the path was no
+longer written on its own, and the check refused the declaration as a standing
+pre-approval. Correct: a path inside a command is not a path to that file.
+
+**Status:** both fixed. The question of what else should come out of either
+skill is OPEN and unassigned. Room left: about 13 tokens.
+
+---
+
+## Recording a review on the branch the reviewer is reading
+
+**17 September 2026.** The rule added today closes the dispatch to a previous
+review's conclusions. The fifth reviewer reported that it got them anyway — from
+the tree. `docs/OPEN.md` is part of this change, the bar requires checking it,
+and by then it carried four rounds of verdicts, each ending in which findings
+were fixed and which areas earlier reviewers had pronounced sound.
+
+So the hazard moved rather than closed. *"A reviewer told what the last reviewer
+confirmed has been handed a list of things it need not check"* — which is the
+stated reason for the rule — is exactly what the record now does.
+
+This is two of the workshop's rules pulling against each other, not a slip:
+`AGENTS.md` requires a gap to be written down, and writing it on the branch
+under review is what puts it in front of the reviewer.
+
+**What was done here:** the reassurance was taken out of the entries above
+where it was not load-bearing — a fault is recorded as what happened, not as
+*resolved* — but the round-by-round shape remains, because taking that out
+would take the evidence with it.
+
+**Status:** OPEN, and unresolved. The candidate fix is that the account of a
+review round goes in on a later change rather than on the branch being reviewed,
+which costs the tie between a fault and the version it was found in. Nobody has
+decided.

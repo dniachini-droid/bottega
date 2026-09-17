@@ -24,7 +24,7 @@ it.*
   reason" is a budget here and it is zero.*
 - **Three rules, and each is a fault that has already recurred or that the
   owner ruled on himself:** cut a piece into slices and show him the slices
-  before work starts; what a review brief may carry and what it may never; and
+  before work starts; what a review dispatch may carry and what it may never; and
   how the handoff check is run, what it actually compares, and that nothing is
   ever appended to the seven fields. *Why three and not fewer: the brief fault
   happened twice in two days and the handoff fault three times. Why the slicing
