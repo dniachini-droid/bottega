@@ -70,7 +70,7 @@ On it, top to bottom:
    anyone who would rather ring. Spam is filtered before it reaches her.
 11. **Footer**: Instagram @Fashion_school_of_design linked, "Woodville South,
     South Australia". **No street address anywhere on the site.**
-11. A **video slot** and a **certificate photo slot**, laid out, empty, and
+12. A **video slot** and a **certificate photo slot**, laid out, empty, and
     not ugly while empty.
 
 And these, which no single section owns:
