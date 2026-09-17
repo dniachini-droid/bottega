@@ -2843,3 +2843,175 @@ places — they explain why each check exists, and the history they tell is stil
 true, so the file was left alone rather than edited for tidiness. It is settled,
 reviewed work and this change had no business in it. Said here so it is picked
 up rather than lost.
+
+---
+
+## 17 September 2026 — Zibaldone #19, the fix round: three blocking findings, each written as a test, each watched failing against `99d9bb5` and passing against the fix
+
+The review of `99d9bb5f96b14252a8abebeefae586bdd2dae1c7` returned
+`merge_with_caution` with four findings. Three were fixed and the fourth
+accepted. Each of the three is a test on the branch now. Every refusal below was
+watched; nothing here is reasoned from the source.
+
+The suite before any of it, on `99d9bb5`: **191 tests, 189 pass, 0 fail, 2
+skipped** — the same numbers the reviewer reported, on a machine with a browser
+but no speech model, so the two skips are the real-model tests and the browser
+tests ran.
+
+### One — a note that said he had not typed words he had typed
+
+The note over the spoken words read *"He spoke this one instead of typing it."*
+It was written whenever a capture carried a recording, and a capture carries a
+recording whether or not he also typed. So a line he typed and recorded beside
+went into the log with a sentence under it denying he had typed it — written
+once into a file that is never rewritten, and read as fact by the filing, by the
+noticing and by him.
+
+Watched failing against the broken version. The test is given a capture with
+both, and the assertion that fires is *and nothing in it says he did not type
+them*. What it printed is the fault itself:
+
+```
+# Thursday 17 September 2026, 18:00
+
+the fig tree by the wall
+
+## Spoken
+
+He spoke this one instead of typing it. The words below are the recording as
+it was heard, so they may hold false starts, repeated words and corrections
+he made while speaking. ...
+```
+
+His own typed words, and immediately under them the sentence saying he did not
+type them. Against the fix: `ok 1`, and the file whole, 16 of 16.
+
+The test also feeds the three other things the entry can say about a recording —
+nothing heard, nothing made out, the recording would not open — because the note
+is written in all four places, and a blank-but-not-empty text, to check that
+whitespace is not counted as typing.
+
+### Two — a thought he spoke got no guess in the margin
+
+The margin's guess gated on the words of a capture, and a recording's heard
+words were not among them. The reviewer's own case is the test: the same
+sentence kept twice, once spoken and heard, once typed.
+
+Watched failing against the three server files from `99d9bb5`, the test
+unchanged:
+
+```
+not ok 1 - a thought he spoke is guessed at from the words heard in it, ...
+  error: |-
+    the words heard in a recording reach the margin
+    + actual - expected
+    + []
+    - [ 'the-fig-tree' ]
+```
+
+No door at all where the typed twin has one. Against the fix, `ok 1`.
+
+**And the half that had to be checked rather than assumed.** A recording's words
+are his, which argues for reading them as his own hand — and reading them that
+way would undo the work that keeps a photograph from conjuring a short name.
+So the loose version was built on purpose and fed to the test: heard words
+poured into his typed words, with initials read out of them. The subject is
+`L.`, a name of one letter, and what he speaks is *"Ask L. about the lease."*
+
+```
+error: |-
+  spoken, it is not: a name of a letter or two is held to his own typing,
+  and a transcript is not that
+  + actual - expected
+    [
+  +   'l',
+      'the-lease'
+    ]
+```
+
+The loose version offers him a door into a person because a recogniser put a
+capital and a stop into his speech. The test refuses it. That is the guard
+watched firing, and it is why the decision is written down in the code rather
+than left as a preference: a recording is matched as a photograph is — the whole
+of a name or nothing, no initials read out of it, no name with a one- or
+two-letter word in it — while the words still count as his for the order they
+come back in.
+
+### Three — the hearing ran on pages where nothing it does can be seen
+
+`app.js` is served on every page, and the block that asks what is unheard and
+hands the sound back sat at the top level of it. Opening Codex or Disegno with a
+recording waiting downloaded the recording, decoded it and uploaded the raw
+sound, and showed nothing for it.
+
+This one is measured in a real browser, because what a page asks for is the
+browser's business. The test opens Codex, Disegno and a subject page with one
+recording waiting, and records every request. Watched failing against the page
+script from `99d9bb5`:
+
+```
+not ok 1 - opening Codex or Disegno with a recording waiting asks for nothing
+           and sends nothing
+  error: |-
+    /pages asked what is unheard: ["GET /pages","GET /style...css",
+    "GET /theme...js","GET /app...js","GET /unheard.json",
+    "GET /fonts/CrimsonPro-Italic.woff2","GET /fonts/CrimsonPro.woff2",
+    "GET /voice/20260917T010000000Z-9addaa/original",
+    "POST /heard/20260917T010000000Z-9addaa"]
+```
+
+The whole fault in one line: on the Codex page the browser asked what was
+unheard, downloaded the recording and posted the sound back. Against the fix,
+`ok 1` — nothing asked, nothing downloaded, nothing posted, on all three pages
+and on the locked notebook as well.
+
+The same test then carries the other half, so the quiet cannot have been bought
+by switching the hearing off: on the notebook itself the recording is still
+asked for, handed over exactly once, heard, and the margin stops saying it is
+waiting. And on the next visit, with nothing left unheard, nothing is asked
+again.
+
+### Where the bad input is
+
+All three bad inputs were the code itself, put back afterwards, and none of them
+is in the repository:
+
+- **The broken versions** were `git checkout 99d9bb5 -- <file>` for
+  `filing/mind.js`, then for the three server files, then for `public/app.js`.
+  Each was kept aside first and restored, and the test re-run green against the
+  restored copy before anything was committed.
+- **The loose version of the guess** was a hand-written edit to `guessFor` that
+  existed for one test run and was overwritten from the copy kept beside it. It
+  is described above and quoted in the commit message; no line of it survives.
+
+Nothing was left worse. The tests themselves are the input that stays, and they
+need no fixture: each builds its own capture, its own wiki pages and its own
+recording.
+
+### The numbers afterwards
+
+The suite on the branch after all three fixes: **194 tests, 192 pass, 0 fail, 2
+skipped**, run four times. Three of those runs were clean. The first was not:
+one pre-existing browser test, *he speaks, it is kept, and the page hands the
+sound back and shows the words*, failed once and passed on every other run,
+including alone and with its own file whole. It is recorded here rather than
+waved away. The machine has four processors and runs three browser test files at
+once, and this change adds about eleven seconds of browser work to one of them,
+which widens the window in which they overlap. The test it hit waits up to
+twenty seconds for a selector. That is the likely cause and it was not proved.
+
+### What this entry does not cover
+
+**The fourth finding was accepted, not fixed, and nothing here refuses
+anything about it.** Nothing builds the image, so the new stage of the
+`Dockerfile` will be built for the first time by the deploy after this merges.
+No Docker build was run in this window either. The entry above from earlier
+today records the same gap.
+
+**The image was still never built**, so the fetch, the weighing and the
+extraction remain reasoning rather than evidence, exactly as that entry says.
+
+**Nothing was run on a phone.** The browser tests run Chromium at a phone's
+size, which is not the same thing as iOS, and the ranged serving of a recording
+that the reviewer exercised by hand was not re-exercised here — it was not
+touched.
