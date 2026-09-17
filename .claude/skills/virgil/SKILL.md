@@ -280,9 +280,10 @@ window.*
 
 **What the dispatch may carry, and what it may never.** It is the seven fields
 and nothing else — there is no brief beside them and no channel for one.
-Everything else the reviewer is entitled to, it fetches for itself: the scope
-page on the branch says what the thing is for and what it must never do, and
-`head` and `pull-request` say which version this is and what came before.
+Everything else it fetches off the branch: the scope page says what the thing
+is for and what it must never do, `head` says which version. **Not the pull
+request thread** — every review is posted there, so after the first version the
+thread is the previous reviews.
 **Never what the building session said about its own work, and never what a
 previous review concluded — including the reassuring parts.** Not even that this
 is the second version and earlier faults were fixed: that has nowhere to go, and

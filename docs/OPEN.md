@@ -1299,14 +1299,22 @@ was helpfulness. This one is a prior reviewer's findings, and the instinct behin
 it is efficiency — not wanting to pay twice for the same measurement. The second
 instinct is stronger, better-motivated, and will keep coming back.*
 
-**What a brief may carry, as this now stands:** the version, the bar, what the
-thing is for, and what it must never do. **Not** what the builder says it did,
-and **not** what a previous reviewer concluded — including the reassuring parts.
-Telling a round that it is the second or third version, and that earlier faults
-were found and fixed, is fair and useful; naming them is not.
+**What this entry concluded at the time, and what it is now:** it ended with a
+standing permission — that a dispatch may carry the version, the bar, and the
+fact that this is the second or third round with earlier faults fixed. **That
+permission was struck down later the same day and is not in force.** There is no
+brief and no channel beside the seven fields, and a line saying "this is the
+second version" has nowhere to go but inside the reviewer's job description,
+which is how it caused the fault twice. The entry further down that strikes it is
+*"A rule permitted something there is nowhere to put"*. *Why the retraction is
+written here rather than only there: the rule of this house is to grep and read
+around the hit, and a bolded permission under an OPEN status is exactly what a
+grep lands on. A disclaimer two hundred lines above it does not reach.*
 
-**Status:** OPEN, with the rest. It is the same rule needing the same line in the
-guide's own skill, which is one of the three files that needs the owner's yes.
+**Status:** the permission is withdrawn and the rule is in the guide's skill.
+What remains OPEN is the leak itself, which the dispatch channel does not close:
+a reviewer still meets the previous rounds' conclusions in this file and in the
+pull request thread.
 
 ---
 
@@ -1640,7 +1648,7 @@ session, which nothing here controls.
 
 ---
 
-## A rule permitted something there is nowhere to put, and the guide's skill is now 13 tokens from the ceiling
+## A rule permitted something there is nowhere to put, and the guide's skill ran out of room
 
 **17 September 2026.** Fourth review of the same change. Two findings, both
 fixed.
@@ -1661,13 +1669,15 @@ here, so it named a channel that does not exist, and a rule about what may go
 in a channel implies the channel. The rule now says there is no brief: the
 dispatch is the seven fields, and everything else the reviewer fetches itself.
 
-**`tools/reads.json` claimed `docs/OPEN.md` was 30,404 bytes.** It is 84,985 —
-this file, growing every time a gap is recorded, including by this entry. The
-note exists so that a future session weighing whether to charge this file to
-every session can see what that would cost. At the written figure it looks like
-about 7,600 tokens against a 10,000 budget, which nearly fits. The real figure
-is about 21,000, twice the whole budget. A stale number in exactly the place a
-decision is made from.
+**`tools/reads.json` carried a byte count for `docs/OPEN.md` that was less than
+half of what the file had grown to.** The note exists so that a future session
+weighing whether to charge this file to every session can see what that would
+cost. At the written figure the cost looked like a fraction of the budget and
+nearly affordable; measured, it was past the whole budget twice over. A stale
+number in exactly the place a decision is made from. *The figure is not restated
+here: `wc -c` on the file and `node tools/check-budgets.mjs` are the only honest
+answers, and writing a new number would be the same fault in the entry recording
+it — which is what happened when this was first written up.*
 
 **And the thing this round surfaced that is not a finding:** the guide's
 instructions are now the heaviest set in the repository at about 9,987 tokens,
@@ -1711,7 +1721,8 @@ longer written on its own, and the check refused the declaration as a standing
 pre-approval. Correct: a path inside a command is not a path to that file.
 
 **Status:** both fixed. The question of what else should come out of either
-skill is OPEN and unassigned. Room left: about 13 tokens.
+skill is OPEN and unassigned, and there is very little room left — run
+`node tools/check-budgets.mjs` for how little.
 
 ---
 
@@ -1740,3 +1751,58 @@ would take the evidence with it.
 review round goes in on a later change rather than on the branch being reviewed,
 which costs the tie between a fault and the version it was found in. Nobody has
 decided.
+
+---
+
+## The reviewer's scratch directory is not only readable, it is writable
+
+**17 September 2026.** Four reviews have now reported that the reviewer and the
+builder are handed the same scratch space. All four reported the reading side:
+names of the builder's working copies within reach, opened by none of them.
+
+The sixth review reported the other direction, which nobody had. **The reviewer
+can overwrite what is there, and the collision is on the obvious names.** It ran
+the handoff check on its own dispatch, which means writing the seven lines to a
+file. It wrote `handoff.txt` into a directory already holding `handoff23.txt`,
+`real_handoff.txt`, `narrating-handoff.txt`, `app.good.js`, `server.fixed.js`
+and about four hundred others. Redirecting into a file truncates it, so nothing
+is left to tell from afterwards.
+
+**It cannot say whether it destroyed a building session's file, and neither can
+anybody else. That uncertainty is the finding.**
+
+This is not hypothetical here: earlier in the same day this window ran
+`git reset --hard` in the shared working copy while a session was building in
+it, and discarded that session's work. The reading side has been open for two
+days; the writing side has been open the same length of time and unnoticed.
+
+**Status:** OPEN, and worse than the entry it sits beside. What this window can
+do and has done: write every handoff to a directory of its own and remove it
+afterwards. What that does not cover: every reviewer and every builder, none of
+whom are told. The arrangement that would fix it is a separate directory per
+session, which nothing here controls.
+
+---
+
+## The check's own success line said more than the check does
+
+**17 September 2026.** `tools/check-handoff.mjs` printed, on every acceptance:
+
+> Handoff accepted: seven fields, each checked against the branch.
+
+Four fields are checked against the tree. `repo` and `diffstat` are checked for
+shape and compared to nothing. Confirmed by the sixth review, which ran the
+check with a false `diffstat` and a false `repo` and had neither noticed.
+
+This is where the belief came from. The session that told a reviewer "six of
+seven fields passed against the branch" had just read that line. So the fault
+recorded twice above as a session's slip was partly the tool's sentence, and the
+rule written to stop the slip left the sentence in place.
+
+**Fixed here:** the line now names the four fields it compared, names the scope
+page comparison, and says outright that `repo` and `diffstat` are not compared.
+Watched still refusing afterwards: a handoff claiming `status: dirty` against a
+clean tree was refused, naming `status`.
+
+**Status:** fixed. The underlying gap — that nothing compares the diffstat —
+remains open above.

@@ -66,7 +66,13 @@ const refuse = (field, why) => refusals.push({ field, why });
 
 function report() {
   if (refusals.length === 0) {
-    console.log('Handoff accepted: seven fields, each checked against the branch.');
+    // *Why this names the four rather than saying "each": on 17 September 2026
+    // a dispatching session relayed "six of seven fields confirmed" to a
+    // reviewer, and this line is where that belief comes from. `repo` and
+    // `diffstat` are checked for shape and compared to nothing.*
+    console.log('Handoff accepted: seven fields present; branch, head, status'
+      + ' and pull-request checked against the tree, and done-looks-like'
+      + ' against the scope page. repo and diffstat are not compared.');
     process.exit(0);
   }
   const n = refusals.length;
