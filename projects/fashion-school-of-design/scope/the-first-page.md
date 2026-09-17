@@ -93,6 +93,55 @@ And these, which no single section owns:
   the pull request in plain words.
 - The site's own address is a free one. A bought domain comes later.
 
+### The owner's wording, settled on 17 September 2026 after he saw the first build
+
+These are his words and decisions, and the page carries them exactly:
+
+- **No long dashes anywhere on the page.** No em or en dash as punctuation;
+  commas, full stops or colons instead. Hyphens inside words stay. *Why: he
+  said the dashes make it look as if a machine wrote it.*
+- **The desk photo goes behind the headline.** The file he uploaded as
+  `photos/IMG_1232.HEIC` is Anna at her cutting table; it is renamed to
+  `hero` so the page puts it on the first screen and keeps it out of the
+  students' grid.
+- **First screen**, under the headline: "Pattern drafting the Italian way.
+  Small classes in Woodville South. Bring your ideas, leave with a garment
+  that's actually yours." and, on its own line beneath: "No commercial
+  patterns, ever".
+- **What you will do**, intro line: "During your lessons at Fashion School of
+  Design, you'll learn:" then five bullets: "How to take your own measurements,
+  properly, and your first block drawn with the SITAM rule." / "The skirt:
+  drafted from your block, cut, and fitted on you." / "The bodice: darts,
+  balance, and the shape you actually are." / "The sleeve, and then a design
+  of your own on top of it." / "Cutting, sewing and finishing it, so you walk
+  out with something you can wear." and after the bullets, as a sentence:
+  "This is the shape of the first SITAM book. Anna will tell you where your
+  own class goes next."
+- **What is SITAM**, both paragraphs: "SITAM was born in Padova, in the north
+  of Italy, in 1946. The Padovani family had been tailors for generations, and
+  they wanted a way for anyone, not just a trained cutter, to make clothes
+  that truly fit. So they designed a beautifully simple tool: a curved ruler
+  where each curve is a part of you. The shoulder, the armhole, the sleeve.
+  You take a handful of your own measurements, follow the curves, and a
+  pattern appears on the paper that was drawn for your body and nobody
+  else's." / "Eighty years on, it's still taught the same way, from the same
+  numbered books, and it still feels a little like magic the first time it
+  works. Anna learned it at sixteen. She has been teaching it for forty years,
+  and she has never found anything that fits better."
+- **Anna**, both paragraphs: "Anna has been making clothes since she was four
+  years old, and she has never really stopped. She taught herself first, then
+  worked in couture, and at sixteen she found the SITAM method. From that day
+  on she has never used a bought pattern again." / "Over the years she has
+  made wedding dresses, suits, children's clothes, detailed costumes and high
+  fashion, and for the last forty she has been teaching other people to do the
+  same, one small class at a time. Some of her former students now run their
+  own labels; some work at Paolo Sebastian. Most just make clothes they love
+  wearing. She'd be happy to help you do any of them."
+- **The form button** says "Send". The line "Or just ring Anna:" under the
+  form goes; the number stays where it is given after sending.
+- **The certificate line** ends: "It is a certificate from SITAM in Italy, not
+  an Australian qualification, and not pretending to be."
+
 ## What is out
 
 - A booking calendar.
