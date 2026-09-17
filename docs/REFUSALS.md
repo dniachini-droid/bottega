@@ -3015,3 +3015,249 @@ extraction remain reasoning rather than evidence, exactly as that entry says.
 size, which is not the same thing as iOS, and the ranged serving of a recording
 that the reviewer exercised by hand was not re-exercised here — it was not
 touched.
+
+---
+
+## 17 September 2026 — Zibaldone #19, the second fix round: two blocking findings, each written as a test, each watched failing against `c0b63eb` and passing against the fix
+
+The review of `c0b63eb` on `claude/the-narrating` returned `changes_required`
+with three findings. Two were fixed here. The third was accepted and is not
+touched — it is the browser missing from the build image, and the two entries
+above from earlier today record that same gap.
+
+Everything below was run in a clone of the branch at `c0b63eb`, with Chromium
+present, so the browser tests ran rather than skipping.
+
+### The numbers before anything was changed
+
+The suite at `c0b63eb`, to confirm the ground the reviewer stood on:
+
+```
+# tests 194
+# pass 192
+# fail 0
+# skipped 2
+```
+
+The two skipped are the two that need a real speech model on the machine.
+
+### One — every failure to open a recording was written down for ever
+
+The last step of `hearOne` in `public/app.js` was:
+
+```js
+}).then(handOver, function () { cannot('could-not-open'); });
+```
+
+Every rejection the browser's decoder can produce went there, and that POSTs
+`/could-not-hear/<id>`, which is written the way a hearing is written: once,
+and never rewritten. No path back but editing the volume by hand.
+
+The reviewer's two triggers are both about something other than the recording.
+A second browser without the codec: he speaks into his iPhone, so Safari makes
+MP4 with AAC inside it, and Firefox on several platforms has no AAC decoder
+there — the rejection is about Firefox, and the recording is written off on
+every browser including the phone that made it and reads it perfectly. And
+running out of memory, which is indistinguishable at that line from a corrupt
+file: opening a twenty-minute recording means holding the whole of it as plain
+numbers at the browser's own rate, some 230 MB in one piece.
+
+**What was decided, and why.** They cannot be told apart there, so nothing is
+written down at all. The recording is left exactly as it was — still waiting,
+still offered on the next visit — and the run carries on to the ones behind it,
+which is the part that had to be kept: leaving it unheard must not mean
+stopping the run, or one recording a browser dislikes would hold up everything
+spoken after it, which is the fault an earlier round already fixed here. What
+stays final is only what is read off the recording itself: more sound in it
+than the notebook hears at once, and too little sound in it to hear anything.
+Those are facts about the recording, which is why they are allowed to be final.
+
+**The cost, said rather than hidden:** a recording that genuinely nothing can
+ever open is now asked for again on every visit, for ever. That is work wasted.
+It is the lesser of the two — an unheard recording can still be heard later, a
+written-off one cannot.
+
+#### Watched failing against `c0b63eb`
+
+The browser test *a recording that cannot be opened is settled, and the ones
+behind it are heard* was rewritten to say the opposite, since the opposite is
+what is wanted: *a recording this browser cannot open is left unheard, and the
+ones behind it are still heard*. Source restored to `c0b63eb` with
+`git checkout c0b63eb -- public/app.js server/hearing.js`, the new test kept:
+
+```
+not ok 1 - a recording this browser cannot open is left unheard, and the ones behind it are still heard
+  error: |-
+    +   margin: 'could not be opened',
+    +   reason: 'could-not-open',
+    +   status: 'could-not-hear',
+    +   why: 'The recording could not be opened by the browser that was asked to open it.'
+  expected: ~
+  operator: 'strictEqual'
+# pass 0
+# fail 1
+```
+
+The assertion is `bad.hearing === null`. Against `c0b63eb` a whole written-off
+hearing came back instead.
+
+#### Watched passing against the fix
+
+```
+ok 1 - a recording this browser cannot open is left unheard, and the ones behind it are still heard
+# pass 1
+# fail 0
+```
+
+The test carries all of it: nothing whatever written down about the one that
+would not open, the recording still on the disk byte for byte, `/unheard.json`
+still offering it and only it, the margin still saying *not yet heard*, and
+both recordings sitting behind it heard on that same visit — which is the half
+that proves the run was not stopped to buy the rest.
+
+### Two — the resampler had no anti-alias filter, measured at zero attenuation
+
+`flatten()` stepped through the decoded recording with linear interpolation and
+nothing before it. A context made with no options runs at the hardware rate,
+normally 48000, so it is a 3:1 decimation with no filter at all. Sound above
+8000 was not lost, it was moved: folded back into the speech band at full
+strength, on top of what he said.
+
+Measured first by lifting the function out of the page and feeding it single
+tones, reproducing the reviewer's numbers exactly. A full-strength tone reads
+0.500 in this measurement.
+
+**Against `c0b63eb`:**
+
+```
+48k input  1000 Hz -> level 0.500 at  1000 Hz in the 16k output   (0.0 dB)
+48k input  3000 Hz -> level 0.500 at  3000 Hz in the 16k output   (0.0 dB)
+48k input 12000 Hz -> level 0.500 at  4000 Hz in the 16k output   (0.0 dB)
+48k input 14000 Hz -> level 0.500 at  2000 Hz in the 16k output   (0.0 dB)
+48k input 20000 Hz -> level 0.500 at  4000 Hz in the 16k output   (0.0 dB)
+```
+
+**Against the fix** — eight poles of Butterworth at 7000, as four two-pole
+sections, run before the thinning:
+
+```
+--- input at 48000 ---
+    200 Hz -> level 0.50000 at   200 Hz   0.0 dB
+   1000 Hz -> level 0.50000 at  1000 Hz   -0.0 dB
+   3000 Hz -> level 0.50000 at  3000 Hz   0.0 dB
+   5000 Hz -> level 0.49937 at  5000 Hz   -0.0 dB
+   8000 Hz -> level 0.07099 at  8000 Hz   -17.0 dB
+  12000 Hz -> level 0.00175 at  4000 Hz   -49.1 dB
+  14000 Hz -> level 0.00021 at  2000 Hz   -67.4 dB
+  20000 Hz -> level 0.00000 at  4000 Hz   below the 16-bit floor
+--- input at 44100 ---
+    200 Hz -> level 0.49997 at   200 Hz   -0.0 dB
+   1000 Hz -> level 0.49916 at  1000 Hz   -0.0 dB
+   3000 Hz -> level 0.49243 at  3000 Hz   -0.1 dB
+   5000 Hz -> level 0.47867 at  5000 Hz   -0.4 dB
+   8000 Hz -> level 0.05311 at  8000 Hz   -19.5 dB
+  12000 Hz -> level 0.00099 at  4000 Hz   -54.1 dB
+  14000 Hz -> level 0.00008 at  2000 Hz   -75.5 dB
+  20000 Hz -> level 0.00000 at  4000 Hz   below the 16-bit floor
+```
+
+**Speech is not damaged**, which is the other half and the one that says the
+cure did not cost more than the fault: 200, 1000, 3000 and 5000 Hz all come
+through at full strength at both input rates. 8000 is the fold point itself and
+has to go; it is the transition, not the speech band.
+
+44100 was measured as well as 48000 so that none of this is a fact about one
+number. Stereo was checked at 1000 Hz and reads 0.50000.
+
+#### Watched failing against `c0b63eb`, passing against the fix
+
+The test is *sound too high for the notebook is taken out, not folded back on
+top of his voice*. It lifts the real function out of the file the browser is
+served, so it measures the shipped code rather than a copy.
+
+```
+### AGAINST c0b63eb (unfixed resampler) ###
+not ok 1 - sound too high for the notebook is taken out, not folded back on top of his voice
+  error: '12000 Hz folds to 4000 Hz and must not arrive there: read 0.50000, and before this it read 0.500'
+# pass 0
+# fail 1
+### AGAINST THE FIX ###
+ok 1 - sound too high for the notebook is taken out, not folded back on top of his voice
+# pass 1
+# fail 0
+```
+
+#### That the restructuring itself changed nothing it should not
+
+The filter runs only where the numbers are actually being thinned, so a
+recording already at the notebook's own rate is untouched. Checked by running
+the old function and the new one on the same random input and comparing every
+number:
+
+```
+16000 Hz, 1 channel(s), no thinning: 48000 numbers, largest difference from the old code = 0
+16000 Hz, 2 channel(s), no thinning: 48000 numbers, largest difference from the old code = 0
+8000 Hz, 1 channel(s), no thinning: 48000 numbers, largest difference from the old code = 0
+11025 Hz, 2 channel(s), no thinning: 48000 numbers, largest difference from the old code = 0
+20 minutes at 48000 -> 19200000 numbers in 1.9 s
+```
+
+Identical, every number. And the filter is fed one sample at a time as the
+thinning walks the recording, so a twenty-minute recording gets no second
+full-length copy of itself in the phone's memory beside the one the browser
+already made.
+
+### Where the bad input is
+
+Both bad inputs were the code itself, put back afterwards, and neither is in
+the repository:
+
+- **For finding one**, `git checkout c0b63eb -- public/app.js server/hearing.js`
+  with the new test kept, and both files restored from copies kept aside before
+  the test was re-run green.
+- **For finding two**, `git checkout c0b63eb -- public/app.js`, restored the
+  same way.
+
+Nothing was left worse. The two tests are the input that stays, and neither
+needs a fixture: one builds its own recordings, the other builds its own tones.
+
+### The numbers afterwards
+
+The suite on the branch after both fixes, with Chromium present:
+
+```
+# tests 195
+# pass 193
+# fail 0
+# skipped 2
+```
+
+194 to 195 is the one test added; the two skipped are still the two that need a
+real speech model. `test/narrating-phone.test.js` on its own: 13 tests, 13 pass,
+0 fail, 0 skipped. Across the three files that use a browser there are 17
+browser-gated tests and all of them ran.
+
+### What this entry does not cover
+
+**The third finding was accepted, not fixed**, and nothing here refuses anything
+about it. The build configuration was not touched and no image was built in this
+window.
+
+**Nothing caps the size of what is decoded.** The reviewer noted that the "too
+long" check happens inside `handOver`, after the decode, so nothing limits what
+is materialised. That was left alone deliberately. Any cap applied before the
+decode has to be a cap on the compressed bytes, which means guessing a bitrate
+to turn bytes into seconds — and guessing wrong writes a good recording off as
+too long for ever, which is a fault an earlier round on this same branch already
+had to fix. What did change is the damage it can do: an out-of-memory rejection
+is no longer final, so the worst case is now wasted work rather than a lost
+transcript. It is named here and not chased.
+
+**Nothing was run on a phone**, and nothing was measured in Safari. What Safari's
+AAC actually does to the band above 8000 is still unmeasured, so whether the
+folding reached his transcripts in practice remains unknown — only that the
+mechanism was there and is now gone. The branch's own note that it has measured
+nothing in Safari still stands.
+
+**The resampler was measured in Node, not in a browser.** It is arithmetic on
+numbers and the test lifts the shipped function verbatim, but no browser ran it.
