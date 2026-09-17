@@ -1387,3 +1387,57 @@ not the workshop.*
 **Status:** OPEN only as to where it finally lives. It is in force from now
 either way. It belongs in the guide's own skill, which is one of the three files
 that needs his yes.
+
+---
+
+## The mind will hold two kinds of thing, and cannot tell them apart
+
+**17 September 2026.** He said what he actually intends to put in: *"literally
+anything"* — things to remember, things about other people, his CV, a project he
+might start, a price he saw, a joke, a quote. And he asked the right question:
+does that make the noticing better, or does it drown it?
+
+**Two kinds of thing are going into one box.**
+
+- **A fact he wants back later.** *Alice's apartment is 41.* Its whole value is
+  retrieval. It has nothing to notice about it and never will.
+- **Something to be noticed.** *I felt flat all week and I don't know why.* Its
+  value is what it turns out to mean when laid beside five others.
+
+Today nothing distinguishes them. Both become captures, both are filed, and the
+noticing reads both.
+
+**Why this is probably fine, and it is worth saying before the worry:** the
+noticing is already built to refuse. `noticing/prompts/decide.md` tells it that
+*"nothing is an ordinary answer"*, that most runs are expected to find nothing,
+and specifically to say nothing *"when the captures are only a subject coming
+up"*. A page of apartment numbers is exactly that. And facts are genuine
+context — knowing his employer and his history is what lets an article connect
+what he keeps circling back to with where he has been.
+
+**Two things that are real, though:**
+
+1. **The noticing is woken by frequency.** A mechanical count over the ledger
+   fires it when a subject is touched often. Pour fifty facts about one person in
+   and it will be asked about that person again and again — each time correctly
+   answering nothing, but each time another chance to force a pattern that is not
+   there. *The guard against that is a prompt, which is somebody's word.*
+2. **A CV is not a capture.** It is one lump holding a hundred facts across
+   dozens of subjects, arriving at once. Nothing here has seen an input of that
+   shape. It would file into many pages in a single run, and it would move the
+   ledger counts in a way no ordinary day does.
+
+**What would actually answer it:** a way to tell a fact from a thought — declared
+by him, or inferred by the filing — so Codex holds both while the noticing weighs
+them differently: facts as context it may draw on, thoughts as the material it
+works from.
+
+*Why not build that now: nobody knows yet whether it is needed. He has not yet
+filled it with mixed material, and the noticing has run only a handful of times.
+The number that would settle it does not exist — how often the noticing is woken
+by a subject that is only facts. Built first, it is a guess at a guess, the same
+mistake the margin's second slice is waiting to avoid.*
+
+**Status:** OPEN. Told to him as: put everything in, and put the CV in
+deliberately rather than as one lump. Revisit when the mind has a few weeks of
+mixed material in it and there is something to count.
