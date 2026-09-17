@@ -1930,3 +1930,29 @@ remote had no route forward. The rule now names that exception.
 
 **Status:** all three corrected. Not watched refusing, because an unreachable
 remote was not arranged; that half is read off the code.
+
+---
+
+## The guarantee about the notebook's doors is held by nobody on a push
+
+**17 September 2026.** The margin slice's scope page requires that every door it
+draws is reachable — measured across a 24 by 24 square, with real separation
+between stacked doors. A test does measure it, in a real browser, and it passes.
+
+It does not run when anything is pushed. The build installs with the browser
+download switched off, so four tests across two files are skipped. The job log
+for the version under review reads 142 tests, 138 passed, 4 skipped.
+
+**So a later change that shrinks a door or stacks two of them without separation
+merges green**, and the requirement is held only by whoever remembers to run the
+suite on a machine that happens to have a browser. Both the reviewer and the fix
+session checked this against the workflow file and the job log rather than
+asserting it.
+
+*Why it is here rather than fixed in that slice: it is pre-existing and not that
+change's doing, and changing how the build installs is a different job with a
+different blast radius — the reason the fix session was told to confirm it and
+leave it.*
+
+**Status:** OPEN. It is the same fault as a check never seen refusing anything,
+one step removed: the check can refuse, and is never asked.
