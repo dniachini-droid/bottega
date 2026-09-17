@@ -1688,3 +1688,152 @@ is confined to his own typing, and it is in the code comment and the document as
 well as here. What it cannot do is carry a name that is nothing but the initial:
 `Better after a walk, and a coffee` does not name the person `A.`, and there is
 a test on that line.
+
+---
+
+## 17 September 2026 — Zibaldone #21 again, an advisory finding taken as blocking, watched failing and then passing
+
+A fresh review of `12186ae` returned `merge_with_caution` with two findings and
+marked neither blocking. The guide overrode that on the first of them, for one
+stated reason: it is pre-existing, so it is happening on the owner's phone
+tonight, and fixing it makes the product better than it is rather than better
+than the branch. Taken as blocking, it gets a test like any other.
+
+**The finding.** The guard that reads a lone letter in something he typed as
+somebody's initial demotes the one-letter words of the English stop list — `a`
+and `i` — so they cannot carry a name on their own. The app's other language is
+Italian, whose one-letter words are `a`, `e`, `è`, `i` and `o`. `e` and `o` are
+on no list the code consults, and the accent comes off `è` before the letter is
+looked at, so an ordinary Italian sentence naming nobody filled all three
+margin doors with three people he knows.
+
+### Watched failing against the broken version
+
+One test was added and run against `12186ae` with nothing else changed —
+`server/wiki.js` checked out from that commit underneath the new test file.
+
+```
+not ok 1 - an initial is a capital, and the one-letter words of both his
+           languages cannot carry a name
+  location: 'test/wiki.test.js:960:1'
+  operator: 'deepStrictEqual'
+  expected: []
+  actual:
+    0: 'Zia A.'
+    1: 'Zia E.'
+    2: 'E.'
+# tests 1  # pass 0  # fail 1
+```
+
+The sentence is `La zia è andata a casa.` — *the aunt has gone home*. It names
+nobody. The margin offered three people.
+
+### Watched passing against the fix
+
+```
+ok 1 - an initial is a capital, and the one-letter words of both his
+       languages cannot carry a name
+# tests 1  # pass 1  # fail 0
+```
+
+The whole suite on the branch: **139 tests, 139 pass, 0 fail, 0 skipped** — the
+138 the reviewer counted at `12186ae`, plus this one.
+
+### Reproduced through the real app before and after, not only in the test
+
+A script delivered the reviewer's own subject pages — `Zia A.`, `Zia E.`, `E.`,
+`L.`, `I.`, `O.`, `The lease`, `The fig tree`, `Mother`, `Coffee` — through the
+running app's `/wiki` endpoint and asked it for the margin of each thought.
+Left column is `12186ae`, right is the fix.
+
+```
+"La zia è andata a casa."            ["Zia A.","Zia E.","E."]  ->  []
+"Pane e latte, e poi la zia."        ["Zia E.","E."]           ->  []
+"O vuoi il caffè o vuoi il tè."      ["O."]                    ->  []
+"Ho parlato con la zia o con la
+ mamma."                             ["O."]                    ->  []
+"Mother sent the e-mail about the
+ lease and the fig tree."            ["The fig tree","E.",     ->  ["The fig tree",
+                                      "The lease"]                  "The lease","Mother"]
+```
+
+The last row is the one worth reading twice: the margin offered him `E.`, a
+person, and the cap of three then pushed out `Mother`, whom he had written
+himself. `LONE` excluded the apostrophe but not the hyphen, so `e-mail` yielded
+an initial.
+
+And what did not move — each of these gives the same answer on both versions:
+
+```
+"Zia A rang about Sunday."             ["Zia A."]
+"Ask L about the lease before Friday." ["L.","The lease"]
+"Did L say anything about the lease?"  ["L.","The lease"]
+"L'anno scorso la casa era chiusa."    []
+"I. said no."                          ["I."]
+"Better after a walk, and a coffee."   ["Coffee"]
+```
+
+The photograph side is untouched. The three Italian photographs from the
+previous round — a page of a novel, a page of a second novel and a school
+circular — were re-run through the reading side and each still offers an empty
+margin.
+
+`tools/measure-capture.mjs` on the fix: kept in 1.5–2.2 ms with the margin on
+and 1.8-1.9 ms with it off across 0/50/500/3000 subjects, and 80.0 file reads
+either way on 40 read photographs. The reviewer measured 1.6–2.1 and 1.8–1.9 at
+`12186ae`, so this is the same band.
+
+### Why the letter list alone was not the fix
+
+Worth recording because the review, the direction and the first attempt all
+framed this as a letter set, and a letter set on its own does not do it.
+
+Put `e` and `o` on the list and `La zia è andata a casa.` still offers `Zia A.`
+and `Zia E.` Being on the list means the letter may stand as the initial
+*inside* a name that has another word beside it — which is exactly the shape
+`Zia E.` has, with `zia` supplied by the sentence. Only the bare `E.` goes.
+
+Nothing in the letters tells that sentence from `Zia A rang about Sunday.`,
+which the direction requires to keep working. What tells them apart is the
+capital: an initial stands for a name and a name is written with one, while a
+one-letter word in the middle of an Italian sentence never is. So the fix is
+both — the list is now the words of both languages, and an initial has to be a
+capital.
+
+The list is `a`, `e`, `i`, `o`. It is the words and not the vowels: `u` is a
+word in neither language, so `U.` can still carry a name. `è` is not listed
+separately because the accents come off before the letters are looked at. `ho`
+and `ha` are two letters, so they are words already and the slight rule holds
+them to his hand without this.
+
+### Where the bad input is
+
+**Nothing anybody uses was left worse.** The failing run above is the new test
+held against the version the review was of, with `server/wiki.js` checked out
+from `12186ae` and put straight back. The fault was real and already pushed,
+not padded in to be caught. The reproduction script was written for this entry,
+kept in the session's scratch space and deleted afterwards.
+
+### What this entry does not cover
+
+**The second finding has no test**, deliberately: it moves two comments in
+`server/store.js` onto the functions they describe and changes no behaviour.
+The rule here is that only a blocking finding becomes a test.
+
+**Two costs this fix carries, written down rather than argued away.**
+
+A thought typed with no capitals at all — `ask l about the lease` — no longer
+offers `L.` It still offers `The lease`. That is a real loss and it is the
+smaller of the two; the other side of it was three wrong doors on an ordinary
+sentence of his own language.
+
+And a capital at the start of a sentence is read as an initial like any other,
+so `E poi la zia.` still offers `Zia E.` and `A pranzo dalla zia.` still offers
+`Zia A.` That is the behaviour `a` has always had here — it is the same cost the
+entry above this one records — and it cannot go without taking `Zia A rang about
+Sunday.` with it. That tension is real, it was not resolved, and it is the
+owner's to settle if he wants it settled differently.
+
+**The OCR readings quoted in the tests were not re-verified against a live
+recogniser run**, and the screenshot images were not looked at. The previous
+review left both alone and so did this fix.
