@@ -148,11 +148,18 @@ number, not a redesign.*
   the failure. The sting rate — how often he marks an article **right, but I did
   not want to read it** — is this piece's earliest warning, and a design that
   wrote carefully around him would contradict its own success measure.*
-- **The line is between interpretation and instruction, not between observing
-  and interpreting.** *"You stop going to the gym in the weeks the visa comes
-  up. It has happened three times now"* is the thing he asked for. *"You should
-  book three sessions a week"* is a coach, and a coach is what makes these
-  unbearable within a month.
+- **The line is between an observation he can check and a machine nagging him.**
+  *"You stop going to the gym in the weeks the visa comes up. It has happened
+  three times now"* is the thing he asked for, and *"so it may be worth booking
+  the sessions before the paperwork lands"* is allowed to follow it, because he
+  settled that on 17 September 2026. What is not allowed is the same suggestion
+  arriving again next week, and the week after, unasked — a plan offered once
+  from evidence is an observation finished properly; a plan repeated is a coach,
+  and a coach is what makes these unbearable within a month.
+  *Why this line reads differently from how it read before 17 September: it used
+  to say a suggested plan was itself the forbidden side, with "you should book
+  three sessions a week" as the example of a coach. He struck that down. The
+  forbidden thing was never the suggestion; it is the chasing.*
 - **The price of being direct is evidence: every claim points at what he
   actually wrote.** *Why it is the price and not a nicety: a machine telling him
   something about himself that he cannot trace back to his own words is a

@@ -45,25 +45,34 @@ This is the same refusal he made about the margin answering, and it is the same
 reason. **The app has never made an outbound call.** Nothing here may be the
 first.
 
-## What has to be found out, with measurements and not guesses
+## What had to be found out, and what building it answered
 
-Three things gate the design, and a wrong guess at any of them builds the wrong
-thing:
+Three things gated the design. They were settled by building rather than by
+measuring first, which is not how this page originally said they would be
+settled. What follows is what is now known, and what is still not.
 
-1. **Will Whisper run in Safari on his iPhone, and how fast?** The model can run
-   in a web page through WebAssembly, and his phone's processor is far better
-   than the small machine the app runs on. Unknown: whether iPhone Safari gives a
-   page enough memory to hold the model, and what a minute of speech costs in
-   seconds.
-2. **What does iPhone Safari hand back when a page records audio?** The format
-   is not the same as other browsers and the answer decides what is stored.
-3. **Which size of the model is good enough for him?** The small ones are fast
-   and rough; the larger ones are slow and accurate. The test is his speech, not
-   a benchmark — Australian, and with Italian names in it.
+1. **Will the speech model run in Safari on his iPhone, and how fast?**
+   **Not answered, because the design stopped needing it.** The model does not
+   run in the page at all. The phone records and uploads; the app's own machine
+   reads the words afterwards, the way a photograph is read. Thirteen minutes of
+   sound was heard in 111 seconds on that machine, with the front page
+   answering throughout.
+2. **What does iPhone Safari hand back when a page records audio?**
+   **Handled rather than measured.** Whatever the browser gives is stored as it
+   arrives and converted on the machine. **No part of this has been tried on an
+   iPhone or in Safari.** Every measurement in this piece is Chromium at phone
+   width. That is a real gap and is written down as one.
+3. **Which size of model is good enough for him?** **`tiny.en`**, with its
+   limits found by measurement rather than assumed: it takes thirty seconds of
+   sound at a time, and long recordings are cut at a pause rather than at a
+   clock tick. A quiet start of eleven seconds or more could lose everything
+   after the first sentence, which was found in review on 17 September 2026 and
+   is fixed rather than tolerated.
 
-*Why these are answered by measurement rather than by reading: every one of them
-is a number on his phone, and a number taken from documentation is a claim about
-somebody else's device.*
+*Why this section now reads as answers rather than questions: the original
+wording said these would be measured before the design was settled, and the
+work went ahead and settled them. A page that still asks them sends the next
+session to re-derive what is already known.*
 
 ## What done looks like
 
@@ -82,17 +91,21 @@ somebody else's device.*
   rather than refused.
 - **Nothing leaves the phone or the machine.** No address, no key, no account.
 
-## If the phone cannot do it
+## What was decided when the phone could not do it
 
-Say so with the numbers, and do not quietly build the expensive version instead.
-The fallbacks, in order, are: the same model run on the app's own machine, which
-is one shared processor with a gigabyte of memory and sleeps when unused, so the
-honest report is how many minutes a two-minute narration takes; or keeping the
-recording only, and reading it during a run he starts himself.
+It could not, and this is what was done — recorded because the page previously
+offered these as live options and they are no longer open.
 
-**Keeping the recording and no transcript at all is a real outcome and not a
-failure.** *Why written down: it is most of the value, and a session that treats
-it as defeat will reach for the paid service to avoid reporting it.*
+The model does not run on the phone. It runs on the app's own machine: one
+shared processor with a gigabyte of memory that sleeps when unused. The honest
+number is above — thirteen minutes of sound heard in 111 seconds, with nothing
+transcribed while he waits.
+
+**The recording itself is the thing kept, and the transcript is the
+improvement.** *Why it stays written down: it is most of the value, and a
+session that treats a poor transcript as defeat will reach for the paid service
+to avoid reporting it. He refused the paid service in his own words and that
+refusal is recorded above.*
 
 ## Held back deliberately, and why it is held rather than dropped
 

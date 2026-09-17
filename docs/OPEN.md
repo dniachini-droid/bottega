@@ -1544,3 +1544,43 @@ Four of five wrong in a file every future session reads.*
 **Status:** the five are fixed. The general finding is open — nothing checks a
 rule against the code it describes, and `tools/check-budgets.mjs` checks only
 that paths exist.
+
+---
+
+## Second review of the same change, four more, and one entry that recurred on its own review
+
+**17 September 2026.** The version that fixed the five above was reviewed again
+and returned four more. All four are fixed. Three are worth keeping.
+
+**The reviewer marked `context_isolation: false`, and the reason is an entry
+already on this page.** Listing the shared scratch directory put `handoff-32.txt`,
+`handoff-32b.txt` and `handoff-32c.txt` in front of it — three successive drafts
+of the dispatch it was reviewing — beside `fixwork/`, `refusals.patch`,
+`main-SKILL.md` and `app.good.js`. It opened none and listed only after its
+findings were formed. *So the entry "Da Vinci and Michelangelo share one scratch
+directory" recurred on the review of the change that logs it.* Nothing here has
+moved on it; it is still open and it is now the second reviewer in a row to
+report it.
+
+**A scope page gave two answers to the same question twenty lines apart.**
+`projects/zibaldone/scope/the-noticing.md` was widened to let the noticing
+suggest a plan, and the "What is out" entry was updated to match — but a rule
+twenty lines above still used *"You should book three sessions a week"* as its
+worked example of the forbidden side, and still read as current. The change's own
+new text warns that a fourth session will narrow this line; the stale line is
+exactly where it would narrow it from. *The general fault: widening a rule means
+finding every place the old reading is worked out, not only the place it is
+stated.*
+
+**A field was checked against the wrong repository, silently.** Run bare from
+here, a project handoff refuses on `branch` — and `status` is still compared,
+against this repository's working tree rather than the project's. Reproduced
+here: a handoff for `claude/the-narrating` in the notebook's repository was
+refused for a modification to `.claude/skills/virgil/SKILL.md`, a file in this
+one. A dispatcher seeing `status` pass on a bare run has been told nothing about
+the tree it asked about.
+
+**Status:** the four findings are fixed. The scratch directory is open and has
+now recurred twice. The `status`-against-the-wrong-tree behaviour is open — the
+check should refuse to compare a field it cannot compare against the right tree,
+rather than comparing it against the tree it happens to be in.
