@@ -1680,10 +1680,13 @@ answers, and writing a new number would be the same fault in the entry recording
 it — which is what happened when this was first written up.*
 
 **And the thing this round surfaced that is not a finding:** the guide's
-instructions are now the heaviest set in the repository at about 9,987 tokens,
-13 short of the limit. They were about 8,690 this morning. Every one of today's
-additions was a real fault being written up so it cannot recur, and the budget
-is now binding: the next rule cannot go in until something comes out.
+instructions became the heaviest set in the repository during 17 September 2026,
+and by the end of that day were within a few dozen bytes of the limit. Every one
+of the day's additions was a real fault being written up so it cannot recur, and
+the budget is now binding: the next rule cannot go in until something comes out.
+*The room left is deliberately not written here. `node tools/check-budgets.mjs`
+prints it, and a figure in this passage was wrong within the commit that wrote
+it — flattering, and by a factor of three.*
 
 *Why that is the budget working rather than failing: the limit exists to force
 that question, and a file that can only grow is a countdown. But nobody has yet
@@ -1806,3 +1809,30 @@ clean tree was refused, naming `status`.
 
 **Status:** fixed. The underlying gap — that nothing compares the diffstat —
 remains open above.
+
+---
+
+## An ordinary registration would now break the build
+
+**17 September 2026.** The seventh review found the shape of the budget problem,
+which nobody had named: `projects/registry.json` is charged to both skills, its
+one entry is about 300 bytes, and the heaviest set is now a few dozen bytes
+under the limit.
+
+**So registering a second project — the workshop's own central action, the thing
+this place exists to do — takes both skills over the limit and fails the build,
+on a change that has nothing to do with instruction size.** The session doing it
+would then have to decide what comes out of an instruction file it was not
+touching.
+
+Two entries above record that room is short and leave the question open. Neither
+says which file trips it, or that an ordinary registration is enough.
+
+**Status:** OPEN and now urgent rather than tidy. What has to be decided is what
+comes out of `.claude/skills/virgil/SKILL.md`, which grew by about 5,200 bytes
+on 17 September 2026 — every byte of it a fault written up so it cannot recur,
+and none of it obviously the thing to delete. *Why it is not decided here: the
+guide's skill is one of the three files that needs the owner's yes, and choosing
+what to cut from it at the end of a long night, under a budget already refusing
+commits, is how a reason gets paid out to buy space — which the reasons budget
+exists to stop. It was nearly done once already tonight.*

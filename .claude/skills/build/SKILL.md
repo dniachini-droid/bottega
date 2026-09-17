@@ -336,10 +336,11 @@ last field, so your note arrives inside the reviewer's job description.*
 **Check them with `tools/check-handoff.mjs` first, pointed at the tree the
 branch is in —** `node tools/check-handoff.mjs <file> --repo <that
 checkout> --scope <the scope page>`. *Why pointed: bare from the workshop a project handoff refuses on
-`branch` while `status` is still compared, silently, against the wrong tree. It
-then refuses on `done-looks-like`, because a project's scope page is not on its
-branch; that one is the only refusal you may send past. A bad
-dispatch cannot be repaired.*
+`branch` and stops — nothing after it is looked at, while `status` has already
+been compared, silently, against the wrong tree. Pointed properly it refuses on
+`done-looks-like` instead, because a project's scope page is not on its branch,
+and that one is the only refusal you may send past. A bad dispatch cannot be
+repaired.*
 
 ---
 

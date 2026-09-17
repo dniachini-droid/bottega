@@ -1535,3 +1535,36 @@ same, line for line, before the change and after it.** So the change neither
 caused it nor cured it. Da Vinci swept a mid-thought gap too and found nothing,
 so this is a different arrangement of one, and nothing here establishes which is
 the fair one. It is written down rather than chased.
+
+
+---
+
+## The success line that said more than the check does
+
+**17 September 2026.** `tools/check-handoff.mjs` printed on every acceptance:
+*"Handoff accepted: seven fields, each checked against the branch."* Four fields
+are compared against the tree; `repo` and `diffstat` are checked for shape and
+compared to nothing.
+
+**Why it is a refusal worth recording rather than a wording fix:** a dispatching
+session told a reviewer that six of seven fields had passed against the branch.
+It had just read that line. The tool put the words in its mouth.
+
+**Fed it something bad, twice over.** A handoff carrying a false `diffstat` and
+a false `repo` was accepted without comment — confirmed by the sixth review of
+pull request 32. And the new test was watched failing against the old line:
+
+```
+not ok 10 - what it says on acceptance is what it actually compared
+  location: 'tools/check-handoff.test.mjs:288:1'
+```
+
+with the old line restored in the working copy and nowhere else, then put back.
+Against the new line the same test passes, 10 of 10.
+
+**Watched still refusing afterwards**, so the change did not buy the honest
+message by weakening the check: a handoff claiming `status: clean` against a
+tree with a modified file was refused, naming `status` and printing the file.
+
+**Nothing was left worse.** The old line existed only in the working copy for
+the length of one test run.

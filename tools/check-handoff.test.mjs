@@ -278,3 +278,23 @@ test('it reads the scope page off the branch, not the working copy', () => {
     assert.match(out, /not word for word/);
   });
 });
+
+// *Why this is a test rather than a comment: on 17 September 2026 a dispatching
+// session told a reviewer that six of seven fields had passed against the
+// branch. Four had. It had just read this program's own success line, which
+// said "seven fields, each checked against the branch". A dispatcher who
+// repeats what the tool tells it should not be the one who is wrong. Watched
+// failing against the old line and passing against the new one.*
+test('what it says on acceptance is what it actually compared', () => {
+  withFixture((fixture) => {
+    const { code, out } = check(fixture, {});
+    assert.equal(code, 0, out);
+    assert.doesNotMatch(out, /each checked against the branch/);
+    for (const field of ['branch', 'head', 'status', 'pull-request']) {
+      assert.match(out, new RegExp(field));
+    }
+    // The two it never compares have to be named as not compared, so the line
+    // cannot be read as a clean bill for the whole handoff.
+    assert.match(out, /repo and diffstat are not compared/);
+  });
+});
