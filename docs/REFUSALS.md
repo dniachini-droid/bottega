@@ -2426,3 +2426,235 @@ the stop is a separate question and is not settled by this change.
 **The OCR readings quoted in the tests were not re-verified against a live
 recogniser run**, and the screenshot images were not looked at. The four
 previous rounds left both alone and so did this one.
+
+## 17 September 2026 — Zibaldone #21, sixth round: a number in a title fell out of that subject's name, watched failing and then passing
+
+A fresh review of `7e2041f` returned `changes_required` with one blocking
+finding and nothing else. It is a regression the fifth round's own fix
+introduced, and it is the first time in this slice that the margin got **wider**
+rather than narrower.
+
+**The fault.** The fifth round put every one-letter word of a title through
+`initialsOf`: the initial it spells, or nothing.
+
+```js
+if (w.length > 1) { if (!STOP.has(w)) out.push(w); }
+else if (initials.has(`${w}.`)) out.push(`${w}.`);
+```
+
+A title is broken into words on letters **and digits**, and `initialsOf` only
+ever yields a capital letter. So a bare digit is a one-character word that can
+never be an initial, and every number standing as a word of a title dropped
+silently out of that title's name. So did every lower-case letter. The rule was
+argued end to end in terms of letters — in the code comment, and in
+`docs/the-margin-guesses.md`, which said *"A one-letter word in a title is the
+initial it spells, or it is nothing"*. The digit was not decided against; it was
+never considered.
+
+**Why that is blocking and not cosmetic.** A name is matched by requiring
+**every** word of it. Dropping a word therefore loosens the match. Every guard
+built across the six rounds of this slice tightened it; this one widened it, and
+it widened it into exactly the failure the whole slice exists to prevent — a
+photograph that names nobody filling the margin with people and places he never
+mentioned.
+
+### Watched failing against the broken version
+
+The new test in `test/wiki.test.js`, held against the version the review was of:
+`server/wiki.js` checked out from `7e2041f`, everything else at the fix.
+
+```
+### BROKEN (server/wiki.js from 7e2041f, test from 1fe74bd) ###
+not ok 1 - a number in a title is a word of that subject's name
+  error: |-
+    + actual - expected
+    + [
+    +   'Via Roma 7',
+    +   'Sala 2',
+    +   'Sportello 3'
+    + ]
+    - []
+# pass 0
+# fail 1
+```
+
+Three doors, all wrong, off a photograph of a council letterhead that names
+nobody and nothing of his. That is the worst thing the margin can do, and the
+fifth round's fix is what put it back.
+
+### Watched passing against the fix
+
+```
+### FIXED ###
+ok 1 - a number in a title is a word of that subject's name
+# pass 1
+# fail 0
+```
+
+`git status` was clean after restoring `server/wiki.js`, checked, and
+`git diff HEAD --stat` was empty.
+
+### Reproduced through the real recogniser before and after, not only in the test
+
+The letterhead was **rendered as a printed page and read with the recogniser the
+app actually runs** — `tesseract.js 7, eng+ita (tessdata_fast)` from
+`vendor/tessdata` — and what came back was handed straight to the running app's
+margin. No literal string anywhere in the loop.
+
+```
+recogniser: tesseract.js 7, eng+ita (tessdata_fast), status read, confidence 93%
+"COMUNE DI FERRARA\n\nUfficio Anagrafe - via Roma\n\nSala d'attesa: prendere il numero\nSportello aperto dal lunedi al venerdi"
+```
+
+Against `7e2041f`:
+
+```
+  name of page/via-roma-7: ["via","roma"]
+  name of page/sala-2: ["sala"]
+  name of page/sportello-3: ["sportello"]
+margin from the photograph: ["Via Roma 7","Sala 2","Sportello 3"]
+margin when he types it himself: ["Sportello 3"]
+```
+
+Against the fix, same render, same read:
+
+```
+  name of page/via-roma-7: ["via","roma","7"]
+  name of page/sala-2: ["sala","2"]
+  name of page/sportello-3: ["sportello","3"]
+margin from the photograph: []
+margin when he types it himself: ["Sportello 3"]
+```
+
+The door he opens himself is unchanged. The three he never asked for are gone.
+
+### The rule chosen, and why the narrow reading was not the whole of it
+
+**A word of a title stays in that title's name.** Two things come out and
+nothing else does: a word that names nothing to look for — an English function
+word, or one of the one-letter words of his two languages — and a one-letter
+word that spells an initial, which stays as the initial it spells rather than as
+the bare letter.
+
+That is the fifth round's rule turned the right way up. It was written as *a
+one-letter word is an initial or it is nothing*, with "stays" as the exception;
+it is now written as *a word stays*, with the initial and the function word as
+the exceptions. Nothing about `Zia E` changes. What changes is that a case
+nobody thought of falls on the safe side of the rule instead of the dangerous
+one, which is the property the old wording did not have.
+
+**The digit was the narrow reading and it was not the whole of it.** The review
+also named `Il piano b`, and the direction said to decide what a one-character
+lower-case letter in a title is and say why. It is an ordinary word and it
+stays, so `Il piano b` is `[il, piano, b]`. It cannot be a person — an initial
+is a capital standing clear, and a lower-case letter is not one — and it cannot
+be nothing, because nothing is what loosens the match. The four one-letter words
+of his languages are still dropped, and they are dropped for the reason the
+English function words are: they name nothing to look for. Not because they are
+letters. That is what keeps `A walk` as `[walk]` and a title of nothing but `E`
+naming nobody, both of which the fifth round won and both of which still hold.
+
+The code is three lines:
+
+```js
+if (w.length === 1 && initials.has(`${w}.`)) { out.push(`${w}.`); continue; }
+if (STOP.has(w) || LONE_WORDS.has(w)) continue;
+out.push(w);
+```
+
+The reason is written beside it in `server/wiki.js` and on
+`docs/the-margin-guesses.md`, and the sentence the review quoted — line 261,
+*"A one-letter word in a title is the initial it spells, or it is nothing"* — is
+corrected there rather than left standing.
+
+### What it costs, named rather than hidden
+
+**He has to write the number.** A subject whose title carries one is offered
+only when the thought carries it too. *The flat is freezing again.* is not
+**Flat 3**; he types *Flat 3 is freezing again.* and is answered. The same
+charge falls on the letter of `Il piano b`.
+
+**And a numbered subject is never built from a photograph at all** — even a
+photograph that really does say *Sportello 3*. A digit is one character long, so
+it is short, and a name with a short word in it is only ever built from words he
+typed. That follows from the short-word rule and not from this change: it was
+true before the fifth round broke it and it is true again now. It is written on
+`docs/the-margin-guesses.md` where it will be read, because it looks like a
+consequence of putting the number back and is not.
+
+### What the cost list was checked against
+
+Every line the direction named was re-run against the fix, not assumed:
+
+```
+Zia E filed: "La zia e andata a casa: coffee, the lease..."    -> ["The fig tree","Coffee","The lease"]
+Zia E filed: "Zia E. rang about Sunday."                       -> ["Zia E"]
+Zia E filed: "Zia E rang about Sunday."                        -> ["Zia E"]
+Zia E filed: "A casa di zia domani."                           -> []
+"Ask L. about the lease before Friday."                        -> ["L.","The lease"]
+"Ask L about the lease before Friday."                         -> ["L.","The lease"]
+"Zia A. rang."                                                 -> ["Zia A."]
+"Zia A rang about Sunday."                                     -> ["Zia A."]
+"M. B. called."                                                -> ["M. B."]
+"Zia L. rang about Sunday."                                    -> ["Zia L.","L."]
+"I. said no."                                                  -> ["I."]
+"Took vitamin D today."                                        -> ["Vitamin D."]
+"L'anno scorso non e successo niente."                         -> []
+"Mother sent the e-mail about the lease and the fig tree"      -> ["The fig tree","The lease","Mother"]
+"9 a.m. partenza"                                              -> []
+"P.S. the lease runs out in March."                            -> ["The lease"]
+"It is short, i.e. the lease."                                 -> ["The lease"]
+"N.B. the fig tree."                                           -> ["The fig tree"]
+"He is in the U.S.A. again."                                   -> []
+"«L. non viene», ask about the lease before Friday."           -> ["L.","The lease"]
+photo: shopping list                                           -> []
+photo: bank letter                                             -> []
+photo: novel                                                   -> []
+typed "Went for a walk today."                                 -> ["A walk"]
+search "a walk" (both words)                                   -> ["page/a-walk"]
+name of "A walk"                                               -> ["walk"]
+name of "Il piano b"                                           -> ["il","piano","b"]
+```
+
+The stray `e` of the Italian sentence still names nobody, and `The lease` — which
+he wrote himself — still keeps its door. The whole suite: **144 passing, 0
+failing, 0 skipped**, up from 143 by the one test above.
+
+### The numbers, re-measured rather than carried over
+
+`tools/measure-capture.mjs`: a thought kept in **1.5–2.0 ms** across 0, 50, 500
+and 3,000 subjects, and 40 read photographs drawn in **18.4 ms** with the margin
+on against 16.5 ms off, **80.0 file reads either way**. The change is three lines
+inside the index build, which runs once per delivery and not once per thought,
+so the number he waits through was not expected to move and did not.
+
+### Where the bad input is
+
+**Nothing anybody uses was left worse.** The failing run is the new test held
+against the version the review was of, with `server/wiki.js` checked out from
+`7e2041f` and put straight back — tree clean afterwards, checked both ways. The
+fault was real and already pushed; nothing was padded in to be caught. The two
+before-and-after scripts that render the letterhead, read it and drive the
+running app were written for this entry, kept in the session's scratch space,
+and are not in the repository.
+
+### What this entry does not cover
+
+**Nothing outside the blocking finding was touched**, as the direction said. The
+skip-window in `reached()`, the late reading, subjects named after ordinary words
+arriving from a photographed manual, and the capitalised lettered list
+(`A. milk / B. bread`) were all left alone.
+
+**The browser tests skipping in CI is unchanged and was not re-checked.** It is
+already logged from the fifth round and from `docs/OPEN.md`. On this session's
+machine all four ran: the suite reports 144 passing with 0 skipped.
+
+**The short-word line was not moved.** A digit is one character and therefore
+short, which is what stops a numbered subject being built from a photograph.
+Exempting digits from that rule would have made the letterhead case pass a second
+way, and it would have been widening beyond the finding. It was not done, and the
+cost of not doing it is written on the design page instead.
+
+**The OCR readings already quoted in the other tests were not re-verified.** Only
+the letterhead was rendered and read live, because only it is this finding's. The
+five earlier rounds left the rest alone and so did this one.
