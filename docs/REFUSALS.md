@@ -1568,3 +1568,123 @@ tree with a modified file was refused, naming `status` and printing the file.
 
 **Nothing was left worse.** The old line existed only in the working copy for
 the length of one test run.
+
+## 17 September 2026 — Zibaldone #21, two blocking findings, each watched failing and then passing
+
+A fresh review of `664bafd` returned `merge_with_caution` with three findings.
+The guide treated the first two as blocking and the third as a documentation
+fix. Both blocking ones were written as tests, watched failing against
+`664bafd` with nothing else changed, and watched passing against the fix.
+
+**The first.** Keeping a letter-plus-stop as its own word gave the subject `L.`
+the name word `l.`, which only appears in a thought if he writes the stop too.
+He types on a phone and will not punctuate an initial to match a page title, so
+`Ask L about the lease` stopped finding her — and that is a step back from
+`main`, where a bare letter matched because a name of that shape kept nothing
+else. **The second.** His typing and the photograph's reading were joined into
+one text before the whole-name test, so one word from each built a name neither
+text said.
+
+### Watched failing against the broken version
+
+Two tests were added, one per finding, and run against `664bafd` with no other
+change. The suite was 136 passing before them; with them, 136 passing and 2
+failing.
+
+```
+not ok 20 - a bare letter he typed is the initial he meant, and an elided
+            article still is not
+    and without it, which is how he actually types
+    + actual - expected
+      [
+    -   'L.',
+        'The lease'
+      ]
+
+not ok 12 - a name is never assembled from one word of his typing and one of
+            a photograph
+    he wrote "garden" and a builder's quote said "wall": neither text names
+    the garden wall, and the margin says nothing
+    + actual - expected
+    + [ 'the-garden-wall' ]
+    - []
+```
+
+The first is a matcher test in `test/wiki.test.js`. The second is an app-level
+test in `test/page.test.js`, kept through `/keep` and read back off the drawn
+page, because the two sources only exist as two above the matcher: the fault was
+that the matcher was handed one text where there were two, and a test that calls
+the matcher with two arguments cannot see that.
+
+### Watched passing against the fix
+
+Both pass, and the whole suite is **138 passing, 0 failing, 0 skipped**.
+
+### Reproduced through the real app before and after, not only in the tests
+
+Thirteen thoughts were kept through the running app — the real server, the real
+recogniser reading real photographs rendered as pages of print and then rotated
+2.4 degrees, blurred and saved as quality-62 JPEGs. The same script was run
+against `664bafd` and against the fix. Every photograph read at 94–96%
+confidence in both runs. Only the margin changed:
+
+```
+typed                                      photo                   664bafd              the fix
+"Ask L. about the lease before Friday."    none                    L., The lease        L., The lease
+"Ask L about the lease before Friday."     none                    The lease            L., The lease
+"Did L say anything about the lease?"      none                    The lease            L., The lease
+"Zia A rang about Sunday."                 none                    (empty)              Zia A.
+"Took vitamin D today."                    none                    (empty)              Vitamin D.
+"The garden is a mess."                    "Quote for the wall"    The garden wall      (empty)
+"Milan next week."                         "The job starts..."     The Milan job        (empty)
+"Nothing much today."                      "The garden wall is..." The garden wall      The garden wall
+""                                         "Coffee taken late..."  Coffee               Coffee
+""                                         "Fig tree... Lease..."  fig tree, lease      fig tree, lease
+""                                         Italian novel           (empty)              (empty)
+""                                         second Italian novel    (empty)              (empty)
+""                                         school circular         (empty)              (empty)
+```
+
+The bottom six rows are the ones that had to **not** move: three photographs
+that name a subject in full and still do, and the three pages of ordinary
+Italian print from the last round whose margins were empty and stayed empty.
+
+### The claim in the direction, checked rather than taken
+
+The guide said relaxing the match on his typing side could not reopen the
+photograph hole, and asked for that to be verified. It was, by asking the
+photograph side directly with lone letters in it. A photograph reading `Ask L
+Friday about the lease` offers `The lease` and not `L.`, with the stop or
+without it; `Sesso: M [ ] b) domiciliato`, `La zia era tornata dal paese` and
+`A tavola erano in undici. Lo zio parlava` each offer nothing; `Fig tree —
+feed it before the frost. Lease: ask L. Friday` still offers both subjects it
+names in full. Nothing reads a lone letter as an initial except in what he
+typed.
+
+### Where the bad input is
+
+**Nothing anybody uses was left worse.** The photographs and the two scripts
+that made them were written for this entry, kept in the session's scratch space
+and deleted afterwards; the "before" run was done in a throwaway worktree at
+`664bafd` that was removed. The failing run above is the two new tests held
+against the version the review was of — the faults were real and already pushed,
+not padded in to be caught.
+
+### What this entry does not cover
+
+**The third finding has no test**, deliberately: it is advisory, the matching is
+unchanged, and the rule here is that only a blocking finding becomes a test. Its
+claims were checked before being written into `docs/the-margin-guesses.md` —
+`Il muro`, `La cascina`, `Lo studio`, `Le chiavi` and `Un anno` each keep a
+two-letter word, are answered from his typing and are never guessed from a
+photograph, even one that names them in full.
+
+**And a cost this fix carries, written down rather than argued away.** A lone
+`a` or `i` he types now counts as an initial inside a name that has another word
+in it. So a subject called `Zia A.` will be offered for an Italian thought that
+happens to say *zia* and *a* — `la zia a Milano` — where before it was offered
+for neither. That is the price of `Zia A rang about Sunday` working at all, it
+is confined to his own typing, and it is in the code comment and the document as
+well as here. What it cannot do is carry a name that is nothing but the initial:
+`Better after a walk, and a coffee` does not name the person `A.`, and there is
+a test on that line.
