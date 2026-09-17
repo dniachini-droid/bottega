@@ -1,4 +1,18 @@
-# The first page
+Build session for pull request #1 in https://github.com/dniachini-droid/fashion-school-of-design, branch `claude/the-first-page`. #1 is already open as a draft — do not open another. Do not review your own work. Never merge.
+
+You wake up in Bottega, the workshop, on branch `claude/vibrant-babbage-6fu75b`. Read `AGENTS.md` and `CLAUDE.md` there; they bind you. Then attach the project to yourself with the repository-attaching tool — owner `dniachini-droid`, repo `fashion-school-of-design`, **access `push`, not read** — and clone it into `../fashion-school-of-design`, beside Bottega's directory and never inside it. Every command for the project runs from that directory. Copy no file from Bottega into the project — not the rules, not the skills, not the scope page, not the tools. Copy no file from the project into Bottega.
+
+## The facts
+
+- The project repository has one empty commit on the branch and a README from GitHub on `main`. Nothing else exists yet. You are building the first version of a website from scratch.
+- `git` may need `-c user.email=dn.iachini@gmail.com -c user.name=dniachini-droid`.
+- The reference for the look is `projects/fashion-school-of-design/look.dc.html` in Bottega: the page the owner and Anna chose, drawn at phone width. Open it to see the structure, the type and the colours. It is a mock-up in a drawing format, not a web page — rebuild it as a real one, do not copy the file. Its essentials: fonts **Anton** for headings and **Work Sans** for text, from Google Fonts; colours black `#0E0E0E`, red `#FF3B1F`, white, text grey `#2A2A2A`; a black first screen with the headline in red condensed capitals; a red ticker strip; three white boxes with a thick black border and a red line icon; big red numbers; a black quote block; a black footer.
+- Plain HTML and CSS, one page, no framework. A tiny build step is fine if it is what makes the photo grid come from the folder.
+- Hosting is **Netlify**, deploying from this repository, with **Netlify Forms** for the enquiry — it emails the submission and filters spam, and Anna needs no account. You cannot connect the Netlify account yourself. Build so that the owner connects it in a few clicks, and write those clicks into the pull request in plain words: which button, what to type, and where he enters `anna.iachini@gmail.com` as the address the form notifies. You cannot watch that email arrive; say so rather than claiming it works.
+- The owner adds photos by dropping files into a folder called `photos/` on GitHub and doing nothing else. Make that folder, with a one-line note in it saying what goes there. The site picks the photos up on the next deploy. The folder may be empty when you build; the page must look deliberate, not broken, when it is.
+- Screenshots at phone width (390 wide) go on the pull request: the first screen, the boxes, the form, the empty photo grid. Playwright and Chromium are already installed; do not run `playwright install`.
+
+## The job — the whole job, and nothing beyond it
 
 ## What it does
 
@@ -98,3 +112,9 @@ And these, which no single section owns:
 - The video itself. The slot is built; the file does not exist yet.
 - A blog, news, or anything that needs updating on a schedule.
 - Any copying between this repository and the workshop, in either direction.
+
+## Finish
+
+1. Commit, push to `claude/the-first-page`. No second pull request.
+2. Update #1's body: what you built, what you watched happen (with the screenshots), what you could not verify and why, the Netlify steps for the owner, and what you did not do.
+3. Take #1 out of draft, then **comment saying whether you finished, stopped early, or are blocked.**
