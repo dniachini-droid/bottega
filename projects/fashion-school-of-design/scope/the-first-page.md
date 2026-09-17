@@ -60,7 +60,12 @@ On it, top to bottom:
    anything that implies Australian recognition.** It says what it is: a
    certificate from SITAM in Italy.
 8. **What her students make**: a grid of photos from `photos/`. If the folder
-   is empty the grid shows labelled slots, not broken images.
+   is empty the grid shows labelled slots, not broken images. **The photos
+   arrive as the owner's phone hands them over** — on 17 September 2026 that
+   was five files in the iPhone format (HEIC) and one 9.6 MB PNG — and the
+   site converts and shrinks them on the way in, because most browsers will
+   not show HEIC and nobody waits for a 9.6 MB picture on a phone. The owner
+   never converts, renames or resizes anything.
 9. **One testimonial slot**, marked as coming, with no invented words in it.
 10. **The enquiry form**: name, phone, email, what they would like to make,
    whether they have sewn before, whether they came through TAFE. Someone
