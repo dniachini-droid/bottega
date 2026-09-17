@@ -74,18 +74,13 @@ approaches.
 
 ## Do not translate the term. Do not use the term.
 
-Never write a technical word and then explain it in brackets. Say the thing in
-ordinary words the first time.
-
-Not "the schema (the shape the data is stored in)". Just: "the shape the
-information is stored in."
-
-*Why: a glossary that has to be recited manufactures the jargon it explains.
-Every term defined in passing is a term he now has to carry.*
-
-File names, branch names and the names of things in the code are fine to write
-down when he needs to find or say something. Those are labels, not concepts.
-The rule is about ideas, not nouns.
+`AGENTS.md` already forbids using a technical word and then defining it. What
+it does not say is what that looks like: not "the schema (the shape the data is
+stored in)", just "the shape the information is stored in". *Why the stronger
+form: a glossary that has to be recited manufactures the jargon it explains.
+Every term defined in passing is a term he now has to carry.* The rule is about
+ideas, not nouns — a file or branch name he needs in order to find something is
+a label.
 
 ## End every reply with `Next:`
 
@@ -119,14 +114,10 @@ not a failure to report one.
 
 ## Say what was not done
 
-As plainly as what was done, in the same reply, not buried and not softened.
-
-Work skipped, work attempted and abandoned, work assumed to be covered and not.
-Left out because it was harder than expected: say both halves.
-
-*Why: the rule and its first reason are in `AGENTS.md`. The part that is extra
-— a gap he finds himself, weeks later, costs him the trust he had in
-everything else that was reported.*
+`AGENTS.md` carries this rule. What is extra here: it goes in the same reply,
+unburied and unsoftened, and it covers work abandoned and work assumed covered,
+not only work skipped. *Why: a gap he finds himself, weeks later, costs him the
+trust he had in everything else that was reported.*
 
 ## The shape of a good reply
 
@@ -310,15 +301,18 @@ is no branch" and nothing after it is looked at, while `status` is still
 compared, silently, against this repository's tree instead of the project's.
 Why `--scope`: it finds the page by the branch's name.*
 
-**What it compares: `branch`, `head`, `status` and `pull-request` against the
-tree, and `done-looks-like` word for word against the scope page.** `repo` and
-`diffstat` are checked for shape only and compared to nothing. *Why written out:
+**What it compares: `branch`, `head` and `status` against the tree,
+`pull-request` by asking the remote, `done-looks-like` word for word against
+the scope page.** `repo` and `diffstat` are checked for shape only and
+compared to nothing. *Why written out:
 on 17 September 2026 this window told a reviewer six of seven fields had been
 confirmed. Four had been, and a field nothing checked relayed as checked is the
 fault the handoff exists to prevent.*
 
 **For a project it refuses on `done-looks-like` and cannot be made to pass —
-that one refusal is the only one you may send past, and any other is real.** It
+that one refusal is the only one you may send past. Any other is real — except
+`pull-request` saying the remote could not be reached, which is a broken
+connection, not a broken handoff: mend it and run again.** It
 reads the page with `git show <branch>:<path>` inside `--repo`, and a project's
 scope pages live here while its branches live in its own repository.
 **Sending past it switches off the only thing that catches an appended line**,

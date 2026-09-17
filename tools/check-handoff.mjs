@@ -70,9 +70,10 @@ function report() {
     // a dispatching session relayed "six of seven fields confirmed" to a
     // reviewer, and this line is where that belief comes from. `repo` and
     // `diffstat` are checked for shape and compared to nothing.*
-    console.log('Handoff accepted: seven fields present; branch, head, status'
-      + ' and pull-request checked against the tree, and done-looks-like'
-      + ' against the scope page. repo and diffstat are not compared.');
+    console.log('Handoff accepted: seven fields present; branch, head and'
+      + ' status checked against the tree, pull-request against the remote,'
+      + ' and done-looks-like against the scope page.'
+      + ' repo and diffstat are not compared.');
     process.exit(0);
   }
   const n = refusals.length;

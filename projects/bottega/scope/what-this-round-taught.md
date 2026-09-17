@@ -49,5 +49,15 @@ it.*
   a quietly corrected line. *Why: on 17 September 2026 the owner widened the
   same line for the third time, and a page that hid the first two narrowings
   would let a fourth session make the same move blind.*
+- **Two product scope pages are added, not only edited**, and they are named
+  here because the bar above would otherwise not cover them:
+  `projects/zibaldone/scope/the-narrating.md`, which describes a piece of the
+  notebook that is built, and `projects/zibaldone/scope/the-margin-answers.md`,
+  which describes one slice built and one not yet started. *Why they ride with a
+  change that builds nothing: a scope page is workshop record, not product, and
+  both were written during the work this change is the account of. Why they are
+  written into the bar rather than left implicit: 216 lines of specification
+  merging under a heading that says nothing is built is exactly the thing the
+  owner would not expect, and a reviewer said so.*
 - `node tools/check-budgets.mjs` exits 0 on this branch, and the heavier token
   number is still under 10,000 with the skill's growth counted.

@@ -1228,9 +1228,9 @@ for a project built with the workshop, where the scope pages live here in
 `projects/<name>/scope/` and the code lives in the project's own repository —
 which is the arrangement this whole place exists to produce.
 
-So the check verified the shape, and compared four fields against the tree —
-`branch`, `head`, `status`, `pull-request` — and could verify nothing about the
-seventh. It compares neither `repo` nor `diffstat` against anything; both are
+So the check verified the shape, compared `branch`, `head` and `status` against
+the tree and `pull-request` by asking the remote, and could verify nothing about
+the seventh. It compares neither `repo` nor `diffstat` against anything; both are
 checked for shape alone. *Why that correction is here rather than made silently:
 this entry said for a day that six fields had been confirmed and named the
 diffstat among them, which is the same false assurance the entry two below is
@@ -1881,3 +1881,52 @@ stayed up.
 
 **Status:** both OPEN. The second is on the path he walks himself when he puts
 the model on the machine, so he has been told what it looks like.
+
+---
+
+## The branch moved under a running review, and the version on the pull request was never dispatched
+
+**17 September 2026.** The eighth review of this change was handed one commit
+and finished against another. This window pushed a new commit thirty minutes
+into the pass. The reviewer noticed — its first command returned the stamped
+commit and a later one returned a different one — and said so: part of its
+reading was done across two versions, and the version sitting on the pull
+request had been dispatched to nobody.
+
+**The handoff check cannot catch this.** It compares the stamped commit against
+the branch tip at the moment it runs, and nothing holds the branch still
+afterwards. Everything added today closes the dispatch; none of it closes the
+tree.
+
+This is the third face of one fault. The first: the reviewer can read the
+builder's working copies. The second: it can overwrite them. The third: the
+builder can move the branch out from under a running review. *And each time the
+window doing it was this one — the reset that destroyed a session's work, the
+handoff drafts left where reviewers saw them, and now this.*
+
+**Status:** OPEN. The rule that would cover it is that nothing is pushed to a
+branch while a review of it is running, which nothing enforces and which the
+guide broke without noticing.
+
+---
+
+## `pull-request` is not checked against the tree, and three places said it was
+
+**17 September 2026.** The check asks the remote about the pull request. It
+never touches the working tree. The success line said "checked against the
+tree", so did the rule in the guide's skill, and so did the entry above
+correcting the *previous* version of the same mistake.
+
+**So the sentence written this evening to stop a check being described as doing
+more than it does was itself wrong about how one of the four was done** — right
+about which four, wrong about one of them. Third time in one day that a
+correction carried the fault it corrected.
+
+**The consequence that is not cosmetic:** a `pull-request` refusal can mean the
+remote could not be reached — a broken connection, not a broken handoff. The
+rule said the only refusal that may be sent past is the project scope-page one,
+and any other is real. A dispatcher holding a correct handoff and an unreachable
+remote had no route forward. The rule now names that exception.
+
+**Status:** all three corrected. Not watched refusing, because an unreachable
+remote was not arranged; that half is read off the code.
