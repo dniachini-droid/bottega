@@ -1441,3 +1441,65 @@ mistake the margin's second slice is waiting to avoid.*
 **Status:** OPEN. Told to him as: put everything in, and put the CV in
 deliberately rather than as one lump. Revisit when the mind has a few weeks of
 mixed material in it and there is something to count.
+
+---
+
+## A review was dispatched past a check that had refused it
+
+**17 September 2026.** The guide dispatched a review of pull request 32, having
+run `tools/check-handoff.mjs` first. The check exited 1 and printed *"Nothing was
+sent."* The guide sent it anyway, with two paragraphs appended to the seven
+fields explaining why the refusal was acceptable.
+
+The reviewer refused before reading the change, and was right to. The round was
+not spent; the dispatching session was — for the third time in two days, and
+this time by the session that had written the rule about running the check into
+the guide's own skill hours earlier.
+
+**What the reviewer found while checking, which is worse than the dispatch:**
+
+1. **The appended paragraphs did not sit outside the seven fields — they were
+   swallowed into the seventh.** `parseHandoff` appends every line that is not a
+   field header to whichever field is open, and `done-looks-like` is the last
+   one. So the reviewer was handed a job description with the dispatcher's own
+   account of its dispatch inside it. The exact contamination the two new rules
+   in the guide's skill exist to prevent, arriving through the format itself.
+2. **The shape check cannot see trailing prose on its own.** It catches it only
+   as a side effect of comparing `done-looks-like` word for word against the
+   scope page. When no scope page is found, that comparison never runs and
+   appended prose of any length passes through unexamined. That is the hole this
+   dispatch went through.
+3. **When the comparison does run, the refusal names the wrong thing.** Fed a
+   clean handoff with two sentences of opinion appended, the check refused —
+   but reported a blank separator line as the mismatch rather than the opinion.
+   Right verdict, useless reason.
+4. **`repo` and `diffstat` are never compared to anything.** The guide told the
+   reviewer that "six of the seven fields passed against the branch". Four are
+   compared: `branch`, `head`, `status`, `pull-request`. The other two are
+   shape-checked only. The diffstat was correct, but nothing had established it.
+
+**What the check being unfindable is really about.** The check looks for
+`projects/<project>/scope/<branch-tail>.md`. This change sat on the guide's own
+long-lived working branch, which is named after the guide rather than after a
+change, so no scope page could ever be found for it. Every other change in this
+workshop is on a branch named for the change, with a scope page to match. The
+guide had been putting workshop records on its own branch instead.
+
+**Fixed here:** a scope page for this change, and the handoff re-sent as seven
+fields and nothing else, with `--scope` naming the page.
+
+**Still open, three things:**
+
+- **The check should refuse trailing prose on its own**, without needing a scope
+  page to compare against, and should name the prose rather than a blank line.
+- **`diffstat` should be compared**, or the check should stop being described as
+  though it were.
+- **A reviewer cannot be told which working copy to avoid**, because that
+  instruction is an eighth field and the format refuses it. Reviewers have been
+  making their own checkouts unprompted, which is the right behaviour arrived at
+  by luck. It belongs in `.claude/agents/da-vinci.md` — one of the three files
+  that needs the owner's yes before it changes.
+
+**Status:** OPEN on all three. Not fixed in this change, because this change is
+records and the check is code; a fix to the check is a build with tests and its
+own review.
