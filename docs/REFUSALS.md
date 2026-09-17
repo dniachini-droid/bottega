@@ -2658,3 +2658,188 @@ cost of not doing it is written on the design page instead.
 **The OCR readings already quoted in the other tests were not re-verified.** Only
 the letterhead was rendered and read live, because only it is this finding's. The
 five earlier rounds left the rest alone and so did this one.
+
+## 17 September 2026 — Zibaldone #19, the speech model moved into the image: the new check watched refusing, and the old ones watched still refusing
+
+`docs/going-live.md` told the owner to install Fly's program on a Mac, download
+a 118 MB archive, unpack it and put three files, 102 MB of them, onto the
+volume over an sftp shell. He never did it, so the notebook could not write down
+a word he said. That step is gone: `Dockerfile` now fetches the model during the
+build, weighs the whole download against a sha256 written into the file, and
+ships the three files inside the image at `/app/vendor/whisper`.
+
+Three things had to be watched. A new check that had never refused anything; and
+the two checks that already guard the model, which had to be seen still refusing
+with the model in its new home rather than on the volume.
+
+### One — the new check: a download that did not arrive whole ends the build
+
+The weighing line from `Dockerfile`, run against the real archive and against
+three kinds of bad download:
+
+| what was weighed | what came back | exit |
+|---|---|---|
+| the whole archive, 118,071,777 bytes | `model.tar.bz2: OK` | 0 |
+| the download stopped halfway, 60,000,000 bytes | `FAILED`, *1 computed checksum did NOT match* | 1 |
+| the archive with one byte changed, at offset 70,000,000 | `FAILED`, *1 computed checksum did NOT match* | 1 |
+| nothing downloaded at all, 0 bytes | `FAILED`, *1 computed checksum did NOT match* | 1 |
+
+Then the whole build step, run as a shell script the way `RUN set -eux` runs it,
+to see that a mismatch really stops rather than being noted and passed over:
+
+```
++ echo 0000000000000000000000000000000000000000000000000000000000000000  /tmp/model-sim.tar.bz2
++ sha256sum -c -
+/tmp/model-sim.tar.bz2: FAILED
+sha256sum: WARNING: 1 computed checksum did NOT match
+build step exit=1
+what got extracted:
+0
+```
+
+Nothing was extracted, and the step ended there. With the checksum the
+`Dockerfile` actually carries, the same script ran through and wrote the three
+files, 103,627,191 bytes. **Why this check is worth more here than a checksum
+usually is:** the fault this pull request was blocked on was a model file that
+arrived short, and a short file does not fall over — it writes his words down
+wrong. That happened to one copy, put there by hand. A build that shipped half
+a model would do it to every copy there will ever be.
+
+### Two — the words-file check, watched still refusing at the model's new home
+
+The check from the entry above, which reads the words file rather than opening
+the model. The real `tiny.en` in `vendor/whisper` — the path the image carries
+it at — with the words file cut to the first 100,000 bytes of 835,554, which is
+the size that wrote *"Marta said the was 4200,, 4."*:
+
+```
+The model does not work.
+the three files in .../vendor/whisper have the names of a model but are not one
+(.../vendor/whisper/tiny.en-tokens.txt stops making sense at line 7139 of 7139:
+expected a word and the number 7138, found "IHBlcmZlY3". That is what a file
+that copied only part of the way looks like). encoder 12.9 MB, decoder 89.9 MB,
+tokens 0.1 MB.
+exit=1
+```
+
+The same bad model handed to the notebook's own startup, which proves the model
+before it says it can hear:
+
+```
+Zibaldone is open on port 8099, keeping everything in /tmp/zib-start
+Recordings are kept but not heard: the three files in .../vendor/whisper have
+the names of a model but are not one (... stops making sense at line 7139 of
+7139 ...)
+```
+
+The notebook stayed open and went on answering, which is the whole design.
+
+### Three — the recogniser missing, watched still refusing
+
+The other way the model can fail to be a model: the package that runs it is not
+there. `node_modules/sherpa-onnx-node` moved aside:
+
+```
+The model does not work.
+the three files in .../vendor/whisper have the names of a model but are not one
+(Cannot find package 'sherpa-onnx-node' imported from .../server/hearing-child.js).
+encoder 12.9 MB, decoder 89.9 MB, tokens 0.8 MB.
+exit=1
+```
+
+Note the tokens size is 0.8 MB here and 0.1 MB above: the two refusals are
+telling apart two different faults, not repeating one.
+
+### Four — the new test, watched failing against each fault it holds
+
+`Dockerfile` puts the model somewhere in the image and `fly.toml` tells the
+notebook where to look. If those two drift apart **nothing falls over** — the
+notebook simply says it cannot hear, and every recording he speaks waits for
+ever. That silence is the failure this whole change exists to remove, so a test
+in `test/deploy.test.js` holds the seam. Watched failing both ways:
+
+```
+not ok 29 - fly.toml looks for the speech model where the Dockerfile puts it, and the build weighs what it fetched
+    the notebook must look where the build puts the model, or it is deaf and says so for ever
+    + actual - expected
+    + '/data/whisper'
+    - '/app/vendor/whisper'
+```
+
+and, with the `sha256sum -c -` line deleted from `Dockerfile`:
+
+```
+not ok 29 - fly.toml looks for the speech model where the Dockerfile puts it, and the build weighs what it fetched
+    error: 'the build weighs the model it fetched'
+```
+
+### And the thing the checks protect, watched working
+
+The model the build fetches was downloaded and weighed here: 118,071,777 bytes,
+sha256 `2bd6cf96…05dd`, and the three files taken out of it 103,627,191 bytes.
+Put at the path the image carries them at and read by the notebook's own code:
+
+```
+The model works. Recordings are heard here, with tiny.en in .../vendor/whisper.
+exit=0
+```
+
+With it there the suite is **191 of 191, 0 failing, 0 skipped** — the two tests
+that need a real model ran, including the one that hears real speech running
+past the thirty seconds the model takes at a time. With no model, which is how
+GitHub runs it, **189 pass, 2 skipped, 0 failing**.
+
+**And nothing reaches outside at run time**, which is the promise on the scope
+page. Every `connect()` the whole suite makes was traced: **572 calls, 350 to
+127.0.0.1 and 222 to Unix sockets on this machine, none of them off it.** The
+hearing tests alone made two, both loopback. With the network cut away entirely
+— run in a namespace where `curl https://github.com` is refused outright — the
+model still opened and answered *The model works*. `server/` has no `fetch`, no
+`http.request`, no `net.connect` and no address in it.
+
+### Where the bad input is
+
+**Nothing anybody uses was left worse.** Everything bad was made and then
+unmade:
+
+- **The three bad downloads** — halved, one byte changed, empty — were copies of
+  the archive in the session's scratch space. They never touched the repository
+  and no part of them was committed.
+- **The truncated words file** was a cut copy written over `vendor/whisper`,
+  which is a local folder the build makes and `.gitignore` keeps out of the
+  repository. The whole file was kept aside first and put back, and the restored
+  copy was checked byte for byte — same sha256 as the untouched extraction — and
+  re-proved: *The model works*, exit 0.
+- **The recogniser moved aside** was `node_modules`, moved out and moved back,
+  then re-proved: *The model works*, exit 0.
+- **`fly.toml` pointed back at `/data/whisper`**, and **the checksum line
+  deleted from `Dockerfile`**, were temporary edits made to watch the new test
+  fail. Both files were kept aside first and restored from those copies. The
+  suite was run again afterwards on the restored tree: 191 of 191.
+
+The bad input that stays is nothing at all: the new test reads the two files as
+they are and needs no fixture.
+
+### What this entry does not cover
+
+**The image was never built.** There is no Docker daemon in the window this was
+done in, so the `Dockerfile` around the weighing is reasoning, not evidence. The
+fetching, the weighing, the extraction and the model itself were all run
+directly and are evidence. What was not seen: the stages composing, the layer
+sizes, and whether Fly's remote builder can reach `github.com` and Debian's
+package servers. A build that cannot fetch fails the deploy and leaves the live
+notebook untouched, which is the safe direction, but it is a new way for a
+deploy to go red and nobody has watched it.
+
+**Fly.io was not reached, and could not be.** Every connection to it from here
+is refused with 403, which `docs/going-live.md` already records. So the cost
+arithmetic on that page rests on the US$0.15 a gigabyte a month that write-ups
+quote from Fly's billing documentation, read second-hand; Fly's own pages were
+unreachable. The Australian dollars are a conversion at an assumed rate and are
+marked as not established.
+
+**The comments in `server/hearing.js` still describe the copy by hand** in four
+places — they explain why each check exists, and the history they tell is still
+true, so the file was left alone rather than edited for tidiness. It is settled,
+reviewed work and this change had no business in it. Said here so it is picked
+up rather than lost.
