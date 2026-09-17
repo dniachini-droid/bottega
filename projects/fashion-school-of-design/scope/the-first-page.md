@@ -108,8 +108,12 @@ These are his words and decisions, and the page carries them exactly:
   Small classes in Woodville South. Bring your ideas, leave with a garment
   that's actually yours." and, on its own line beneath: "No commercial
   patterns, ever".
-- **What you will do**, intro line: "During your lessons at Fashion School of
-  Design, you'll learn:" then five bullets: "How to take your own measurements,
+- **No "What you will do." heading.** The section opens with "During your
+  lessons at Fashion School of Design, you'll learn:" as its own heading,
+  smaller than the section headings. *The owner never wanted the heading; on
+  17 September 2026 he authorised the guide window to take it out itself and
+  said no further review, so it was done there and not by a session.* Then
+  five bullets: "How to take your own measurements,
   properly, and your first block drawn with the SITAM rule." / "The skirt:
   drafted from your block, cut, and fitted on you." / "The bodice: darts,
   balance, and the shape you actually are." / "The sleeve, and then a design
