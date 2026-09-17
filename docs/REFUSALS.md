@@ -2203,3 +2203,226 @@ can be taken out on its own.
 **The OCR readings quoted in the tests were not re-verified against a live
 recogniser run**, and the screenshot images were not looked at. The three
 previous rounds left both alone and so did this one.
+
+## 17 September 2026 — Zibaldone #21, fifth round: a title that spells an initial without the stop, watched failing and then passing
+
+A fresh review of `f01eb3a` returned `changes_required` with one blocking
+finding and one advisory. The blocking one is the test below. The advisory was
+deliberately not fixed; it is confirmed and logged at the end of this entry.
+
+**The blocking finding, and why it is the same fault a fifth time.** Every guard
+these four rounds built — the capital, the four one-letter words of both his
+languages, the head of a sentence, the hyphen, the apostrophe — hangs off one
+function, `initialsOf`, and `initialsOf` was only ever asked about a lone letter
+in his typing. A subject's **title** reached the same match by a second road
+with no guard on it at all: `words()` yielded its bare letter as an ordinary
+word and the name kept it. The English stop list closed that road for `a` and
+`i` and for no other letter — which is the accident an earlier round in this
+same slice was written to end, arriving from the other side.
+
+So with a page titled `Zia E`, no stop:
+
+```
+"La zia e andata a casa: coffee, the lease, the fig tree"  ->  ["The fig tree","Zia E","Coffee"]
+"La zia andata a casa: coffee, the lease, the fig tree"    ->  ["The fig tree","Coffee","The lease"]
+```
+
+One stray `e` — the copula, one of the commonest words in Italian — put an aunt
+he had never named into the margin and pushed `The lease`, which he wrote
+himself, off the end of the three. That is the shape
+`docs/the-margin-guesses.md` calls the worst this can do. A page titled `L`
+answered `L'anno prossimo` with a person by the same road.
+
+**And the titles are not his to spell, which is the part that made this
+blocking rather than theoretical.** `server/wiki.js` stated as settled fact that
+"he writes his page titles once and carefully, and every subject named by an
+initial here carries the stop". He writes none of them. Titles come out of the
+filing model — `filing/prompts/write.md`, and `subject` in
+`filing/prompts/decide.md` — and nothing in that prompt, in `checkDelivery` or
+in `take()` asks for the stop or supplies it. The app deliberately lets him
+capture `Zia A rang about Sunday` with no stop, so the page made of that capture
+may well be titled that way. That sentence is now corrected in the code and on
+the page rather than left standing.
+
+### The rule chosen, and where it was put
+
+**A one-letter word of a title is the initial it spells, or it is nothing.** It
+is never kept as an ordinary word of a name. Which of the two it is, is decided
+by `initialsOf` — the same function, on the same letters, that reads a lone
+letter in what he types.
+
+It was put there rather than beside there on purpose. The direction was to fix
+the road and not the instance, and a second rule written next to the first is a
+second thing to keep in step; the two had already drifted once, which is this
+finding. Asking `initialsOf` of the title means every guard that holds the typed
+side now holds the title side, by construction, and there is one place left in
+the app where a letter becomes a person. `Zia E` and `Zia E.` are one name,
+`[zia, e.]`, and so are `Zia A`/`Zia A.`, `L`/`L.` and `Vitamin D`/`Vitamin D.`
+
+**Why the test had to be `initialsOf` and not "a bare letter is an initial".**
+A one-letter word that is a word has to stay a word. The `A` of the title
+`A walk` stands where any writer capitalises anyway — the head of a sentence —
+so it is no initial, and that name is still `[walk]`. Read as an initial it
+would have become `[a., walk]`, and he could no longer have found it by typing
+`went for a walk`. That door was checked in both directions, not assumed.
+
+### Watched failing against the broken version
+
+One test was added and run against `f01eb3a` with nothing else changed —
+`server/wiki.js` checked out from that commit underneath the new test file, and
+put straight back afterwards.
+
+```
+$ git show f01eb3a:server/wiki.js > server/wiki.js
+$ node --test-name-pattern "a title that spells an initial without the stop" --test "test/wiki.test.js"
+not ok 1 - a title that spells an initial without the stop is the same name as one that spells it with
+  error: 'the stray "e" of an ordinary Italian sentence does not change the answer'
+        'The fig tree',
+    +   'Zia E',
+        'Coffee',
+    -   'The lease'
+# tests 1
+# pass 0
+# fail 1
+```
+
+It refused on exactly the row the review names: `Zia E` in the margin, and
+`The lease` — his own words — pushed off the end.
+
+### Watched passing against the fix
+
+```
+$ node --test-name-pattern "a title that spells an initial without the stop" --test "test/wiki.test.js"
+ok 1 - a title that spells an initial without the stop is the same name as one that spells it with
+# tests 1
+# pass 1
+# fail 0
+```
+
+And the whole suite on the branch: **143 tests, 143 pass, 0 fail, 0 skipped**,
+up from 142 at `f01eb3a`.
+
+### Reproduced through the real app before and after, not only in the test
+
+A script delivered seven subject pages — `Zia E` (no stop), `L` (no stop),
+`A walk`, `The lease`, `The fig tree`, `Coffee`, `Mother` — through the running
+app's `/wiki` endpoint, kept each thought through `/keep` as a form post, and
+read the doors back out of the notebook page's own HTML. A fresh app per
+thought, so the only entry on the page is the one being asked about and an empty
+margin reads as empty instead of falling through to an older entry. Left column
+is `f01eb3a`, right is the fix.
+
+```
+"La zia e andata a casa:
+ coffee, the lease, the fig tree"   ["The fig tree","Zia E",  ->  ["The fig tree",
+                                     "Coffee"]                     "Coffee","The lease"]
+"L'anno prossimo"                   ["L"]                     ->  []
+"Zia E. rang about Sunday."         []                        ->  ["Zia E"]
+```
+
+The first row is the blocking finding through the app he actually uses: the
+false name goes and `The lease`, which he wrote, comes back. The second is the
+same fault reaching a page named by one letter.
+
+**The third row was not in the review and is a door the fault was also
+costing him.** With the page titled `Zia E`, typing the name *with* the stop —
+`Zia E. rang about Sunday.` — opened nothing at all on the broken version,
+because the name held the bare letter `e` and what he typed was the initial
+`e.`, and the two never met. So the same defect both invented a name he had not
+written and swallowed one he had. It is fixed by the same line.
+
+And what did not move — each of these gives the same answer on both versions,
+read the same way out of the same page:
+
+```
+"La zia andata a casa:
+ coffee, the lease, the fig tree"   ["The fig tree","Coffee","The lease"]
+"Zia E rang about Sunday."          ["Zia E"]
+"Ask L about the lease before
+ Friday."                           ["L","The lease"]
+"Went for a walk today."            ["A walk"]
+"Better after a walk, and a
+ coffee."                           ["Coffee","A walk"]
+```
+
+The last two are the cost that was checked rather than assumed: the article `A`
+of the title `A walk` is still an article, the page is still found by his own
+typing, and no person `A.` is named.
+
+### What the cost list was checked against
+
+The direction named the doors that had to keep working, and each was run rather
+than reasoned about. All twenty-one passed unchanged: `Ask L. about…`,
+`Ask L about…`, `Zia A. rang.`, `Zia A rang about Sunday.`, `M. B. called.`,
+`Zia L. rang…`, `I. said no.`, `Took vitamin D today.`, `L'anno scorso…` naming
+nobody, `Mother sent the e-mail…` offering `Mother`, a shopping list offering
+only `Coffee`, `9 a.m.`/`P.S.`/`i.e.`/`N.B.`/`U.S.A.` naming nobody,
+`«L. non viene»` offering `L.`, `A casa di zia domani.` naming nobody,
+`La zia è andata a casa.` naming nobody, `Pane e latte, e poi la zia.` naming
+nobody, and `O vuoi il caffè o vuoi il tè.` naming nobody. The three Italian
+photographs still give an empty margin, which is carried by a test that was
+already there and still passes.
+
+Nothing in the cost list had to be given up, so there was nothing to take back
+to the owner.
+
+### The numbers, re-measured rather than carried over
+
+`tools/measure-capture.mjs` over 40 read photographs: **80.0 file reads with the
+margin on and 80.0 with it off**, and a thought kept in **1.6–2.0 ms** across 0,
+50, 500 and 3,000 subjects. Both unchanged from what the review recorded. The
+extra work the fix does — one pass of `initialsOf` over each title — happens
+once per delivery while the index is built, not once per thought, so the number
+he waits through was not expected to move and did not.
+
+### Where the bad input is
+
+**Nothing anybody uses was left worse.** The failing run above is the new test
+held against the version the review was of, with `server/wiki.js` checked out
+from `f01eb3a` and put straight back — `git status` clean afterwards, checked,
+and the restored tree compared against the commit. The fault was real and
+already pushed, not padded in to be caught. The before-and-after script that
+drives the running app was written for this entry, kept in the session's scratch
+space, and is not in the repository.
+
+### What this entry does not cover
+
+**The advisory was confirmed and deliberately not fixed, on instruction.** The
+reviewer said the margin-geometry assertion added in the previous round never
+runs in CI. That holds, and it was checked rather than taken:
+`.github/workflows/tests.yml` installs with `PLAYWRIGHT_SKIP_BROWSER_DOWNLOAD: 1`,
+`test/phone.test.js` and `test/drawing.test.js` gate four tests on
+`browserHere`, and the job log for `f01eb3a` (run 35183955107) reads
+`# tests 142`, `# pass 138`, `# skipped 4`. So the browser tests are green only
+because they did not run. It is pre-existing, it is not this slice's doing, and
+changing the build configuration is a different job with a different blast
+radius — it belongs in `docs/OPEN.md`, not in this change.
+
+This also means the four browser tests have never been watched refusing anything
+in CI. They were watched here: this session's machine has a browser, so all four
+ran, and the suite reports 143 passing with 0 skipped rather than 139 with 4
+skipped.
+
+**The lettered-list hole is unchanged and was not touched.** A list written with
+capitals — `A. milk / B. bread` — is still read as the two people `A.` and `B.`
+The owner has been asked and has not answered, so it was left alone as the
+direction said.
+
+**Nothing outside the blocking finding was touched.** The skip-window in
+`reached()`, the late reading, and subjects named after ordinary words arriving
+from a photographed manual were all deliberately left alone.
+
+**A title whose one-letter word carries a stop is read as it always was.** The
+fix reaches the stop-less spelling only. Applying the abbreviation rule
+(`dottedInitialsOf`) to titles as well would be a wider change, no fault was
+observed there, and the direction said not to widen.
+
+**The filing prompts were read but not changed.** The reviewer's point was that
+the prompt is somebody's word and nothing enforces it; the answer taken here was
+to make the matcher safe against any title the filing can produce, not to ask
+the filing for better titles. Whether the filing *should* also be asked to write
+the stop is a separate question and is not settled by this change.
+
+**The OCR readings quoted in the tests were not re-verified against a live
+recogniser run**, and the screenshot images were not looked at. The four
+previous rounds left both alone and so did this one.
