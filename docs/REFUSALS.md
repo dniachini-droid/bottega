@@ -1404,3 +1404,134 @@ that `A` from the `A` of `A walk before dinner`, and treating a bare letter as a
 initial would cost that subject its match from a photograph that really does say
 it. Every subject named by an initial in that repository, and every one in the
 finding, carries the stop.
+
+## 17 September 2026 — Zibaldone #19, the two blocking findings, each watched failing and then passing
+
+Da Vinci's review of the narrating, at `381bed1d`, returned `changes_required`
+with two blocking findings and one advisory. Each blocking one became a test
+before the fix was merged, and the advisory became the test standing in front of
+the second, because it was the guard with nothing under it. All three were
+watched failing against the reviewed version and passing against the fix. They
+live in the notebook's own test file for the hearing.
+
+### One — a quiet start lost half of what he said
+
+He presses speak and does not begin for ten or fifteen seconds, then says two
+sentences. The whole recording is under twenty-eight seconds, so nothing cut it
+and it went to the model in one piece, quiet and all.
+
+Reproduced first, against the reviewed version, with the real `tiny.en` over the
+same 10.4 seconds of two sentences, varying only the quiet in front of them:
+
+```
+true silence 0:both … 11:both 12:FIRST-ONLY 13:both 14:both 15:both 16:FIRST-ONLY 17:both   2/18 lost
+faint hiss   0:both … 11:both 12:FIRST-ONLY 13:both 14:FIRST-ONLY 15:FIRST-ONLY 16:FIRST-ONLY 17:both   4/18 lost
+```
+
+Nothing lost below twelve seconds of lead in twenty-four tries; six of the twelve
+tries from twelve seconds up lost the sentence with his corrected figure in it.
+After the fix, the same sweep from nought to eighteen seconds lost nothing in any
+of the thirty-eight.
+
+The test holds the seam rather than the model — a long quiet start does not reach
+the model, and nothing else is taken away. With the hearing put back to
+`381bed1d`:
+
+```
+not ok 13 - a long quiet before he starts does not reach the model, and nothing else is taken away
+    the model was handed 19.0s, and he spoke for 8 of them (11s of quiet, level 0)
+```
+
+**Why the seam and not the model, said plainly because it is a real limit of this
+test.** The loss needs two sentences of a real voice. The one recording the
+notebook's repository ships is a single sentence, and put through the same sweep
+it lost nothing at any lead length, on the broken version or the fixed one. So
+the sweep above is the evidence about the model and it was run by hand; the test
+is the evidence about the fix, and it runs on a machine with no model at all,
+which is every machine the tests run on but this one.
+
+### Two — a words file that copied short passed every check there was
+
+The model is three files copied onto the volume by hand over a link that can
+drop. The third is the list of words the model puts its numbers back into. The
+notebook proved the model by opening it and hearing a tenth of a second of quiet,
+and quiet comes back as no words whether that file is whole or gutted.
+
+Watched by hand against the real `tiny.en`, both halves left whole, the words
+file truncated in a temporary folder:
+
+| what was in the words file | the tool before | the tool after |
+|---|---|---|
+| all 835,554 bytes | exit 0, the model works | exit 0, the model works |
+| the first 100,000 bytes | **exit 0, "Recordings are heard here"** | exit 1, names the file |
+| the first 10 bytes | **exit 0, "Recordings are heard here"** | exit 1, names the file |
+| nothing at all, 0 bytes | **exit 0, "Recordings are heard here"** | exit 1, names the file |
+| 40,000 whole lines of 50,256 | **exit 0, "Recordings are heard here"** | exit 1, "short by about 10,164" |
+
+With 100,000 bytes kept, the notebook wrote his sentence down as *"The on the
+flat in Trastivir runs out in April. Then, Marta said the was 4200,, 4."* — the
+correction from four thousand two hundred to four thousand eight hundred, which
+is the whole reason nothing anywhere in that piece is tidied, destroyed, and the
+wrong figure left standing.
+
+With the new check removed:
+
+```
+not ok 14 - a words file that copied short, empty or wrong is refused before anything says it can hear
+    the first 100,000 bytes of it: refused
+not ok 15 - the tool that says whether the copy worked refuses a short words file, and names it
+    a words file that copied short: and names the file — … the recogniser was
+    stopped by SIGABRT
+```
+
+### Three — nothing refused deleting the startup proof
+
+The advisory, and the guard in front of finding two. The proving taken out of the
+notebook's startup, so the line it prints is back to counting file names — the
+state that took the notebook down — left the suite at 169 of 169. Now, with three
+files that have the names of a model and nothing of a model in them:
+
+```
+not ok 16 - the notebook does not say it can hear until the model has been opened and proved
+    Recordings are heard here, with the model in /tmp/zibaldone-test-Eg9mVQ
+```
+
+The only failing test, failing with exactly the line that was not true.
+
+### Where the bad input is
+
+**Nothing anybody uses was left worse.** Three kinds, and all three are back:
+
+- **The truncated words files** were copies of the real one, cut in a scratch
+  folder beside the model. The model on the machine was never touched, and the
+  last row of the table above is that whole file, unchanged, still accepted.
+- **The startup proof deleted** from the notebook's startup: done in a throwaway
+  copy of the tree, never on the branch. The branch never held it.
+- **The reviewed version put back** to run the new tests against: also a
+  throwaway copy. Three exports the old version does not have were stood in as
+  the old behaviour written out — it never trimmed a lead-in, and it never looked
+  at the words file — so each test failed on what the old version did rather than
+  on a name that was not there.
+
+The bad inputs that stay are in the tests: a words file built line by line and
+then cut, and an encoder written to declare how many words it has. Neither is a
+copy of anything the notebook ships.
+
+### What this entry does not cover
+
+**The count leaves 1,700 words of room**, so a words file short by only a handful
+and broken exactly on a line ending is still accepted. That is deliberate: a
+model whose set of special marks differs a little must still be allowed to work,
+and refusing a model that works is the worse mistake. A copy that stopped is
+short by thousands, and a cut at an arbitrary byte lands on a line ending about
+one time in seventeen; the other sixteen are caught by the line itself whatever
+the count says. Written here rather than tightened, because tightening it is a
+guess against one model.
+
+**And one thing seen in passing and not fixed.** Sweeping a long gap in the
+middle of a thought, arranged by cutting the two sentences apart and padding
+between them, lost the second sentence from three seconds of gap upwards — **the
+same, line for line, before the change and after it.** So the change neither
+caused it nor cured it. Da Vinci swept a mid-thought gap too and found nothing,
+so this is a different arrangement of one, and nothing here establishes which is
+the fair one. It is written down rather than chased.
