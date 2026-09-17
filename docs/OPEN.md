@@ -1956,3 +1956,34 @@ leave it.*
 
 **Status:** OPEN. It is the same fault as a check never seen refusing anything,
 one step removed: the check can refuse, and is never asked.
+
+---
+
+## He has had to say twice that he is in Australia
+
+**17 September 2026.** Money in this workshop and in the notebook's own
+instructions was written in pounds and pence. He lives in Australia. He said so
+once before, and had to say it a second time — *"I live in australia. We use
+dollars and cents. For the 2nd time."*
+
+Every figure in `projects/zibaldone/filing-research.md` is converted here, and
+the notebook's `docs/going-live.md` is being corrected in the change that is in
+flight. The underlying prices are US dollars, which is what both Fly and
+Anthropic actually charge, so those stay as the firm ones and the Australian
+figures are marked as converted at a rate nobody checked.
+
+**What is not fixed is the thing that would stop it happening a third time.**
+Where he lives belongs in `AGENTS.md`, which every session reads. It cannot go
+there today: adding a line to `AGENTS.md` raises the heaviest session's token
+count as well as every session's, and the heaviest is about one token under the
+limit. So the rule that would prevent this is blocked behind the budget question
+already open above.
+
+*Why that is worth writing down rather than quietly adding the line anyway: the
+limit is the owner's and does not move without him, and taking something out of
+an instruction file to make room is a decision nobody has made yet. A fact about
+him being lost because two files are full is exactly the kind of thing the
+budget exists to surface rather than hide.*
+
+**Status:** OPEN. It is the same decision as "what comes out of the guide's
+skill", and this is the second thing now waiting on it.

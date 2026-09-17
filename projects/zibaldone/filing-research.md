@@ -26,17 +26,23 @@ Two things on that page that change the answer and are easy to miss. **[verified
 
 **Which model, and why.** Sonnet 5 is the answer. Filing is judgement under a rule — is this the same subject, does it contradict what is written, is it already covered — over a few thousand words of his own prose. Haiku 4.5 is priced too because it is the right model for a cheap first pass. Opus 5 is priced to show what it would cost; the job does not earn it, and at twenty captures a day it is the difference between a coffee and a phone bill.
 
+**Money on this page is Australian dollars.** *Why it is said rather than
+assumed: he lives in Australia, and these figures were written in pounds and
+pence until 17 September 2026. Anthropic bills in US dollars, so those are the
+firm prices; the Australian figures below are converted at an assumed rate and
+nobody here checked a rate.*
+
 **The answer, on Sonnet 5 with an index that is bare page names [my estimate]:**
 
 | wiki | per capture | per month, 5/day to 20/day |
 |---|---|---|
-| 200 pages | 1.8p | £2.72 – £10.87 |
-| 500 pages | 2.3p | £3.42 – £13.69 |
-| 2,000 pages | 4.6p | £6.95 – £27.78 |
+| 200 pages | about 4c | A$5.45 – A$21.80 |
+| 500 pages | about 5c | A$6.85 – A$27.40 |
+| 2,000 pages | about 9c | A$13.90 – A$55.60 |
 
-**If the index carries a one-line description beside each name, that roughly doubles to triples.** At 2,000 pages it goes from 4.6p to 11.1p a capture — £17 to £68 a month. *That is the single most likely thing to be added later without anyone noticing the cost.*
+**If the index carries a one-line description beside each name, that roughly doubles to triples.** At 2,000 pages it goes from about 9c to about 22c a capture — A$34 to A$136 a month. *That is the single most likely thing to be added later without anyone noticing the cost.*
 
-**What would make it wrong**, worst first. If filing runs as a loop of separate calls rather than one, the conversation so far is re-sent every turn and the input is charged roughly twice over — £3–14 becomes £7–35. *The five-minute cache genuinely fixes this: one capture's loop finishes in seconds, so the rules and the index are written once and read back at a tenth of the price.* If extended thinking is on, reasoning is billed as output at the higher rate and would be the largest line on the bill; these figures assume none. If pages settle at 2,000 words rather than 600, reading the closest three triples.
+**What would make it wrong**, worst first. If filing runs as a loop of separate calls rather than one, the conversation so far is re-sent every turn and the input is charged roughly twice over — A$6–28 becomes A$14–70. *The five-minute cache genuinely fixes this: one capture's loop finishes in seconds, so the rules and the index are written once and read back at a tenth of the price.* If extended thinking is on, reasoning is billed as output at the higher rate and would be the largest line on the bill; these figures assume none. If pages settle at 2,000 words rather than 600, reading the closest three triples.
 
 **Caching does not help between captures.** They are scattered through the day and the five-minute cache will be cold almost every time. On the batch door it is a large win, because the rules and index are read once for the whole batch.
 
@@ -98,7 +104,7 @@ If he would rather have everything in one place — a real and defensible prefer
 
 **The counterweight. [reported]** The opposite failure is real too: adding an explicit "unknown" option induces serious over-abstention, and in one study a model's over-abstention reached 34%. So "do nothing" cannot simply be made attractive — it has to be made *correct*, which means giving the model what it needs to tell "already covered" from "new".
 
-**The suggestion:** build the cheap first pass as a Haiku call that reads only the index and the capture and returns one word. **[my estimate]** 0.2–1.3p a capture, £1–8 a month at twenty a day, and it pays for itself if it correctly kills a third of captures before the expensive call.
+**The suggestion:** build the cheap first pass as a Haiku call that reads only the index and the capture and returns one word. **[my estimate]** well under a cent a capture, A$2–16 a month at twenty a day, and it pays for itself if it correctly kills a third of captures before the expensive call.
 
 **And whatever is built: count the four verdicts and show him the numbers.** If "nothing" and "amend" together are not the clear majority after a month, it is accumulating — and he will only know because somebody counted.
 
