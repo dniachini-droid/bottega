@@ -1836,3 +1836,48 @@ guide's skill is one of the three files that needs the owner's yes, and choosing
 what to cut from it at the end of a long night, under a budget already refusing
 commits, is how a reason gets paid out to buy space — which the reasons budget
 exists to stop. It was nearly done once already tonight.*
+
+---
+
+## Two advisory findings on speaking, written down and left alone
+
+**17 September 2026.** The review of the speaking fix returned
+`merge_with_caution` with two findings, both advisory, neither on the feature's
+normal path. They are recorded here rather than fixed, because the rule is that
+an advisory finding is written down and left alone — chasing them is how a
+repository fills with work nobody asked for.
+
+**1. An abandoned download leaves a file open.** The read stream is never
+destroyed when a transfer is abandoned; the promise resolves on the response
+closing and the stream is dropped. Measured: 200 range requests for a 4 MB
+recording, each socket destroyed after 2 KB, left 200 file handles open, still
+open after a forced collection.
+
+*Not introduced by this change* — the same leak is on `main` for photographs.
+What the change does is put it under a route where abandoning a transfer is
+ordinary, because an audio element that loads nothing until asked answers in
+byte ranges. The reviewer could not reproduce the amplification through a real
+browser over localhost, so that part is reasoning rather than measurement.
+
+**Why it is worth an entry despite being advisory and pre-existing:** the
+machine the notebook runs on cannot be restarted by him. A handle leak on a
+machine nobody can restart is a fault that accumulates until something he did
+not do breaks.
+
+**2. A missing recogniser package is reported as bad model files.** The speech
+package is an optional one, so its absence is a supported outcome of installing.
+It is imported inside the same guarded block that proves the model, so absence
+comes back as a proving failure like any other. With the model files whole and
+correct and only the package missing, the setup tool reports that the three
+files *"have the names of a model but are not one"* and that a short or empty
+copy is the usual reason — and `docs/going-live.md` then sends him to copy 102
+megabytes again, which cannot fix it.
+
+Nothing is lost and nothing is written wrongly. **It is the repair instruction
+that fails, at the one moment he is following it by hand.** The reviewer
+confirmed the message is right in the case it was written for: an encoder of
+random bytes killed the child process, the tool exited 1, and the notebook
+stayed up.
+
+**Status:** both OPEN. The second is on the path he walks himself when he puts
+the model on the machine, so he has been told what it looks like.
