@@ -1253,3 +1253,108 @@ holding it.
 fails once it meets `main`. The automatic checks run on the branch as pushed.
 Nothing ran them on the merge result — a person did, once, because a review said
 to.
+
+---
+
+## Two tests for two blocking findings on the narrating, watched failing first
+
+**17 September 2026.** Pull request 19 on `zibaldone` was reviewed
+`changes_required` on two findings. Both are now held by a test, and each test
+was watched failing against the version the review read before being watched
+passing against the fix. The rule is *a finding that blocked a merge becomes a
+test*; this is what was seen.
+
+### The model that is not a model, and the notebook it took down
+
+The review found that a model file arriving short took the whole notebook down
+on every visit. The check deciding whether the machine could hear matched three
+file **names** and never read a byte of them, and the recogniser ran in a worker
+thread — which shares the process, so the C++ `terminate` that onnxruntime calls
+on a bad model ended everything.
+
+Reproduced first, against the real `sherpa-onnx-whisper-tiny.en`, four ways,
+before anything was changed:
+
+```
+truncated -> exit 134, 'STILL ALIVE' printed: 0
+empty     -> exit 134, 'STILL ALIVE' printed: 0
+text      -> exit 255, 'STILL ALIVE' printed: 0
+badtokens -> exit 255, 'STILL ALIVE' printed: 0
+```
+
+with `terminate called after throwing an instance of 'Ort::Exception'` and
+`Protobuf parsing failed` on the first. `canHear()` said `true` in every one of
+them.
+
+The test is *a folder whose three files are not a model does not take the
+notebook down with it*, in `test/hearing.test.js`. It stands up the notebook
+over a folder of three files with a model's names, hands a recording over, and
+asks whether the notebook is still there. Watched against the version the
+review read:
+
+```
+=== AGAINST THE BROKEN VERSION (old hearing.js) ===
+/shared/sherpa-onnx/csrc/symbol-table.cc:ReadTokens:132 Error: not a model
+EXIT: 255
+```
+
+Nothing printed: no answer from the front page, because there was no process
+left to answer with. Against the fix, the same scenario:
+
+```
+=== AGAINST THE FIX ===
+handing it over answered: 503
+the front page answered: 200
+what he wrote is still readable: true
+nothing written off about the recording: true
+NOTEBOOK STILL STANDING
+EXIT: 0
+```
+
+**Where the bad input is.** It is `pretendModel()` in `test/helpers.js`, which
+already existed and writes `not a model` into the three files — row three of the
+review's own table. It lives with the tests. Nothing the owner gets was made
+worse to produce this refusal, and nothing was left broken: the four damaged
+model folders were built in the session's scratch space from a copy of the real
+model, and the real model was never touched.
+
+### The second tap that threw away what he had just said
+
+The review found that tapping the stop square a second time started a new
+recording over the top of the first, silently. The sentence to ask him with was
+already in the page, armed only after a failed delivery.
+
+The test is *a second tap on the square that stops it asks before recording over
+what he just said*, in `test/narrating-phone.test.js`, in a real browser at the
+phone's size, at each of the five gaps the review measured. Watched against the
+page as the review read it:
+
+```
+=== AGAINST THE UNFIXED PAGE ===
+not ok 1 - a second tap on the square that stops it asks before recording over what he just said
+    at 0 ms he is asked first
+  expected: 1
+  actual: 0
+```
+
+Nothing was asked. Against the fix it passes at all five gaps, and the six
+seconds he spoke first are what reach the disk.
+
+**Where the bad input is.** The second tap is the bad input and it is written
+into the test. Nothing in the product was changed to produce the refusal.
+
+### Three advisory guards, also watched refusing
+
+Not required by the rule — the rule says only blocking findings become tests,
+and these three were advisory. They are recorded because each was undone and
+watched failing, which is the same evidence:
+
+```
+(a) if (!r.ok) return true; removed      -> not ok, expected 0 written off, actual 1
+(b) the 503 branch made a write-off      -> not ok, expected 0 written off, actual 1
+(c) the eight-second fallback removed    -> not ok, page.waitForFunction: Timeout 15000ms exceeded
+```
+
+Each guard was put back immediately afterwards and the suite re-run. The
+undoings were temporary edits in the session's copy and none of them was
+committed.
