@@ -57,12 +57,31 @@ Routine, and said a nightly schedule spending from a cap it does not know about
 is the failure — five runs a day on Pro, fifteen on Max, shared with the
 asking's checks. This runs at GitHub instead, signing in with a token made from
 the same subscription. *Why: it lives in the repository, so it is reviewed,
-tested and changed like anything else, and a Routine is none of those. And this
-repository is public, so GitHub's machine is free.* **What is not established:
-whether the token route has a limit of its own against his subscription, and
-whether it draws on the same allowance as a Routine. Nobody here has measured
-it.** That is open, not settled, and the first weeks of nights are the
-measurement.
+tested and changed like anything else, and a Routine is none of those.*
+
+**The machine is no longer free, and this page said it was.** Until 17
+September 2026 the reasoning here was that the repository is public, so
+GitHub's machines cost nothing. That afternoon it emerged that the two steps
+which do the night's thinking are sessions reading his journal, and that on a
+public repository their output goes into a log anyone can read. He made the
+repository private the same hour. A private repository does not get free
+machines: it draws on a monthly allowance and then bills. His account refused
+every run for forty minutes — *"The job was not started because recent account
+payments have failed or your spending limit needs to be increased"* — until he
+set a budget, which he did rather than go back to public.
+
+**So this piece now spends his money, and the instruction above says it must
+not.** That is not resolved by this page saying so. What is owed to him:
+the real figure, read off the runs rather than estimated, in Australian
+dollars, and told to him without his having to ask. If it is more than
+trivial, the answer is the one his own `running-without-him` research reached
+first — the nights move off GitHub onto machines his subscription already
+pays for, which have no public log either. **Nobody has measured it yet.**
+
+**Also not established: whether the token route has a limit of its own against
+his subscription, and whether it draws on the same allowance as a Routine.**
+Nobody here has measured that either. Both are open, not settled, and the first
+weeks of nights are the measurement.
 
 ## What done looks like
 
